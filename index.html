@@ -10,15 +10,17 @@
   }
 
   .top-bar {
-    background-color: #2f4f4f;
-    padding: 0.086px;
-    text-align: left;
+    background-color: #2f4f4f; /* This is a blue-ish darker grey color */
+    padding: 1px; /* Adjust the padding to make the bar thinner */
+    display: flex;
+    justify-content: space-between; /* Align buttons to the right and text to the left */
+    align-items: center; /* Vertically center align content */
   }
 
   .top-bar a {
     text-decoration: none;
     color: white;
-    margin: 0.086px;
+    margin: 5;
   }
 
   .dropdown {
@@ -41,16 +43,18 @@
 </head>
 <body>
 <div class="top-bar">
-  <h1>My stupid site</h1>
-  <a href="https://iogamesmaker.github.io">Home</a>
-  <div class="dropdown">
-    <a>Projects</a>
-    <div class="dropdown-content">
-      <a href="https://iogamesmaker.github.io/projects/placeholder1">Placeholder 1</a>
-      <a href="https://iogamesmaker.github.io/projects/placeholder2">Placeholder 2</a>
+  <h3>My stupid site</h3>
+  <div>
+    <a href="https://iogamesmaker.github.io">Home</a>
+    <div class="dropdown">
+      <a>Projects</a>
+      <div class="dropdown-content">
+        <a href="https://iogamesmaker.github.io/projects/placeholder1">Placeholder 1</a>
+        <a href="https://iogamesmaker.github.io/projects/placeholder2">Placeholder 2</a>
+      </div>
     </div>
+    <a href="https://iogamesmaker.github.io/info">Info</a>
   </div>
-  <a href="https://iogamesmaker.github.io/info">Info</a>
 </div>
 
 <p>Hi nonexistant internetscreen people! I am a kid that just discovered Github sites! Exciting!</p>
