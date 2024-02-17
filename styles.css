@@ -67,3 +67,22 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #adadad;
 }
+@media only screen and (max-width: 600px) {
+    /* Add your mobile styles here */
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .title {
+        padding-left: 10px; /* Adjust as needed */
+    }
+    .dropdown-content {
+        position: static;
+        display: block;
+        width: auto;
+        right: auto;
+    }
+    .layout {
+        padding: 5%;
+    }
+}
