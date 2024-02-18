@@ -6,36 +6,32 @@
 <title>stupid thing</title>
 <style>
 body {
-    font-family: Arial, sans-serif;
+    color: white;
+    background-size: cover;
+    font-family: 'Overpass', sans-serif;
     margin: 0;
-    padding: 0;
-}
-
-.top-bar {
-    background-color: #030303;
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
 }
 
 .title {
-    margin: 0;
+    padding-left: 5%;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
 }
 
 .top-bar a {
-    color: #fff;
     text-decoration: none;
-    margin-right: 15px;
+    color: white;
+    margin: 5px;
 }
 
 .top-bar a:hover {
-    text-decoration: underline;
+    background-color: white;
+    color: black;
 }
 
 .dropdown {
@@ -46,26 +42,57 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #030303;
-    min-width: 200px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    min-width: 160px;
     z-index: 1;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #fff;
+    right: 0;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.layout {
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: rgb(0, 0, 0);
+}
+
+@media only screen and (max-width: 600px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .title {
+        padding-left: 10px;
+    }
+    .dropdown-content {
+        position: static;
+        display: block;
+        width: auto;
+        right: auto;
+    }
+    .layout {
+        padding: 5%;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #060606;
+}
+
 </style>
 </head>
 <body>
@@ -85,22 +112,7 @@ body {
 </div>
 <main class="layout">
 <br>
-    <br>
-    <p>Hi nonexistant internetscreen people! I am iogamesplayer, a kid that just discovered Github sites, and had a domain name laying around some time ago! Exciting!</p>
-    <p>Well, you probably didn't ask, but I'm going to tell anyways. - "How did you come by such a stupid name? You were better off with the automatically-generated Kahoot names!" - Well, after my stupidly generic name "Speedy" was taken when I attempted to make a Scratch account, I had a moment of reality coming into my nostrils. "Oh no," I said. "This super-original, one-of-a-kind username, my child, SOMEONE STOLE IT!". But of course, I had to make a Scratch account because I needed to hack into the blockchain servers of Joe Biden or something like that. I asked myself, "What do I do all day? What could be a unique username, instantly recognizable yet very unique with amazing depth?" I instantly knew the response. "iogamesplayer."</p>
-    <p>Now, for some reason, no other child had taken this gorgeous name earlier than me. I had discovered true treasure. An untaken username, original and pronounceable but still memorable. Some time after that, I almost changed my username to "xXanonymousXx" for some stupid reason. Thank god someone in the Minecraft server stopped me from making that choice. Now that I'm on the cool coding site, I had to make some adjustments (and not because iogamesplayer was taken by another unfathomable loser, and not even in use), so iogamesmaker it was.</p>
-    <p>You can find me on most dumb platforms I'm on as iogamesplayer. Scratch, some .io games, Discord, YouTube (don't go there), and Steam (iogamesplayer_) just to name a few.</p>
-
-    <h2>Projects</h2>
-    <h3 class="txt">How I got started learning C(++)</h3>
-    <p>I started coding in C++ for a school project. We didn't utilize the ++ part; it was basically a C text adventure, but hey, C++!</p>
-    <p>Before that project, I had only coded in Scratch, so I didn't know anything about coding using the keyboard. I did however know how I could change letters on a HTML page and look like a l33t h4xx0r 01011001 by pressing CTRL + SHIFT + I. I actually got blamed by the kids in my class for "hacking the computer" when a school computer monitor cable wasn't plugged in correctly and the screen was blue.</p>
-    <p> The text adventure itself wasn't really much, it was guesswork to play the game. "You spawned in a corridor! Where'd you like to die? left right, or forward" and one of those wouldn't kill you instantly. The story itself I basically pulled out of my ass, the main antagonist who doesn't really do anything was based on a friend of mine that was (is, actually) really tiny and small for his age.</p>
-    <p>Anyways, after the project was over, we got a 60% on it. The teacher that graded the exam clearly didn't know much about programming and complained we spent too much time making the program and not researching C++, which I think was bullshit. Come on, we learnt a programming language when we were 12! Thank god one of our members didn't do shit, so me and my friend got slightly higher grades while he still got a 50%. When it was time to present it, we got mostly positive reactions from the other parents. The other kid that did something made Tic-Tac-Toe with an input system that worked but did nothing more. I felt like that was one of the projects that taught me something actually useful. Source code for the text adventure and Tic-Tac-Toe is <a href="https://github.com/iogamesmaker/oldprojects">here</a>, but before you kill me and harvest my puny organs for the horrible logic: it was written by 12 year old me and a friend of mine.</p>
-
-    <h3 class="txt">Other stuff</h3>
-    <p>In around July 2023, I started following C++ tutorials by 3DSage to make a raycaster. It worked out decently, other than that it had a horrible bug I coined "the toothpaste bug" which I couldn't fix. After a way too short amount of time, I decided to move on and give up. Around this point in time, I also became interested in Linux, the superior OS, because on Windows you couldn't possibly compile code, it seems.</p><br>
+<h1>My Projects</h1>
 </main>
-
 </body>
 </html>
