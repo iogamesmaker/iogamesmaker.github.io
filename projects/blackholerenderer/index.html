@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iogamesplayer's blackhole renderer</title>
+<title>black hole rendererer</title>
 <style>
 body {
     color: white;
@@ -13,8 +13,7 @@ body {
 }
 
 .title {
-    padding-left: 2%;
-    padding-right: 2%;
+    padding: 0 2%;
 }
     
 .top-bar {
@@ -37,38 +36,40 @@ body {
 }
 
 .dropdown {
-    position: relative;
     display: inline-block;
-    padding: 5px;
+    position: relative;
+    padding: 10px;
 }
-.dropdown:hover {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
+
 .dropdown-content {
     display: none;
     position: absolute;
     z-index: 1;
     width: 200px;
     padding: 10px;
-    right: -10;
+    background-color: black;
+    border: 1px solid white;
+    right: 0;
+    top: 100%;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    padding: 10px;
-    margin: 10px;
 }
 
 .dropdown a {
+    display: block;
     padding: 10px;
+    color: white;
 }
-   
+
+.dropdown a:hover {
+    background-color: white;
+    color: black;
+}
+
 .layout {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding: 0 10%;
     background-color: rgb(0, 0, 0);
 }
 
@@ -85,6 +86,7 @@ body {
         display: block;
         width: auto;
         right: auto;
+        top: auto;
     }
     .dropdown-content {
         padding: 5px;
@@ -121,7 +123,7 @@ body {
             <a href="https://iogamesplayer.com/">Home</a>
         </div>
         <div class="dropdown">
-        <a href="https://iogamesplayer.com/projects/">Projects</a>
+            <a href="https://iogamesplayer.com/projects/">Projects</a>
             <div class="dropdown-content">
               <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">The Mandelbrot Set</a>
               <a href="https://iogamesplayer.com/projects/blackholerenderer/">Black Hole Renderer</a>
@@ -133,7 +135,6 @@ body {
     </div>
 </div>
 <main class="layout">
-<br>
 <br>
 <h1>Black Hole Renderer</h1>
 <p1>This C++ project is more of a port of a scratch project called "gravity raycaster". I liked it so much that I wanted to add my own little things to it, and improve the performance further. Because C++ is a performant language I converted it to C++ and removed the coloring because HSV sucks, and re-did it in mostly the same way.</p1>
