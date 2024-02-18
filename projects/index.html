@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>stupid thing</title>
+<title>stupid thing - projects</title>
 <style>
 body {
     color: white;
@@ -17,6 +17,9 @@ body {
 }
 
 .top-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,7 +33,7 @@ body {
 }
 
 .top-bar a:hover {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
     color: black;
 }
 
@@ -45,12 +48,19 @@ body {
     min-width: 160px;
     z-index: 1;
     right: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-content a {
     display: block;
+    padding: 10px 15px;
+    color: white;
 }
 
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 .layout {
     padding-left: 10%;
     padding-right: 10%;
@@ -110,9 +120,11 @@ body {
         <a href="https://iogamesplayer.com/info/">Info</a>
     </div>
 </div>
+
 <main class="layout">
 <br>
 <h1>My Projects</h1>
+<p>Over the span of my C++/Scratch journey I've made several projects, but none of them are really significant. I have picked out a few noteworthy projects that you can find here :)</p>
 </main>
 </body>
 </html>
