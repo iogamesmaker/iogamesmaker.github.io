@@ -1,0 +1,43 @@
+<svg version="1.1" width="482.1510009765625" height="362" viewBox="-0.12550002336502075 -1 482.1510009765625 362" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="grad_1" y2="1" x2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="1"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="grad_2" y2="1" x2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="1"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="grad_3" x2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="grad_4" x2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient>
+  <linearGradient id="grad_1-,0,0,1,1,0" y2="35" x2="1" x1="1" y1="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="1"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient><linearGradient id="grad_2-,0,0,-1,1,359.5" y2="324.5" x2="1" x1="1" y1="359.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="1"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient><linearGradient id="grad_3-.042553186416626,0,0,1,-19.4,0" x2="481.0255" x1="432.0255" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient><linearGradient id="grad_4-1.042553186416626,0,0,1,501.3,0" x2="0.8745" x1="49.8745" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient></defs>
+  <!-- Exported by Scratch - http://scratch.mit.edu/ -->
+  <path id="ID0.9861033405177295" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" d="M 49.5 81 L 49.5 35 L 95.5 35 "/>
+  <path id="ID0.9861033405177295" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" d="M 49.5 279 L 49.5 325 L 95.5 325 "/>
+  <path id="ID0.9861033405177295" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" d="M 432.15 81 L 432.15 35 L 386.15 35 "/>
+  <path id="ID0.9861033405177295" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" d="M 432.15 279 L 432.15 325 L 386.15 325 "/>
+  <path id="ID0.5711554512381554" fill="#FF0000" stroke="none" d="M 403.3857 42.0786 C 405.1788 42.0786 406.8038 42.807 407.9807 43.9835 C 409.1572 45.1605 409.8857 46.7855 409.8857 48.5786 C 409.8857 50.3716 409.1572 51.9966 407.9807 53.1736 C 406.8038 54.3501 405.1788 55.0786 403.3857 55.0786 C 401.5926 55.0786 399.9676 54.3501 398.7907 53.1736 C 397.6142 51.9966 396.8857 50.3716 396.8857 48.5786 C 396.8857 46.7855 397.6142 45.1605 398.7907 43.9835 C 399.9676 42.807 401.5926 42.0786 403.3857 42.0786 Z " stroke-width="0.4642857015132904"/>
+  <text id="ID0.10290152672678232" fill="#000000" text-anchor="start" font-family="Sans Serif" font-size="22" transform="matrix(0.512367, 0, 0, 0.512367, 370.075, 40.4629)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.13em">REC</tspan></text>
+  <path id="ID0.00040560634806752205" fill="url(#grad_1-,0,0,1,1,0)" stroke="none" d="M 1 0 L 481 0 L 481 35 L 1 35 L 1 0 Z " stroke-width="1"/>
+  <path id="ID0.00040560634806752205" fill="url(#grad_2-,0,0,-1,1,359.5)" stroke="none" d="M 1 359.5 L 481 359.5 L 481 324.5 L 1 324.5 L 1 359.5 Z " stroke-width="1"/>
+  <path id="ID0.24934055237099528" fill="url(#grad_3-.042553186416626,0,0,1,-19.4,0)" stroke="none" d="M 432.0255 0 L 481.0255 0 L 481.0255 360 L 432.0255 360 L 432.0255 0 Z " stroke-width="1.0214982003183999"/>
+  <path id="ID0.24934055237099528" fill="url(#grad_4-1.042553186416626,0,0,1,501.3,0)" stroke="none" d="M 49.8745 0 L 0.8745 0 L 0.8745 360 L 49.8745 360 L 49.8745 0 Z " stroke-width="1.0214982003183999"/>
+</svg>

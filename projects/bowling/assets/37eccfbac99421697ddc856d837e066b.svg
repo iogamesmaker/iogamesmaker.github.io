@@ -1,0 +1,35 @@
+<svg version="1.1" width="481" height="364" viewBox="-0.5 -0.5 481 364" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="grad_1" y2="1" x2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="grad_2" y2="1" x2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="grad_3" cx="0.9586" cy="0.0705" r="1.2461799999999998">
+      <stop offset="0" stop-color="#72E187" stop-opacity="1"/>
+      <stop offset="1" stop-color="#499056" stop-opacity="1"/>
+    </radialGradient>
+  <linearGradient id="grad_1-,0,0,-1,0,360" y2="0" x2="0" x1="0" y1="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient><linearGradient id="grad_2-,0,0,1,0,3" y2="363" x2="0" x1="0" y1="3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="1"/>
+    </linearGradient><radialGradient id="grad_3-.48322242498397827,0,0,0.6176470518112183,223.95,5" cx="453.9362" cy="6.4805" r="50.6864" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#72E187" stop-opacity="1"/>
+      <stop offset="1" stop-color="#499056" stop-opacity="1"/>
+    </radialGradient></defs>
+  <!-- Exported by Scratch - http://scratch.mit.edu/ -->
+  <path id="ID0.47582383872941136" fill="url(#grad_1-,0,0,-1,0,360)" stroke="none" d="M 0 360 L 480 360 L 480 0 L 0 0 L 0 360 Z " stroke-width="1"/>
+  <path id="ID0.47582383872941136" fill="url(#grad_2-,0,0,1,0,3)" stroke="none" d="M 0 3 L 480 3 L 480 363 L 0 363 L 0 3 Z " stroke-width="1"/>
+  <text id="ID0.8453472470864654" fill="#000000" text-anchor="start" font-family="Serif" font-size="22" transform="matrix(1.2027, 0, 0, 1.2027, 185.405, 4.1892)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.25em">Settings</tspan></text>
+  <text id="ID0.8453472470864654" fill="#000000" text-anchor="start" font-family="Serif" font-size="22" transform="matrix(1.2027, 0, 0, 1.2027, 186.205, 4.4392)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.25em">Settings</tspan></text>
+  <text id="ID0.8453472470864654" fill="#FFFFFF" text-anchor="start" font-family="Serif" font-size="22" transform="matrix(1.2027, 0, 0, 1.2027, 185.705, 3.1892)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.25em">Settings</tspan></text>
+  <text id="ID0.38397080497816205" fill="#FFFFFF" text-anchor="start" font-family="Sans Serif" font-size="22" transform="matrix(0.546097, 0, 0, 0.546097, 199.542, 134.862)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.13em">Sound effects</tspan></text>
+  <text id="ID0.38397080497816205" fill="#FFFFFF" text-anchor="start" font-family="Sans Serif" font-size="22" transform="matrix(0.546097, 0, 0, 0.546097, 200.492, 184.962)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.13em">Song volume</tspan></text>
+  <text id="ID0.38397080497816205" fill="#FFFFFF" text-anchor="start" font-family="Sans Serif" font-size="22" transform="matrix(0.546097, 0, 0, 0.546097, 196.742, 233.962)" stroke-width="1" alignment-baseline="text-before-edge" xml:space="preserve"><tspan x="0" style="white-space: pre" dy="1.13em">Graphics level</tspan></text>
+  <path id="ID0.46507634269073606" fill="url(#grad_3-.48322242498397827,0,0,0.6176470518112183,223.95,5)" stroke="none" d="M 408.541 5 L 455.8968 5 L 455.8968 26 L 408.541 26 L 408.541 5 Z " stroke-width="0.5545231251347802"/>
+</svg>
