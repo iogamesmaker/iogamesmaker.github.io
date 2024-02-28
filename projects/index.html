@@ -100,6 +100,12 @@ body {
     width: 10px;
 }
 
+a {
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+}
+    
 ::-webkit-scrollbar-track {
     background: rgb(0, 0, 0);
 }
@@ -137,11 +143,24 @@ body {
 <main class="layout">
 <br>
 <h1>My Projects</h1>
-<h2>Scratch</h2>
+<h3>Scratch</h3>
 <p1>Over the couple of years I've coded many projects have been conceived by my little noodle in my skull, this damnation of my thinking all started back in Scratch.</p1>
 <br><p1>The first "real" project I did was some weird game I made when I was 8 on Scratch titled "Circle Wars". You can find many precise copies of that game on Scratch because I just ripped the most interesting project out of a Scratch tutorial book. This game was created for a little event my school at the time was organising, many children had made interesting things to look at, or set up a little shop of painted rocks or drawings, and I copied something out of a tutorial book and charged people to play it. I believe all the profits went to a charity but knowing this school I can't be sure.</p1>
 <br><p1>The game was basically a blue circle, moving towards your mouse pointer. It grows when you touch green circles and shrinks when you touch red circles. Nothing too interesting so far, but hey, it did get me motivated.</p1>
 <br><p1>After that project I just made throwaway garbage on Scratch, there's nothing worth talking about in this period. Sadly, the account I made all of this was lost to me being an idiot and forgetting the password and username of that account.</p1>
+<h3><a href="https://iogamesplayer.com/projects/smoothmandelbrot/">Mandelbrot Set Explorer</a></h3>
+
+<p1>My first hobby project that wasn't copied from a tutorial or something was a mandelbrot set explorer, you can find more about it <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">here</a>. It's really simple to make one yourself, and is actually an amazing learning project. I spent like 3 months total on it, and I am pretty happy with how it turned out. It isn't release ready at all, and I'd use Xaos instead but mine does have some cool fractals I don't think are documented anywhere. The rendering process also isn't really efficient, it's all done on the CPU. I might rewrite it someday in modern OpenGL using GPU shaders instead of trading accuracy for performance. But yeah, fun project, worth it!</p1>
+
+<h3><a href="https://iogamesplayer.com/projects/blackholerenderer/">Schwarzschild Black Hole Renderer</a></h3>
+
+<p1>This project kind-of happened while writing the Mandelbrot set explorer, as a side project. It uses the exact same way of renderering: no GPU acceleration, and shit performance. I copied the majority of the code from a Scratch project called "Gravity Raycaster" by Zerofile, because that's basically what it is. It's just a raytracer that keeps gravity in mind, with a black round thing in the middle and a disk around it. I made some small adjustments to the coloring and code for minor performance benefits and added moving, although strafing doens't work for some reason. This project was fun to work on.</p1>
+
+<h3>An unnamed WIP project</h3>
+
+<p1>Once upon a time I stumbled down another programming rabbit hole, the modern OpenGL rabbithole. I started out following someone's tutorial about using GLAD + SDL2 and in around 4 hours I got myself a triangle! I wanted to continue but sadly the tutorial didn't continue on for long. I found another place where I could learn this dark art: <a href="https://learnopengl.org/">Learn OpenGL</a>. Now I've been kind-of following along loosely, skipping some chapters, doing an intermezzo of wasting my time trying stupid stuff, you know the rime.</p1>
+
+<p1>Right now I'm trying to add a skybox, but have some plans I probably won't or can't realise. My end goal of this project is to create a game-ish thing people can play, much like Quake. When I finished the Learn OpenGL course I'll try to add a saving system, a level editor, and stuff I'm going to figure out later. I have one goal, to make the game <i>fun</i> to play. It doesn't have to look good, it has to <i>feel</i> good aswell. But yeah, modern OpenGL is weird, hard, random, and probably going to be defeated by Vulkan. I am not at all convinced I can finish this massive project without losing motivation, or dying in the process.</p1>
 
 <p1></p1>
 </main>
