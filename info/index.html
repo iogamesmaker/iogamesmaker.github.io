@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>my shit website</title>
+<title>info</title>
 <style>
 body {
     color: white;
@@ -86,15 +86,22 @@ a {
     .title {
         padding-left: 10px;
     }
-    .dropdown-content {
-        position: static;
-        display: block;
-        width: auto;
-        right: auto;
-        top: auto;
+    img {
+        width: 75%
     }
     .dropdown-content {
+        position: static;
+        display: none;
+        width: auto;
+        right: auto;
         padding: 5px;
+        top: auto;
+    }
+    .video {
+        width: 100%;
+    }
+    .dropdown:hover .dropdown-content {
+        display: none;
     }
     .layout {
         padding: 5%;
@@ -104,7 +111,9 @@ a {
 ::-webkit-scrollbar {
     width: 10px;
 }
-
+.video {
+    width: 50%;
+}
 ::-webkit-scrollbar-track {
     background: rgb(0, 0, 0);
 }
