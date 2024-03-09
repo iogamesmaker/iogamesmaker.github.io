@@ -5,27 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iogamesplayer.com</title>
 <link rel="stylesheet" href="styles.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="top-bar">
-    <h3 class="title">My Stupid Site</h3>
-    <div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/">Home</a>
-        </div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/projects/">Projects</a>
-            <div class="dropdown-content">
-              <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">The Mandelbrot Set</a>
-              <a href="https://iogamesplayer.com/projects/blackholerenderer/">Black Hole Renderer</a>
-              <a href="https://iogamesplayer.com/projects/unbiased_io_games_list/">Unbiased .io games list</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/info/">Info</a>
-        </div>
-    </div>
-</div>
+<div id="topbar"></div>
+<script>
+  $(function(){
+    $("#topbar").load("topbar.html");
+  });
+</script>
 <main class="layout">
 <br>
     
