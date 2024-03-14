@@ -3,173 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>unbiased .io games list</title>
-<style>
-body {
-    color: white;
-    background-color: black;
-    font-family: 'Overpass', sans-serif;
-    margin: 0;
-}
-
-.title {
-    padding: 0 2%;
-}
-    
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(0, 0, 0);
-    position: sticky;
-    top: 0;
-}
-
-.top-bar a {
-    text-decoration: none;
-    color: white;
-}
-
-.top-bar a:hover {
-    background-color: white;
-    color: black;
-}
-
-.dropdown {
-    position: relative;
-    padding: 10px;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    z-index: 1;
-    width: 200px;
-    padding: 10px;
-    background-color: black;
-    border: 1px solid white;
-    right: 0;
-    top: 100%;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown a {
-    display: block;
-    padding: 10px;
-    color: white;
-}
-
-.dropdown a:hover {
-    background-color: white;
-    color: black;
-    text-decoration: underline;
-}
-a {
-    color: white;
-    text-decoration: underline;
-    font-weight: bold;
-}
-.layout {
-    padding: 0 10%;
-    background-color: rgb(0, 0, 0);
-}
-
-@media only screen and (max-width: 600px) {
-    .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .title {
-        padding-left: 10px;
-    }
-    img {
-        width: 75%
-    }
-    .dropdown-content {
-        position: static;
-        display: none;
-        width: auto;
-        right: auto;
-        padding: 5px;
-        top: auto;
-    }
-    .dropdown:hover .dropdown-content {
-        display: none;
-    }
-    .layout {
-        padding: 5%;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgb(0, 0, 0);
-}
-
-::-webkit-scrollbar-thumb {
-    background: white;
-    border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #060606;
-}
-img {
-    width: 40%
-}
-</style>
+<title>iogamesplayer.com</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="top-bar">
-    <h3 class="title">My Stupid Site</h3>
-    <div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/">Home</a>
-        </div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/projects/">Projects</a>
-            <div class="dropdown-content">
-              <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">The Mandelbrot Set</a>
-              <a href="https://iogamesplayer.com/projects/blackholerenderer/">Black Hole Renderer</a>
-              <a href="https://iogamesplayer.com/projects/unbiased_io_games_list/">Unbiased .io games list</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="https://iogamesplayer.com/info/">Info</a>
-        </div>
-    </div>
-</div>
+<div id="top-bar"></div>
+<script>
+  $(function(){
+    $("#top-bar").load("topbar.html");
+  });
+</script>
 <main class="layout">
 <br>
+    
 <h2>Unbiased list of .io games</h3>
 
-<p1>So, a ton of .io games "lists" are getting paid a shit ton of money for them to advertise shit fake .io "games", more like ad farms. I don't like people getting paid, so here goes my semi-unbiased io games list in random order.</p1>
+<p>So, a ton of .io games "lists" are getting paid a shit ton of money for them to advertise shit fake .io "games", more like ad farms. I don't like people getting paid, so here goes my semi-unbiased io games list in random order.</p>
     
 <a href="https://agar.io/"><h3>agar.io</h3>
 <img src="http://static.wikia.nocookie.net/agario/images/8/8a/Agar.io_FFA.png/" alt="Agar.io game screenshot"></a>
 <br>
-<p1>The true original, a pioneer! Agar.io did go down a little with things like premium currency (DNA), but overall a good game.</p1>
+<p>The true original, a pioneer! Agar.io did go down a little with things like premium currency (DNA), but overall a good game.</p>
 
-<p1>You're just a little cell, eating smaller cells to get bigger, and splitting to make 2 smaller cells. Simple enough for a decently complicated game.</p1>
+<p>You're just a little cell, eating smaller cells to get bigger, and splitting to make 2 smaller cells. Simple enough for a decently complicated game.</p>
 
 <a href="https://mope.io/"><h3>mope.io</h3>
 <img src="http://static.wikia.nocookie.net/mopeio/images/3/32/Homescreen_2022.png/revision/latest/scale-to-width-down/1000?cb=20220201181158" alt="Mope.io Homescreen">
 </a>
 <br>
-<p1>Another classic, good ol' mope.io. It has grown a tad shitty over the last few years in my opinion with ads on the homescreen, coins you can't get when using an adblocker (which is essential), and just generally losing soul. Still good to waste an hour or two on.</p1>
+<p>Another classic, good ol' mope.io. It has grown a tad shitty over the last few years in my opinion with ads on the homescreen, coins you can't get when using an adblocker (which is essential), and just generally losing soul. Still good to waste an hour or two on.</p>
 
 <a href="https://slither.io"><h3>slither.io</h3>
 <img src="http://static1.makeuseofimages.com/wordpress/wp-content/uploads/2017/08/Slitherio-Guide-Featured.jpg" alt="slither.io">
 </a>
 <br>
-<p1>This is the last of three goliaths in .io games, the worm game. This one hasn't really changed, and I don't really mind. They didn't add skins you can pay for like mope and agar.io.</p1>
+<p>This is the last of three goliaths in .io games, the worm game. This one hasn't really changed, and I don't really mind. They didn't add skins you can pay for like mope and agar.io.</p>
 <h2>(wip)</h2>
 </main>
 </body>
