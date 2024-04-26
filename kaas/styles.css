@@ -1,0 +1,22 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+}
+
+#kaasImg {
+  width: 200px; /* Aanpassen naar de gewenste grootte van de kaas */
+  height: auto;
+}
+
+.duplicate {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
