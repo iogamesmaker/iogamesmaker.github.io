@@ -1,8 +1,6 @@
 var cheeseCount = 0;
 
 function duplicateCheese() {
-  if (cheeseCount >= 128) return;
-
   var originalCheese = document.getElementById('kaasImg');
   var cloneCheese = originalCheese.cloneNode(true);
   cloneCheese.classList.add('duplicate');
