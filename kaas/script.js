@@ -1,5 +1,5 @@
 var cheeseCount = 0;
-
+var realCheeseCount = 0;
 document.addEventListener('DOMContentLoaded', function () {
   document.body.onkeyup = function (e) {
     if (e.keyCode === 32) { // Spacebar
@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 });
-var cheeseCount = 0;
 
-var cheeseCount = 0;
-var cheeseLimit = 1024;
+var cheeseLimit = 10;
 
 function duplicateCheese() {
   if (cheeseCount >= cheeseLimit) {
@@ -36,11 +34,12 @@ function duplicateCheese() {
 
   originalCheese.parentNode.appendChild(cloneCheese);
   cheeseCount++;
+  realCheeseCount++;
 
   updateCheeseCountDisplay();
 }
 
 function updateCheeseCountDisplay() {
   var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
-  cheeseCountDisplay.textContent = 'Cheese Count: ' + cheeseCount;
+  cheeseCountDisplay.textContent = 'Cheese Count: ' + realCheeseCount;
 }
