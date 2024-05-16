@@ -14,6 +14,15 @@ body, html {
   width: 200px; /* Aanpassen naar de gewenste grootte van de kaas */
   height: auto;
 }
+#cheeseCountDisplay {
+  position: fixed;
+  top: 20px; /* Adjust this value to move it vertically */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-size: 24px; /* Adjust the font size as needed */
+  font-family: Arial, sans-serif; /* Use a smoother font */
+}
 
 .duplicate {
   position: absolute;
