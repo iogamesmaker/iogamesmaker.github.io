@@ -41,5 +41,5 @@ function duplicateCheese() {
 
 function updateCheeseCountDisplay() {
   var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
-  cheeseCountDisplay.textContent = 'Cheese Count: ' + realCheeseCount;
+  cheeseCountDisplay.textContent = 'kaas!11!!: ' + realCheeseCount;
 }
