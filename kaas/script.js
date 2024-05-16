@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 });
 
-var cheeseLimit = 512;
+var cheeseLimit = 256;
 
 function duplicateCheese() {
   if (cheeseCount >= cheeseLimit) {
