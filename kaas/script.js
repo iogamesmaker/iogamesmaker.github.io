@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 var cheeseCount = 0;
 
 function duplicateCheese() {
+  if(cheeseCount >= 128) return;
 
   var originalCheese = document.getElementById('kaasImg');
   var cloneCheese = originalCheese.cloneNode(true);
@@ -26,7 +27,7 @@ function duplicateCheese() {
   originalCheese.parentNode.appendChild(cloneCheese);
   cheeseCount++;
 
-  if (cheeseCount > 128) {
+  if (cheeseCount >= 128) {
     var cheeses = document.getElementsByClassName('duplicate');
     cheeses[0].parentNode.removeChild(cheeses[0]);
     cheeseCount--;
