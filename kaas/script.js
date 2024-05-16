@@ -1,12 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-  document.body.onkeyup = function (e) {
-    if (e.keyCode === 32) { // Spacebar
-      duplicateCheese();
-    }
-  };
-});
+var cheeseCount = 0;
+var maxCheese = 128;
 
 function duplicateCheese() {
+  if (cheeseCount >= maxCheese) return; // Stop creating cheese if max limit reached
+  
   var originalCheese = document.getElementById('kaasImg');
   var cloneCheese = originalCheese.cloneNode(true);
   cloneCheese.classList.add('duplicate');
@@ -22,4 +19,6 @@ function duplicateCheese() {
   cloneCheese.style.top = randomY + 'px';
   
   originalCheese.parentNode.appendChild(cloneCheese);
+  
+  cheeseCount++; // Increment cheese count
 }
