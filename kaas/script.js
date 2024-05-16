@@ -16,12 +16,6 @@ function duplicateCheese() {
   originalCheese.parentNode.appendChild(cloneCheese);
   cheeseCount++;
 
-  if (cheeseCount > 128) {
-    var cheeses = document.getElementsByClassName('duplicate');
-    cheeses[0].parentNode.removeChild(cheeses[0]);
-    cheeseCount--;
-  }
-
   updateCheeseCountDisplay(); // Update cheese count display
 }
 
