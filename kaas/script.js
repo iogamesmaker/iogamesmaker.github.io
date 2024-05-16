@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 var cheeseCount = 0;
 
 var cheeseCount = 0;
-var cheeseLimit = 128;
+var cheeseLimit = 1024;
 
 function duplicateCheese() {
   if (cheeseCount >= cheeseLimit) {
@@ -36,12 +36,10 @@ function duplicateCheese() {
 
   originalCheese.parentNode.appendChild(cloneCheese);
   cheeseCount++;
+
+  updateCheeseCountDisplay();
 }
 
-function updateCheeseCountDisplay() {
-  var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
-  cheeseCountDisplay.textContent = 'Cheese Count: ' + cheeseCount;
-}
 function updateCheeseCountDisplay() {
   var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
   cheeseCountDisplay.textContent = 'Cheese Count: ' + cheeseCount;
