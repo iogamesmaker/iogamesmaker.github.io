@@ -1,12 +1,10 @@
 var cheeseCount = 1;
 var realCheeseCount = 1;
-document.addEventListener('DOMContentLoaded', function () {
-  document.body.onkeyup = function (e) {
-    if (e.keyCode === 32) { // Spacebar
-      duplicateCheese();
-    }
-  };
-});
+
+
+document.addEventListener('click', event => {
+  duplicateCheese();
+})
 
 var cheeseLimit = 256;
 
