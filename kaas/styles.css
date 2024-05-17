@@ -33,6 +33,7 @@ body, html {
   width: 100%; /* Make it span the full width */
   -drag: none;
   user-select: none;
+  user-drag: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
