@@ -17,9 +17,11 @@ body, html {
   user-drag: none; 
   user-select: none;
   -moz-user-select: none;
+  -moz-user-drag: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  -ms-user-drag: none;
 }
 #cheeseCountDisplay {
   position: fixed;
