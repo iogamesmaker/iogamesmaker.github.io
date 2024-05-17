@@ -14,6 +14,7 @@ body, html {
   width: 7.5%;
   height: auto;
   -drag: none;
+  user-drag: none; 
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
