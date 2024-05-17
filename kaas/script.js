@@ -22,7 +22,7 @@ function duplicateCheese() {
   // Generate random coordinates
   var maxX = 0.6 * (window.innerWidth - originalCheese.width);
   var maxY = window.innerHeight - originalCheese.height;
-  var randomX = Math.floor((Math.random() - 0.8) * maxX);
+  var randomX = Math.floor((Math.random() - 1.0) * maxX);
   var randomY = Math.floor((Math.random() - 0.5) * maxY);
 
   // Set position
