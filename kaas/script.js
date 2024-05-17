@@ -10,7 +10,6 @@ var cheeseLimit = 256;
 
 function duplicateCheese() {
   if (cheeseCount >= cheeseLimit) {
-    // Remove the oldest cheese
     var cheeses = document.querySelectorAll('.duplicate');
     cheeses[0].parentNode.removeChild(cheeses[0]);
     cheeseCount--;
@@ -21,7 +20,7 @@ function duplicateCheese() {
   cloneCheese.classList.add('duplicate');
 
   // Generate random coordinates
-  var maxX = window.innerWidth - originalCheese.width;
+  var maxX = window.innerWidth - originalCheese.width - 25 + '%';
   var maxY = window.innerHeight - originalCheese.height;
   var randomX = Math.floor((Math.random() - 0.5) * maxX);
   var randomY = Math.floor((Math.random() - 0.5) * maxY);
