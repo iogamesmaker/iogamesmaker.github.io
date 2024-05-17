@@ -20,9 +20,9 @@ function duplicateCheese() {
   cloneCheese.classList.add('duplicate');
 
   // Generate random coordinates
-  var maxX = window.innerWidth - originalCheese.width - 25 + '%';
+  var maxX = 0.6 * (window.innerWidth - originalCheese.width);
   var maxY = window.innerHeight - originalCheese.height;
-  var randomX = Math.floor((Math.random() - 0.5) * maxX);
+  var randomX = Math.floor((Math.random() - 0.8) * maxX);
   var randomY = Math.floor((Math.random() - 0.5) * maxY);
 
   // Set position
