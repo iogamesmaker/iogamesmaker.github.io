@@ -11,19 +11,31 @@ body, html {
 }
 
 #kaasImg {
-  width: 200px; /* Aanpassen naar de gewenste grootte van de kaas */
+  width: 7.5%;
   height: auto;
+  -drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 #cheeseCountDisplay {
   position: fixed;
   top: 20px; /* Adjust this value to move it vertically */
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-70%);
   z-index: 9999;
   font-size: 36px; /* Increase the font size */
   font-family: Arial, sans-serif; /* Use a smoother font */
   text-align: center; /* Center align the text */
   width: 100%; /* Make it span the full width */
+  -drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 
