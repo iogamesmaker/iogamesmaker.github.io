@@ -11,7 +11,7 @@ body, html {
 }
 
 #kaasImg {
-  width: 15vw;
+  width: 7.5vw;
   -drag: none;
   user-drag: none; 
   user-select: none;
