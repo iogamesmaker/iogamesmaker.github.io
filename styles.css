@@ -51,14 +51,11 @@ a:hover {
     border: 1px solid white;
     right: 0;
     top: 100%;
-    transform: translateY(-20px);
-    transition: transform 0.3s, opacity 0.3s;
     opacity: 0;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    transform: translateY(0);
     opacity: 1;
 }
 
@@ -114,7 +111,6 @@ img {
         padding: 5px;
         top: auto;
         opacity: 1;
-        transform: translateY(0);
     }
     .dropdown:hover .dropdown-content {
         display: none;
