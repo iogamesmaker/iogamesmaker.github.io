@@ -20,19 +20,20 @@ body {
 
 .top-bar a {
     text-decoration: none;
-    transition: height 1s;
     color: white;
 }
 
 .top-bar a:hover {
     background-color: white;
     color: black;
+    transition: height 1s;
 }
 
 .dropdown {
     position: relative;
     padding: 10px;
     display: inline-block;
+    transition: height 1s;
 }
 
 a:hover {
