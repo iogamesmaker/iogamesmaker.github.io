@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://iogamesplayer.com/</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>http://iogamesplayer.com/projects/smoothmandelbrot</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://iogamesplayer.com/projects/blackholerenderer</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://iogamesplayer.com/projects/terrainraymarcher</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://iogamesplayer.com/kaas</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>0.64</priority>
+  </url>
+  <url>
+    <loc>http://iogamesplayer.com/info</loc>
+    <lastmod>2024-05-26</lastmod>
+    <priority>0.64</priority>
+  </url>
+</urlset>
