@@ -2,8 +2,10 @@ body, html {
   height: 100%;
   margin: 0;
   display: flex;
+  background-color: black;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .container {
@@ -11,38 +13,36 @@ body, html {
 }
 
 #kaasImg {
-  width: 7.5vw;
-  -drag: none;
+  width: 12.0vw;
   user-drag: none; 
   user-select: none;
-  -moz-user-select: none;
-  -moz-user-drag: none;
   pointer-events: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -ms-user-drag: none;
 }
+
 #cheeseCountDisplay {
+  background-color: black;
+  color: white;
   position: fixed;
-  top: 20px;
+  top: 0px;
   left: 50%;
-  transform: translateX(-70%);
+  transform: translateX(-50%);
   z-index: 9999;
   font-size: 36px;
   font-family: Arial, sans-serif;
   text-align: center;
   width: 100%;
-  -drag: none;
   user-select: none;
-  user-drag: none;
-  -moz-user-select: none;
   pointer-events: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
+#upgradeButtons {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
 
 .duplicate {
   position: absolute;
