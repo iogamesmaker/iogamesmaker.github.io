@@ -1,12 +1,15 @@
 var cheeseCount = 1;
 var realCheeseCount = 1;
-
+var cheeseLimit = 256;
+var autoDuplicateEnabled = false;
+var autoDuplicateInterval;
 
 document.addEventListener('click', event => {
   duplicateCheese();
-})
+});
 
-var cheeseLimit = 256;
+document.getElementById('increaseCheeseLimit').addEventListener('click', increaseCheeseLimit);
+document.getElementById('autoDuplicateCheese').addEventListener('click', enableAutoDuplicate);
 
 function duplicateCheese() {
   if (cheeseCount >= cheeseLimit) {
@@ -19,13 +22,11 @@ function duplicateCheese() {
   var cloneCheese = originalCheese.cloneNode(true);
   cloneCheese.classList.add('duplicate');
 
-  // Generate random coordinates
   var maxX = 0.6 * (window.innerWidth - originalCheese.width);
   var maxY = window.innerHeight - originalCheese.height;
   var randomX = Math.floor((Math.random() - 1.0) * maxX);
   var randomY = Math.floor((Math.random() - 0.5) * maxY);
 
-  // Set position
   cloneCheese.style.left = randomX + 'px';
   cloneCheese.style.top = randomY + 'px';
 
@@ -39,4 +40,13 @@ function duplicateCheese() {
 function updateCheeseCountDisplay() {
   var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
   cheeseCountDisplay.textContent = 'kaas!11!!: ' + realCheeseCount;
+}
+
+function enableAutoDuplicate() {
+  if (realCheeseCount >= 200 && !autoDuplicateEnabled) {
+    realCheeseCount -= 200;
+    autoDuplicateEnabled = true;
+    updateCheeseCountDisplay();
+    autoDuplicateInterval = setInterval(duplicateCheese, 1000); // Duplicate cheese every second
+  }
 }
