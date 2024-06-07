@@ -20,19 +20,19 @@
 <h1>The (smooth) Mandelbrot Set</h1>
 <p>After experimenting with ChatGPT to create fractal generators, I decided to make one myself. I did so with the help of a wikipedia article called "Plotting the Mandelbrot Set". If you're new to coding and looking for a fun, low effort/high reward project to work on I'd definitively give the Mandelbrot set a try, I've attempted to make a tutorial on the bottom of the page. This is my most polished, and longest running project I've been working on, and also the only fun one :).</p>
 <h2>Controls</h2>
-<p>Arrow keys/drag the mouse to move</p></p>
-<p>Q/E to zoom in/out</p></p>
-<p>+/- to in/decrease the maximum amount of iterations</p></p>
-<p>A/Z to in/decrease samples</p></p>
-<p>B to toggle biomorphs</p></p>
-<p>[/] to change the biomorph value</p></p>
-<p>O/P to in/decrease the bailout value</p></p>
-<p>S to toggle smooth coloring</p></p>
-<p>R to "respawn"</p></p>
-<p>1/2/3/4/5 to change fractal</p></p>
-<p>Tap/hold J to explore julia sets</p></p>
-<p>U/I to downscale the image</p></p>
-<p>F11 to toggle fullscreen</p></p></p>
+<p>Arrow keys/drag the mouse to move</p>
+<p>Q/E to zoom in/out</p>
+<p>+/- to in/decrease the maximum amount of iterations</p>
+<p>A/Z to in/decrease samples</p>
+<p>B to toggle biomorphs</p>
+<p>[/] to change the biomorph value</p>
+<p>O/P to in/decrease the bailout value</p>
+<p>S to toggle smooth coloring</p>
+<p>R to "respawn"</p>
+<p>1/2/3/4/5 to change fractal</p>
+<p>Tap/hold J to explore julia sets</p>
+<p>U/I to downscale the image</p>
+<p>F11 to toggle fullscreen</p>
 <p>Compile with:<code>g++ mandel.cpp -o mandel -lGL -lGLU -lglut -Ofast</code></p>
 <h2>How it works</h2>
 <p>So, the general idea of plotting the mandelbrot set is to run the formula "z=z^2+c" for a limited amount of iterations, for every pixel. The variables "z" and "c" are complex numbers. Z is initialized to be (0,0i), and c is a certain value, like a coordinate grid. To do this in code without using complex numbers, but simple numbers, is quite tricky. People have found a way to do it, I put it in the tutorial below. I am not quite sure how it works, but it sure does :).</p>
@@ -119,14 +119,14 @@ void display(){
 }
 </code>
 </pre>
-<p>That should be it! You should have a nice mandelbrot image on your screen! Feel free, no, I encourage you to make your own little modifications, like adding more interesting colors, or perhaps change the fractal a bit!</p>      
+<p>That should be it! You should have a nice mandelbrot image on your screen! I encourage you to make your own little modifications, like adding more interesting colors, or perhaps change the fractal a bit!</p>      
 <h2>Some images</h2>
-<img src="https://user-images.githubusercontent.com/130794776/273916355-3a938b3b-b0f3-441e-9257-b60af0aa5bbe.png"alt = "picture"> 
-<img src="https://user-images.githubusercontent.com/130794776/273916375-91980032-05f3-40e6-b359-6d9432411276.png"alt = "picture"> 
-<img src="https://user-images.githubusercontent.com/130794776/273916385-bc4f7b51-6f9b-4805-aef9-6810c6a30961.png"alt = "picture"> 
-<img src="https://user-images.githubusercontent.com/130794776/273916397-88f2a6fb-e9fc-4650-8279-64b084ea33fe.png"alt = "picture"> 
-<img src="https://user-images.githubusercontent.com/130794776/273916402-08a411b9-04c9-49a3-b297-813710030927.png"alt = "picture"> 
-<img src="https://user-images.githubusercontent.com/130794776/273917467-4de4b40d-8f75-4262-8971-6aa82b44d333.png"alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273916355-3a938b3b-b0f3-441e-9257-b60af0aa5bbe.png" alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273916375-91980032-05f3-40e6-b359-6d9432411276.png" alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273916385-bc4f7b51-6f9b-4805-aef9-6810c6a30961.png" alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273916397-88f2a6fb-e9fc-4650-8279-64b084ea33fe.png" alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273916402-08a411b9-04c9-49a3-b297-813710030927.png" alt = "picture"> 
+<img src="https://user-images.githubusercontent.com/130794776/273917467-4de4b40d-8f75-4262-8971-6aa82b44d333.png" alt = "picture"> 
 </main>
 </body>
 </html>
