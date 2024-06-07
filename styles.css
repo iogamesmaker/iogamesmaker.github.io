@@ -63,7 +63,7 @@ a:hover {
     display: block;
     padding: 10px;
     color: white;
-    transition: color 0.3s, background-color 0.3s, text-decoration 0.3s;
+    transition: color 0.2s, background-color 0.7s, text-decoration 0.3s;
 }
 
 .dropdown a:hover {
