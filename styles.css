@@ -88,6 +88,13 @@ img {
     height: auto;
 }
 
+
+tinyimg {
+    width: 20%;
+    height: auto;
+}
+
+
 @media only screen and (max-width: 600px) {
     .top-bar {
         flex-direction: column;
