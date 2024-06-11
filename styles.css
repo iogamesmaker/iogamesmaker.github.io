@@ -138,7 +138,7 @@ img { /* make images nice and big for extra cool viewing experience */
 
 .grid-container { /*epic grid for flexing images more effectively*/
   display: grid;
-  grid-template-columns: repeat(2, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
   gap: 16px; /* cool gap */
   justify-items: center;
 }
@@ -154,8 +154,8 @@ img { /* make images nice and big for extra cool viewing experience */
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  height: 50%; /* fit 4 cool pictures on the screen */
+  width: 100%;
+  height: 100%; /* make the pictures fill up the entire thing */
   object-fit: cover;
   border-radius: 4px; /*cool rounded borders*/
 }
