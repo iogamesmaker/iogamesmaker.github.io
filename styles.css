@@ -166,7 +166,7 @@ img { /* make images nice and big for extra cool viewing experience */
   pointer-events: none;
 }
 
-.grid-container a:hover img {
+.grid-container hover img:hover {
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
   transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 10;
