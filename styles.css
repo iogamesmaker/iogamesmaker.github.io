@@ -149,6 +149,7 @@ img { /* make images nice and big for extra cool viewing experience */
   width: 100%;
   padding-top: 100%;
   position: relative;
+  justify-items: center;
 }
 
 .grid-container img {
@@ -162,11 +163,13 @@ img { /* make images nice and big for extra cool viewing experience */
   transition: transform 0.2s;
   z-index: 9;
   border-radius: 8px; /*cool rounded borders*/
+  aspect-ratio: square;
+  justify-items: center;
 }
 
 .grid-container img:hover {
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
-  width: auto; /* quick workaround for making images in its original aspect ratio, who cares about vertical images anyway */
-  transition: transform 0.4s width 0.4s; /* epic animation for bonus points */
+  aspect-ratio: auto;
+  transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 10;
 }
