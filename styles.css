@@ -154,8 +154,8 @@ img { /* make images nice and big for extra cool viewing experience */
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 50%; /* fit 4 cool pictures on the screen */
   object-fit: cover;
   border-radius: 4px; /*cool rounded borders*/
 }
