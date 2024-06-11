@@ -166,8 +166,7 @@ img { /* make images nice and big for extra cool viewing experience */
 
 .grid-container img:hover {
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
-  transition: transform 0.4s; /* epic animation for bonus points */
-  height: auto;
-  width: auto;
+  width: auto; /* quick workaround for making images in its original aspect ratio, who cares about vertical images anyway */
+  transition: transform 0.4s width 0.4s; /* epic animation for bonus points */
   z-index: 10;
 }
