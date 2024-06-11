@@ -136,13 +136,6 @@ img { /* make images nice and big for extra cool viewing experience */
     background: #060606;
 }
 
-.grid-container a {
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-  position: absolute;
-}
-
 .grid-container { /*epic grid for flexing images more effectively*/
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
@@ -150,23 +143,28 @@ img { /* make images nice and big for extra cool viewing experience */
   justify-items: center;
 }
 
-.grid-container img {
+.grid-container a {
   display: block;
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
+.grid-container img {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%; /* make the pictures fill up the entire thing */
   object-fit: cover;
   transform: scale(1);
-  transform: translateZ(5);
   transition: transform 0.2s;
-  z-index: 10;
+  z-index: 9;
   border-radius: 8px; /*cool rounded borders*/
 }
 
 .grid-container img:hover {
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
-  transform: translateZ(15);
-  z-index: 20;
   transition: transform 0.4s; /* epic animation for bonus points */
+  z-index: 10;
 }
