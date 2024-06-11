@@ -83,8 +83,9 @@ a {
 }
 
 img { /* make images nice and big for extra cool viewing experience */
-    width: 100%;
-    height: auto;
+  width: 100%;
+  border-radius: 8px; 
+  height: auto;
 }
 
 @media only screen and (max-width: 600px) { /* mobile stuff */
