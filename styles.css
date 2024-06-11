@@ -158,6 +158,7 @@ img { /* make images nice and big for extra cool viewing experience */
   height: 100%; /* make the pictures fill up the entire thing */
   object-fit: cover;
   transform: scale(1);
+  transform: translateZ(5);
   transition: transform 0.2s;
   z-index: 9;
   border-radius: 8px; /*cool rounded borders*/
@@ -165,6 +166,5 @@ img { /* make images nice and big for extra cool viewing experience */
 
 .grid-container img:hover {
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
-  transition: transform 0.4s; /* epic animation for bonus points */
-  z-index: 10;
-}
+  transform: translateZ(15);
+  transition: transform 0.4s; /* epic animation for bonus points */}
