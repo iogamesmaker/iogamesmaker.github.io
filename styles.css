@@ -136,6 +136,13 @@ img { /* make images nice and big for extra cool viewing experience */
     background: #060606;
 }
 
+.grid-container a {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  position: absolute;
+}
+
 .grid-container { /*epic grid for flexing images more effectively*/
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
@@ -145,10 +152,6 @@ img { /* make images nice and big for extra cool viewing experience */
 
 .grid-container img {
   display: block;
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
