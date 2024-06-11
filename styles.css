@@ -157,7 +157,7 @@ img { /* make images nice and big for extra cool viewing experience */
   width: 100%;
   height: 100%; /* make the pictures fill up the entire thing */
   object-fit: cover;
-  border-radius: 4px; /*cool rounded borders*/
+  border-radius: 8px; /*cool rounded borders*/
 }
 
 .grid-container a:hover img {
