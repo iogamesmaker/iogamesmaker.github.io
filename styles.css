@@ -143,14 +143,11 @@ img { /* make images nice and big for extra cool viewing experience */
   justify-items: center;
 }
 
-.grid-container a {
+.grid-container img {
   display: block;
   width: 100%;
   padding-top: 100%;
   position: relative;
-}
-
-.grid-container img {
   position: absolute;
   top: 0;
   left: 0;
@@ -168,4 +165,5 @@ img { /* make images nice and big for extra cool viewing experience */
   transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
   transform: translateZ(15);
   z-index: 20;
-  transition: transform 0.4s; /* epic animation for bonus points */}
+  transition: transform 0.4s; /* epic animation for bonus points */
+}
