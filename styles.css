@@ -159,3 +159,8 @@ img { /* make images nice and big for extra cool viewing experience */
   object-fit: cover;
   border-radius: 4px; /*cool rounded borders*/
 }
+
+.grid-container a:hover img {
+  transform: scale(1.1); /* make image big if it's clickable and you're hovering over it */
+  z-index: 10;
+}
