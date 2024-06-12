@@ -180,11 +180,4 @@ img:hover {
   aspect-ratio: auto;
   transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 10;
-}*/
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(150px, 1fr));
-    gap: 16px;
-    justify-items: center;
 }
