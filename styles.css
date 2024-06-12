@@ -91,7 +91,7 @@ img { /* make images nice and big for extra cool viewing experience */
 }
 
 img:hover {
-  transform: scale(1.05); /* make image big if it's clickable and you're hovering over it */
+  transform: scale(1.15); /* make image big if it's clickable and you're hovering over it */
   transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 100;
 }
@@ -176,7 +176,7 @@ img:hover {
 }
 
 .grid-container img:hover {
-  transform: scale(1.2); /* make image big if it's clickable and you're hovering over it */
+  transform: scale(1.4); /* make image big if it's clickable and you're hovering over it */
   aspect-ratio: auto;
   transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 10;
