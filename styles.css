@@ -147,7 +147,7 @@ img:hover {
 
 .grid-container { /*epic grid for flexing images more effectively*/
   display: grid;
-  grid-template-columns: repeat(3, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1.0fr)); /* repeat the images and let html do the work for the auto fitting, idk tutorial stuff*/
   gap: 16px; /* cool gap */
   justify-items: center;
 }
