@@ -49,7 +49,7 @@ function duplicate() {
     CPS += 1;
     realCheeseCount -= 3;
     updateCheeseCountDisplay();
-    autoDuplicateInterval = setInterval(duplicateCheese, 1.0 / CPS);
+    autoDuplicateInterval = setInterval(duplicateCheese, 1.0);
   }
 }
 function biggerclick() {
