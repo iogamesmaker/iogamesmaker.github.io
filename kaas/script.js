@@ -4,6 +4,7 @@ var CPC = 1;
 var realCheeseCount = 1;
 var cheeseLimit = 256;
 var autoDuplicateInterval;
+var CPSPrice = 50;
 
 document.addEventListener('click', event => {
   duplicateCheese();
@@ -33,7 +34,12 @@ for(var i = 0; i < Math.min(CPC, cheeseLimit); i++) {
     cloneCheese.style.top = randomY + 'px';
 
     originalCheese.parentNode.appendChild(cloneCheese);
-    cheeseCount += 1;
+	 if(CPS >= 1) {
+    	cheeseCount += 1 / CPS;
+	 }
+	 else {
+	 	cheeseCount += 1;
+	 }
   }
   realCheeseCount += CPC;
   updateCheeseCountDisplay();
@@ -41,17 +47,25 @@ for(var i = 0; i < Math.min(CPC, cheeseLimit); i++) {
 
 function updateCheeseCountDisplay() {
   var cheeseCountDisplay = document.getElementById('cheeseCountDisplay');
-  cheeseCountDisplay.textContent = 'kaas!11!!: ' + realCheeseCount;
+  cheeseCountDisplay.textContent = 'kaas!11!!: ' + Math.round(realCheeseCount);
 }
 
 function duplicate() {
-  if (realCheeseCount >= 3) {
+  if (realCheeseCount >= CPSPrice) {
     CPS += 1;
-    realCheeseCount -= 3;
+    realCheeseCount -= CPSPrice;
     updateCheeseCountDisplay();
-    autoDuplicateInterval = setInterval(duplicateCheese, 1.0);
+    autoDuplicateInterval = setInterval(duplicateCheese, 1000 / CPS);
+    CPSPrice = Math.round(CPSPrice * 1.1);
+    updateCPSPriceDisplay();
   }
 }
+
+function updateCPSPriceDisplay() {
+  var autoclickButton = document.getElementById('autoclick');
+  autoclickButton.textContent = `+ 1 CPS | ${CPSPrice} cheese`;
+}
+
 function biggerclick() {
   if (realCheeseCount >= 20) {
     CPC += 1;
