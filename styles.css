@@ -1,6 +1,6 @@
 body {
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
     font-family: 'Comic Sans MS', sans-serif;
     margin: 0;
 }
@@ -19,13 +19,13 @@ body {
 
 .top-bar a { /* cool transitions and hover effects */
     text-decoration: none;
-    color: white;
+    color: black;
     transition: color 0.2s, background-color 0.4s;
 }
 
 .top-bar a:hover {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 .dropdown {
@@ -35,8 +35,8 @@ body {
 }
 
 a:hover {
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: black;
     transition: color 0.2s, background-color 0.4s;
 }
 
@@ -46,8 +46,8 @@ a:hover {
     z-index: 1000;
     width: 300px;
     padding: 10px;
-    background-color: black;
-    border: 1px solid white;
+    background-color: white;
+    border: 1px solid black;
     right: 0;
     top: 100%;
     opacity: 0;
@@ -61,18 +61,18 @@ a:hover {
 .dropdown a {
     display: block;
     padding: 10px;
-    color: white;
+    color: black;
     transition: color 0.2s, background-color 0.4s, text-decoration 0.3s;
 }
 
 .dropdown a:hover {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
     text-decoration: underline;
 }
 
 a {
-    color: white;
+    color: black;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -137,7 +137,7 @@ img:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: white;
+    background: black;
     border-radius: 20px;
 }
 
