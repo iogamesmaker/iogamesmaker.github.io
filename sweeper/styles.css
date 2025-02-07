@@ -30,7 +30,7 @@ body {
     font-size: 18px;
     cursor: pointer;
     user-select: none;
-    border: 1px solid #999;
+    border-radius: 4px;
 }
 
 .cell.revealed {
