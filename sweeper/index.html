@@ -38,27 +38,30 @@
         const size = 10;
         const mineCount = 15;
         let grid = [];
+        let firstMove = true;
         const gridElement = document.getElementById("grid");
-        let touchStartTime;
-        let touchHeld = false;
 
         function createGrid() {
-            grid = Array(size).fill().map(() => Array(size).fill().map(() => ({ mine: false, revealed: false, flagged: false, count: 0 })));
-            placeMines();
-            calculateNumbers();
+            grid = Array(size).fill().map(() => Array(size).fill().map(() => ({
+                mine: false, revealed: false, flagged: false, count: 0
+            })));
             renderGrid();
         }
 
-        function placeMines() {
+        function placeMines(excludeX, excludeY) {
             let placed = 0;
             while (placed < mineCount) {
                 let x = Math.floor(Math.random() * size);
                 let y = Math.floor(Math.random() * size);
-                if (!grid[y][x].mine) {
-                    grid[y][x].mine = true;
-                    placed++;
-                }
+                if (grid[y][x].mine || isInSafeZone(x, y, excludeX, excludeY)) continue;
+                grid[y][x].mine = true;
+                placed++;
             }
+            calculateNumbers();
+        }
+
+        function isInSafeZone(x, y, centerX, centerY) {
+            return Math.abs(x - centerX) <= 1 && Math.abs(y - centerY) <= 1;
         }
 
         function calculateNumbers() {
@@ -98,34 +101,18 @@
                         cellElement.classList.add("flagged");
                         cellElement.textContent = "F";
                     }
-                    cellElement.addEventListener("touchstart", (e) => startTouch(e, x, y));
-                    cellElement.addEventListener("touchend", (e) => endTouch(e, x, y));
+                    cellElement.addEventListener("click", () => handleClick(x, y));
                     gridElement.appendChild(cellElement);
                 });
             });
         }
 
-        function startTouch(e, x, y) {
-            e.preventDefault();
-            touchHeld = false;
-            touchStartTime = setTimeout(() => {
-                touchHeld = true;
-                revealCell(x, y);
-            }, 1000);
-        }
-
-        function endTouch(e, x, y) {
-            clearTimeout(touchStartTime);
-            if (!touchHeld) {
-                handleTap(x, y);
+        function handleClick(x, y) {
+            if (firstMove) {
+                placeMines(x, y);
+                firstMove = false;
             }
-        }
-
-        function handleTap(x, y) {
-            let cell = grid[y][x];
-            if (!cell.revealed) {
-                toggleFlag(x, y);
-            }
+            revealCell(x, y);
         }
 
         function revealCell(x, y) {
@@ -137,12 +124,15 @@
             renderGrid();
         }
 
-        function toggleFlag(x, y) {
-            let cell = grid[y][x];
-            if (!cell.revealed) {
-                cell.flagged = !cell.flagged;
-                renderGrid();
-            }
+        function expandReveal(x, y) {
+            [-1, 0, 1].forEach(dy => {
+                [-1, 0, 1].forEach(dx => {
+                    let nx = x + dx, ny = y + dy;
+                    if (nx >= 0 && nx < size && ny >= 0 && ny < size && !grid[ny][nx].revealed) {
+                        revealCell(nx, ny);
+                    }
+                });
+            });
         }
 
         createGrid();
