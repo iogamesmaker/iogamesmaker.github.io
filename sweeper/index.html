@@ -26,6 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            user-select: none;
         }
         .revealed { background: #eee; }
         .bomb { background: red; }
@@ -112,27 +113,89 @@
                 placeMines(x, y);
                 firstMove = false;
             }
+
+            let cell = grid[y][x];
+
+            if (cell.revealed && cell.count > 0) {
+                checkFlaggedNeighbors(x, y);
+                return;
+            }
+
             revealCell(x, y);
+        }
+
+        function checkFlaggedNeighbors(x, y) {
+            let cell = grid[y][x];
+            if (!cell.revealed || cell.count === 0) return;
+
+            let flaggedCount = 0;
+            let neighbors = [];
+
+            [-1, 0, 1].forEach(dy => {
+                [-1, 0, 1].forEach(dx => {
+                    let nx = x + dx, ny = y + dy;
+                    if (nx >= 0 && nx < size && ny >= 0 && ny < size) {
+                        let neighbor = grid[ny][nx];
+                        if (neighbor.flagged) flaggedCount++;
+                        if (!neighbor.revealed && !neighbor.flagged) neighbors.push([nx, ny]);
+                    }
+                });
+            });
+
+            if (flaggedCount === cell.count) {
+                neighbors.forEach(([nx, ny]) => revealCell(nx, ny));
+            }
         }
 
         function revealCell(x, y) {
             let cell = grid[y][x];
             if (cell.flagged || cell.revealed) return;
+
             cell.revealed = true;
-            if (cell.mine) alert("Game Over!");
-            else if (cell.count === 0) expandReveal(x, y);
+            if (cell.mine) {
+                alert("Game Over!");
+                return;
+            }
+
+            if (cell.count === 0) {
+                expandReveal(x, y);
+            }
+
             renderGrid();
         }
 
         function expandReveal(x, y) {
-            [-1, 0, 1].forEach(dy => {
-                [-1, 0, 1].forEach(dx => {
-                    let nx = x + dx, ny = y + dy;
-                    if (nx >= 0 && nx < size && ny >= 0 && ny < size && !grid[ny][nx].revealed) {
-                        revealCell(nx, ny);
-                    }
-                });
-            });
+            let queue = [[x, y]];
+            let visited = new Set();
+
+            while (queue.length > 0) {
+                let [cx, cy] = queue.shift();
+                let cell = grid[cy][cx];
+
+                if (!cell.revealed) {
+                    cell.revealed = true;
+                }
+
+                if (cell.count === 0) {
+                    [-1, 0, 1].forEach(dy => {
+                        [-1, 0, 1].forEach(dx => {
+                            let nx = cx + dx, ny = cy + dy;
+                            if (
+                                nx >= 0 && nx < size && ny >= 0 && ny < size &&
+                                !grid[ny][nx].revealed && !grid[ny][nx].flagged
+                            ) {
+                                let key = `${nx},${ny}`;
+                                if (!visited.has(key)) {
+                                    visited.add(key);
+                                    queue.push([nx, ny]);
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+
+            renderGrid();
         }
 
         createGrid();
