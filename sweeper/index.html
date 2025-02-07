@@ -134,6 +134,7 @@
             if (firstMove) {
                 placeMines(x, y);
                 firstMove = false;
+                renderGrid();
             }
 
             if (cell.revealed && cell.count > 0) {
