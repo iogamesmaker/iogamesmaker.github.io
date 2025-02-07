@@ -71,6 +71,7 @@
         const bombInput = document.getElementById("bombInput");
 
         function createGrid() {
+            size = parseInt(gridInput.value);  // Update size dynamically based on input
             grid = Array(size).fill().map(() => Array(size).fill().map(() => ({
                 mine: false, revealed: false, flagged: false, count: 0
             })));
@@ -111,6 +112,9 @@
 
         function renderGrid() {
             gridElement.innerHTML = "";
+            gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;  // Adjust grid columns dynamically
+            gridElement.style.gridTemplateRows = `repeat(${size}, 1fr)`;  // Adjust grid rows dynamically
+        
             grid.forEach((row, y) => {
                 row.forEach((cell, x) => {
                     let cellElement = document.createElement("div");
