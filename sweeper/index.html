@@ -10,8 +10,8 @@
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-gap: 0.5%;
-            width: 50vw;
-            height: 50vw;
+            width: 90vw;
+            height: 90vw;
             margin: 5vw;
         }
         .cell {
@@ -89,14 +89,14 @@
                         cellElement.classList.add("revealed");
                         if (cell.mine) {
                             cellElement.classList.add("bomb");
-                            cellElement.textContent = "💣";
+                            cellElement.textContent = "B";
                         } else if (cell.count > 0) {
                             cellElement.textContent = cell.count;
                         }
                     }
                     if (cell.flagged) {
                         cellElement.classList.add("flagged");
-                        cellElement.textContent = "🚩";
+                        cellElement.textContent = "F";
                     }
                     cellElement.addEventListener("touchstart", (e) => startTouch(e, x, y));
                     cellElement.addEventListener("touchend", (e) => endTouch(e, x, y));
