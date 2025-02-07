@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
     <style>
-        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
@@ -31,18 +31,44 @@
         .revealed { background: #eee; }
         .bomb { background: red; }
         .flagged { background: yellow; }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 80vw;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
+    <div id="info">
+        <p>Bombs Left: <span id="bombCount">15</span></p>
+        <p>Grid Size: <span id="gridSize">10</span> x <span id="gridSize">10</span></p>
+    </div>
     <div class="grid" id="grid"></div>
+    <div class="controls">
+        <button id="restartButton">Restart</button>
+        <div>
+            <label for="gridInput">Grid Size: </label>
+            <input type="number" id="gridInput" value="10" min="5" max="20">
+        </div>
+        <div>
+            <label for="bombInput">Bombs Count: </label>
+            <input type="number" id="bombInput" value="15" min="5" max="100">
+        </div>
+    </div>
+
     <script>
-        const size = 10;
-        const mineCount = 15;
+        let size = 10;
+        let mineCount = 15;
         let grid = [];
         let firstMove = true;
+        let bombsLeft = mineCount;
         const gridElement = document.getElementById("grid");
-        let touchStartTime;
-        let touchHeld = false;
+        const bombCountElement = document.getElementById("bombCount");
+        const gridSizeElement = document.getElementById("gridSize");
+        const restartButton = document.getElementById("restartButton");
+        const gridInput = document.getElementById("gridInput");
+        const bombInput = document.getElementById("bombInput");
 
         function createGrid() {
             grid = Array(size).fill().map(() => Array(size).fill().map(() => ({
@@ -110,6 +136,7 @@
                     gridElement.appendChild(cellElement);
                 });
             });
+            bombCountElement.textContent = bombsLeft;
         }
 
         function startTouch(e, x, y) {
@@ -118,7 +145,7 @@
             touchStartTime = setTimeout(() => {
                 touchHeld = true;
                 revealCell(x, y);
-            }, 200);
+            }, 1000);
         }
 
         function endTouch(e, x, y) {
@@ -134,7 +161,7 @@
             if (firstMove) {
                 placeMines(x, y);
                 firstMove = false;
-                renderGrid();
+                renderGrid(); // bug solved
             }
 
             if (cell.revealed && cell.count > 0) {
@@ -151,6 +178,7 @@
             let cell = grid[y][x];
             if (!cell.revealed) {
                 cell.flagged = !cell.flagged;
+                bombsLeft = cell.flagged ? bombsLeft - 1 : bombsLeft + 1;
                 renderGrid();
             }
         }
@@ -228,6 +256,19 @@
 
             renderGrid();
         }
+
+        function restartGame() {
+            size = parseInt(gridInput.value);
+            mineCount = parseInt(bombInput.value);
+            bombsLeft = mineCount;
+            firstMove = true;
+            createGrid();
+        }
+
+        gridInput.addEventListener("input", restartGame);
+        bombInput.addEventListener("input", restartGame);
+
+        restartButton.addEventListener("click", restartGame);
 
         createGrid();
     </script>
