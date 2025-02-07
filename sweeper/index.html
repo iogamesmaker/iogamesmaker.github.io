@@ -144,6 +144,13 @@
             touchHeld = false;
             touchStartTime = setTimeout(() => {
                 touchHeld = true;
+                
+                if (firstMove) {
+                    placeMines(x, y);
+                    firstMove = false;
+                    renderGrid(); // bug solved
+                }
+                
                 revealCell(x, y);
             }, 250);
         }
@@ -157,12 +164,6 @@
 
         function handleTap(e, x, y) {
             let cell = grid[y][x];
-
-            if (firstMove) {
-                placeMines(x, y);
-                firstMove = false;
-                renderGrid(); // bug solved
-            }
 
             if (cell.revealed && cell.count > 0) {
                 checkFlaggedNeighbors(x, y);
