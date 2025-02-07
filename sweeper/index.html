@@ -41,6 +41,8 @@
         let grid = [];
         let firstMove = true;
         const gridElement = document.getElementById("grid");
+        let touchStartTime;
+        let touchHeld = false;
 
         function createGrid() {
             grid = Array(size).fill().map(() => Array(size).fill().map(() => ({
@@ -102,26 +104,54 @@
                         cellElement.classList.add("flagged");
                         cellElement.textContent = "F";
                     }
-                    cellElement.addEventListener("click", () => handleClick(x, y));
+                    cellElement.addEventListener("click", (e) => handleTap(e, x, y));
+                    cellElement.addEventListener("touchstart", (e) => startTouch(e, x, y));
+                    cellElement.addEventListener("touchend", (e) => endTouch(e, x, y));
                     gridElement.appendChild(cellElement);
                 });
             });
         }
 
-        function handleClick(x, y) {
+        function startTouch(e, x, y) {
+            e.preventDefault();
+            touchHeld = false;
+            touchStartTime = setTimeout(() => {
+                touchHeld = true;
+                revealCell(x, y);
+            }, 200);
+        }
+
+        function endTouch(e, x, y) {
+            clearTimeout(touchStartTime);
+            if (!touchHeld) {
+                handleTap(e, x, y);
+            }
+        }
+
+        function handleTap(e, x, y) {
+            let cell = grid[y][x];
+
             if (firstMove) {
                 placeMines(x, y);
                 firstMove = false;
             }
-
-            let cell = grid[y][x];
 
             if (cell.revealed && cell.count > 0) {
                 checkFlaggedNeighbors(x, y);
                 return;
             }
 
-            revealCell(x, y);
+            if (!cell.revealed) {
+                toggleFlag(x, y);
+            }
+        }
+
+        function toggleFlag(x, y) {
+            let cell = grid[y][x];
+            if (!cell.revealed) {
+                cell.flagged = !cell.flagged;
+                renderGrid();
+            }
         }
 
         function checkFlaggedNeighbors(x, y) {
