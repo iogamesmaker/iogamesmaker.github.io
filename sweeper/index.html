@@ -30,8 +30,8 @@
             aspect-ratio: 1;
         }
         .revealed { background: #eee; }
-        .bomb { background: red; }
-        .flagged { background: yellow; }
+        .bomb { background: #111; }
+        .flagged { background: #ddd; }
         .controls {
             display: flex;
             justify-content: space-between;
@@ -217,7 +217,7 @@
 
             cell.revealed = true;
             if (cell.mine) {
-                alert("Game Over!");
+                restartGame();
                 return;
             }
 
