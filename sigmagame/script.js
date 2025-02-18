@@ -143,8 +143,8 @@ function processExplosionQueue() {
     const interval = setInterval(() => {
         if (explosionQueue.length === 0) {
             clearInterval(interval);
-            explosionsInProgress = false;
             checkExplosions(); // Recheck for any new explosions
+            explosionsInProgress = false;
             return;
         }
 
