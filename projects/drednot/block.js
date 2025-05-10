@@ -53,7 +53,7 @@
         container.id = 'ignore-ui-container';
         container.style.border = '1px solid #fff';
         container.style.padding = '10px';
-        container.style.marginTop = '10px';
+        container.style.margin = '10px 0 10px 0';
         container.style.borderRadius = '0px';
         container.style.background = '#19232d';
 
@@ -123,7 +123,7 @@
     const uiLeft = document.querySelector('#new-ui-left');
     if (uiLeft) {
         new MutationObserver(() => {
-            setTimeout(createIgnoreUI, 100);
+            setTimeout(createIgnoreUI, 0); // increase if it explopde
         }).observe(uiLeft, { childList: true, subtree: true });
     }
 
