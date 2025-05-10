@@ -28,6 +28,16 @@
         document.cookie = `ignoredUsers=${encodeURIComponent(JSON.stringify(users))}; path=/; max-age=${60*60*24*365}`;
     }
 
+    function getHideSystemMessages() {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith('hideSystemMessages='));
+        return cookie ? cookie.split('=')[1] === 'true' : false;
+    }
+
+    function setHideSystemMessages(value) {
+        document.cookie = `hideSystemMessages=${value}; path=/; max-age=${6*60*60*24*365}`;
+    }
+
+
     function addIgnoredUser(username) {
         const ignored = getIgnoredUsers();
         if (!ignored.includes(username)) {
@@ -62,7 +72,21 @@
             <div id="ignore-list-container" style="margin-bottom: 10px;"></div>
             <input type="text" id="ignore-input" placeholder="Username" style="margin-right: 5px; padding: 4px;" />
             <button id="ignore-add-btn" class="btn-green btn-small">Add</button>
+            <br /><br />
+            <label style="display: flex; align-items: center; gap: 6px;">
+            <input type="checkbox" id="ignore-toggle-system-msgs" />
+                Hide system messages (join/leave)
+            </label>
+
         `;
+
+        const sysMsgToggle = container.querySelector('#ignore-toggle-system-msgs');
+        sysMsgToggle.checked = getHideSystemMessages();
+        sysMsgToggle.addEventListener('change', () => {
+            setHideSystemMessages(sysMsgToggle.checked);
+            hideIgnoredMessages();
+        });
+
 
         settingsSection.parentNode.insertBefore(container, settingsSection.nextSibling);
 
@@ -106,8 +130,12 @@
     }
 
     function hideIgnoredMessages() {
+        const hideSystem = getHideSystemMessages();
         const ignored = getIgnoredUsers();
         document.querySelectorAll('#chat-content p').forEach(message => {
+            if (!message.textContent.includes(":") && !hideSystem) {
+                return;
+            }
             const usernameEl = message.querySelector('bdi');
             if (!usernameEl) return;
             const username = usernameEl.textContent;
