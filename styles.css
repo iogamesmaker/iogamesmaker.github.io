@@ -181,3 +181,10 @@ img:hover {
   transition: transform 0.4s; /* epic animation for bonus points */
   z-index: 10;
 }
+
+.layout .dropdown-content {
+  left: 0;
+  right: auto;
+  width: 100%;
+  max-width: 600px;
+}
