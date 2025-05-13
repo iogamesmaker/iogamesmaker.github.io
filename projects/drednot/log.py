@@ -15,7 +15,11 @@ import platform
 import requests
 import psutil
 
-max_mem_gb = 3.5
+max_mem_gb = 3.5 # change to whatever you like, as long as you know what you're doing.
+# basic baseline:
+# 4gb of ram, put it to 1.5
+# 8gb of ram, put it to 3.5
+# more: just do half of your total ram
 
 def set_memory_limit():
     max_mem_bytes = 1024 * 1024 * round(1024 * max_mem_gb)
@@ -604,7 +608,7 @@ The exported file will contain all transactions matching your current filters, f
             row=0, column=1, padx=5, sticky="sew")
         ttk.Button(button_frame, text="Refresh", command=self.update_display).grid(
             row=0, column=2, padx=5, sticky="sew")
-        ttk.Button(button_frame, text="Analyze Items [BETA]", command=self.analyze_ships).grid(
+        ttk.Button(button_frame, text="Analyze Ships", command=self.analyze_ships).grid(
             row=0, column=3, padx=5, sticky="sew")
 
         # Set minimum size for main window
@@ -1972,7 +1976,7 @@ The exported file will contain all transactions matching your current filters, f
     def display_analysis_result(self, result):
         result_window = tk.Toplevel(self.root)
         result_window.title("Ship Content Analysis")
-        result_window.geometry("600x400")
+        result_window.geometry("800x600")
 
         text_frame = ttk.Frame(result_window)
         text_frame.pack(fill="both", expand=True)
@@ -1984,7 +1988,7 @@ The exported file will contain all transactions matching your current filters, f
         text.grid(row=0, column=0, sticky="nsew")
         scrollbar.grid(row=0, column=1, sticky="ns")
 
-        text.insert(tk.END, "All existing items found:\n\n")
+        text.insert(tk.END, "Aggregated items from all named ships:\n\n")
         for line in result:
             text.insert(tk.END, line + "\n")
 
