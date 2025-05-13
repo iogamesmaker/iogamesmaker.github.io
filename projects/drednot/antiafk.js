@@ -1,20 +1,3 @@
-// ==UserScript==
-// @name         afk
-// @namespace    http://tampermonkey.net/
-// @version      1.3
-// @description  this script is the most sigma
-// @author       skid
-// @match        *://*.drednot.io/*
-// @grant        none
-// ==/UserScript==
-
-// How to use:
-// Install this script with the TAMPERMONKEY extension
-// (Create a new script, copy paste the ENTIRE thing into there)
-// Replace my usernames (Dutchman) with your main username(s) (line 71)
-// Reload your drednot.io page
-// type !afk [message] to go AFK - it will repeat the message every 4.5 minutes.
-
 (function() {
     'use strict';
 
@@ -22,64 +5,94 @@
     const chatInp = document.getElementById("chat-input");
     const chatBtn = document.getElementById("chat-send");
     const chatContent = document.querySelector("#chat-content");
-    let scriptEnabled = true;
-    let afkActive = false;
-    let afkInterval = null;
+
+    let afkTimeout = null;
+    let nextSendTime = 0;
+    let afkMessage = "afk ping me on discord or sometyhinhg idk"; // Replace with your message, can use !afk [message] as a command to set a custom message without modifying shit.
+    const username = "Dutchman"; // Replace with your username
 
     function sendChat(mess) {
-        if (chatBox.classList.contains('closed')) chatBtn.click();
-        chatInp.value = mess;
-        chatBtn.click();
+        try {
+            if (!chatBox || !chatInp || !chatBtn) return;
+            if (chatBox.classList.contains('closed')) chatBtn.click();
+            chatInp.value = mess;
+            chatBtn.click();
+        } catch (e) {
+            console.error('AFK Script Error:', e);
+        }
+    }
+
+    function scheduleAFK() {
+        const now = Date.now();
+        const timeDrift = now - nextSendTime;
+
+        if (timeDrift > 240000) { 
+            sendChat(afkMessage);
+            nextSendTime = now + 240000;
+        }
+
+        const delay = Math.max(10000, Math.min(240000, nextSendTime - now));
+
+        afkTimeout = setTimeout(() => {
+            sendChat(afkMessage);
+            nextSendTime = Date.now() + 240000;
+            scheduleAFK();
+        }, delay);
     }
 
     function startAFK(message) {
         stopAFK();
-        let afkMessage = message || "im afk omg";
-        afkInterval = setInterval(() => sendChat(afkMessage), 270000); // 4.5 minutes 270000
-        sendChat(afkMessage);
+        afkMessage = message || "AFK - Please leave a message";
+        nextSendTime = Date.now() + 240000; 
+        scheduleAFK();
+        sendChat("AFK ACTIVATED: " + afkMessage);
     }
 
     function stopAFK() {
-        if (afkInterval) {
-            clearInterval(afkInterval);
-            afkInterval = null;
+        if (afkTimeout) {
+            clearTimeout(afkTimeout);
+            afkTimeout = null;
+            sendChat("AFK DEACTIVATED");
         }
     }
 
-    function observeNode(node, callback) {
-        new MutationObserver(callback).observe(node, { childList: true });
-    }
+    new MutationObserver(mutations => {
+        for (let mutation of mutations) {
+            if (mutation.addedNodes.length) {
+                const mess = mutation.addedNodes[0];
+                if (mess.nodeName === "P") {
+                    const text = mess.innerText;
+                    const [header, ...messageParts] = text.split(':');
+                    const message = messageParts.join(':').trim();
 
-    observeNode(chatContent, () => {
-        const mess = document.querySelector("#chat-content > p:last-of-type");
+                    const userMatch = header.match(/\[(.*?)\]\s(.*?)\s/);
+                    if (!userMatch) continue;
 
-        if (!mess) return;
-
-        mess.querySelectorAll(".user-badge-small").forEach(badge => badge.remove());
-
-        const rankElement = mess.querySelector("span");
-        const usernameElement = mess.querySelector("bdi");
-        const messageText = mess.childNodes[mess.childNodes.length - 1].textContent.trim();
-
-        const rank = rankElement ? rankElement.textContent.replace(/[\[\]]/g, '') : "Guest";
-        const username = usernameElement ? usernameElement.textContent : "Unknown";
-        const message = messageText || "";
-        const messageNoCase = message.toLowerCase();
-
-
-        // Admin commands
-        if (username === 'Dutchman') {
-            if (messageNoCase.startsWith('!afk')) {
-                if(afkActive) {
-                    afkActive = false;
-                    stopAFK();
-                    return;
+                    const [_, rank, user] = userMatch;
+                    if (user === username && message.startsWith('!afk')) {
+                        const cmd = message.split(' ');
+                        if (cmd.length > 1) {
+                            startAFK(cmd.slice(1).join(' '));
+                        } else {
+                            if (afkTimeout) stopAFK();
+                            else startAFK();
+                        }
+                    }
                 }
-                afkActive = true;
-                let customMessage = messageText.substring(5).trim();
-                startAFK(customMessage);
             }
+        }
+    }).observe(chatContent, { childList: true });
 
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && afkTimeout) {
+            sendChat(afkMessage); 
+            nextSendTime = Date.now() + 240000;
+        }
+    });
+
+    window.addEventListener('beforeunload', () => {
+        if (afkTimeout) {
+            sendChat(afkMessage); 
         }
     });
 })();
