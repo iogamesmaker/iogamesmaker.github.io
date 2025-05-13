@@ -1,3 +1,13 @@
+// ==UserScript==
+// @name         afk
+// @namespace    http://tampermonkey.net/
+// @version      1.3
+// @description  this script is the most sigma
+// @author       skid
+// @match        *://*.drednot.io/*
+// @grant        none
+// ==/UserScript==
+
 (function() {
     'use strict';
 
