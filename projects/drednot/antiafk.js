@@ -79,6 +79,8 @@
                     if (!userMatch) continue;
 
                     const [_, rank, user] = userMatch;
+                    console.log(userMatch);
+                    console.log(user);
                     if (user === username && message.startsWith('!afk')) {
                         const cmd = message.split(' ');
                         if (cmd.length > 1) {
