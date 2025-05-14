@@ -1739,7 +1739,7 @@ The exported file will contain all transactions matching your current filters, f
 
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
-        analysis_dialog.geometry("300x150")
+        analysis_dialog.geometry("320x100")
 
         start_frame = ttk.Frame(analysis_dialog)
         start_frame.pack(pady=5)
@@ -1804,48 +1804,61 @@ The exported file will contain all transactions matching your current filters, f
                 dates_to_process.append(date_str)
                 current_date += timedelta(days=1)
 
-            total_dates = len(dates_to_process)
-            self.download_queue.put(("PROGRESS", 0, total_dates, "Starting analysis..."))
+            dates_to_process.sort(key=lambda x: tuple(map(int, x.split('_'))))
 
-            item_totals = defaultdict(int)
-            item_contributions = defaultdict(lambda: defaultdict(int))
+            total_dates = len(dates_to_process)
+            self.download_queue.put(("PROGRESS", 0, total_dates, "starting analysis"))
+
+            ship_last_seen = {} 
+            ship_items = {}
+
             processed_dates = 0
 
             for date_str in dates_to_process:
                 if not self.download_in_progress:
-                    self.download_queue.put(("CANCELLED", "Analysis stopped."))
+                    self.download_queue.put(("CANCELLED", "analysis stopped"))
                     return
 
                 ships_path = os.path.join(self.local_data_dir, date_str, "ships.json.gz")
                 if not os.path.exists(ships_path):
-                    self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates, f"Missing data for {date_str}"))
+                    self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates, f"no data for {date_str}"))
                     processed_dates += 1
                     continue
 
                 try:
+                    current_date_tuple = tuple(map(int, date_str.split('_')))
                     with gzip.open(ships_path, 'rb') as f:
                         ships_data = json.load(f)
 
                     for ship in ships_data:
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
                         items = ship.get("items", {})
-                        for item_id, count in items.items():
-                            item_id_int = int(item_id)
-                            item_totals[item_id_int] += count
-                            item_contributions[item_id_int][hex_code] += count
+
+                        if hex_code not in ship_last_seen or current_date_tuple > ship_last_seen[hex_code]:
+                            ship_last_seen[hex_code] = current_date_tuple
+                            ship_items[hex_code] = items
 
                     self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates,
                                             f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
                     processed_dates += 1
 
                 except Exception as e:
-                    self.download_queue.put(("ERROR", f"Error processing {date_str}: {str(e)}"))
+                    self.download_queue.put(("ERROR", f"error {date_str}: {str(e)}"))
+
+            # Calculate totals from latest ship data
+            item_totals = defaultdict(int)
+            item_contributions = defaultdict(lambda: defaultdict(int))
+            for hex_code, items in ship_items.items():
+                for item_id_str, count in items.items():
+                    item_id = int(item_id_str)
+                    item_totals[item_id] += count
+                    item_contributions[item_id][hex_code] += count
 
             self.download_queue.put(("ANALYSIS_COMPLETE", (item_totals, item_contributions)))
 
         except Exception as e:
-            self.download_queue.put(("ERROR", f"Analysis failed: {str(e)}"))
-
+            self.download_queue.put(("ERROR", f"rip analysis {str(e)}"))
+            
     def display_analysis_result(self, result):
         item_totals, item_contributions = result
         result_window = tk.Toplevel(self.root)
