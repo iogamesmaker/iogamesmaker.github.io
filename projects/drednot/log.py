@@ -1909,17 +1909,16 @@ The exported file will contain all transactions matching your current filters, f
         self.display_ship_history(ship_id.strip("{}"))
         self.lookup_window.lift()
 
-    def sort_tree(self, column, numeric=False):
-        data = [(self.analysis_tree.set(child, column), child)
-               for child in self.analysis_tree.get_children('')]
-
+    def sort_treeview(self, tree, col, numeric=False):
+        items = [(tree.set(child, col), child) for child in tree.get_children('')]
+        
         if numeric:
-            data.sort(key=lambda x: int(x[0].replace(',', '')))  
+            items.sort(key=lambda x: int(x[0].replace(',', '')), reverse=True)
         else:
-            data.sort(key=lambda x: x[0].lower())
-
-        for index, (val, child) in enumerate(data):
-            self.analysis_tree.move(child, '', index)
+            items.sort(key=lambda x: int(x[0].replace('#', '')))
+        
+        for index, (val, child) in enumerate(items):
+            tree.move(child, '', index)
 
     def handle_sort_change(self, sort_option, item_totals, contributions):
         reverse = False
@@ -1950,43 +1949,58 @@ The exported file will contain all transactions matching your current filters, f
         selected = self.analysis_tree.selection()
         if not selected:
             return
-
+            
         item_id = int(self.analysis_tree.item(selected[0], "values")[0])
         contributions = item_contributions.get(item_id, {})
-
+        
         self.item_name_map = {item[0]: item[1] for item in ITEM_DB}
-
+        
         detail_win = tk.Toplevel()
         detail_win.title(
             f"Contributors for Item {item_id} "
             f"({self.item_name_map.get(item_id, 'Unknown Item')})"
         )
-        detail_win.geometry("800x400")
-
-        tree_container = ttk.Frame(detail_win)
-        tree_container.pack(fill="both", expand=True)
-
-        tree = ttk.Treeview(tree_container, columns=("ship_id", "ship_name", "count"), show="headings")
-        tree.heading("ship_id", text="Ship ID")
-        tree.heading("ship_name", text="Current Name")
-        tree.heading("count", text="Count")
-
-        y_scroll = ttk.Scrollbar(tree_container, orient="vertical", command=tree.yview)
-        x_scroll = ttk.Scrollbar(tree_container, orient="horizontal", command=tree.xview)
-        tree.configure(yscrollcommand=y_scroll.set, xscrollcommand=x_scroll.set)
-
+        detail_win.geometry("1000x500")
+        
+        tree = ttk.Treeview(detail_win, columns=("rank", "ship_id", "ship_name", "count"), show="headings")
+        tree.heading("rank", text="Rank", anchor="w")
+        tree.heading("ship_id", text="Ship ID", anchor="w")
+        tree.heading("ship_name", text="Ship Name", anchor="w")
+        tree.heading("count", text="Count", anchor="e")
+        
+        tree.column("rank", width=50, stretch=False)
+        tree.column("ship_id", width=150)
+        tree.column("ship_name", width=300)
+        tree.column("count", width=100)
+        
+        vsb = ttk.Scrollbar(detail_win, orient="vertical", command=tree.yview)
+        hsb = ttt.Scrollbar(detail_win, orient="horizontal", command=tree.xview)
+        tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        
         tree.grid(row=0, column=0, sticky="nsew")
-        y_scroll.grid(row=0, column=1, sticky="ns")
-        x_scroll.grid(row=1, column=0, sticky="ew")
-        tree_container.grid_rowconfigure(0, weight=1)
-        tree_container.grid_columnconfigure(0, weight=1)
-
+        vsb.grid(row=0, column=1, sticky="ns")
+        hsb.grid(row=1, column=0, sticky="ew")
+        
         sorted_contribs = sorted(contributions.items(), key=lambda x: -x[1])
-        for ship_id, count in sorted_contribs:
+        for rank, (ship_id, count) in enumerate(sorted_contribs, start=1):
             name = self.ship_names.get(ship_id, {}).get("current_name", "Unknown")
-            tree.insert("", "end", values=(ship_id, name, f"{count:,}"))
-
-        tree.bind("<Double-1>", lambda e: self.open_ship_lookup(tree))
+            tree.insert("", "end", values=(
+                f"#{rank}",
+                ship_id,
+                name,
+                f"{count:,}"
+            ))
+        
+        detail_win.grid_rowconfigure(0, weight=1)
+        detail_win.grid_columnconfigure(0, weight=1)
+        
+        context_menu = tk.Menu(detail_win, tearoff=0)
+        context_menu.add_command(label="Sort by Rank", 
+                               command=lambda: self.sort_treeview(tree, "rank", False))
+        context_menu.add_command(label="Sort by Count", 
+                               command=lambda: self.sort_treeview(tree, "count", True))
+        
+        tree.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
 
     def export_analysis(self, item_totals, contributions):
         file_path = filedialog.asksaveasfilename(
