@@ -141,12 +141,12 @@ class EconLogScourer:
         self.end_year_var = tk.StringVar(value="2022")
         self.end_month_var = tk.StringVar(value="11")
         self.end_day_var = tk.StringVar(value="23")
-
+        
+        self.base_path = ""
+        
         if platform.system() == 'Windows':
-
             base_path = os.path.join(os.getenv('LOCALAPPDATA'), 'DredarkLogScourer')
         else:
-
             base_path = os.path.join(os.path.expanduser('~'), '.local', 'share', 'DredarkLogScourer')
         print(f"Data log files will be saved to {base_path}. Everything you do in this program will be temporary unless you press export.")
 
@@ -221,7 +221,7 @@ class EconLogScourer:
                 base_url = "https://pub.drednot.io/prod/econ"
 
                 self.download_queue.put(("PROGRESS", i + 1, total_dates,
-                                    f"downloading {date_str} ({i+1}/{total_dates}). Your files are located at {base_path}"))
+                                    f"downloading {date_str} ({i+1}/{total_dates})."))
 
                 try:
                     ships_url = f"{base_url}/{date_str}/ships.json.gz"
