@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dredark clan history</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 95vw;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        
+        .image-wrapper {
+            min-width: 100%;
+            height: 10vw;
+            position: relative;
+        }
+        
+        .ultra-wide-image {
+            width: 949%; /* 10 times wider than its container */
+            height: 100%;
+            background-image: url('https://iogamesplayer.com/projects/drednot/econ/img/history.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .image-wrapper {
+                height: 30vw; /* Make taller on mobile for better visibility */
+            }
+        }
+    </style>
+</head>
+<body>    
+    <div class="container">
+        <div class="image-wrapper">
+            <div class="ultra-wide-image"></div>
+        </div>
+    </div>
+</body>
+</html>
