@@ -105,7 +105,7 @@ ITEM_DB = [
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.4.0 (iogamesplayer")
+        self.root.title("Dredark Log Scourer v 1.4.1")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -1903,7 +1903,7 @@ The exported file will contain all transactions matching your current filters, f
         if not selected:
             return
 
-        ship_id = tree.item(selected[0], "values")[0]
+        ship_id = tree.item(selected[0], "values")[1]
         if not hasattr(self, 'lookup_window') or not self.lookup_window.winfo_exists():
             self.lookup_ship_name()
         self.display_ship_history(ship_id.strip("{}"))
