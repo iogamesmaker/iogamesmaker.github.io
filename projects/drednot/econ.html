@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iogamesplayer.com</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="topbar"></div>
+<script>
+  $(function(){
+    $("#topbar").load("/topbar.html");
+  });
+</script>
+<main class="layout">
+<br>
+
+<h3>Econ log tracker!!!!</h3>
+<small>Data available after 2022/11/23.</small>
+
+<h1><a href="https://iogamesplayer.com/projects/drednot/log.py/"></a>Newest Release</h1>
+<small>Make sure it's safe by asking chatGPT if its a virus or something</small>
+<h4>Features</h4>
+<p>- Lookup the name AND content (kind of manifest scanner) history of any ship.</p>
+<p>- Search trough all recorded transactions, you can see where someone's flux or items come from, or go. Handy for detecting alt accounts.</p>
+<p>- Look at all recorded existing items in the game. WIP, more updates are coming.</p>
+<p>- Cool HELP menu to send you on your way while all the data is downloading.</p>
+<h4>- Automatic data downloading - The first run will download all (compressed) data files. Currently 1.5GB total, for 900 days of data. Will update each run.</h4>
+<p>- low key very easy to use.</p>
+<p>- This tool uses public data, find out more <a href="https://drednot.io/c/coder-docs/t/economy-data-dumps/">here - Drednot Coder Docs</a>
+
+<h4>System requirements</h4>
+<p>Minimum needed to run is a 64 bit PC, 32 bit might work but it's untested. It should run on MacOS too, it runs well on Windows, and it's designed for Linux.</p>
+<p>CPU: at least 2 cores. Speed doesn't matter. RAM: 2GB minimum, at least 4GB recommended. GPU: Doesn't matter. If your GPU is from after 2005 it should be fine. Disk Space: Should have at least 2GB free. Another 2GB if you need to install python as well.
+<p>If you're on MacOS, figure out how to install python yourself. I can't be bothered. For Linux, you probably already have a working Python install. Skip step 1, and run "python3 log.py" instead of "python log.py". Rest should be exactly the same.</p>
+
+<h4>RAM Usage</h4>  
+<p>If you have a decent PC with plenty of RAM to spare, edit the 19th line that says "max_mem_gb = 3.5". Default is set to 3.5 GB, should be fine for computers with 8 GB of RAM or more. Absolute minimum that is usable is 1 GB with ship names enabled, 0.5 GB without ship names enabled.</p>
+<p>This program WILL use up all the allocated RAM if you're not careful with filtering. If you set max_mem_gb too high, it might freeze / crash your computer. Careful with that.</p>
+<br>
+<p>Feel free to use or distribute this program, but ask me before selling a program based on this one. Distributing your own version for free with your own changes is fine, as long as it's not malware.</p>
+<p>Any suggestions are welcome.</p>
+
+    <p>This might be tricky to install, if you need some of my help, DM me on Discord; @iogamesplayer.</p>
+    <p>1: Install the Python 3.11 (or newer idk when you read this) package from the Microsoft Store.</p>
+    <p>2: Download the script into your Downloads folder as "log.py".</p>
+    <p>3: Open CMD, and type "cd Downloads".</p>
+    <p>4: Run "python3 log.py" - it should return some errors. If the error is "Python3 is not recognized as a command", I don't really know how to fix that. Try installing the package from python.org AND MAKE SURE YOU CHECK THE ADD PYTHON TO $PATH CHECKBOX!!!</p>
+    <p>5: All errors should be some imports missing, like "requests". Type "pip install [missing package]" to install these.</p>
+    <p>6: Repeat that for every missing package, until it finally works.</p>
+    <p>7: Wait like an hour for all the data to download. Read the help menu or something. It's ~1.5GB and should only download once.</p>
+
+<p>Pro tip for Windows people: Credit to Diamant, once you get it to run via CMD, move the python file to your desktop and rename it to "log.pyw", read the warning, press OK. You can still right click > edit it with notepad to copy/paste a new release or edit the code.</p>
+  
+<br>
+
+<p>If you need help installing this, you can DM me. Discord is @iogamesplayer.</p>
+
+<br>
+<br>
+<br>
+<p>copyleft go steal it or something</p>
+</main>
+</body>
+</html>
