@@ -16,37 +16,25 @@
             width: 100vw;
             height: 100vh;
             overflow-x: auto;
+            white-space: nowrap;
         }
         
-        .image-wrapper {
+        .fullscreen-image {
             height: 100vh;
+            width: auto;
             display: inline-block;
         }
-        
-        .ultra-wide-image {
-            height: 100%;
-            width: 9490px; /* Adjust based on your image's actual aspect ratio */
-            background-image: url('https://iogamesplayer.com/projects/drednot/econ/img/history.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: left center;
-        }
 
-        /* Optional: Hide scrollbar for cleaner look */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        .container {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        /* Hide scrollbar while keeping functionality */
+        ::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>    
     <div class="container">
-        <div class="image-wrapper">
-            <div class="ultra-wide-image"></div>
-        </div>
+        <img src="https://iogamesplayer.com/projects/drednot/econ/img/history.png" 
+             class="fullscreen-image" 
+             alt="Dredark clan history timeline">
     </div>
 </body>
 </html>
