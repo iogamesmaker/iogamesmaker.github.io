@@ -105,7 +105,7 @@ ITEM_DB = [
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.3 - by Dutchman")
+        self.root.title("Dredark Log Scourer v 1.4.0 (iogamesplayer")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -2001,6 +2001,7 @@ The exported file will contain all transactions matching your current filters, f
                                command=lambda: self.sort_treeview(tree, "count", True))
 
         tree.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
+        tree.bind("<Double-1>", lambda e: self.open_ship_lookup(tree))
 
     def export_analysis(self, item_totals, contributions):
         file_path = filedialog.asksaveasfilename(
