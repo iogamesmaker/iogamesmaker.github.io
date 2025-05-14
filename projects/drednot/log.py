@@ -112,15 +112,15 @@ class EconLogScourer:
         self.root.rowconfigure(0, weight=1)
         self.root.columnconfigure(0, weight=1)
 
-        self.raw_data = []  
-        self.filtered_data = []  
-        self.ship_names = {}  
+        self.raw_data = []
+        self.filtered_data = []
+        self.ship_names = {}
         self.all_items = [f"{item[0]}: {item[1]}" for item in ITEM_DB]
         self.filtered_items = self.all_items.copy()
         self.show_bots = tk.BooleanVar(value=True)
         self.text_size_var = tk.IntVar(value=10)
         self.wrap_text_var = tk.BooleanVar(value=False)
-        self.use_ship_names = tk.BooleanVar(value=False)  
+        self.use_ship_names = tk.BooleanVar(value=False)
 
         self._last_dates_processed = []
         self.status_var = tk.StringVar(value="Initializing...")
@@ -179,7 +179,7 @@ class EconLogScourer:
                 existing_dates.add(entry)
 
         today = datetime.now()
-        date_to_check = datetime(2022, 11, 23)  
+        date_to_check = datetime(2022, 11, 23)
         dates_to_download = []
 
         while date_to_check <= today:
@@ -249,7 +249,7 @@ class EconLogScourer:
                     if e.response.status_code == 404:
                         print(f"cant find anything for {date_str}, skipping")
                         continue
-                    raise  
+                    raise
                 except requests.exceptions.RequestException as e:
                     print(f"aw man couldnt load data for {date_str}: {str(e)}, sorry cuh. this is most likely just the dredark server screaming at you for downloading {total_dates * 2} files which is a lot. after downloading is complete, restart the program and it will go over all the missing files again.")
                     continue
@@ -270,7 +270,7 @@ class EconLogScourer:
                 "you sure?",
                 icon=messagebox.WARNING
             ):
-                self.download_in_progress=False  
+                self.download_in_progress=False
                 self.root.destroy()
         else:
             self.root.destroy()
@@ -434,11 +434,11 @@ The exported file will contain all transactions matching your current filters, f
 
         date_frame = ttk.Frame(main_frame)
         date_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=5)
-        date_frame.columnconfigure(0, weight=1)  
-        date_frame.columnconfigure(1, weight=0)  
-        date_frame.columnconfigure(2, weight=0)  
-        date_frame.columnconfigure(3, weight=0)  
-        date_frame.columnconfigure(4, weight=1)  
+        date_frame.columnconfigure(0, weight=1)
+        date_frame.columnconfigure(1, weight=0)
+        date_frame.columnconfigure(2, weight=0)
+        date_frame.columnconfigure(3, weight=0)
+        date_frame.columnconfigure(4, weight=1)
 
         start_frame = ttk.Frame(date_frame)
         start_frame.grid(row=0, column=0, sticky="w")
@@ -481,8 +481,8 @@ The exported file will contain all transactions matching your current filters, f
 
         filter_frame = ttk.Frame(main_frame)
         filter_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
-        filter_frame.columnconfigure(0, weight=1)  
-        filter_frame.columnconfigure(1, weight=1)  
+        filter_frame.columnconfigure(0, weight=1)
+        filter_frame.columnconfigure(1, weight=1)
 
         item_filter_frame = ttk.Frame(filter_frame)
         item_filter_frame.grid(row=0, column=0, padx=5, sticky="ew")
@@ -619,12 +619,12 @@ The exported file will contain all transactions matching your current filters, f
 
     def load_all_ship_data_thread(self):
         try:
-            self.ship_names = {}  
+            self.ship_names = {}
             processed_ships = 0
 
             all_dates = []
             for entry in os.listdir(self.local_data_dir):
-                if entry.count('_') == 2:  
+                if entry.count('_') == 2:
                     all_dates.append(entry)
 
             all_dates.sort(key=lambda x: tuple(map(int, x.split('_'))))
@@ -634,7 +634,7 @@ The exported file will contain all transactions matching your current filters, f
 
             for i, date_str in enumerate(all_dates):
                 if not self.download_in_progress:
-                    break  
+                    break
 
                 ships_path = os.path.join(self.local_data_dir, date_str, "ships.json.gz")
                 if not os.path.exists(ships_path):
@@ -708,7 +708,7 @@ The exported file will contain all transactions matching your current filters, f
 
                     elif data[0] == "SHIP_COMPLETE":
                         total_ships = data[1]
-                        self.status_var.set(f"loaded {total_ships} ship names and contents, that cost about {round(total_ships * 0.0121277) * 0.1}MB of RAM. nice") 
+                        self.status_var.set(f"loaded {total_ships} ship names and contents, that cost about {round(total_ships * 0.0121277) * 0.1}MB of RAM. nice")
                         self.progress["value"] = 0
                         self.download_in_progress = False
                         self.update_display()
@@ -1005,7 +1005,7 @@ The exported file will contain all transactions matching your current filters, f
 
     def download_complete(self, total_transactions, filtered_count):
         self.download_in_progress = False
-        self.cancel_button.config(state="disabled")  
+        self.cancel_button.config(state="disabled")
         self.progress["value"] = self.progress["maximum"]
         self.status_var.set(f"finished loading shit! gone trough {total_transactions} transactions, {filtered_count} after filters")
         messagebox.showinfo("Success", f"loaded {total_transactions} transactions, {filtered_count} after filters")
@@ -1015,7 +1015,7 @@ The exported file will contain all transactions matching your current filters, f
 
     def download_error(self, error_msg):
         self.download_in_progress = False
-        self.cancel_button.config(state="disabled")  
+        self.cancel_button.config(state="disabled")
         messagebox.showerror("Error", f"data loading did boom this is 10000% your fault fuck you for breaking it no tech support for you: {error_msg}")
         self.status_var.set("data loading failed")
 
@@ -1298,7 +1298,7 @@ The exported file will contain all transactions matching your current filters, f
                 ship_hex = ship.get("hex_code", "").strip("{}").upper()
                 target_hex = hex_id.strip("{}").upper()
 
-                if ship_hex == target_hex:  
+                if ship_hex == target_hex:
                     items = ship.get("items", {})
                     if not items:
                         self.result_text.insert(tk.END, "\nNo items recorded")
@@ -1404,7 +1404,7 @@ The exported file will contain all transactions matching your current filters, f
             title="Save transaction data"
         )
 
-        if not file_path:  
+        if not file_path:
             return
 
         try:
@@ -1439,7 +1439,7 @@ The exported file will contain all transactions matching your current filters, f
 
                         history = [(tuple(map(int, date.split('_'))), name)
                                 for date, name in data['name_history']]
-                        history.sort()  
+                        history.sort()
                         ship_name_cache[hex_id] = {
                             'history': history,
                             'current': data.get('current_name', '')
@@ -1567,7 +1567,7 @@ The exported file will contain all transactions matching your current filters, f
             processing_time = time.time() - start_time
             header_lines.insert(0, "")
             header_lines.insert(0, f"Processing completed in: {processing_time:.2f} seconds")
-            return header_lines + output  
+            return header_lines + output
 
         except Exception as e:
             return [f"report exploded: {str(e)}\n\nIf no information was given, you probably ran out of RAM. The limit is set to {max_mem_gb}GB. Change this on the first line after the \"import\" things in the code."]
@@ -1633,7 +1633,7 @@ The exported file will contain all transactions matching your current filters, f
                 lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
             self.result_text.tag_config(tag_name, foreground="black", underline=True)
 
-        self._display_current_ship_contents(hex_id)  
+        self._display_current_ship_contents(hex_id)
         self.result_text.config(state="disabled")
 
     def update_display(self):
@@ -1741,7 +1741,7 @@ The exported file will contain all transactions matching your current filters, f
             for hex_id, data in self.ship_names.items():
                 name_history = data.get("name_history", [])
                 if name_history:
-                    latest_date = name_history[-1][0]  
+                    latest_date = name_history[-1][0]
                     ships_to_process[hex_id] = latest_date
 
             date_ship_map = defaultdict(list)
@@ -1905,18 +1905,18 @@ The exported file will contain all transactions matching your current filters, f
 
         ship_id = tree.item(selected[0], "values")[0]
         if not hasattr(self, 'lookup_window') or not self.lookup_window.winfo_exists():
-            self.lookup_ship_name()  
+            self.lookup_ship_name()
         self.display_ship_history(ship_id.strip("{}"))
         self.lookup_window.lift()
 
     def sort_treeview(self, tree, col, numeric=False):
         items = [(tree.set(child, col), child) for child in tree.get_children('')]
-        
+
         if numeric:
             items.sort(key=lambda x: int(x[0].replace(',', '')), reverse=True)
         else:
             items.sort(key=lambda x: int(x[0].replace('#', '')))
-        
+
         for index, (val, child) in enumerate(items):
             tree.move(child, '', index)
 
@@ -1930,16 +1930,16 @@ The exported file will contain all transactions matching your current filters, f
             sorted_items = sorted(item_totals.items(),
                                 key=lambda x: next(
                                     (item[1] for item in ITEM_DB if item[0] == x[0]),
-                                    ""  
+                                    ""
                                 ))
         elif sort_option == "Name (Z-A)":
             sorted_items = sorted(item_totals.items(),
                                 key=lambda x: next(
                                     (item[1] for item in ITEM_DB if item[0] == x[0]),
-                                    ""  
+                                    ""
                                 ),
                                 reverse=True)
-        else:  
+        else:
             sorted_items = sorted(item_totals.items(), key=lambda x: x[0])
 
         item_totals = dict(sorted_items)
@@ -1949,38 +1949,38 @@ The exported file will contain all transactions matching your current filters, f
         selected = self.analysis_tree.selection()
         if not selected:
             return
-            
+
         item_id = int(self.analysis_tree.item(selected[0], "values")[0])
         contributions = item_contributions.get(item_id, {})
-        
+
         self.item_name_map = {item[0]: item[1] for item in ITEM_DB}
-        
+
         detail_win = tk.Toplevel()
         detail_win.title(
             f"Contributors for Item {item_id} "
             f"({self.item_name_map.get(item_id, 'Unknown Item')})"
         )
         detail_win.geometry("1000x500")
-        
+
         tree = ttk.Treeview(detail_win, columns=("rank", "ship_id", "ship_name", "count"), show="headings")
         tree.heading("rank", text="Rank", anchor="w")
         tree.heading("ship_id", text="Ship ID", anchor="w")
         tree.heading("ship_name", text="Ship Name", anchor="w")
         tree.heading("count", text="Count", anchor="e")
-        
+
         tree.column("rank", width=50, stretch=False)
         tree.column("ship_id", width=150)
         tree.column("ship_name", width=300)
         tree.column("count", width=100)
-        
+
         vsb = ttk.Scrollbar(detail_win, orient="vertical", command=tree.yview)
-        hsb = ttt.Scrollbar(detail_win, orient="horizontal", command=tree.xview)
+        hsb = ttk.Scrollbar(detail_win, orient="horizontal", command=tree.xview)
         tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-        
+
         tree.grid(row=0, column=0, sticky="nsew")
         vsb.grid(row=0, column=1, sticky="ns")
         hsb.grid(row=1, column=0, sticky="ew")
-        
+
         sorted_contribs = sorted(contributions.items(), key=lambda x: -x[1])
         for rank, (ship_id, count) in enumerate(sorted_contribs, start=1):
             name = self.ship_names.get(ship_id, {}).get("current_name", "Unknown")
@@ -1990,16 +1990,16 @@ The exported file will contain all transactions matching your current filters, f
                 name,
                 f"{count:,}"
             ))
-        
+
         detail_win.grid_rowconfigure(0, weight=1)
         detail_win.grid_columnconfigure(0, weight=1)
-        
+
         context_menu = tk.Menu(detail_win, tearoff=0)
-        context_menu.add_command(label="Sort by Rank", 
+        context_menu.add_command(label="Sort by Rank",
                                command=lambda: self.sort_treeview(tree, "rank", False))
-        context_menu.add_command(label="Sort by Count", 
+        context_menu.add_command(label="Sort by Count",
                                command=lambda: self.sort_treeview(tree, "count", True))
-        
+
         tree.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
 
     def export_analysis(self, item_totals, contributions):
