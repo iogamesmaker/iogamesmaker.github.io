@@ -105,7 +105,7 @@ ITEM_DB = [
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.4.2")
+        self.root.title("Dredark Log Scourer v 1.4.3")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -1713,56 +1713,112 @@ The exported file will contain all transactions matching your current filters, f
             if self.filtered_items:
                 self.search_combo.event_generate('<Down>')
 
+    def start_analysis(self, start_date, end_date):
+        self.download_in_progress = True
+        self.progress['value'] = 0
+        self.status_var.set("starting ship analysis")
+        analysis_thread = threading.Thread(
+            target=self.analyze_ships_thread,
+            args=(start_date, end_date),
+            daemon=True
+        )
+        analysis_thread.start()
+        self.root.after(100, self.check_download_progress)
+
     def analyze_ships(self):
         if self.ship_loading_in_progress or self.download_in_progress:
-            messagebox.showwarning("Warning", "something is happening cant you tell wait the fuck up retarded fucking fuck fuck")
+            messagebox.showwarning("Warning", "theres something happening cant you see retarded fucjking fuck fuck")
             return
 
         if not self.ship_names:
-
-            self.status_var.set("loading all ship data")
+            self.status_var.set("loading ship names...")
             self.progress["value"] = 0
             self.download_in_progress = True
             self.start_ship_data_loading()
             return
 
-        self.download_in_progress = True
-        self.progress['value'] = 0
-        self.status_var.set("starting ship analysis...")
+        analysis_dialog = tk.Toplevel(self.root)
+        analysis_dialog.title("range to analyze (from-to)")
+        analysis_dialog.geometry("300x150")
 
-        analysis_thread = threading.Thread(target=self.analyze_ships_thread, daemon=True)
-        analysis_thread.start()
-        self.root.after(100, self.check_download_progress)
+        start_frame = ttk.Frame(analysis_dialog)
+        start_frame.pack(pady=5)
+        start_year_var = tk.StringVar(value="2022")
+        start_month_var = tk.StringVar(value="11")
+        start_day_var = tk.StringVar(value="23")
 
-    def analyze_ships_thread(self):
+        ttk.Spinbox(start_frame, from_=2022, to=datetime.now().year, textvariable=start_year_var, width=5).pack(side="left", padx=2)
+        ttk.Spinbox(start_frame, from_=1, to=12, textvariable=start_month_var, width=3).pack(side="left", padx=2)
+        ttk.Spinbox(start_frame, from_=1, to=31, textvariable=start_day_var, width=3).pack(side="left", padx=2)
+
+        end_frame = ttk.Frame(analysis_dialog)
+        end_frame.pack(pady=5)
+        end_year_var = tk.StringVar(value=datetime.now().year)
+        end_month_var = tk.StringVar(value=datetime.now().month)
+        end_day_var = tk.StringVar(value=datetime.now().day)
+        ttk.Spinbox(end_frame, from_=2022, to=datetime.now().year, textvariable=end_year_var, width=5).pack(side="left", padx=2)
+        ttk.Spinbox(end_frame, from_=1, to=12, textvariable=end_month_var, width=3).pack(side="left", padx=2)
+        ttk.Spinbox(end_frame, from_=1, to=31, textvariable=end_day_var, width=3).pack(side="left", padx=2)
+
+        def validate_and_start():
+            try:
+                start_date = datetime(
+                    int(start_year_var.get()),
+                    int(start_month_var.get()),
+                    int(start_day_var.get())
+                )
+                end_date = datetime(
+                    int(end_year_var.get()),
+                    int(end_month_var.get()),
+                    int(end_day_var.get())
+                )
+                min_date = datetime(2022, 11, 23)
+                max_date = datetime.now()
+
+                if start_date < min_date or end_date < min_date:
+                    messagebox.showerror("Error", "hey the earliest possible date is 2022-11-23")
+                    return False
+
+                if start_date > max_date or end_date > max_date:
+                    messagebox.showerror("Error", "time traveler moment")
+                    return False
+
+                if start_date > end_date:
+                    start_date2 = start_date
+                    start_date = end_date
+                    end_date = start_date2
+
+                analysis_dialog.destroy()
+                self.start_analysis(start_date, end_date)
+            except ValueError:
+                messagebox.showerror("Error", "Invalid date.")
+
+        ttk.Button(analysis_dialog, text="Analyze", command=validate_and_start).pack(pady=10)
+
+    def analyze_ships_thread(self, start_date, end_date):
         try:
+            dates_to_process = []
+            current_date = start_date
+            while current_date <= end_date:
+                date_str = f"{current_date.year}_{current_date.month}_{current_date.day}"
+                dates_to_process.append(date_str)
+                current_date += timedelta(days=1)
 
-            ships_to_process = {}
-            for hex_id, data in self.ship_names.items():
-                name_history = data.get("name_history", [])
-                if name_history:
-                    latest_date = name_history[-1][0]
-                    ships_to_process[hex_id] = latest_date
-
-            date_ship_map = defaultdict(list)
-            for hex_id, date_str in ships_to_process.items():
-                date_ship_map[date_str].append(hex_id.upper().strip("{}"))
-
-            total_dates = len(date_ship_map)
+            total_dates = len(dates_to_process)
             self.download_queue.put(("PROGRESS", 0, total_dates, "Starting analysis..."))
 
             item_totals = defaultdict(int)
             item_contributions = defaultdict(lambda: defaultdict(int))
             processed_dates = 0
 
-            for date_str, hex_ids in date_ship_map.items():
+            for date_str in dates_to_process:
                 if not self.download_in_progress:
-                    self.download_queue.put(("CANCELLED", "stopped analyzing ships"))
+                    self.download_queue.put(("CANCELLED", "Analysis stopped."))
                     return
 
                 ships_path = os.path.join(self.local_data_dir, date_str, "ships.json.gz")
                 if not os.path.exists(ships_path):
-                    self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates, f"missing date: {date_str}"))
+                    self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates, f"Missing data for {date_str}"))
                     processed_dates += 1
                     continue
 
@@ -1770,25 +1826,20 @@ The exported file will contain all transactions matching your current filters, f
                     with gzip.open(ships_path, 'rb') as f:
                         ships_data = json.load(f)
 
-                    target_hexes = set(hex_ids)
-                    found = 0
-
                     for ship in ships_data:
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
-                        if hex_code in target_hexes:
-                            items = ship.get("items", {})
-                            for item_id, count in items.items():
-                                item_id_int = int(item_id)
-                                item_totals[item_id_int] += count
-                                item_contributions[item_id_int][hex_code] += count
-                            found += 1
+                        items = ship.get("items", {})
+                        for item_id, count in items.items():
+                            item_id_int = int(item_id)
+                            item_totals[item_id_int] += count
+                            item_contributions[item_id_int][hex_code] += count
 
                     self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates,
-                                            f"{date_str} - Processed {found}/{len(hex_ids)} ships"))
+                                            f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
                     processed_dates += 1
 
                 except Exception as e:
-                    self.download_queue.put(("ERROR", f"{date_str} expoded.: {str(e)}"))
+                    self.download_queue.put(("ERROR", f"Error processing {date_str}: {str(e)}"))
 
             self.download_queue.put(("ANALYSIS_COMPLETE", (item_totals, item_contributions)))
 
