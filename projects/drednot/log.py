@@ -105,7 +105,7 @@ ITEM_DB = [
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.4.1")
+        self.root.title("Dredark Log Scourer v 1.4.2")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -148,7 +148,7 @@ class EconLogScourer:
         else:
 
             base_path = os.path.join(os.path.expanduser('~'), '.local', 'share', 'DredarkLogScourer')
-        print(f"Data log files will be saved to {base_path}")
+        print(f"Data log files will be saved to {base_path}. Everything you do in this program will be temporary unless you press export.")
 
         self.local_data_dir = os.path.join(base_path, "drednot_data_raw")
         os.makedirs(self.local_data_dir, exist_ok=True)
@@ -1830,9 +1830,9 @@ The exported file will contain all transactions matching your current filters, f
 
         self.analysis_tree = ttk.Treeview(tree_container, columns=("item_id", "item_name", "total_count"), show="headings")
 
-        self.analysis_tree.heading("item_id", text="ID", command=lambda: self.sort_tree("item_id", True))
-        self.analysis_tree.heading("item_name", text="Item Name", command=lambda: self.sort_tree("item_name", False))
-        self.analysis_tree.heading("total_count", text="Total Count", command=lambda: self.sort_tree("total_count", True))
+        self.analysis_tree.heading("item_id", text="ID", command=lambda: self.sort_treeview(self.analysis_tree, "item_id", True))
+        self.analysis_tree.heading("item_name", text="Item Name", command=lambda: self.sort_treeview(self.analysis_tree, "item_name", False))
+        self.analysis_tree.heading("total_count", text="Total Count", command=lambda: self.sort_treeview(self.analysis_tree, "total_count", True))
 
         self.analysis_tree.column("item_id", width=80, anchor="center")
         self.analysis_tree.column("item_name", width=300, anchor="w")
@@ -1885,7 +1885,7 @@ The exported file will contain all transactions matching your current filters, f
                               text=item_name, anchor="n", angle=45)
 
     def populate_analysis_tree(self, item_totals, contributions, search_term=""):
-        self.analysis_tree.delete(*self.analysis_tree.get_children())
+        self.analysis_tree.delete(*self.analysis_tree.get_children(item=''))
         item_name_map = {item[0]: item[1] for item in ITEM_DB}
 
         filtered_items = [
@@ -1909,16 +1909,18 @@ The exported file will contain all transactions matching your current filters, f
         self.display_ship_history(ship_id.strip("{}"))
         self.lookup_window.lift()
 
-    def sort_treeview(self, tree, col, numeric=False):
-        items = [(tree.set(child, col), child) for child in tree.get_children('')]
+    def sort_treeview(self, tree, col, reverse):
+        items = [(tree.set(k, col), k) for k in tree.get_children('')]
 
-        if numeric:
-            items.sort(key=lambda x: int(x[0].replace(',', '')), reverse=True)
-        else:
-            items.sort(key=lambda x: int(x[0].replace('#', '')))
+        try:
+            items.sort(key=lambda x: int(x[0].replace('#', '')), reverse=reverse)
+        except ValueError:
+            items.sort(key=lambda x: x[0].lower(), reverse=reverse)
 
-        for index, (val, child) in enumerate(items):
-            tree.move(child, '', index)
+        for index, (_, k) in enumerate(items):
+            tree.move(k, '', index)
+
+        tree.heading(col, command=lambda: self.sort_treeview(tree, col, not reverse))
 
     def handle_sort_change(self, sort_option, item_totals, contributions):
         reverse = False
