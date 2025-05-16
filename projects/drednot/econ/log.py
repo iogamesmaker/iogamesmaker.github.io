@@ -105,7 +105,7 @@ ITEM_DB = [
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.4.3")
+        self.root.title("Dredark Log Scourer v 1.4.4")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -392,6 +392,22 @@ It only shows names from when the ship was loaded at least once in the day.
 Press the back button to go back to the ship name history if you want to return from seeing contents of a ship.
 
 Unchecking "Enable Searching" will disable searching by name, and will only show EXACT ID matches.
+            """,
+
+            "Analyze Items": """ITEM ANALYZER SUB-PROGRAM
+
+This program is really simple to use, just load ship names (press the button to load them), and then press the Analyze Items button again.
+
+Select a date for the analysis, or keep it at default to read all of the available data.
+This will return a list of ALL items and their total counts, without duplicates. So if it says that there is 2134849239458 iron in the economy, there is that much iron total in ALL ships combined together.
+
+This works by taking all of the ships.gz.json files, and reading all of the contents of all ships. It will only use the most recent available data per ship. This should be water-tight to any item being counted twice.
+
+Double-click an entry to see a leaderboard of so-called "contributors" to the item-count. See if your storage cuts the top 100 for amount of flux stored. You can then again double-click an entry to see its name history
+
+item 100000 is most likely some sort of flag item.
+The test items are probably cogg testing some shit out.
+I'm not sure how some ships have more starter items than allowed, Timmy no.1 {{E4862}} somehow has 9 starter cannons, 2 starter fabs, while testyy {{DAD5FA}} has 18 starter thrusters.
             """,
 
             "Exporting": """EXPORTING DATA
@@ -1739,7 +1755,7 @@ The exported file will contain all transactions matching your current filters, f
 
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
-        analysis_dialog.geometry("320x100")
+        analysis_dialog.geometry("320x120")
 
         start_frame = ttk.Frame(analysis_dialog)
         start_frame.pack(pady=5)
