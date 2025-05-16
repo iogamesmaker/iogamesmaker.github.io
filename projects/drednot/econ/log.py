@@ -1016,7 +1016,7 @@ The exported file will contain all transactions matching your current filters, f
     def download_error(self, error_msg):
         self.download_in_progress = False
         self.cancel_button.config(state="disabled")
-        messagebox.showerror("Error", f"data loading did boom this is 10000% your fault fuck you for breaking it no tech support for you: {error_msg}")
+        messagebox.showerror("Error", f"data loading did boom this is 10000% your fault fuck you for breaking it no tech support for you: {error_msg}\n(this is the dredark server screaming at you for downloading 900+ files in one go, dont worry, relaunch after it's done dowloading. it will redownload the missing files.)")
         self.status_var.set("data loading failed")
 
     def lookup_ship_name(self):
