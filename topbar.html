@@ -7,16 +7,26 @@
         <div class="dropdown">
             <a href="https://iogamesplayer.com/projects/">Projects</a>
             <div class="dropdown-content">
-              <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">The Mandelbrot Set</a>
-              <a href="https://iogamesplayer.com/projects/blackholerenderer/">Black Hole Renderer</a>
-              <a href="https://iogamesplayer.com/projects/raymarchedlandscape/">Raymarched Landscape</a>
-              <a href="https://iogamesplayer.com/projects/drednot/">Drednot.io scripting shit</a>
-              <!-- <a href="https://iogamesplayer.com/projects/unbiased_io_games_list/">Unbiased .io games list</a> -->
-              <a href="https://iogamesplayer.com/projects/smallstuff/">Small stuff not worthy of an own title</a>
+                <a href="https://iogamesplayer.com/projects/smoothmandelbrot/">The Mandelbrot Set</a>
+                <a href="https://iogamesplayer.com/projects/blackholerenderer/">Black Hole Renderer</a>
+                <a href="https://iogamesplayer.com/projects/raymarchedlandscape/">Raymarched Landscape</a>
+                <a href="https://iogamesplayer.com/projects/drednot/">Drednot.io scripting shit</a>
+                <a href="https://iogamesplayer.com/projects/smallstuff/">Small stuff not worthy of an own title</a>
             </div>
         </div>
         <div class="dropdown">
             <a href="https://iogamesplayer.com/info/">Info</a>
         </div>
+        <button class="mode-toggle">🌓</button>
     </div>
 </div>
+
+<!-- toggle button for theme -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.querySelector('.mode-toggle');
+    toggleButton?.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+  });
+</script>
