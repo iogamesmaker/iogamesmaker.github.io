@@ -32,80 +32,46 @@ def set_memory_limit():
     else:
         print(f"Warning: Memory limiting not working for {platform.system()} - careful you dont crash!")
 
-ITEM_DB = [
-    [1, "Iron"], [2, "Explosives"], [4, "Rubber"], [5, "Flux"], [6, "Fuel"],
-    [49, "Compressed Explosives"], [50, "Compressed Iron"], [51, "Volleyball"],
-    [52, "Golden Volleyball"], [53, "Basketball"], [54, "Golden Basketball"],
-    [55, "Beachball"], [56, "Football"], [100, "Wrench"], [101, "Shredder"],
-    [102, "Golden Shredder"], [103, "Repair Tool"], [104, "Handheld Pusher"],
-    [105, "Shield Booster"], [106, "Embiggener"], [107, "Shrinkinator"],
-    [108, "Backpack"], [109, "Speed Skates"], [110, "Booster Boots"],
-    [111, "Launcher Gauntlets"], [112, "Construction Gauntlets"], [113, "Rocketpack"],
-    [114, "Hoverpack"], [115, "Manifest"], [116, "BOM"], [120, "Blueprint Scanner"],
-    [122, "RCD"], [123, "Shield Core"], [150, "Standard Ammo"], [151, "Scattershot Ammo"],
-    [152, "Flak Ammo"], [153, "Sniper Ammo"], [154, "Punch Ammo"], [155, "Yank Ammo"],
-    [156, "Slug Ammo"], [159, "Booster Fuel (low)"], [160, "Booster Fuel (high)"],
-    [162, "Rapid Fire"], [163, "Rapid Fire Depleted"], [164, "Preservation"],
-    [165, "Preservation Depleted"], [166, "Cooling Cell"], [167, "Hot Cooling Cell"],
-    [168, "Burst Charge"], [215, "Helm"], [217, "Comms"], [218, "Sign"],
-    [219, "Spawn"], [220, "Door"], [221, "Cargo Hatch"], [223, "Cargo Ejector"],
-    [224, "Turret Controller"], [226, "Cannon / RC"], [228, "Burst"], [229, "Machine / Auto"],
-    [230, "Thruster"], [232, "Iron block"], [233, "Rubber block"], [234, "Ice / Glass block"],
-    [235, "Ladder"], [236, "Walkway"], [237, "Item net"], [239, "Paint"],
-    [240, "Expando box"], [241, "Safety anchor"], [242, "Pusher"], [243, "Item launcher"],
-    [245, "Recycler"], [246, "Legacy"], [248, "Munitions fabricator"], [249, "Engineering fabricator"],
-    [251, "Equipment fabricator"], [252, "Loader"], [253, "Lockdown override unit"],
-    [255, "Fluid Tank"], [256, "Shield Generator"], [257, "Shield Projector"],
-    [258, "Enhanced Turret Controller"], [262, "Logistic Rail"], [263, "Acute"],
-    [264, "MSU / Munition supply unit"], [265, "Obtuse"], [305, "Golden Null"], [307, "Silver Null"],
-    [306, "Bug Hunter"], [326, "Open lootbox"], [327, "Closed lootbox"],
-    [225, "Manual turret (Deprecated)"],[3, "Silica (Deprecated)"], [250, "Machine Fabricator (Deprecated)"],[100000,"Unknown Item"],
-    [244, "Old Loader"],
-
-    [117, "Starter Wrench"],
-    [118, "Starter Shredder"],
-    [119, "Hand Cannon"],
-    [121, "Sandbox RCD"],
-    [157, "Trash Box"],
-    [161, "Void Orb"],
-    [216, "Starter Helm"],
-    [222, "Starter Hatch"],
-    [227, "Starter Cannon"],
-    [231, "Starter Thruster"],
-    [247, "Starter Fab"],
-    [261, "Navigation Unit"],
-    [254, "Annihilator Tile"],
-    [259, "Bulk Ejector "],
-    [260, "Bulk Loading Bay Designator"],
-    [300, "Eternal Bronze Wrench"],
-    [301, "Eternal Silver Wrench"],
-    [302, "Eternal Gold Wrench"],
-    [303, "Eternal Flux Wrench"],
-    [304, "Eternal Platinum Wrench"],
-    [308, "Bronze Wrench"],
-    [309, "Silver Wrench"],
-    [310, "Gold Wrench"],
-    [311, "Platinum Wrench"],
-    [312, "Flux Wrench"],
-    [313, "Lesser Cap"],
-    [314, "Goofy Glasses"],
-    [315, "Shades"],
-    [316, "Top Hat"],
-    [317, "Demon Horns"],
-    [318, "Alien Mask"],
-    [319, "Clown Mask"],
-    [320, "Goblin Mask"],
-    [321, "Pumpkin"],
-    [322, "Witch Hat"],
-    [323, "Wild Gremlin (Red)"],
-    [324, "Wild Gremlin (Orange)"],
-    [325, "Wild Gremlin (Yellow)"]
-]
+manual_item_values = {
+    "Iron": 0.0625,
+    "Explosives": 0.05,
+    "Hyper Rubber": 0.5,
+    "Flux Crystals": 1.0,
+    "Compressed Explosives": 0.8,
+    "Compressed Iron": 1.0,
+    "Volleyball": 8.0,
+    "Basketball": 8.0,
+    "Beach Ball": 8.0,
+    "Football": 8.0,
+    "Golden Item Shredder": 90000.0,
+    "Backpack": 1.0,
+    "Manifest Scanner": 48.0,
+    "BoM Scanner": 48.0,
+    "Blueprint Scanner": 4.0,
+    "Flux RCD": 64.0,
+    "Shield Core": 0.0625,
+    "Cannon (Packaged)": 1.5,
+    "Burst Cannon (Packaged)": 4.0,
+    "Machine Cannon (Packaged)": 32.0,
+    "Thruster (Starter, Packaged)": 0.0,
+    "Hyper Ice Block": 0.125,
+    "DEPRECATED ITEM": 2.5,
+    "Fabricator (Legacy, Packaged)": 45000.0,
+    "Shield Generator": 0.5,
+    "Shield Projector": 16.0,
+    "Acute Cannon (Packaged)": 2.0,
+    "Munitions Supply Unit (Packaged)": 1.0,
+    "Obtuse Cannon (Packaged)": 2.0,
+    "Gold Null Trophy": 1000000.0,
+    "Silver Null Trophy": 250000.0,
+    "Elimination Loot Box": 16.0,
+    "Elimination Loot Box (Locked)": 16.0,
+}
 
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.4.4")
+        self.root.title("Dredark Log Scourer v 1.5.0")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -115,7 +81,23 @@ class EconLogScourer:
         self.raw_data = []
         self.filtered_data = []
         self.ship_names = {}
-        self.all_items = [f"{item[0]}: {item[1]}" for item in ITEM_DB]
+
+        self.base_path = ""
+
+        if platform.system() == 'Windows':
+            base_path = os.path.join(os.getenv('LOCALAPPDATA'), 'DredarkLogScourer')
+        else:
+            base_path = os.path.join(os.path.expanduser('~'), '.local', 'share', 'DredarkLogScourer')
+        print(f"Data log files will be saved to {base_path}. Everything you do in this program will be temporary unless you press export.")
+
+        self.local_data_dir = os.path.join(base_path, "drednot_data_raw")
+        os.makedirs(self.local_data_dir, exist_ok=True)
+
+        if not os.path.exists(os.path.join(self.local_data_dir, "item_schema.json")):
+            self.fetch_item_schema()
+
+        self.load_item_schema()
+        self.all_items = [f"{item['id']}: {item['name']}" for item in self.item_list]
         self.filtered_items = self.all_items.copy()
         self.show_bots = tk.BooleanVar(value=True)
         self.text_size_var = tk.IntVar(value=10)
@@ -141,22 +123,10 @@ class EconLogScourer:
         self.end_year_var = tk.StringVar(value="2022")
         self.end_month_var = tk.StringVar(value="11")
         self.end_day_var = tk.StringVar(value="23")
-        
-        self.base_path = ""
-        
-        if platform.system() == 'Windows':
-            base_path = os.path.join(os.getenv('LOCALAPPDATA'), 'DredarkLogScourer')
-        else:
-            base_path = os.path.join(os.path.expanduser('~'), '.local', 'share', 'DredarkLogScourer')
-        print(f"Data log files will be saved to {base_path}. Everything you do in this program will be temporary unless you press export.")
-
-        self.local_data_dir = os.path.join(base_path, "drednot_data_raw")
-        os.makedirs(self.local_data_dir, exist_ok=True)
 
         self.create_widgets()
         self.configure_text_tags()
         self.apply_display_settings()
-
         self.check_and_download_data()
 
     def configure_text_tags(self):
@@ -206,6 +176,81 @@ class EconLogScourer:
         download_thread.start()
         self.root.after(100, self.check_download_progress)
 
+    def fetch_item_schema(self):
+        schema_url = "https://pub.drednot.io/prod/econ/item_schema.json"
+        try:
+            resp = requests.get(schema_url, timeout=10)
+            resp.raise_for_status()
+            raw = resp.json()
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to download item schema:\n{e}")
+            return
+
+        filtered = []
+        for entry in raw:
+            item = {"id": entry["id"], "name": entry["name"]}
+
+            fab = entry.get("fab_recipe", {})
+            inputs = fab.get("input")
+            out_count = fab.get("count")
+            if isinstance(inputs, list) and isinstance(out_count, (int, float)):
+                # store both recipe inputs and output count
+                item["recipe"] = {
+                    "inputs": inputs,
+                    "output_count": out_count
+                }
+
+            filtered.append(item)
+
+        manual_additions = [
+            {"id": 100000, "name": "Unknown Item", "recipe": []}
+        ]
+        filtered.extend(manual_additions)
+
+        try:
+            os.makedirs(self.local_data_dir, exist_ok=True)
+            path = os.path.join(self.local_data_dir, "item_schema.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(filtered, f)
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not save item schema:\n{e}")
+
+    def build_item_value_map(self):
+        self.item_value_map = {}
+        name_to_id = {e["name"]: e["id"] for e in self.item_list}
+
+        for name, val in manual_item_values.items():
+            if name in name_to_id:
+                self.item_value_map[name_to_id[name]] = float(val)
+
+        for entry in self.item_list:
+            rid = entry["id"]
+            if rid in self.item_value_map:
+                continue
+
+            rec = entry.get("recipe")
+            if not rec:
+                continue
+
+            inputs = rec["inputs"]
+            out_cnt = rec["output_count"]
+            total_input_value = 0.0
+            valid = True
+
+            for ing in inputs:
+                iv = self.item_value_map.get(ing["id"])
+                if iv is None:
+                    valid = False
+                    break
+                total_input_value += iv * ing["count"]
+
+            if valid and out_cnt > 0:
+                self.item_value_map[rid] = total_input_value / out_cnt
+
+        for item in self.item_list:
+            if item["id"] not in self.item_value_map:
+                self.item_value_map[item["id"]] = 0.0
+
     def download_dates_thread(self, dates_to_download):
         try:
             total_dates = len(dates_to_download)
@@ -221,7 +266,7 @@ class EconLogScourer:
                 base_url = "https://pub.drednot.io/prod/econ"
 
                 self.download_queue.put(("PROGRESS", i + 1, total_dates,
-                                    f"downloading {date_str} ({i+1}/{total_dates})."))
+                                         f"downloading {date_str} ({i+1}/{total_dates})."))
 
                 try:
                     ships_url = f"{base_url}/{date_str}/ships.json.gz"
@@ -259,6 +304,24 @@ class EconLogScourer:
         except Exception as e:
             self.download_queue.put(("ERROR", str(e)))
 
+    def load_item_schema(self):
+        path = os.path.join(self.local_data_dir, "item_schema.json")
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                schema = json.load(f)
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not load item schema:\n{e}")
+            self.item_list = []
+            self.item_name_map = {}
+            self.item_recipe_map = {}
+            return
+
+        self.item_list = schema
+        self.item_name_map = {entry["id"]: entry["name"] for entry in schema}
+        self.item_recipe_map = {entry["id"]: entry.get("recipe", []) for entry in schema}
+
+        self.build_item_value_map()
+
     def is_operation_in_progress(self):
         return (self.download_in_progress or
                 (hasattr(self, 'loading_thread') and self.loading_thread.is_alive()))
@@ -266,9 +329,9 @@ class EconLogScourer:
     def on_closing(self):
         if self.is_operation_in_progress():
             if messagebox.askokcancel(
-                "something is still going on\n"
-                "you sure?",
-                icon=messagebox.WARNING
+                    "something is still going on\n"
+                    "you sure?",
+                    icon=messagebox.WARNING
             ):
                 self.download_in_progress=False
                 self.root.destroy()
@@ -299,7 +362,7 @@ class EconLogScourer:
         content_frame.pack(side="right", fill="both", expand=True)
 
         help_text = tk.Text(content_frame, wrap="word", font=("Arial", 12),
-                        padx=5, pady=10, state="disabled")
+                            padx=5, pady=10, state="disabled")
         scrollbar = ttk.Scrollbar(content_frame, orient="vertical", command=help_text.yview)
         help_text.configure(yscrollcommand=scrollbar.set)
 
@@ -409,6 +472,45 @@ item 100000 is most likely some sort of flag item.
 The test items are probably cogg testing some shit out.
 I'm not sure how some ships have more starter items than allowed, Timmy no.1 {{E4862}} somehow has 9 starter cannons, 2 starter fabs, while testyy {{DAD5FA}} has 18 starter thrusters.
             """,
+            "Your Items": """YOUR ITEMS
+This little button allows you to check out all the items you possess. It includes a flux value, but that's pretty subjective ngl. Full list is here:
+EVERYTHING NOT PRESENT IS MADE UP OF THE CRAFTING STUFF'S VALUE - OR IS 0.0.
+    "Iron": 0.0625,
+    "Explosives": 0.05,
+    "Hyper Rubber": 0.5,
+    "Flux Crystals": 1.0,
+    "Compressed Explosives": 0.8,
+    "Compressed Iron": 1.0,
+    "Volleyball": 8.0,
+    "Basketball": 8.0,
+    "Beach Ball": 8.0,
+    "Football": 8.0,
+    "Golden Item Shredder": 90000.0,
+    "Backpack": 1.0,
+    "Manifest Scanner": 48.0,
+    "BoM Scanner": 48.0,
+    "Blueprint Scanner": 4.0,
+    "Flux RCD": 64.0,
+    "Shield Core": 0.0625,
+    "Cannon (Packaged)": 1.5,
+    "Burst Cannon (Packaged)": 4.0,
+    "Machine Cannon (Packaged)": 32.0,
+    "Thruster (Starter, Packaged)": 0.0,
+    "Hyper Ice Block": 0.125,
+    "DEPRECATED ITEM": 2.5,
+    "Fabricator (Legacy, Packaged)": 45000.0,
+    "Shield Generator": 0.5,
+    "Shield Projector": 16.0,
+    "Acute Cannon (Packaged)": 2.0,
+    "Munitions Supply Unit (Packaged)": 1.0,
+    "Obtuse Cannon (Packaged)": 2.0,
+    "Gold Null Trophy": 1000000.0,
+    "Bug Hunter Trophy": 0.0,
+    "Silver Null Trophy": 250000.0,
+    "Elimination Loot Box": 16.0,
+    "Elimination Loot Box (Locked)": 16.0
+
+""",
 
             "Exporting": """EXPORTING DATA
 
@@ -440,21 +542,16 @@ The exported file will contain all transactions matching your current filters, f
         text_widget.config(state="disabled")
 
     def create_widgets(self):
-
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky="nsew")
-
         main_frame.columnconfigure(0, weight=1)
         main_frame.columnconfigure(1, weight=1)
         main_frame.rowconfigure(5, weight=1)
 
         date_frame = ttk.Frame(main_frame)
         date_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=5)
-        date_frame.columnconfigure(0, weight=1)
-        date_frame.columnconfigure(1, weight=0)
-        date_frame.columnconfigure(2, weight=0)
-        date_frame.columnconfigure(3, weight=0)
-        date_frame.columnconfigure(4, weight=1)
+        for i in range(5):
+            date_frame.columnconfigure(i, weight=1)
 
         start_frame = ttk.Frame(date_frame)
         start_frame.grid(row=0, column=0, sticky="w")
@@ -468,14 +565,14 @@ The exported file will contain all transactions matching your current filters, f
                     textvariable=self.start_day_var, width=3).pack(side="left", padx=2)
 
         ttk.Button(date_frame, text="Load Data", command=self.load_data
-                ).grid(row=0, column=1, padx=(10,5), sticky="ew")
+                   ).grid(row=0, column=1, padx=(10,5), sticky="ew")
 
         self.cancel_button = ttk.Button(date_frame, text="Cancel", command=self.cancel_loading,
-                              state="disabled")
+                                        state="disabled")
         self.cancel_button.grid(row=0, column=2, padx=5, sticky="ew")
 
         ttk.Button(date_frame, text="Set To = From", command=self.set_same,
-                width=12).grid(row=0, column=3, padx=(5,10), sticky="ew")
+                   width=12).grid(row=0, column=3, padx=(5,10), sticky="ew")
 
         end_frame = ttk.Frame(date_frame)
         end_frame.grid(row=0, column=4, sticky="e")
@@ -489,7 +586,7 @@ The exported file will contain all transactions matching your current filters, f
                     textvariable=self.end_day_var, width=3).pack(side="left", padx=2)
 
         self.progress = ttk.Progressbar(main_frame, orient="horizontal",
-                                    length=300, mode="determinate")
+                                        length=300, mode="determinate")
         self.progress.grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
 
         self.status_var = tk.StringVar(value="Ready to load data")
@@ -504,7 +601,7 @@ The exported file will contain all transactions matching your current filters, f
         item_filter_frame.grid(row=0, column=0, padx=5, sticky="ew")
         ttk.Label(item_filter_frame, text="Item Filter:").pack(side="left")
         self.search_combo = ttk.Combobox(item_filter_frame, textvariable=self.filter_item_var,
-                                        values=self.filtered_items)
+                                         values=self.filtered_items)
         self.search_combo.pack(side="left", fill="x", expand=True, padx=5)
         self.search_combo.bind('<Return>', lambda e: self.root.after(50, self.update_filter))
 
@@ -531,9 +628,9 @@ The exported file will contain all transactions matching your current filters, f
         filter_check_frame.grid(row=1, column=0, columnspan=2, pady=5, sticky="w")
 
         ttk.Checkbutton(filter_check_frame, text="Only show ship transactions", variable=self.show_bots,
-                       command=self.update_display).pack(side="left", padx=5)
+                        command=self.update_display).pack(side="left", padx=5)
         ttk.Checkbutton(filter_check_frame, text="Use ship names", variable=self.use_ship_names,
-               command=self.toggle_ship_names).pack(side="left", padx=5)
+                        command=self.toggle_ship_names).pack(side="left", padx=5)
 
         ttk.Button(filter_check_frame, text="Help", width=6, command=self.show_help_menu).pack(side="right", padx=5)
 
@@ -558,10 +655,8 @@ The exported file will contain all transactions matching your current filters, f
 
         button_frame = ttk.Frame(main_frame)
         button_frame.grid(row=6, column=0, columnspan=2, sticky="sew", pady=(0,5))
-        button_frame.columnconfigure(0, weight=1)
-        button_frame.columnconfigure(1, weight=1)
-        button_frame.columnconfigure(2, weight=1)
-        button_frame.columnconfigure(3, weight=1)
+        for i in range(5):
+            button_frame.columnconfigure(i, weight=1)
 
         ttk.Button(button_frame, text="Lookup Ship Name", command=self.lookup_ship_name).grid(
             row=0, column=0, padx=5, sticky="sew")
@@ -569,8 +664,10 @@ The exported file will contain all transactions matching your current filters, f
             row=0, column=1, padx=5, sticky="sew")
         ttk.Button(button_frame, text="Refresh", command=self.update_display).grid(
             row=0, column=2, padx=5, sticky="sew")
-        ttk.Button(button_frame, text="Analyze Items", command=self.analyze_ships).grid(
+        ttk.Button(button_frame, text="Your Items", command=self.open_shiplist_window).grid(
             row=0, column=3, padx=5, sticky="sew")
+        ttk.Button(button_frame, text="Economy", command=self.analyze_ships).grid(
+            row=0, column=4, padx=5, sticky="sew")
 
         self.root.minsize(720, 300)
 
@@ -609,6 +706,14 @@ The exported file will contain all transactions matching your current filters, f
         ttk.Button(settings_win, text="Close", command=settings_win.destroy).grid(
             row=3, column=0, columnspan=6, pady=10
         )
+
+        ttk.Separator(frame, orient="horizontal").pack(fill="x", pady=5)
+        btn_schema = ttk.Button(
+            frame,
+            text="Redownload Item Schema",
+            command=self.fetch_item_schema()
+        )
+        btn_schema.pack(fill="x", pady=(5, 10))
 
     def apply_display_settings(self):
         try:
@@ -683,7 +788,7 @@ The exported file will contain all transactions matching your current filters, f
                     print(f"error loading {date_str}'s ships: {str(e)}")
 
                 self.download_queue.put(("SHIP_PROGRESS", i+1, total_dates,
-                                    f"processing {date_str} ({i+1}/{total_dates})"))
+                                         f"processing {date_str} ({i+1}/{total_dates})"))
 
             if self.download_in_progress:
                 self.download_queue.put(("SHIP_COMPLETE", len(self.ship_names)))
@@ -798,7 +903,7 @@ The exported file will contain all transactions matching your current filters, f
 
                 progress = i + 1
                 self.download_queue.put(("PROGRESS", progress, total_dates,
-                                        f"Processed {date_str} ({progress}/{total_dates}) - {len(self.raw_data)} filtered"))
+                                         f"Processed {date_str} ({progress}/{total_dates}) - {len(self.raw_data)} filtered"))
 
                 with gzip.open(log_path, 'rb') as f:
                     if self.cancel_event.is_set():
@@ -825,16 +930,16 @@ The exported file will contain all transactions matching your current filters, f
                             current_src = str(entry.get("src", "")).lower()
                             src_clean = current_src.strip('{}')
                             if (source_filter not in current_src and
-                                (src_clean not in self.ship_names or
-                                source_filter not in str(self.ship_names.get(src_clean, "")).lower())):
+                                    (src_clean not in self.ship_names or
+                                     source_filter not in str(self.ship_names.get(src_clean, "")).lower())):
                                 continue
 
                         if dest_filter:
                             current_dst = str(entry.get("dst", "")).lower()
                             dst_clean = current_dst.strip('{}')
                             if (dest_filter not in current_dst and
-                                (dst_clean not in self.ship_names or
-                                dest_filter not in str(self.ship_names.get(dst_clean, "")).lower())):
+                                    (dst_clean not in self.ship_names or
+                                     dest_filter not in str(self.ship_names.get(dst_clean, "")).lower())):
                                 continue
 
                         filtered_day_data.append(entry)
@@ -847,62 +952,6 @@ The exported file will contain all transactions matching your current filters, f
 
         except Exception as e:
             self.download_queue.put(("ERROR", str(e)))
-
-    def _passes_filters(self, entry):
-        if not isinstance(entry, dict):
-            return False
-
-        item_filter = self.filter_item_var.get()
-        source_filter = self.filter_source_var.get().lower() if isinstance(self.filter_source_var.get(), str) else ""
-        dest_filter = self.filter_dest_var.get().lower() if isinstance(self.filter_dest_var.get(), str) else ""
-        hide_bots = self.show_bots.get()
-
-        current_item = entry.get("item")
-        current_src = str(entry.get("src", "?")).lower()
-        current_dst = str(entry.get("dst", "?")).lower()
-
-        if item_filter:
-            try:
-                item_id = int(item_filter.split(":")[0])
-                if current_item != item_id:
-                    return False
-            except (ValueError, IndexError):
-                pass
-
-        if hide_bots:
-            if not (current_src.startswith('{') and current_dst.startswith('{')):
-                return False
-
-        if source_filter:
-            src_clean = current_src.strip('{}')
-            if (source_filter not in current_src and
-                (src_clean not in self.ship_names or
-                source_filter not in str(self.ship_names.get(src_clean, "")).lower())):
-                return False
-
-        if dest_filter:
-            dst_clean = current_dst.strip('{}')
-            if (dest_filter not in current_dst and
-                (dst_clean not in self.ship_names or
-                dest_filter not in str(self.ship_names.get(dst_clean, "")).lower())):
-                return False
-
-        return True
-
-    def process_log_data(self, log_data):
-        if not isinstance(log_data, list):
-            return []
-
-        filtered_data = []
-        for entry in log_data:
-            try:
-                if not isinstance(entry, dict):
-                    continue
-
-            except (KeyError, IndexError) as e:
-                print(f"wrong log entry: {e}")
-                continue
-        return filtered_data
 
     def load_data(self):
         if not self.validate_date_range():
@@ -1306,8 +1355,9 @@ The exported file will contain all transactions matching your current filters, f
             with gzip.open(ships_path, "rb") as f:
                 ships_data = json.load(f)
 
-            item_name_map = {item[0]: item[1] for item in ITEM_DB}
+            item_name_map = self.item_name_map
             found = False
+            total_value = 0.0
 
             for ship in ships_data:
 
@@ -1317,23 +1367,34 @@ The exported file will contain all transactions matching your current filters, f
                 if ship_hex == target_hex:
                     items = ship.get("items", {})
                     if not items:
-                        self.result_text.insert(tk.END, "\nNo items recorded")
+                        self.result_text.insert(tk.END, "\nweird, no items recorded. hmm")
                         return
 
                     sorted_items = sorted(
                         items.items(),
                         key=lambda x: int(x[0])
                     )
-                    self.result_text.insert(tk.END, "\nItem ID | Count | Item Name\n")
-                    self.result_text.insert(tk.END, "-"*40 + "\n")
+                    self.result_text.insert(tk.END, "\nItem ID | Count | Item Name | Value\n")
+                    self.result_text.insert(tk.END, "-"*55 + "\n")
 
                     for item_id, count in sorted_items:
-                        item_name = item_name_map.get(int(item_id), "Unknown Item")
+                        try:
+                            item_id_int = int(item_id)
+                        except ValueError:
+                            continue
+
+                        item_name = item_name_map.get(item_id_int, "UnknownItem")
+                        unit_value = self.item_value_map.get(item_id_int, 0.0)
+                        item_value = unit_value * int(count)
+                        total_value += item_value
                         self.result_text.insert(
                             tk.END,
-                            f"{item_id:>7} | {count:>5} | {item_name}\n"
+                            f"{item_id:>3} | {count:>6} | {item_name:45} | {item_value:9.2f}\n"
                         )
                     found = True
+                    self.result_text.insert(tk.END, "-"*55 + "\n")
+                    self.result_text.insert(tk.END,
+                        f"{'TOTAL SHIP VALUE:':>45} {total_value:9.2f}\n")
                     break
 
             if not found:
@@ -1343,6 +1404,165 @@ The exported file will contain all transactions matching your current filters, f
             self.result_text.insert(tk.END, "\ncorrupted ship file")
         except Exception as e:
             self.result_text.insert(tk.END, f"\boom: {str(e)}")
+
+    def open_shiplist_window(self):
+        if self.ship_loading_in_progress or self.download_in_progress:
+            messagebox.showwarning("Warning", "wait up  sum is happening")
+            return
+
+        if not self.ship_names:
+            self.status_var.set("loading all ship names...")
+            self.progress["value"] = 0
+            self.download_in_progress = True
+            self.start_ship_data_loading()
+            return
+
+        self.shiplist_window = tk.Toplevel(self.root)
+        self.shiplist_window.title("Shiplist → Aggregate Items")
+        self.shiplist_window.minsize(600, 500)
+        self.shiplist_window.geometry("650x550")
+
+        frame = ttk.Frame(self.shiplist_window, padding=10)
+        frame.pack(fill="both", expand=True)
+
+        url_frame = ttk.Frame(frame)
+        url_frame.pack(fill="x", pady=(0, 1))
+        ttk.Label(url_frame, text="Shiplist URL (copy/paste):").pack(side="left")
+        url_entry = ttk.Entry(url_frame, state="readonly")
+        url_entry.pack(side="left", fill="x", expand=true, padx=(1, 0))
+        url_entry.configure(state="normal")
+        url_entry.insert(0, "https://drednot.io/shiplist?server=0")
+        url_entry.configure(state="readonly")
+
+        paste_label = ttk.Label(frame, text="paste everything in here:")
+        paste_label.pack(anchor="w", pady=(5, 0))
+
+        self.shiplist_text = tk.Text(frame, wrap="none", height=1)
+        self.shiplist_text.pack(fill="both", expand=False, padx=5, pady=(0, 5))
+
+        btn_frame = ttk.Frame(frame)
+        btn_frame.pack(fill="x", pady=(10, 5))
+        ttk.Button(btn_frame, text="Process", command=self.process_shiplist_json).pack(side="right")
+
+        self.shiplist_result_text = tk.Text(frame, wrap="none", state="disabled", height=12)
+        self.shiplist_result_text.pack(fill="both", expand=True, padx=5, pady=(0, 5))
+
+    def process_shiplist_json(self):
+        raw = self.shiplist_text.get("1.0", tk.END).strip()
+        if not raw:
+            messagebox.showerror("Error", "put some json in the damn field")
+            return
+
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError as e:
+            messagebox.showerror("Error", f"Invalid JSON: {e}")
+            return
+
+        if isinstance(data, dict) and "ships" in data:
+            ships_dict = data["ships"]
+        elif isinstance(data, list):
+            ships_dict = {str(i): entry for i, entry in enumerate(data)}
+        else:
+            messagebox.showerror(
+                "Error",
+                "Expected a JSON object with 'ships', or a raw list of ship-entries."
+            )
+            return
+
+        owned_ships = []
+        for ship_key, entry in ships_dict.items():
+            if not isinstance(entry, dict):
+                continue
+            if entry.get("owned") is True:
+                hex_id = entry.get("hex_code") or entry.get("hexCode") or entry.get("hex")
+                if hex_id:
+                    h = hex_id.strip("{}").upper()
+                    owned_ships.append(h)
+
+        if not owned_ships:
+            messagebox.showinfo("Result", "lmao poor fuck you own NONE of  those")
+            return
+
+        item_name_map = {item["id"]: item["name"] for item in self.item_list}
+
+        aggregated = {}
+        missing = []
+
+        for hex_id in owned_ships:
+            if hex_id not in self.ship_names:
+                missing.append(hex_id)
+                continue
+
+            history = self.ship_names[hex_id].get("name_history", [])
+            if not history:
+                missing.append(hex_id)
+                continue
+
+            latest_date = max(history, key=lambda x: tuple(map(int, x[0].split("_"))))[0]
+            ships_path = os.path.join(self.local_data_dir, latest_date, "ships.json.gz")
+            if not os.path.exists(ships_path):
+                missing.append(hex_id)
+                continue
+
+            try:
+                with gzip.open(ships_path, "rb") as f:
+                    ships_data = json.load(f)
+            except Exception:
+                missing.append(hex_id)
+                continue
+
+            found = False
+            for ship_entry in ships_data:
+                ship_hex = ship_entry.get("hex_code", "").strip("{}").upper()
+                if ship_hex == hex_id:
+                    items = ship_entry.get("items", {}) or {}
+                    for sid_str, cnt in items.items():
+                        try:
+                            sid = int(sid_str)
+                        except ValueError:
+                            continue
+                        aggregated[sid] = aggregated.get(sid, 0) + int(cnt)
+                    found = True
+                    break
+
+            if not found:
+                missing.append(hex_id)
+
+        output_lines = []
+        if missing:
+            output_lines.append(
+                f"no data for {len(missing)} of your ships - they probably weren't loaded after 2022-11-23, or were created today. Wait for the new logs to drop."
+            )
+            output_lines.append("missing: " + ", ".join(missing))
+            output_lines.append("")
+
+        name_map  = self.item_name_map
+        value_map = self.item_value_map
+
+        output_lines.append("")
+        output_lines.append(f"{'ID':>3} | {'Name':45} | {'Count':>6} | {'Unit Value':>9} | {'Total Value':>13}")
+        output_lines.append("-"*75)
+
+        grand_total = 0.0
+        for sid in sorted(aggregated):
+            cnt      = aggregated[sid]
+            nm       = name_map.get(sid, f"Item {sid}")
+            unit_val = value_map.get(sid, 0.0)
+            tot_val  = unit_val * cnt
+            grand_total += tot_val
+            output_lines.append(
+                f"{sid:>7} | {nm:40} | {cnt:7d} | {unit_val:11.2f} | {tot_val:13.2f}"
+            )
+
+        output_lines.append("-"*75)
+        output_lines.append(f"{'':>44} Grand Total: {grand_total:12.2f}")
+
+        self.shiplist_result_text.configure(state="normal")
+        self.shiplist_result_text.delete("1.0", tk.END)
+        for line in output_lines:
+            self.shiplist_result_text.insert(tk.END, line + "\n")
+        self.shiplist_result_text.configure(state="disabled")
 
     def _display_current_ship_contents(self, hex_id):
         latest_date = max(
@@ -1397,8 +1617,8 @@ The exported file will contain all transactions matching your current filters, f
             return []
 
         return sorted(self.ship_names[hex_id]["name_history"],
-                    key=lambda x: tuple(map(int, x[0].split('_'))),
-                    reverse=True)
+                      key=lambda x: tuple(map(int, x[0].split('_'))),
+                      reverse=True)
 
     def export_to_txt(self):
         if not self.filtered_data:
@@ -1446,7 +1666,7 @@ The exported file will contain all transactions matching your current filters, f
             if not self.filtered_data:
                 return header_lines + ["No transactions found matching filters"]
 
-            item_name_cache = {item[0]: item[1] for item in ITEM_DB}
+            item_name_cache = {item["id"]: item["name"] for item in self.item_list}
 
             ship_name_cache = {}
             if self.use_ship_names.get():
@@ -1454,7 +1674,7 @@ The exported file will contain all transactions matching your current filters, f
                     if 'name_history' in data:
 
                         history = [(tuple(map(int, date.split('_'))), name)
-                                for date, name in data['name_history']]
+                                   for date, name in data['name_history']]
                         history.sort()
                         ship_name_cache[hex_id] = {
                             'history': history,
@@ -1492,7 +1712,7 @@ The exported file will contain all transactions matching your current filters, f
             summary_lines = ["Summary of filtered data:", ""]
 
             for item_id, transactions in sorted(item_groups.items(),
-                                            key=lambda x: sum(t[3] for t in x[1]), reverse=True):
+                                                key=lambda x: sum(t[3] for t in x[1]), reverse=True):
                 item_name = item_name_cache.get(item_id, str(item_id))
                 total = sum(t[3] for t in transactions)
                 summary_lines.append(f"{item_name}: {total} total items moved")
@@ -1501,8 +1721,8 @@ The exported file will contain all transactions matching your current filters, f
             output.append("")
 
             for item_id, transactions in sorted(item_groups.items(),
-                                            key=lambda x: sum(t[3] for t in x[1]),
-                                            reverse=True):
+                                                key=lambda x: sum(t[3] for t in x[1]),
+                                                reverse=True):
                 item_name = item_name_cache.get(item_id, str(item_id))
                 output.append(f"")
                 output.append(f"=== {item_name} ===")
@@ -1565,7 +1785,7 @@ The exported file will contain all transactions matching your current filters, f
                         hurt = " " + str_parts[1] if len(str_parts) > 1 else ""
 
                     line = (f"[{time_str[:19]:<19}] [{zone[:8]:<8}] || "
-                        f"{str(count):<{count_len}}x from {src[:10]:<10} to {dst[:10]:<10}")
+                            f"{str(count):<{count_len}}x from {src[:10]:<10} to {dst[:10]:<10}")
                     if src_name or dst_name:
                         line += " ("
                         if src_name:
@@ -1587,11 +1807,6 @@ The exported file will contain all transactions matching your current filters, f
 
         except Exception as e:
             return [f"report exploded: {str(e)}\n\nIf no information was given, you probably ran out of RAM. The limit is set to {max_mem_gb}GB. Change this on the first line after the \"import\" things in the code."]
-
-    def _get_ship_name(self, ship_id):
-        if ship_id in self.ship_names:
-            return self.ship_names[ship_id].get("current_name", "")
-        return ""
 
     def _get_cached_historical_name(self, ship_id, timestamp, name_cache):
         try:
@@ -1646,7 +1861,7 @@ The exported file will contain all transactions matching your current filters, f
             tag_name = f"date_{date_str}"
             self.result_text.insert(tk.END, f"{date_str}: {display_name}\n", tag_name)
             self.result_text.tag_bind(tag_name, "<Button-1>",
-                lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
+                                      lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
             self.result_text.tag_config(tag_name, foreground="black", underline=True)
 
         self._display_current_ship_contents(hex_id)
@@ -1708,26 +1923,26 @@ The exported file will contain all transactions matching your current filters, f
             return False
 
     def update_filter(self):
-            current_text = self.filter_item_var.get()
-            cursor_pos = self.search_combo.index(tk.INSERT)
+        current_text = self.filter_item_var.get()
+        cursor_pos = self.search_combo.index(tk.INSERT)
 
-            if current_text == '':
-                self.filtered_items = self.all_items.copy()
-            else:
-                self.filtered_items = [item for item in self.all_items
-                                    if current_text.lower() in item.lower()]
+        if current_text == '':
+            self.filtered_items = self.all_items.copy()
+        else:
+            self.filtered_items = [item for item in self.all_items
+                                   if current_text.lower() in item.lower()]
 
-            self.search_combo['values'] = self.filtered_items
+        self.search_combo['values'] = self.filtered_items
 
-            has_selection = bool(self.search_combo.selection_present())
+        has_selection = bool(self.search_combo.selection_present())
 
-            self.search_combo.icursor(cursor_pos)
+        self.search_combo.icursor(cursor_pos)
 
-            if has_selection:
-                self.search_combo.selection_range(0, tk.END)
+        if has_selection:
+            self.search_combo.selection_range(0, tk.END)
 
-            if self.filtered_items:
-                self.search_combo.event_generate('<Down>')
+        if self.filtered_items:
+            self.search_combo.event_generate('<Down>')
 
     def start_analysis(self, start_date, end_date):
         self.download_in_progress = True
@@ -1825,7 +2040,7 @@ The exported file will contain all transactions matching your current filters, f
             total_dates = len(dates_to_process)
             self.download_queue.put(("PROGRESS", 0, total_dates, "starting analysis"))
 
-            ship_last_seen = {} 
+            ship_last_seen = {}
             ship_items = {}
 
             processed_dates = 0
@@ -1855,7 +2070,7 @@ The exported file will contain all transactions matching your current filters, f
                             ship_items[hex_code] = items
 
                     self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates,
-                                            f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
+                                             f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
                     processed_dates += 1
 
                 except Exception as e:
@@ -1874,7 +2089,7 @@ The exported file will contain all transactions matching your current filters, f
 
         except Exception as e:
             self.download_queue.put(("ERROR", f"rip analysis {str(e)}"))
-            
+
     def display_analysis_result(self, result):
         item_totals, item_contributions = result
         result_window = tk.Toplevel(self.root)
@@ -1902,7 +2117,7 @@ The exported file will contain all transactions matching your current filters, f
         sort_combo.pack(side="left", padx=5)
 
         export_button = ttk.Button(control_frame, text="Export CSV",
-                                 command=lambda: self.export_analysis(item_totals, item_contributions))
+                                   command=lambda: self.export_analysis(item_totals, item_contributions))
         export_button.pack(side="right", padx=5)
 
         tree_container = ttk.Frame(summary_frame)
@@ -1935,44 +2150,15 @@ The exported file will contain all transactions matching your current filters, f
         search_var.trace_add("write", lambda *_: self.populate_analysis_tree(item_totals, item_contributions, search_var.get()))
         sort_var.trace_add("write", lambda *_: self.handle_sort_change(sort_var.get(), item_totals, item_contributions))
 
-    def create_viz_tab(self, parent, item_totals):
-
-        canvas = tk.Canvas(parent, bg="white")
-        canvas.pack(fill="both", expand=True)
-
-        total_items = sum(item_totals.values())
-        if total_items == 0:
-            canvas.create_text(100, 50, text="No data to visualize", anchor="w")
-            return
-
-        sorted_items = sorted(item_totals.items(), key=lambda x: -x[1])[:10]
-        max_value = max(item[1] for item in sorted_items)
-
-        bar_width = 40
-        x_start = 100
-        y_start = 50
-        height = 300
-
-        for i, (item_id, count) in enumerate(sorted_items):
-            item_name = next((item[1] for item in ITEM_DB if item[0] == item_id), f"Item {item_id}")
-            bar_height = (count / max_value) * height
-            x0 = x_start + i * 100
-            y0 = y_start + height - bar_height
-            canvas.create_rectangle(x0, y0, x0+bar_width, y_start+height, fill="skyblue")
-            canvas.create_text(x0 + bar_width/2, y0 - 20,
-                              text=f"{count:,}", anchor="s")
-            canvas.create_text(x0 + bar_width/2, y_start+height + 20,
-                              text=item_name, anchor="n", angle=45)
-
     def populate_analysis_tree(self, item_totals, contributions, search_term=""):
         self.analysis_tree.delete(*self.analysis_tree.get_children(item=''))
-        item_name_map = {item[0]: item[1] for item in ITEM_DB}
+        item_name_map = {item["id"]: item["name"] for item in self.item_list}
 
         filtered_items = [
             (item_id, count, item_name_map.get(item_id, f"Unknown ({item_id})"))
             for item_id, count in item_totals.items()
             if search_term.lower() in item_name_map.get(item_id, "").lower()
-            or search_term.lower() in str(item_id)
+               or search_term.lower() in str(item_id)
         ]
 
         for item_id, count, name in filtered_items:
@@ -2009,18 +2195,16 @@ The exported file will contain all transactions matching your current filters, f
         elif sort_option == "Count (Low-High)":
             sorted_items = sorted(item_totals.items(), key=lambda x: x[1])
         elif sort_option == "Name (A-Z)":
-            sorted_items = sorted(item_totals.items(),
-                                key=lambda x: next(
-                                    (item[1] for item in ITEM_DB if item[0] == x[0]),
-                                    ""
-                                ))
+            sorted_items = sorted(
+                item_totals.items(),
+                key=lambda x: self.item_name_map.get(x[0], "")
+            )
         elif sort_option == "Name (Z-A)":
-            sorted_items = sorted(item_totals.items(),
-                                key=lambda x: next(
-                                    (item[1] for item in ITEM_DB if item[0] == x[0]),
-                                    ""
-                                ),
-                                reverse=True)
+            sorted_items = sorted(
+                item_totals.items(),
+                key=lambda x: self.item_name_map.get(x[0], ""),
+                reverse=True
+            )
         else:
             sorted_items = sorted(item_totals.items(), key=lambda x: x[0])
 
@@ -2035,7 +2219,7 @@ The exported file will contain all transactions matching your current filters, f
         item_id = int(self.analysis_tree.item(selected[0], "values")[0])
         contributions = item_contributions.get(item_id, {})
 
-        self.item_name_map = {item[0]: item[1] for item in ITEM_DB}
+        self.item_name_map = {item["id"]: item["name"] for item in self.item_list}
 
         detail_win = tk.Toplevel()
         detail_win.title(
@@ -2078,9 +2262,9 @@ The exported file will contain all transactions matching your current filters, f
 
         context_menu = tk.Menu(detail_win, tearoff=0)
         context_menu.add_command(label="Sort by Rank",
-                               command=lambda: self.sort_treeview(tree, "rank", False))
+                                 command=lambda: self.sort_treeview(tree, "rank", False))
         context_menu.add_command(label="Sort by Count",
-                               command=lambda: self.sort_treeview(tree, "count", True))
+                                 command=lambda: self.sort_treeview(tree, "count", True))
 
         tree.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
         tree.bind("<Double-1>", lambda e: self.open_ship_lookup(tree))
@@ -2098,7 +2282,7 @@ The exported file will contain all transactions matching your current filters, f
                 writer = csv.writer(f)
                 writer.writerow(["Item ID", "Item Name", "Total Count", "Top Contributor ID", "Top Contributor Name", "Top Contribution Count"])
 
-                item_name_map = {item[0]: item[1] for item in ITEM_DB}
+                item_name_map = {item["id"]: item["name"] for item in self.item_list}
                 for item_id, total in item_totals.items():
                     contribs = contributions.get(item_id, {})
                     top_contrib = max(contribs.items(), key=lambda x: x[1], default=(None, 0))
