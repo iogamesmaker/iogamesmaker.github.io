@@ -71,7 +71,7 @@ manual_item_values = {
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.5.0")
+        self.root.title("Dredark Log Scourer v 1.5.1")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -1358,6 +1358,12 @@ The exported file will contain all transactions matching your current filters, f
             item_name_map = self.item_name_map
             found = False
             total_value = 0.0
+            if re.fullmatch(r'[A-Za-z0-9]{4}', hex_id):
+                total_value = 45000.0
+                self.result_text.insert(tk.END, "\nIt' a 4 digit, +45000 flux value and +100 aura!\n")
+                self.result_text.insert(tk.END, "-"*55 + "\n")
+                self.result_text.insert(tk.END,
+                    f"{'TOTAL SHIP VALUE:':>45} {total_value:9.2f}\n")
 
             for ship in ships_data:
 
@@ -1418,7 +1424,7 @@ The exported file will contain all transactions matching your current filters, f
             return
 
         self.shiplist_window = tk.Toplevel(self.root)
-        self.shiplist_window.title("Shiplist → Aggregate Items")
+        self.shiplist_window.title("total brokeness calculator")
         self.shiplist_window.minsize(600, 500)
         self.shiplist_window.geometry("650x550")
 
@@ -1427,14 +1433,14 @@ The exported file will contain all transactions matching your current filters, f
 
         url_frame = ttk.Frame(frame)
         url_frame.pack(fill="x", pady=(0, 1))
-        ttk.Label(url_frame, text="Shiplist URL (copy/paste):").pack(side="left")
+        ttk.Label(url_frame, text="copy paste this in your adress bar:").pack(side="left")
         url_entry = ttk.Entry(url_frame, state="readonly")
         url_entry.pack(side="left", fill="x", expand=True, padx=(1, 0))
         url_entry.configure(state="normal")
         url_entry.insert(0, "https://drednot.io/shiplist?server=0")
         url_entry.configure(state="readonly")
 
-        paste_label = ttk.Label(frame, text="paste everything in here:")
+        paste_label = ttk.Label(frame, text="paste everything from there in here:")
         paste_label.pack(anchor="w", pady=(5, 0))
 
         self.shiplist_text = tk.Text(frame, wrap="none", height=1)
@@ -1488,6 +1494,8 @@ The exported file will contain all transactions matching your current filters, f
 
         aggregated = {}
         missing = []
+        four_digit_ship_count = 0
+        four_digit_total_value = 0.0
 
         for hex_id in owned_ships:
             if hex_id not in self.ship_names:
@@ -1513,6 +1521,9 @@ The exported file will contain all transactions matching your current filters, f
                 continue
 
             found = False
+            if re.fullmatch(r'[A-Za-z0-9]{4}', hex_id):
+                four_digit_ship_count += 1
+                four_digit_total_value += 45000.0
             for ship_entry in ships_data:
                 ship_hex = ship_entry.get("hex_code", "").strip("{}").upper()
                 if ship_hex == hex_id:
@@ -1542,7 +1553,7 @@ The exported file will contain all transactions matching your current filters, f
 
         output_lines.append("")
         output_lines.append(f"{'ID':>3} | {'Name':45} | {'Count':>6} | {'Unit Value':>9} | {'Total Value':>13}")
-        output_lines.append("-"*75)
+
 
         grand_total = 0.0
         for sid in sorted(aggregated):
@@ -1554,7 +1565,10 @@ The exported file will contain all transactions matching your current filters, f
             output_lines.append(
                 f"{sid:>7} | {nm:40} | {cnt:7d} | {unit_val:11.2f} | {tot_val:13.2f}"
             )
-
+        if four_digit_ship_count > 0:
+            output_lines.append(
+                f"{'4d':>7} | {'4 digits':40} | {four_digit_ship_count:7d} | {45000.0:11.2f} | {four_digit_total_value:13.2f}"
+            )
         output_lines.append("-"*75)
         output_lines.append(f"{'':>44} Grand Total: {grand_total:12.2f}")
 
