@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iogamesplayer.com</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="topbar"></div>
+<script>
+  $(function(){
+    $("#topbar").load("/topbar.html");
+  });
+</script>
+<main class="layout">
+<br>
+<h1>Unofficial dredark websocket documentation.</h1>
+<p>This is all made by me fucking around with the game and recording different websocket things. Some entries could be wrong.</p>
+<p>[+] means "oh yeah there is 100% something more that i don't know about.\n[?] means i'm not sure about this one but here's my best guess.\n[?+] means that there might be something more.</p>
+<h2>IN</h2>
+<small>packets sent by the drednot server</small>
+<h2>OUT</h2>
+<h4>OUT - Type 0, Game Input [?+][?]</h4>
+<code><pre>[OUT] {
+    "type": 0,
+    "n": 12345,         - Packet number. Increments by 1 for each packet.
+    "x": -1,            - X axis. If you're going to the left, it's -1. If you're going to the right, it's 1. Else, 0.
+    "y": 1,             - Y axis. If you're going up, it's 1. If you're going down, -1. Else, 0.
+    "mx": 18.5,         - X axis of the block the mouse is pointing at, in drednot block coordinates.
+    "my": 5,            - Same as mx but the Y axis. This is the same thing as holding "/", except not rounded.
+    "vx": 125,          - Viewport Max X. Max drednot sub-world blocks of the viewport on the X axis. Increases with zooming.
+    "vy": 250,          - Same as vx, but max Y.
+    "jump": false,      - Did your character initialise a jump?
+    "jumpHeld": false,  - Are you holding the jump button?
+    "drop": false,      - Are you dropping your item?
+    "act1": false,      - Did you left-click anything?
+    "act1_held": false, - Are you holding left-click?
+    "exit": false,      - Did you exit the GUI menu you're currently in?
+    "act2": false,      - Did you right-click anything?
+    "act_alt": false,   - Did you press R?
+    "act_alt_held": false, - Are you holding R?
+    "wrench_mode": 2,   - Mode of wrenching in the settings, Grab all/Grab Primary/Drop all.
+    "turret_mode": 1,   - Continous Fire (0) or Volley Fire (1).
+    "scr_w": 1366,      - Width of the screen in pixels.
+    "scr_h": 687,       - Height of the screen in pixels.
+    "motion": 1.4,      - Not sure. It's not velocity or ship/mouse movement. DM me if you know.
+    "focus_ent": null,  - Entity ID you're focusing on. Not sure how it's determined yet.
+    "config_ent": null, - Entity ID you're currently configuring.
+    "tip_select": null, - Not sure.
+    "inv_slot": 2,      - Inventory slot you're selecting (0 to 4).
+    "blur": false,      - Not sure.
+    "drag": {           - Item drag information for the inventory.
+        "source": 0,    - Source slot.
+        "target": 1,    - Target slot.
+        "split":false   - Split the stack?
+        }               - Just null if nothing was dragged this packet.
+    }</pre></code>
+<h4>OUT - Type 1, Stayalive packet [?]</h4>
+<pre>[OUT] {"type": 1}
+Stayalive packet sent by the client every once in a while.
+</pre>
+<h4>OUT - Type 2, Message</h4>
+<pre>[OUT] {"type":2,"msg":"Message"}
+Send a message to the in-game chat. Max. 300 characters in the message box.</pre>
+<h4>OUT - Type 3, Unknown.</h4>
+<pre>Unknown.</pre>
+<h4>OUT - Type 4, MOTD, and manage ship.</h4>
+<pre>[OUT] {
+  "type":4,
+  "act":"motd_wip",     - Action
+  "arg":null            - No arguments for motd_wip.
+}
+This packet is sent when you press the Edit button, and change something. It has a small cooldown. It could be for cancelling AFK. Not 100% sure what it's for though. Don't use this when setting the MOTD with the following packet:
+[OUT] {
+    "type":4,
+    "act":"motd",           - Action: save the MOTD
+    "arg":"MOTD\nNew line." - Contents of the MOTD
+}
+
+For some reason this also requests the playerlist of a ship from the manage ship menu:
+[OUT] {"type":4,"act":"player_list","arg":null}
+(Response:)
+[IN] {
+  "type": 17,
+  "sid": 8519,                      - (temporary?) ship ID
+  "submessage": {
+    "type": "player_list",          - Data type
+    "player_list": [
+      {
+        "discrim": "iogamesplayer",
+        "discrim_color": 15152424,  - Player background color. Hex as 24 bit int.
+        "team_rank": 3,             -
+        "captain_rank": 5,          - Captain number 5 of my ship.
+        "time": 17541,
+        "items": [1,2],             - Items on my player. I'm holding iron and explosives. (ID 1 and 2.) No count available.
+        "ref_id": 753,              - Session Player ID probably.
+        "alias_discrims": [
+          [
+            "Dutchman",             - My alt.
+            259271                  - See type 7 of out on how to en/decode this
+          ]
+        ],
+        "extra_aliases": null,      - Not sure why this is here.
+        "online_count": 1           - How many instances of me are on the ship (max 10)
+      }
+    ]
+  }
+}
+</pre>
+<h4>OUT - Type 5, Old block settings (fabs, launchers, signs.).</h4>
+<pre>[OUT] {
+    "type":5,
+    "cmd":"craft_add"           - What do ya wanna do? Add an item.  Can be "toggle_repeat", "clear_queue", or "lock" / "unlock".
+    "args":[ITEM_ID,AMOUNT,-1]  - What do ya wanna add? AMOUNT of ITEM ID (from <ax href="https://pub.drednot.io/prod/econ/item_schema.json">item_schema.json</a>) pls!!! The -1 is add, make it a 0 to remove.
+} If it's not craft_add, make all fields in args -1. For locking / unlocking, put the first arg as the slot you want to lock (0 first, 1 second, 2 last.)
+
+Launchers are also configured using type 5.
+[OUT] {"type":5,"cmd":"angle","args":[0]} Everything is pretty self-explanetory.
+Signs are slightly different:
+[OUT] {
+    "type":5,
+    "cmd":"sign_text", - Command.
+    "args":["test",0]  - Sign text, and the sign type. 0 is Always, 1 is near, 2 is hover.
+}
+</pre>
+<h4>OUT - Type 6, Old GUI R settings.</h4>
+<pre>[OUT] {
+    "type":6,
+    "data": {         - Data of the newly configured R.
+        "color":250,  - Paint Color.
+        "shape":15    - Block Shape.
+    }                   AFAIK only paint, walkways, ice blocks, blocks, nets, and rubber blocks use this.
+}</pre>
+<h4>OUT - Type 7, Outfit. [+]</h4>
+<pre>[OUT] {
+	"type": 7,
+	"outfit": {
+		"color_body": 4695355,
+		"color_legs": 1393785,
+		"color_skin": 13212550,
+		"color_feet": 6242065,
+		"color_hair": 1118481,
+		"style_hair": 0,
+		"color_hat": 16716049,
+		"style_hat": 7,         - 7 is bronze crown, 0 is empty.
+		"color_face_1": 8421504,
+		"style_face_1": 0,
+		"color_face_2": 8421504,
+		"style_face_2": 0
+	}
+}
+
+function hexToInt(hex) { // Use this function (JS), to convert #RRGGBB HEX to this type of int.
+    return parseInt(hex.slice(1), 16);
+}
+
+function intToHex(int) { // Other way around.
+    return '#' + int.toString(16).padStart(6, '0').toUpperCase();
+}</pre>
+<h4>OUT - Type 8, Config. [?]</h4>
+<pre>{
+	"type": 8,
+	"data": {
+		"type": "Buffer",
+		"data": [         I'm not gonna bother decoding this shit. DynaManic42 is working on it. Will come later.
+			144,0,10,138,15,99,111,110,102,105,103,95,110,97,118,95,117,110,105,116,0,144,5,0,142,141,141,145,145
+		]
+	}
+}
+
+This packet is sent whenever you configure an item like a loader, pusher, cargo hatch, ejector, generator, etc etc.
+Basically whenever you interact with a GUI created AFTER the loader update.</pre>
+<br>
+<br>
+<br>
+<p>copyleft go steal it or something</p>
+</main>
+</body>
+</html>
