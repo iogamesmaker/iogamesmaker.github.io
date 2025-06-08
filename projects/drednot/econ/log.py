@@ -1429,7 +1429,7 @@ The exported file will contain all transactions matching your current filters, f
         url_frame.pack(fill="x", pady=(0, 1))
         ttk.Label(url_frame, text="Shiplist URL (copy/paste):").pack(side="left")
         url_entry = ttk.Entry(url_frame, state="readonly")
-        url_entry.pack(side="left", fill="x", expand=true, padx=(1, 0))
+        url_entry.pack(side="left", fill="x", expand=True, padx=(1, 0))
         url_entry.configure(state="normal")
         url_entry.insert(0, "https://drednot.io/shiplist?server=0")
         url_entry.configure(state="readonly")
