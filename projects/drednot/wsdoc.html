@@ -18,14 +18,14 @@
 <br>
 <h1>Unofficial dredark websocket documentation.</h1>
 <p>This is all made by me fucking around with the game and recording different websocket things. Some entries could be wrong.</p>
-<p>[+] means "oh yeah there is 100% something more that i don't know about.
-[?] means i'm not sure about this one but here's my best guess.
+<p>[+] means "oh yeah there is 100% something more that i don't know about.<br>
+[?] means i'm not sure about this one but here's my best guess.<br>
 [?+] means that there might be something more.</p>
 <h2>IN</h2>
 <p>packets sent by the drednot server, and received by you.</p>
 <h2>OUT</h2>
 <p>packets sent by you to the drednot server. basically like saying "yo slave server go send this message for me".</p>
-<h4>OUT - Type 0, Game Input [?+][?]</h4>
+<h3>OUT - Type 0, Game Input [?+][?]</h3>
 <code><pre>[OUT] {
     "type": 0,
     "n": 12345,         - Packet number. Increments by 1 for each packet.
@@ -60,22 +60,26 @@
         "split":false   - Split the stack?
         }               - Just null if nothing was dragged this packet.
     }</pre></code>
-<h4>OUT - Type 1, Stayalive packet [?]</h4>
+<h3>OUT - Type 1, Stayalive packet [?]</h3>
 <pre>[OUT] {"type": 1}
+
 Stayalive packet sent by the client every once in a while.
 </pre>
-<h4>OUT - Type 2, Message</h4>
+<h3>OUT - Type 2, Message</h3>
 <pre>[OUT] {"type":2,"msg":"Message"}
+
 Send a message to the in-game chat. Max. 300 characters in the message box.</pre>
-<h4>OUT - Type 3, Unknown.</h4>
+<h3>OUT - Type 3, Unknown.</h3>
 <pre>Unknown.</pre>
-<h4>OUT - Type 4, MOTD, and manage ship.</h4>
+<h3>OUT - Type 4, MOTD, and manage ship.</h3>
 <pre>[OUT] {
   "type":4,
   "act":"motd_wip",     - Action
   "arg":null            - No arguments for motd_wip.
 }
+
 This packet is sent when you press the Edit button, and change something. It has a small cooldown. It could be for cancelling AFK. Not 100% sure what it's for though. Don't use this when setting the MOTD with the following packet:
+
 [OUT] {
     "type":4,
     "act":"motd",           - Action: save the MOTD
@@ -83,8 +87,11 @@ This packet is sent when you press the Edit button, and change something. It has
 }
 
 For some reason this also requests the playerlist of a ship from the manage ship menu:
+
 [OUT] {"type":4,"act":"player_list","arg":null}
+
 (For the response: see type 17 of IN.)
+
 [IN] {
   "type": 17,
   "sid": 8519,                      - (temporary?) ship ID
@@ -112,7 +119,7 @@ For some reason this also requests the playerlist of a ship from the manage ship
   }
 }
 </pre>
-<h4>OUT - Type 5, Old block settings (fabs, launchers, signs.).</h4>
+<h3>OUT - Type 5, Old block settings (fabs, launchers, signs.).</h3>
 <pre>[OUT] {
     "type":5,
     "cmd":"craft_add"           - What do ya wanna do? Add an item.  Can be "toggle_repeat", "clear_queue", or "lock" / "unlock".
@@ -123,7 +130,7 @@ If it's not craft_add, make all fields in args -1. For locking / unlocking, put 
 
 Launchers are also configured using type 5.
 
-[OUT] {"type":5,"cmd":"angle","args":[0]} Everything is pretty self-explanetory.
+[OUT] {"type":5,"cmd":"angle","args":[360]} Everything is pretty self-explanatory.
 
 Signs are slightly different:
 
@@ -133,7 +140,7 @@ Signs are slightly different:
     "args":["test",0]  - Sign text, and the sign type. 0 is Always, 1 is near, 2 is hover.
 }
 </pre>
-<h4>OUT - Type 6, Old GUI R settings.</h4>
+<h3>OUT - Type 6, Old GUI R settings.</h3>
 <pre>[OUT] {
     "type":6,
     "data": {         - Data of the newly configured R.
@@ -141,7 +148,7 @@ Signs are slightly different:
         "shape":15    - Block Shape.
     }                   AFAIK only paint, walkways, ice blocks, blocks, nets, and rubber blocks use this.
 }</pre>
-<h4>OUT - Type 7, Outfit. [+]</h4>
+<h3>OUT - Type 7, Outfit. [+]</h3>
 <pre>[OUT] {
     "type": 7,
     "outfit": {
@@ -158,8 +165,9 @@ Signs are slightly different:
         "color_face_2": 8421504,
         "style_face_2": 0
     }
-}</pre>
+}</pre><pre>
 De/encode the things with:
+
 function hexToInt(hex) { // Use this function (JS), to convert #RRGGBB HEX to this type of int.
     return parseInt(hex.slice(1), 16);
 }
@@ -167,7 +175,7 @@ function hexToInt(hex) { // Use this function (JS), to convert #RRGGBB HEX to th
 function intToHex(int) { // Other way around.
     return '#' + int.toString(16).padStart(6, '0').toUpperCase();
 }</pre>
-<h4>OUT - Type 8, Config. [?]</h4>
+<h3>OUT - Type 8, Config. [?]</h3>
 <pre>{
     "type": 8,
     "data": { I'm not gonna bother decoding this shit. DynaManic42 is working on it. Will come later.
