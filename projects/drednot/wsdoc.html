@@ -63,9 +63,6 @@
 <em><b>Trigger action:</b></em>
     Automatic
 
-<em><b>Purpose:</b></em>
-    Providing server with user player information (for physics engine)
-
 <em><b>Proceeding packet:</b></em>
     "type": 11
 </pre>
@@ -75,16 +72,27 @@
 </code>
 <em><b>Trigger action:</b></em>
     Automatic
-
-<em><b>Purpose:</b></em>
-    To continue connection between client and server
 </pre>
 <h3>Type 2, Message</h3>
 <pre>[OUT] {"type":2,"msg":"Message"}
 
-Send a message to the in-game chat. Max. 300 characters in the message box.</pre>
-<h3>Type 3, Unknown.</h3>
-<pre>Unknown.</pre>
+Send a message to the in-game chat. Max. 300 characters in the message box. Messages sent from the Helm with the ";" prefix also go trough here.</pre>
+<em><b>Trigger action:</b></em>
+    Chatting via the chatbox.
+<em><b>Proceeding packet:</b></em>
+    "type": 16 - (21 if on helm with prefix ;).
+<h3>Type 3, comms.</h3>
+<pre>Literally just a clone of Type 2.
+[OUT] {
+    "type":3,
+    "msg":"comms!!!"
+}
+
+<em><b>Trigger action:</b></em>
+    Sending message via Comms (not helm).
+<em><b>Proceeding packet:</b></em>
+    "type": 21
+</pre>
 <h3>Type 4, MOTD, and manage ship.</h3>
 <pre>[OUT] {
   "type":4,
@@ -92,7 +100,8 @@ Send a message to the in-game chat. Max. 300 characters in the message box.</pre
   "arg":null            - No arguments for motd_wip.
 }
 
-This packet is sent when you press the Edit button, and change something. It has a small cooldown. It could be for cancelling AFK. Not 100% sure what it's for though. Don't use this when setting the MOTD with the following packet:
+This packet is sent when you press the Edit button, and change something. It has a small cooldown.
+It could be for cancelling AFK. Not 100% sure what it's for though. Don't use this when setting the MOTD with the following packet:
 
 [OUT] {
     "type":4,
