@@ -25,9 +25,9 @@
 <p>packets sent by the drednot server, and received by you.</p>
 <h2>OUT</h2>
 <p>packets sent by you to the drednot server. basically like saying "yo slave server go send this message for me".</p>
-<h3>OUT - Type 0, Game Input [?+][?]</h3>
-<code><pre>[OUT] {
-    "type": 0,
+<h3>Type 0, Game Input [?+][?]</h3>
+<code><pre><em><b>Packet contents:</b></em>
+    {"type": 0,
     "n": 12345,         - Packet number. Increments by 1 for each packet.
     "x": -1,            - X axis. If you're going to the left, it's -1. If you're going to the right, it's 1. Else, 0.
     "y": 1,             - Y axis. If you're going up, it's 1. If you're going down, -1. Else, 0.
@@ -53,25 +53,39 @@
     "config_ent": null, - Entity ID you're currently configuring.
     "tip_select": null, - Not sure.
     "inv_slot": 2,      - Inventory slot you're selecting (0 to 4).
-    "blur": false,      - Not sure.
+    "blur": false,      - Possibly unfocussing element.
     "drag": {           - Item drag information for the inventory.
-        "source": 0,    - Source slot.
-        "target": 1,    - Target slot.
-        "split":false   - Split the stack?
-        }               - Just null if nothing was dragged this packet.
-    }</pre></code>
-<h3>OUT - Type 1, Stayalive packet [?]</h3>
-<pre>[OUT] {"type": 1}
+        "source": 0,        • Source slot.
+        "target": 1,        • Target slot.
+        "split":false}      • Split the stack?
+    }                       NOTE: "drag" = null if nothing was dragged this packet.
+</code>
+<em><b>Trigger action:</b></em>
+    Automatic
 
-Stayalive packet sent by the client every once in a while.
+<em><b>Purpose:</b></em>
+    Providing server with user player information (for physics engine)
+
+<em><b>Proceeding packet:</b></em>
+    "type": 11
 </pre>
-<h3>OUT - Type 2, Message</h3>
+<h3>Type 1 - stayalive packet [?]</h3>
+<code><pre><em><b>Packet contents:</b></em>
+    {"type": 1}
+</code>
+<em><b>Trigger action:</b></em>
+    Automatic
+
+<em><b>Purpose:</b></em>
+    To continue connection between client and server
+</pre>
+<h3>Type 2, Message</h3>
 <pre>[OUT] {"type":2,"msg":"Message"}
 
 Send a message to the in-game chat. Max. 300 characters in the message box.</pre>
-<h3>OUT - Type 3, Unknown.</h3>
+<h3>Type 3, Unknown.</h3>
 <pre>Unknown.</pre>
-<h3>OUT - Type 4, MOTD, and manage ship.</h3>
+<h3>Type 4, MOTD, and manage ship.</h3>
 <pre>[OUT] {
   "type":4,
   "act":"motd_wip",     - Action
