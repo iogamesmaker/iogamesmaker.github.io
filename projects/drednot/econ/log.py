@@ -48,7 +48,7 @@ manual_item_values = {
     "Manifest Scanner": 48.0,
     "BoM Scanner": 48.0,
     "Blueprint Scanner": 4.0,
-    "Flux RCD": 64.0,
+    "Flux RCD": 32.0,
     "Shield Core": 0.0625,
     "Cannon (Packaged)": 1.5,
     "Burst Cannon (Packaged)": 4.0,
@@ -71,7 +71,7 @@ manual_item_values = {
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.5.1")
+        self.root.title("Dredark Log Scourer v 1.5.2")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -1958,13 +1958,13 @@ The exported file will contain all transactions matching your current filters, f
         if self.filtered_items:
             self.search_combo.event_generate('<Down>')
 
-    def start_analysis(self, start_date, end_date):
+    def start_analysis(self, start_date, end_date, owned_ships=None):
         self.download_in_progress = True
         self.progress['value'] = 0
         self.status_var.set("starting ship analysis")
         analysis_thread = threading.Thread(
             target=self.analyze_ships_thread,
-            args=(start_date, end_date),
+            args=(start_date, end_date, owned_ships),
             daemon=True
         )
         analysis_thread.start()
@@ -1972,7 +1972,7 @@ The exported file will contain all transactions matching your current filters, f
 
     def analyze_ships(self):
         if self.ship_loading_in_progress or self.download_in_progress:
-            messagebox.showwarning("Warning", "theres something happening cant you see retarded fucjking fuck fuck")
+            messagebox.showwarning("Warning", "theres something happening cant you see")
             return
 
         if not self.ship_names:
@@ -1984,20 +1984,27 @@ The exported file will contain all transactions matching your current filters, f
 
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
-        analysis_dialog.geometry("320x120")
+        analysis_dialog.geometry("500x350")  # Smaller window size
 
-        start_frame = ttk.Frame(analysis_dialog)
-        start_frame.pack(pady=5)
+        # Frame for date range
+        date_frame = ttk.Frame(analysis_dialog)
+        date_frame.pack(fill="x", padx=10, pady=5)
+
+        # Start date
+        start_frame = ttk.Frame(date_frame)
+        start_frame.pack(fill="x", pady=5)
+        ttk.Label(start_frame, text="Start Date:").pack(side="left")
         start_year_var = tk.StringVar(value="2022")
         start_month_var = tk.StringVar(value="11")
         start_day_var = tk.StringVar(value="23")
-
         ttk.Spinbox(start_frame, from_=2022, to=datetime.now().year, textvariable=start_year_var, width=5).pack(side="left", padx=2)
         ttk.Spinbox(start_frame, from_=1, to=12, textvariable=start_month_var, width=3).pack(side="left", padx=2)
         ttk.Spinbox(start_frame, from_=1, to=31, textvariable=start_day_var, width=3).pack(side="left", padx=2)
 
-        end_frame = ttk.Frame(analysis_dialog)
-        end_frame.pack(pady=5)
+        # End date
+        end_frame = ttk.Frame(date_frame)
+        end_frame.pack(fill="x", pady=5)
+        ttk.Label(end_frame, text="End Date:").pack(side="left")
         end_year_var = tk.StringVar(value=datetime.now().year)
         end_month_var = tk.StringVar(value=datetime.now().month)
         end_day_var = tk.StringVar(value=datetime.now().day)
@@ -2005,8 +2012,20 @@ The exported file will contain all transactions matching your current filters, f
         ttk.Spinbox(end_frame, from_=1, to=12, textvariable=end_month_var, width=3).pack(side="left", padx=2)
         ttk.Spinbox(end_frame, from_=1, to=31, textvariable=end_day_var, width=3).pack(side="left", padx=2)
 
+        # Shiplist input - fixed column without scrollbar
+        shiplist_frame = ttk.LabelFrame(analysis_dialog, text="Shiplist (optional, paste JSON)")
+        shiplist_frame.pack(fill="x", padx=10, pady=5)
+
+        self.shiplist_text = tk.Text(shiplist_frame, height=4, width=50, wrap="none")  # Fixed size, no wrap
+        self.shiplist_text.pack(fill="x")  # No scrollbar
+
+        # Info label
+        info_label = ttk.Label(analysis_dialog, text="Copy from: https://drednot.io/shiplist?server=0\nLeave blank to analyze ALL ships")
+        info_label.pack(pady=(5, 0))
+
         def validate_and_start():
             try:
+                # Parse dates
                 start_date = datetime(
                     int(start_year_var.get()),
                     int(start_month_var.get()),
@@ -2020,27 +2039,57 @@ The exported file will contain all transactions matching your current filters, f
                 min_date = datetime(2022, 11, 23)
                 max_date = datetime.now()
 
+                # Validate dates
                 if start_date < min_date or end_date < min_date:
                     messagebox.showerror("Error", "hey the earliest possible date is 2022-11-23")
                     return False
-
                 if start_date > max_date or end_date > max_date:
                     messagebox.showerror("Error", "time traveler moment")
                     return False
-
                 if start_date > end_date:
-                    start_date2 = start_date
-                    start_date = end_date
-                    end_date = start_date2
+                    start_date, end_date = end_date, start_date
+
+                # Extract owned ships from shiplist if provided
+                owned_ships = None  # Default to all ships
+                raw = self.shiplist_text.get("1.0", tk.END).strip()
+                if raw:
+                    try:
+                        data = json.loads(raw)
+                    except json.JSONDecodeError as e:
+                        messagebox.showerror("Error", f"Invalid JSON: {e}")
+                        return
+
+                    # Extract owned ship IDs
+                    owned_ships = set()
+                    if isinstance(data, dict) and "ships" in data:
+                        for ship in data["ships"].values():
+                            if ship.get("owned") is True:
+                                hex_id = ship.get("hex_code") or ship.get("hexCode") or ship.get("hex")
+                                if hex_id:
+                                    owned_ships.add(hex_id.strip("{}").upper())
+                    elif isinstance(data, list):
+                        for ship in data:
+                            if isinstance(ship, dict) and ship.get("owned") is True:
+                                hex_id = ship.get("hex_code") or ship.get("hexCode") or ship.get("hex")
+                                if hex_id:
+                                    owned_ships.add(hex_id.strip("{}").upper())
+
+                    if not owned_ships:
+                        messagebox.showinfo("Result", "No owned ships found in shiplist. Analyzing ALL ships.")
+                        owned_ships = None  # Revert to all ships
 
                 analysis_dialog.destroy()
-                self.start_analysis(start_date, end_date)
+                self.start_analysis(start_date, end_date, owned_ships)
+
             except ValueError:
                 messagebox.showerror("Error", "Invalid date.")
 
-        ttk.Button(analysis_dialog, text="Analyze", command=validate_and_start).pack(pady=10)
+        # Button to start analysis
+        btn_frame = ttk.Frame(analysis_dialog)
+        btn_frame.pack(fill="x", padx=10, pady=10)
+        ttk.Button(btn_frame, text="Analyze", command=validate_and_start).pack(side="right")
 
-    def analyze_ships_thread(self, start_date, end_date):
+    def analyze_ships_thread(self, start_date, end_date, owned_ships=None):
         try:
             dates_to_process = []
             current_date = start_date
@@ -2056,7 +2105,6 @@ The exported file will contain all transactions matching your current filters, f
 
             ship_last_seen = {}
             ship_items = {}
-
             processed_dates = 0
 
             for date_str in dates_to_process:
@@ -2077,14 +2125,17 @@ The exported file will contain all transactions matching your current filters, f
 
                     for ship in ships_data:
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
-                        items = ship.get("items", {})
 
-                        if hex_code not in ship_last_seen or current_date_tuple > ship_last_seen[hex_code]:
-                            ship_last_seen[hex_code] = current_date_tuple
-                            ship_items[hex_code] = items
+                        # Only process owned ships if specified, otherwise process all
+                        if owned_ships is None or hex_code in owned_ships:
+                            items = ship.get("items", {})
+
+                            if hex_code not in ship_last_seen or current_date_tuple > ship_last_seen[hex_code]:
+                                ship_last_seen[hex_code] = current_date_tuple
+                                ship_items[hex_code] = items
 
                     self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates,
-                                             f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
+                                            f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
                     processed_dates += 1
 
                 except Exception as e:
@@ -2095,9 +2146,12 @@ The exported file will contain all transactions matching your current filters, f
             item_contributions = defaultdict(lambda: defaultdict(int))
             for hex_code, items in ship_items.items():
                 for item_id_str, count in items.items():
-                    item_id = int(item_id_str)
-                    item_totals[item_id] += count
-                    item_contributions[item_id][hex_code] += count
+                    try:
+                        item_id = int(item_id_str)
+                        item_totals[item_id] += count
+                        item_contributions[item_id][hex_code] += count
+                    except ValueError:
+                        continue
 
             self.download_queue.put(("ANALYSIS_COMPLETE", (item_totals, item_contributions)))
 
