@@ -692,28 +692,33 @@ The exported file will contain all transactions matching your current filters, f
         settings_win.title("Text Settings")
         settings_win.resizable(False, False)
 
-        ttk.Label(settings_win, text="Text Size:").grid(row=0, column=0, sticky="w", padx=10, pady=5)
-        text_size_entry = ttk.Entry(settings_win, textvariable=self.text_size_var, width=5)
+        # Define a frame inside the window to hold the widgets
+        frame = ttk.Frame(settings_win, padding=10)
+        frame.pack(fill="both", expand=True)
+
+        ttk.Label(frame, text="Text Size:").grid(row=0, column=0, sticky="w", padx=10, pady=5)
+        text_size_entry = ttk.Entry(frame, textvariable=self.text_size_var, width=5)
         text_size_entry.grid(row=0, column=1, sticky="w", padx=5)
         text_size_entry.bind("<Return>", lambda e: self.apply_display_settings())
 
-        ttk.Label(settings_win, text="Wrap Text:").grid(row=1, column=0, sticky="w", padx=10, pady=5)
+        ttk.Label(frame, text="Wrap Text:").grid(row=1, column=0, sticky="w", padx=10, pady=5)
         ttk.Checkbutton(
-            settings_win, variable=self.wrap_text_var,
+            frame, variable=self.wrap_text_var,
             command=self.apply_display_settings
         ).grid(row=1, column=1, sticky="w")
 
-        ttk.Button(settings_win, text="Close", command=settings_win.destroy).grid(
-            row=3, column=0, columnspan=6, pady=10
-        )
+        ttk.Separator(frame, orient="horizontal").grid(row=2, column=0, columnspan=2, sticky="ew", pady=10)
 
-        ttk.Separator(frame, orient="horizontal").pack(fill="x", pady=5)
         btn_schema = ttk.Button(
             frame,
             text="Redownload Item Schema",
-            command=self.fetch_item_schema()
+            command=self.fetch_item_schema
         )
-        btn_schema.pack(fill="x", pady=(5, 10))
+        btn_schema.grid(row=3, column=0, columnspan=2, pady=(0, 10))
+
+        ttk.Button(frame, text="Close", command=settings_win.destroy).grid(
+            row=4, column=0, columnspan=2, pady=10
+        )
 
     def apply_display_settings(self):
         try:
