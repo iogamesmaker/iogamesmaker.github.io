@@ -16,7 +16,7 @@ import platform
 import requests
 import psutil
 
-max_mem_gb = 13
+max_mem_gb = 3.5
 
 def set_memory_limit():
     max_mem_bytes = 1024 * 1024 * round(1024 * max_mem_gb)
