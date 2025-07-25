@@ -16,7 +16,7 @@ import platform
 import requests
 import psutil
 
-max_mem_gb = 3.5
+max_mem_gb = 13
 
 def set_memory_limit():
     max_mem_bytes = 1024 * 1024 * round(1024 * max_mem_gb)
@@ -71,7 +71,7 @@ manual_item_values = {
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.5.2")
+        self.root.title("Dredark Log Scourer v 1.5.3")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -194,7 +194,6 @@ class EconLogScourer:
             inputs = fab.get("input")
             out_count = fab.get("count")
             if isinstance(inputs, list) and isinstance(out_count, (int, float)):
-                # store both recipe inputs and output count
                 item["recipe"] = {
                     "inputs": inputs,
                     "output_count": out_count
@@ -692,7 +691,6 @@ The exported file will contain all transactions matching your current filters, f
         settings_win.title("Text Settings")
         settings_win.resizable(False, False)
 
-        # Define a frame inside the window to hold the widgets
         frame = ttk.Frame(settings_win, padding=10)
         frame.pack(fill="both", expand=True)
 
@@ -1095,7 +1093,6 @@ The exported file will contain all transactions matching your current filters, f
             return
 
         if not self.ship_names:
-
             self.status_var.set("loading all ship names")
             self.progress["value"] = 0
             self.download_in_progress = True
@@ -1114,13 +1111,35 @@ The exported file will contain all transactions matching your current filters, f
         input_frame.pack(fill="x", pady=5)
 
         self.search_type = tk.StringVar(value="id")
-        search_type_frame = ttk.Frame(input_frame)
-        search_type_frame.pack(fill="x", pady=5)
+        self.case_sensitive = tk.BooleanVar(value=False)
+        self.fuzzy_search = tk.BooleanVar(value=True)
+        self.digit_length_var = tk.StringVar(value="*")
 
-        ttk.Label(search_type_frame, text="Search by:").pack(side="left")
-        ttk.Radiobutton(search_type_frame, text="ID", variable=self.search_type, value="id").pack(side="left", padx=5)
-        self.name_radio_button = ttk.Radiobutton(search_type_frame, text="Name", variable=self.search_type, value="name")
-        self.name_radio_button.pack(side="left", padx=5)
+        settings_frame = ttk.Frame(input_frame)
+        settings_frame.pack(fill="x", pady=5)
+
+        ttk.Label(settings_frame, text="Search by:").pack(side="left")
+        ttk.Radiobutton(settings_frame, text="ID", variable=self.search_type, value="id").pack(side="left", padx=2)
+        self.name_radio_button = ttk.Radiobutton(settings_frame, text="Name", variable=self.search_type, value="name")
+        self.name_radio_button.pack(side="left", padx=2)
+
+        ttk.Checkbutton(settings_frame, text="Case sensitive", variable=self.case_sensitive).pack(side="left", padx=2)
+
+        ttk.Checkbutton(
+            settings_frame,
+            text="Enable Searching",
+            variable=self.fuzzy_search,
+            command=self.toggle_fuzzy_search
+        ).pack(side="left", padx=2)
+
+        ttk.Label(settings_frame, text="Digit Length:").pack(side="left", padx=(10, 2))
+        ttk.Combobox(
+            settings_frame,
+            textvariable=self.digit_length_var,
+            values=["*", "4", "5", "6", "7", "8"],
+            state="readonly",
+            width=5
+        ).pack(side="left")
 
         self.back_button = ttk.Button(
             input_frame,
@@ -1129,18 +1148,6 @@ The exported file will contain all transactions matching your current filters, f
             state="disabled"
         )
         self.back_button.pack(side="right")
-
-        self.case_sensitive = tk.BooleanVar(value=False)
-        ttk.Checkbutton(search_type_frame, text="Case sensitive", variable=self.case_sensitive).pack(side="left", padx=5)
-
-        self.fuzzy_search = tk.BooleanVar(value=True)
-        fuzzy_btn = ttk.Checkbutton(
-            search_type_frame,
-            text="Enable Searching",
-            variable=self.fuzzy_search,
-            command=self.toggle_fuzzy_search
-        )
-        fuzzy_btn.pack(side="left", padx=5)
 
         search_entry_frame = ttk.Frame(input_frame)
         search_entry_frame.pack(fill="x", pady=5)
@@ -1270,6 +1277,13 @@ The exported file will contain all transactions matching your current filters, f
             exact_match = None
 
             for hex_id, data in self.ship_names.items():
+                digit_length = self.digit_length_var.get()
+                if digit_length != "*":
+                    try:
+                        if len(hex_id) != int(digit_length):
+                            continue
+                    except ValueError:
+                        pass
                 current_name = data.get("current_name", "")
                 historical_names = [name for _, name in data.get("name_history", [])]
 
@@ -1989,13 +2003,11 @@ The exported file will contain all transactions matching your current filters, f
 
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
-        analysis_dialog.geometry("500x350")  # Smaller window size
+        analysis_dialog.geometry("500x350")
 
-        # Frame for date range
         date_frame = ttk.Frame(analysis_dialog)
         date_frame.pack(fill="x", padx=10, pady=5)
 
-        # Start date
         start_frame = ttk.Frame(date_frame)
         start_frame.pack(fill="x", pady=5)
         ttk.Label(start_frame, text="Start Date:").pack(side="left")
@@ -2006,7 +2018,6 @@ The exported file will contain all transactions matching your current filters, f
         ttk.Spinbox(start_frame, from_=1, to=12, textvariable=start_month_var, width=3).pack(side="left", padx=2)
         ttk.Spinbox(start_frame, from_=1, to=31, textvariable=start_day_var, width=3).pack(side="left", padx=2)
 
-        # End date
         end_frame = ttk.Frame(date_frame)
         end_frame.pack(fill="x", pady=5)
         ttk.Label(end_frame, text="End Date:").pack(side="left")
@@ -2017,20 +2028,17 @@ The exported file will contain all transactions matching your current filters, f
         ttk.Spinbox(end_frame, from_=1, to=12, textvariable=end_month_var, width=3).pack(side="left", padx=2)
         ttk.Spinbox(end_frame, from_=1, to=31, textvariable=end_day_var, width=3).pack(side="left", padx=2)
 
-        # Shiplist input - fixed column without scrollbar
         shiplist_frame = ttk.LabelFrame(analysis_dialog, text="Shiplist (optional, paste JSON)")
         shiplist_frame.pack(fill="x", padx=10, pady=5)
 
-        self.shiplist_text = tk.Text(shiplist_frame, height=4, width=50, wrap="none")  # Fixed size, no wrap
-        self.shiplist_text.pack(fill="x")  # No scrollbar
+        self.shiplist_text = tk.Text(shiplist_frame, height=4, width=50, wrap="none")
+        self.shiplist_text.pack(fill="x")
 
-        # Info label
         info_label = ttk.Label(analysis_dialog, text="Copy from: https://drednot.io/shiplist?server=0\nLeave blank to analyze ALL ships")
         info_label.pack(pady=(5, 0))
 
         def validate_and_start():
             try:
-                # Parse dates
                 start_date = datetime(
                     int(start_year_var.get()),
                     int(start_month_var.get()),
@@ -2044,7 +2052,6 @@ The exported file will contain all transactions matching your current filters, f
                 min_date = datetime(2022, 11, 23)
                 max_date = datetime.now()
 
-                # Validate dates
                 if start_date < min_date or end_date < min_date:
                     messagebox.showerror("Error", "hey the earliest possible date is 2022-11-23")
                     return False
@@ -2054,8 +2061,7 @@ The exported file will contain all transactions matching your current filters, f
                 if start_date > end_date:
                     start_date, end_date = end_date, start_date
 
-                # Extract owned ships from shiplist if provided
-                owned_ships = None  # Default to all ships
+                owned_ships = None
                 raw = self.shiplist_text.get("1.0", tk.END).strip()
                 if raw:
                     try:
@@ -2064,7 +2070,6 @@ The exported file will contain all transactions matching your current filters, f
                         messagebox.showerror("Error", f"Invalid JSON: {e}")
                         return
 
-                    # Extract owned ship IDs
                     owned_ships = set()
                     if isinstance(data, dict) and "ships" in data:
                         for ship in data["ships"].values():
@@ -2081,7 +2086,7 @@ The exported file will contain all transactions matching your current filters, f
 
                     if not owned_ships:
                         messagebox.showinfo("Result", "No owned ships found in shiplist. Analyzing ALL ships.")
-                        owned_ships = None  # Revert to all ships
+                        owned_ships = None
 
                 analysis_dialog.destroy()
                 self.start_analysis(start_date, end_date, owned_ships)
@@ -2089,7 +2094,6 @@ The exported file will contain all transactions matching your current filters, f
             except ValueError:
                 messagebox.showerror("Error", "Invalid date.")
 
-        # Button to start analysis
         btn_frame = ttk.Frame(analysis_dialog)
         btn_frame.pack(fill="x", padx=10, pady=10)
         ttk.Button(btn_frame, text="Analyze", command=validate_and_start).pack(side="right")
@@ -2131,7 +2135,6 @@ The exported file will contain all transactions matching your current filters, f
                     for ship in ships_data:
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
 
-                        # Only process owned ships if specified, otherwise process all
                         if owned_ships is None or hex_code in owned_ships:
                             items = ship.get("items", {})
 
@@ -2146,7 +2149,6 @@ The exported file will contain all transactions matching your current filters, f
                 except Exception as e:
                     self.download_queue.put(("ERROR", f"error {date_str}: {str(e)}"))
 
-            # Calculate totals from latest ship data
             item_totals = defaultdict(int)
             item_contributions = defaultdict(lambda: defaultdict(int))
             for hex_code, items in ship_items.items():
