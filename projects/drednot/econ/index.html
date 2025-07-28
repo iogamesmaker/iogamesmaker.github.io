@@ -23,8 +23,8 @@
 <div class="dropdown dropdown-left">
   <h1><a href="https://iogamesplayer.com/projects/drednot/econ/log.py">Newest Release</a></h1>
   <div class="dropdown-content">
-    <h4>Changelog 1.5.3</h4>
-    <p>Added digit length filter in lookup ship name, useful for finding 8 digits.</p>
+    <h4>Changelog 1.5.4</h4>
+    <p>Massively speeded up log loading when a SRC/DST ship is selected. If a ship was loaded on 2022/11/23 and once again let's say a month later, instead of combing trough EVERY log of that whole month and saying "nah this log's useless found 0 mentions" it checks first if the ship was loaded that day, and if not, it doesn't load the log.</p>
   </div>
 </div>
 
@@ -71,11 +71,12 @@
 <h3>Download link is at the top.</h3>
 
 <h2>Changelog</h2>
-<h4>NEWEST VERSION - v 1.5.3</h4>
+<h4>NEWEST VERSION - v 1.5.4</h4>
+<p>- 1.5.4, Massively speeded up log loading when a SRC/DST ship is selected. If a ship was loaded on 2022/11/23 and once again let's say a month later, instead of combing trough EVERY log of that whole month and saying "nah this log's useless found 0 mentions" it checks first if the ship was loaded that day, and if not, it doesn't load the log.</p>
 <p>- 1.5.3, Added digit length filter in lookup ship name, useful for finding 8 digits.</p>
 <p>- 1.5.2, Modded analyze all ships to be able to only analyze ships from your shiplist.</p>
 <p>- 1.5.1, small hotfix (i test in prod)</p>
-<p>- 1.5.0, Added a strawberry bot inspired total net worth calculator. Pretty subjective, who gives a fuck. Also improved the backend to handle newly added items automatically via item_scheme.json, if cogg ever decides to continue development.</p>
+<p>- 1.5.0, Added a strawberry bot inspired total net worth calculator. Pretty subjective, who gives a fuck. Change it yourself if you want, not too hard. Also improved the backend to handle newly added items automatically via item_scheme.json, if cogg ever decides to continue development.</p>
 <br>
 <p>- 1.4.5 Added the analyze items button, to analyze all existing items and where they're at. Really interesting stuff.</p>
 <p>- 1.4.4, added the help entry for analyze ships, clarified some of the error messages.</p>
