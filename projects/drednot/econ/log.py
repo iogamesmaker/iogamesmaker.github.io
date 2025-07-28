@@ -15,6 +15,7 @@ import gc
 import platform
 import requests
 import psutil
+import webbrowser
 
 max_mem_gb = 3.5
 
@@ -71,7 +72,7 @@ manual_item_values = {
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.5.3")
+        self.root.title("Dredark Log Scourer v 1.5.4")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -81,6 +82,7 @@ class EconLogScourer:
         self.raw_data = []
         self.filtered_data = []
         self.ship_names = {}
+        self.ships_present_on_date = defaultdict(set)
 
         self.base_path = ""
 
@@ -92,6 +94,10 @@ class EconLogScourer:
 
         self.local_data_dir = os.path.join(base_path, "drednot_data_raw")
         os.makedirs(self.local_data_dir, exist_ok=True)
+
+        self.shareware_pref_file = os.path.join(base_path, "shareware_pref.json")
+        self.do_not_show_shareware = tk.BooleanVar(value=False)
+        self.load_shareware_preference()
 
         if not os.path.exists(os.path.join(self.local_data_dir, "item_schema.json")):
             self.fetch_item_schema()
@@ -128,6 +134,69 @@ class EconLogScourer:
         self.configure_text_tags()
         self.apply_display_settings()
         self.check_and_download_data()
+
+        self.status_var.set("loading ship names...")
+        self.progress["value"] = 0
+        self.download_in_progress = True
+        self.start_ship_data_loading()
+
+        self.root.after(200, self.show_shareware_popup)
+
+    def load_shareware_preference(self):
+        if os.path.exists(self.shareware_pref_file):
+            try:
+                with open(self.shareware_pref_file, 'r') as f:
+                    pref_data = json.load(f)
+                    self.do_not_show_shareware.set(pref_data.get("do_not_show_shareware", False))
+            except Exception as e:
+                self.do_not_show_shareware.set(False)
+
+    def save_shareware_preference(self):
+        try:
+            with open(self.shareware_pref_file, 'w') as f:
+                json.dump({"do_not_show_shareware": self.do_not_show_shareware.get()}, f)
+        except Exception as e:
+            print(f"error saving shareware thing: {e}")
+
+    def show_shareware_popup(self):
+        if self.do_not_show_shareware.get():
+            return
+
+        popup = tk.Toplevel(self.root)
+        popup.title("Shareware Notice")
+        popup.transient(self.root)
+        popup.grab_set()
+        popup.resizable(False, False)
+
+        frame = ttk.Frame(popup, padding="20")
+        frame.pack(fill="both", expand=True)
+
+        message = (
+            "This tool is shareware! If you paid for this, you got scammed.\nFeel free to modify this tool, and redistribute it. Just don't make too much flux off of my work.'\n"
+            "Credit to @iogamesplayer\n"
+        )
+        ttk.Label(frame, text=message, wraplength=350, justify="center").pack(pady=(0, 10))
+
+        link_label = ttk.Label(frame, text="https://iogamesplayer.com/projects/drednot/econ/",
+                               foreground="blue", cursor="hand2")
+        link_label.pack(pady=(0, 10))
+        link_label.bind("<Button-1>", lambda e: webbrowser.open_new("https://iogamesplayer.com/projects/drednot/econ/"))
+
+        do_not_show_again_checkbox = ttk.Checkbutton(
+            frame,
+            text="Do not show this message again",
+            variable=self.do_not_show_shareware,
+            command=self.save_shareware_preference
+        )
+        do_not_show_again_checkbox.pack(pady=(10, 0))
+
+        ok_button = ttk.Button(frame, text="OK", command=popup.destroy)
+        ok_button.pack(pady=(20, 0))
+
+        popup.update_idletasks()
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - (popup.winfo_width() // 2)
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - (popup.winfo_height() // 2)
+        popup.geometry(f"+{x}+{y}")
 
     def configure_text_tags(self):
         self.preview_text.tag_configure("even", background="#FFFFFF")
@@ -295,7 +364,7 @@ class EconLogScourer:
                         continue
                     raise
                 except requests.exceptions.RequestException as e:
-                    print(f"aw man couldnt load data for {date_str}: {str(e)}, sorry cuh. this is most likely just the dredark server screaming at you for downloading {total_dates * 2} files which is a lot. after downloading is complete, restart the program and it will go over all the missing files again.")
+                    print(f"aw man couldnt load data for {date_str}: {str(e)}, sorry cuh. this is most likely just the dredark server screaming at you for downloading {total_dates * 2}, files which is a lot. after downloading is complete, restart the program and it will go over all the missing files again. dont worry bruh")
                     continue
 
             self.download_queue.put(("COMPLETE", success_count, total_dates))
@@ -309,7 +378,7 @@ class EconLogScourer:
             with open(path, "r", encoding="utf-8") as f:
                 schema = json.load(f)
         except Exception as e:
-            messagebox.showerror("Error", f"Could not load item schema:\n{e}")
+            messagebox.showerror("Error", f"couldnt load item schema, dredark servers are likely down idk:\n{e}")
             self.item_list = []
             self.item_name_map = {}
             self.item_recipe_map = {}
@@ -377,13 +446,15 @@ It's pretty self explenatory for the most part. If you really don't have a clue 
 Use the navigation buttons on the left to figure out more about features and tips.
             """,
 
-            "Loading Data": """LOADING DATA
-On startup, the program will download all neccesarry data.
+            "Loading Data (MUST READ!)": """LOADING DATA
+On startup, the program will download all log files data. This button will use the log files that are downloaded to your disk.
+
+-----
 
 Set the date range with the top-left and top-right inputs.
 - Start Date: First day to include (from 2022-11-23)
 - End Date: Last day to include (to today)
-Everything in between will be loaded when clicking the "Load Data" button, keeping the filters in mind.
+Everything in between will be loaded when clicking the "Load Data" button, BUT: One important thing, it loads filtered data into RAM. The filters you have currently selected will be applied to the loaded data
 
 The filters help to save a bit of RAM, since the econ logs take a shitton of it.
 DO NOT TRY TO LOAD OVER 2 MONTHS OF DATA WITHOUT FILTERS - THE PROGRAM WILL MOST LIKELY CRASH!
@@ -395,19 +466,20 @@ DO NOT TRY TO LOAD OVER 2 MONTHS OF DATA WITHOUT FILTERS - THE PROGRAM WILL MOST
 Item Filter:
     Type in the item filter box.
     Press enter once to view the dropdown
-    Press enter again to select the top one, or select another in the dropdown menu.
+    Press enter again to select the selected entry. Select another in the dropdown menu with your mouse or arrow keys.
 
 Source/Destination Filters:
-    Type an ID, ship name, or bot name (see below) into here to search for it. Not case sensitive. If you want to search by ship name, you have to check the "Use Ship Names" box.
+    Type an ID into here to search for it. Only exact HEX ID matches will be reported.
+    Ship names are NOT used for filtering source/destination, use lookup shipname to find a HEX ID associated with a name..
 
 Other Filters:
     "Only show ship transactions": Does what it says off the tin - check this box and it will hide all despawned items, and all bot to player transactions.
     - "Use ship names": Display ship names together with IDs. Will add a couple seconds to the filtering process..
         Clicking this for the first time will load about 250MB of data as of April 2025 into RAM, it won't unload until you exit.
 
-Press Enter in a text field or the Refresh button to apply filters after changing them.
+Press the Refresh button to apply filters after changing them.
 
-SEARCHING BY BOT:
+SEARCHING BY BOT: (Doesn't work anymore, will keep here in case I fix it)
     I gave each bot a custom display name to fit the field of the source.
     You can only search them by their original name though.
     Here's a list of the bots:
@@ -456,14 +528,17 @@ Press the back button to go back to the ship name history if you want to return 
 Unchecking "Enable Searching" will disable searching by name, and will only show EXACT ID matches.
             """,
 
-            "Analyze Items": """ITEM ANALYZER SUB-PROGRAM
+            "Economy": """ITEM ANALYZER SUB-PROGRAM
 
-This program is really simple to use, just load ship names (press the button to load them), and then press the Analyze Items button again.
+This program is really simple to use, press the Economy Items button to begin.
 
 Select a date for the analysis, or keep it at default to read all of the available data.
+
+Also paste a shiplist from https://drednot.io/shiplist?server=0 if you want to analyze just YOUR items. Pretty interesting as well for figuring out which of your ships is worth scrapping [IDEA FOR FUTURE ME: create a ranking of all the ships owned by some dude]
+
 This will return a list of ALL items and their total counts, without duplicates. So if it says that there is 2134849239458 iron in the economy, there is that much iron total in ALL ships combined together.
 
-This works by taking all of the ships.gz.json files, and reading all of the contents of all ships. It will only use the most recent available data per ship. This should be water-tight to any item being counted twice.
+This works by taking all of the ships.gz.json files, and reading all of the contents of all ships. It will only use the most recent available data per ship. This should be water-tight to not have any item being counted twice.
 
 Double-click an entry to see a leaderboard of so-called "contributors" to the item-count. See if your storage cuts the top 100 for amount of flux stored. You can then again double-click an entry to see its name history
 
@@ -474,6 +549,7 @@ I'm not sure how some ships have more starter items than allowed, Timmy no.1 {{E
             "Your Items": """YOUR ITEMS
 This little button allows you to check out all the items you possess. It includes a flux value, but that's pretty subjective ngl. Full list is here:
 EVERYTHING NOT PRESENT IS MADE UP OF THE CRAFTING STUFF'S VALUE - OR IS 0.0.
+
     "Iron": 0.0625,
     "Explosives": 0.05,
     "Hyper Rubber": 0.5,
@@ -519,7 +595,7 @@ To save your filtered data to a file:
     3. Choose a save location
     4. Click Save
 
-The exported file will contain all transactions matching your current filters, formatted the same way as shown in the preview.
+The exported file will contain all transactions displayed on the screen. low key copy pasting is more useful but whatever.
             """
         }
 
@@ -629,7 +705,7 @@ The exported file will contain all transactions matching your current filters, f
         ttk.Checkbutton(filter_check_frame, text="Only show ship transactions", variable=self.show_bots,
                         command=self.update_display).pack(side="left", padx=5)
         ttk.Checkbutton(filter_check_frame, text="Use ship names", variable=self.use_ship_names,
-                        command=self.toggle_ship_names).pack(side="left", padx=5)
+                        command=self.update_display).pack(side="left", padx=5)
 
         ttk.Button(filter_check_frame, text="Help", width=6, command=self.show_help_menu).pack(side="right", padx=5)
 
@@ -669,17 +745,6 @@ The exported file will contain all transactions matching your current filters, f
             row=0, column=4, padx=5, sticky="sew")
 
         self.root.minsize(720, 300)
-
-    def toggle_ship_names(self):
-        if self.use_ship_names.get():
-            if not self.ship_names:
-
-                self.status_var.set("loading ship names...")
-                self.progress["value"] = 0
-                self.download_in_progress = True
-                self.start_ship_data_loading()
-        else:
-            self.update_display()
 
     def set_same(self):
         self.end_year_var.set(self.start_year_var.get())
@@ -744,6 +809,7 @@ The exported file will contain all transactions matching your current filters, f
     def load_all_ship_data_thread(self):
         try:
             self.ship_names = {}
+            self.ships_present_on_date.clear()
             processed_ships = 0
 
             all_dates = []
@@ -772,6 +838,8 @@ The exported file will contain all transactions matching your current filters, f
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
                         if not hex_code:
                             continue
+
+                        self.ships_present_on_date[date_str].add(hex_code)
 
                         current_name = ship.get("name", "").strip()
 
@@ -828,11 +896,11 @@ The exported file will contain all transactions matching your current filters, f
                         current, total, status = data[1], data[2], data[3]
                         self.progress["maximum"] = total
                         self.progress["value"] = current
-                        self.status_var.set(f"loading ship data {status}")
+                        self.status_var.set(f"loading ship data into RAM: {status}")
 
                     elif data[0] == "SHIP_COMPLETE":
                         total_ships = data[1]
-                        self.status_var.set(f"loaded {total_ships} ship names and contents, that cost about {round(total_ships * 0.0121277) * 0.1}MB of RAM. nice")
+                        self.status_var.set(f"loaded {total_ships} ship names and contents, that cost about {round(total_ships * 0.0122) * 0.1}MB of RAM. nice")
                         self.progress["value"] = 0
                         self.download_in_progress = False
                         self.update_display()
@@ -873,14 +941,13 @@ The exported file will contain all transactions matching your current filters, f
 
     def download_data_thread(self, dates_to_process):
         try:
-
             self.raw_data = []
             total_transactions = 0
             total_dates = len(dates_to_process)
 
             item_filter = self.filter_item_var.get()
-            source_filter = self.filter_source_var.get().lower() if isinstance(self.filter_source_var.get(), str) else ""
-            dest_filter = self.filter_dest_var.get().lower() if isinstance(self.filter_dest_var.get(), str) else ""
+            source_filter_hex = self.filter_source_var.get().strip('{}').upper()
+            dest_filter_hex = self.filter_dest_var.get().strip('{}').upper()
             hide_bots = self.show_bots.get()
 
             item_id = None
@@ -901,7 +968,14 @@ The exported file will contain all transactions matching your current filters, f
                 log_path = os.path.join(self.local_data_dir, date_str, "log.json.gz")
 
                 if not os.path.exists(log_path) or os.path.getsize(log_path) == 0:
-                    print(f"i skipped an empty/missing file: {log_path}")
+                    continue
+
+                ships_on_this_date = self.ships_present_on_date.get(date_str, set())
+
+                if source_filter_hex and source_filter_hex not in ships_on_this_date:
+                    continue
+
+                if dest_filter_hex and dest_filter_hex not in ships_on_this_date:
                     continue
 
                 progress = i + 1
@@ -923,26 +997,28 @@ The exported file will contain all transactions matching your current filters, f
                         if item_id is not None and entry.get("item") != item_id:
                             continue
 
+                        current_src_raw = str(entry.get("src", "")).upper()
+                        current_dst_raw = str(entry.get("dst", "")).upper()
+
+                        src_hex_match = re.match(r'\{([0-9A-F]+)\}', current_src_raw)
+                        dst_hex_match = re.match(r'\{([0-9A-F]+)\}', current_dst_raw)
+
+                        src_is_ship = bool(src_hex_match)
+                        dst_is_ship = bool(dst_hex_match)
+
+                        src_hex = src_hex_match.group(1) if src_is_ship else current_src_raw
+                        dst_hex = dst_hex_match.group(1) if dst_is_ship else current_dst_raw
+
                         if hide_bots:
-                            current_src = str(entry.get("src", "")).lower()
-                            current_dst = str(entry.get("dst", "")).lower()
-                            if not (current_src.startswith('{') and current_dst.startswith('{')):
+                            if not (src_is_ship and dst_is_ship):
                                 continue
 
-                        if source_filter:
-                            current_src = str(entry.get("src", "")).lower()
-                            src_clean = current_src.strip('{}')
-                            if (source_filter not in current_src and
-                                    (src_clean not in self.ship_names or
-                                     source_filter not in str(self.ship_names.get(src_clean, "")).lower())):
+                        if source_filter_hex:
+                            if not src_is_ship or src_hex != source_filter_hex or src_hex not in ships_on_this_date:
                                 continue
 
-                        if dest_filter:
-                            current_dst = str(entry.get("dst", "")).lower()
-                            dst_clean = current_dst.strip('{}')
-                            if (dest_filter not in current_dst and
-                                    (dst_clean not in self.ship_names or
-                                     dest_filter not in str(self.ship_names.get(dst_clean, "")).lower())):
+                        if dest_filter_hex:
+                            if not dst_is_ship or dst_hex != dest_filter_hex or dst_hex not in ships_on_this_date:
                                 continue
 
                         filtered_day_data.append(entry)
@@ -1007,8 +1083,8 @@ The exported file will contain all transactions matching your current filters, f
 
     def apply_filters(self):
         item_filter = self.filter_item_var.get()
-        source_filter = self.filter_source_var.get().lower()
-        dest_filter = self.filter_dest_var.get().lower()
+        source_filter_hex = self.filter_source_var.get().strip('{}').upper()
+        dest_filter_hex = self.filter_dest_var.get().strip('{}').upper()
         hide_bots = self.show_bots.get()
 
         item_id = None
@@ -1025,33 +1101,34 @@ The exported file will contain all transactions matching your current filters, f
                 continue
 
             current_item = entry.get("item")
-            current_src = str(entry.get("src", "")).lower()
-            current_dst = str(entry.get("dst", "")).lower()
+            current_src_raw = str(entry.get("src", "")).upper()
+            current_dst_raw = str(entry.get("dst", "")).upper()
+            timestamp = entry.get("time")
+
+            entry_date_str = datetime.fromtimestamp(timestamp).strftime("%Y_%m_%d") if timestamp else None
+            ships_on_this_date = self.ships_present_on_date.get(entry_date_str, set())
 
             if item_id is not None and current_item != item_id:
                 continue
 
-            if hide_bots and not (current_src.startswith('{') and current_dst.startswith('{')):
+            src_hex_match = re.match(r'\{([0-9A-F]+)\}', current_src_raw)
+            dst_hex_match = re.match(r'\{([0-9A-F]+)\}', current_dst_raw)
+
+            src_is_ship = bool(src_hex_match)
+            dst_is_ship = bool(dst_hex_match)
+
+            src_hex = src_hex_match.group(1) if src_is_ship else current_src_raw
+            dst_hex = dst_hex_match.group(1) if dst_is_ship else current_dst_raw
+
+            if hide_bots and not (src_is_ship and dst_is_ship):
                 continue
 
-            if source_filter:
-                src_match = source_filter in current_src
-                if not src_match and self.use_ship_names.get():
-                    src_clean = current_src.strip('{}')
-                    if src_clean in self.ship_names:
-                        ship_name = self.ship_names[src_clean].get("current_name", "").lower()
-                        src_match = source_filter in ship_name
-                if not src_match:
+            if source_filter_hex:
+                if not src_is_ship or src_hex != source_filter_hex or src_hex not in ships_on_this_date:
                     continue
 
-            if dest_filter:
-                dst_match = dest_filter in current_dst
-                if not dst_match and self.use_ship_names.get():
-                    dst_clean = current_dst.strip('{}')
-                    if dst_clean in self.ship_names:
-                        ship_name = self.ship_names[dst_clean].get("current_name", "").lower()
-                        dst_match = source_filter in ship_name
-                if not dst_match:
+            if dest_filter_hex:
+                if not dst_is_ship or dst_hex != dest_filter_hex or dst_hex not in ships_on_this_date:
                     continue
 
             self.filtered_data.append(entry)
@@ -1090,13 +1167,6 @@ The exported file will contain all transactions matching your current filters, f
     def lookup_ship_name(self):
         if self.ship_loading_in_progress or self.download_in_progress:
             messagebox.showwarning("Warning", "Data is being loaded, wait up you impatient fuck")
-            return
-
-        if not self.ship_names:
-            self.status_var.set("loading all ship names")
-            self.progress["value"] = 0
-            self.download_in_progress = True
-            self.start_ship_data_loading()
             return
 
         self.lookup_window = tk.Toplevel(self.root)
@@ -1435,13 +1505,6 @@ The exported file will contain all transactions matching your current filters, f
             messagebox.showwarning("Warning", "wait up  sum is happening")
             return
 
-        if not self.ship_names:
-            self.status_var.set("loading all ship names...")
-            self.progress["value"] = 0
-            self.download_in_progress = True
-            self.start_ship_data_loading()
-            return
-
         self.shiplist_window = tk.Toplevel(self.root)
         self.shiplist_window.title("total brokeness calculator")
         self.shiplist_window.minsize(600, 500)
@@ -1691,7 +1754,7 @@ The exported file will contain all transactions matching your current filters, f
                 f"Date Range: {self.start_year_var.get()}-{self.start_month_var.get()}-{self.start_day_var.get()} to {self.end_year_var.get()}-{self.end_month_var.get()}-{self.end_day_var.get()}",
                 f"Filters: Item={self.filter_item_var.get()}, Source={self.filter_source_var.get()}, Dest={self.filter_dest_var.get()}",
                 f"Hide non-ship transactions: {'Yes' if self.show_bots.get() else 'No'}",
-                f"Using ship names: {'Yes' if self.use_ship_names.get() else 'No'}",
+                f"Using ship names (display only): {'Yes' if self.use_ship_names.get() else 'No'}",
                 "=" * 50,
                 ""
             ]
@@ -1776,8 +1839,9 @@ The exported file will contain all transactions matching your current filters, f
                     }.get(zone, zone)
 
                     src_name = None
+                    dst_name = None
 
-                    src = {
+                    src_display = {
                         "block - flux": "Flux mine",
                         "block - iron": "Iron mine",
 
@@ -1804,21 +1868,23 @@ The exported file will contain all transactions matching your current filters, f
 
                     }.get(src, src)
 
-                    dst_name = None
+                    dst_display = dst
+
                     if self.use_ship_names.get():
                         src_name = self._get_cached_historical_name(src, first_time, ship_name_cache)
                         dst_name = self._get_cached_historical_name(dst, first_time, ship_name_cache)
+
                     time_str = self.format_timestamp(first_time)
 
                     hurt = ""
 
-                    if src[0] == "{":
-                        str_parts = src.split(" ", 1)
-                        src = str_parts[0]
+                    if src_display[0] == "{":
+                        str_parts = src_display.split(" ", 1)
+                        src_display = str_parts[0]
                         hurt = " " + str_parts[1] if len(str_parts) > 1 else ""
 
                     line = (f"[{time_str[:19]:<19}] [{zone[:8]:<8}] || "
-                            f"{str(count):<{count_len}}x from {src[:10]:<10} to {dst[:10]:<10}")
+                            f"{str(count):<{count_len}}x from {src_display[:10]:<10} to {dst_display[:10]:<10}")
                     if src_name or dst_name:
                         line += " ("
                         if src_name:
@@ -1994,13 +2060,6 @@ The exported file will contain all transactions matching your current filters, f
             messagebox.showwarning("Warning", "theres something happening cant you see")
             return
 
-        if not self.ship_names:
-            self.status_var.set("loading ship names...")
-            self.progress["value"] = 0
-            self.download_in_progress = True
-            self.start_ship_data_loading()
-            return
-
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
         analysis_dialog.geometry("500x350")
@@ -2135,12 +2194,13 @@ The exported file will contain all transactions matching your current filters, f
                     for ship in ships_data:
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
 
-                        if owned_ships is None or hex_code in owned_ships:
-                            items = ship.get("items", {})
+                        if hex_code:
+                            if owned_ships is None or hex_code in owned_ships:
+                                items = ship.get("items", {})
 
-                            if hex_code not in ship_last_seen or current_date_tuple > ship_last_seen[hex_code]:
-                                ship_last_seen[hex_code] = current_date_tuple
-                                ship_items[hex_code] = items
+                                if hex_code not in ship_last_seen or current_date_tuple > ship_last_seen[hex_code]:
+                                    ship_last_seen[hex_code] = current_date_tuple
+                                    ship_items[hex_code] = items
 
                     self.download_queue.put(("PROGRESS", processed_dates + 1, total_dates,
                                             f"Processed {date_str} ({processed_dates + 1}/{total_dates})"))
