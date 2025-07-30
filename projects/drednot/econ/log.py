@@ -28,8 +28,9 @@ def set_memory_limit():
         soft, hard = resource.getrlimit(resource.RLIMIT_AS)
         resource.setrlimit(resource.RLIMIT_AS, (max_mem_bytes, hard))
     elif platform.system() == 'Windows':
-        import ctypes
 
+        print(f"Warning: Memory limiting not working for {platform.system()} - careful you dont crash!")
+        pass
     else:
         print(f"Warning: Memory limiting not working for {platform.system()} - careful you dont crash!")
 
@@ -116,8 +117,8 @@ class EconLogScourer:
         self.download_queue = queue.Queue()
         self.cancel_event = threading.Event()
 
-        self.download_in_progress = False
-        self.ship_loading_in_progress = False
+        self.current_operation = "none"
+        self.loading_thread = None
 
         self.filter_item_var = tk.StringVar()
         self.filter_source_var = tk.StringVar()
@@ -135,11 +136,6 @@ class EconLogScourer:
         self.apply_display_settings()
         self.check_and_download_data()
 
-        self.status_var.set("loading ship names...")
-        self.progress["value"] = 0
-        self.download_in_progress = True
-        self.start_ship_data_loading()
-
         self.root.after(200, self.show_shareware_popup)
 
     def load_shareware_preference(self):
@@ -149,6 +145,7 @@ class EconLogScourer:
                     pref_data = json.load(f)
                     self.do_not_show_shareware.set(pref_data.get("do_not_show_shareware", False))
             except Exception as e:
+                print(f"Error loading shareware preference: {e}")
                 self.do_not_show_shareware.set(False)
 
     def save_shareware_preference(self):
@@ -214,8 +211,13 @@ class EconLogScourer:
 
         existing_dates = set()
         for entry in os.listdir(self.local_data_dir):
-            if '_' in entry and entry.count('_') == 2:
-                existing_dates.add(entry)
+
+            if '_' in entry and entry.count('_') == 2 and os.path.isdir(os.path.join(self.local_data_dir, entry)):
+
+                ships_gz_path = os.path.join(self.local_data_dir, entry, "ships.json.gz")
+                log_gz_path = os.path.join(self.local_data_dir, entry, "log.json.gz")
+                if os.path.exists(ships_gz_path) and os.path.exists(log_gz_path):
+                    existing_dates.add(entry)
 
         today = datetime.now()
         date_to_check = datetime(2022, 11, 23)
@@ -224,19 +226,24 @@ class EconLogScourer:
         while date_to_check <= today:
             date_str = f"{date_to_check.year}_{date_to_check.month}_{date_to_check.day}"
             if date_str not in existing_dates:
-                if not dates_to_download:
-                    dates_to_download.append(date_to_check - timedelta(days=1))
+
+                if not dates_to_download and date_to_check > datetime(2022, 11, 23):
+                    prev_date_str = f"{(date_to_check - timedelta(days=1)).year}_{(date_to_check - timedelta(days=1)).month}_{(date_to_check - timedelta(days=1)).day}"
+                    if prev_date_str not in existing_dates:
+                        dates_to_download.append(date_to_check - timedelta(days=1))
                 dates_to_download.append(date_to_check)
             date_to_check += timedelta(days=1)
 
         if not dates_to_download:
             self.status_var.set("data's all good and updated")
-            return;
+            self.start_ship_data_loading()
+            return
 
         self.progress["maximum"] = len(dates_to_download)
         self.progress["value"] = 0
 
-        self.download_in_progress = True
+        self.current_operation = "downloading_raw"
+        self.cancel_button.config(state="normal")
         download_thread = threading.Thread(
             target=self.download_dates_thread,
             args=(dates_to_download,),
@@ -251,7 +258,7 @@ class EconLogScourer:
             resp = requests.get(schema_url, timeout=10)
             resp.raise_for_status()
             raw = resp.json()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             messagebox.showerror("Error", f"Failed to download item schema:\n{e}")
             return
 
@@ -325,9 +332,8 @@ class EconLogScourer:
             success_count = 0
 
             for i, date in enumerate(dates_to_download):
-                if not self.download_in_progress:
-                    self.download_queue.put(("CANCELLED", "cancelled loading - retry if this is an error the cancel button is still buggy lol"))
-                    self.raw_data = []
+                if self.cancel_event.is_set():
+                    self.download_queue.put(("CANCELLED", "downloading raw data cancelled"))
                     return
 
                 date_str = f"{date.year}_{date.month}_{date.day}"
@@ -337,14 +343,13 @@ class EconLogScourer:
                                          f"downloading {date_str} ({i+1}/{total_dates})."))
 
                 try:
+                    date_dir = os.path.join(self.local_data_dir, date_str)
+                    os.makedirs(date_dir, exist_ok=True)
+
                     ships_url = f"{base_url}/{date_str}/ships.json.gz"
+                    ships_path = os.path.join(date_dir, "ships.json.gz")
                     with requests.get(ships_url, stream=True, timeout=30) as r:
                         r.raise_for_status()
-
-                        date_dir = os.path.join(self.local_data_dir, date_str)
-                        os.makedirs(date_dir, exist_ok=True)
-
-                        ships_path = os.path.join(date_dir, "ships.json.gz")
                         with open(ships_path, 'wb') as f:
                             for chunk in r.iter_content(chunk_size=8192):
                                 f.write(chunk)
@@ -362,15 +367,17 @@ class EconLogScourer:
                     if e.response.status_code == 404:
                         print(f"cant find anything for {date_str}, skipping")
                         continue
-                    raise
+                    print(f"HTTP Error for {date_str}: {e}")
                 except requests.exceptions.RequestException as e:
                     print(f"aw man couldnt load data for {date_str}: {str(e)}, sorry cuh. this is most likely just the dredark server screaming at you for downloading {total_dates * 2}, files which is a lot. after downloading is complete, restart the program and it will go over all the missing files again. dont worry bruh")
                     continue
+                except Exception as e:
+                    print(f"Unexpected error during download for {date_str}: {e}")
 
-            self.download_queue.put(("COMPLETE", success_count, total_dates))
+            self.download_queue.put(("COMPLETE_DOWNLOAD_RAW", success_count, total_dates))
 
         except Exception as e:
-            self.download_queue.put(("ERROR", str(e)))
+            self.download_queue.put(("ERROR", f"Initial download thread error: {str(e)}"))
 
     def load_item_schema(self):
         path = os.path.join(self.local_data_dir, "item_schema.json")
@@ -391,8 +398,7 @@ class EconLogScourer:
         self.build_item_value_map()
 
     def is_operation_in_progress(self):
-        return (self.download_in_progress or
-                (hasattr(self, 'loading_thread') and self.loading_thread.is_alive()))
+        return self.current_operation != "none"
 
     def on_closing(self):
         if self.is_operation_in_progress():
@@ -401,12 +407,24 @@ class EconLogScourer:
                     "you sure?",
                     icon=messagebox.WARNING
             ):
-                self.download_in_progress=False
+                self.cancel_loading()
+
                 self.root.destroy()
         else:
             self.root.destroy()
 
     def start_ship_data_loading(self):
+        if self.is_operation_in_progress():
+            messagebox.showwarning("Warning", "Another operation is already in progress.")
+            return
+
+        self.current_operation = "loading_ships"
+        self.cancel_event.clear()
+        self.cancel_button.config(state="normal")
+        self.status_var.set("loading ship names...")
+        self.progress["value"] = 0
+
+
         self.loading_thread = threading.Thread(
             target=self.load_all_ship_data_thread,
             daemon=True
@@ -505,7 +523,7 @@ SEARCHING BY BOT: (Doesn't work anymore, will keep here in case I fix it)
         "bot - red sniper": "Red Sniper", (Fast moving Sparrow / Falcon bot that shoots red projectiles)
         "bot - red sentry": "Red Sentry", (Annoying stationary bot)
 
-        "Yellow Mine Bot": "Mine bot", (Annoying mine bot)
+        "Yellow Mine Bot": "Mine bot",
         "The Coward": "The Coward",
         "The Shield Master": "ShieldBoss",
         "The Lazer Enthusiast": "LazerBoss"
@@ -810,12 +828,15 @@ The exported file will contain all transactions displayed on the screen. low key
         try:
             self.ship_names = {}
             self.ships_present_on_date.clear()
-            processed_ships = 0
 
             all_dates = []
             for entry in os.listdir(self.local_data_dir):
-                if entry.count('_') == 2:
-                    all_dates.append(entry)
+                if entry.count('_') == 2 and os.path.isdir(os.path.join(self.local_data_dir, entry)):
+
+                    ships_gz_path = os.path.join(self.local_data_dir, entry, "ships.json.gz")
+                    log_gz_path = os.path.join(self.local_data_dir, entry, "log.json.gz")
+                    if os.path.exists(ships_gz_path) and os.path.exists(log_gz_path):
+                        all_dates.append(entry)
 
             all_dates.sort(key=lambda x: tuple(map(int, x.split('_'))))
 
@@ -823,8 +844,9 @@ The exported file will contain all transactions displayed on the screen. low key
             self.download_queue.put(("SHIP_PROGRESS", 0, total_dates, "starting loading ship data"))
 
             for i, date_str in enumerate(all_dates):
-                if not self.download_in_progress:
-                    break
+                if self.cancel_event.is_set():
+                    self.download_queue.put(("SHIP_ERROR", "loading ship data cancelled"))
+                    return
 
                 ships_path = os.path.join(self.local_data_dir, date_str, "ships.json.gz")
                 if not os.path.exists(ships_path):
@@ -850,10 +872,9 @@ The exported file will contain all transactions displayed on the screen. low key
                             }
 
                         hist = self.ship_names[hex_code]["name_history"]
-                        hist.append((date_str, current_name))
+                        if not hist or hist[-1][1] != current_name:
+                            hist.append((date_str, current_name))
                         self.ship_names[hex_code]["current_name"] = current_name
-
-                    processed_ships += len(day_ships_data)
 
                 except Exception as e:
                     print(f"error loading {date_str}'s ships: {str(e)}")
@@ -861,13 +882,13 @@ The exported file will contain all transactions displayed on the screen. low key
                 self.download_queue.put(("SHIP_PROGRESS", i+1, total_dates,
                                          f"processing {date_str} ({i+1}/{total_dates})"))
 
-            if self.download_in_progress:
+            if not self.cancel_event.is_set():
                 self.download_queue.put(("SHIP_COMPLETE", len(self.ship_names)))
             else:
-                self.download_queue.put(("SHIP_ERROR", "cancelled"))
+                self.download_queue.put(("SHIP_ERROR", "loading ship data cancelled"))
 
         except Exception as e:
-            self.download_queue.put(("SHIP_ERROR", f"bad error: {str(e)}"))
+            self.download_queue.put(("SHIP_ERROR", f"bad error during ship data loading: {str(e)}"))
 
     def check_download_progress(self):
         try:
@@ -881,16 +902,20 @@ The exported file will contain all transactions displayed on the screen. low key
                         self.progress["value"] = current
                         self.status_var.set(f"loading data: {status}")
 
-                    elif data[0] == "COMPLETE":
+                    elif data[0] == "COMPLETE_DOWNLOAD_RAW":
+                        success_count, total_dates = data[1], data[2]
+                        self.download_complete_raw_data(success_count, total_dates)
+
+                    elif data[0] == "COMPLETE_LOAD_DATA":
                         total_trans, filtered_count = data[1], data[2]
-                        self.download_complete(total_trans, filtered_count)
+                        self.load_data_complete(total_trans, filtered_count)
 
                     elif data[0] == "ERROR":
                         error_msg = data[1]
-                        self.download_error(error_msg)
+                        self.operation_error(error_msg)
 
                     elif data[0] == "CANCELLED":
-                        self._handle_cancellation()
+                        self._handle_cancellation(data[1])
 
                     elif data[0] == "SHIP_PROGRESS":
                         current, total, status = data[1], data[2], data[3]
@@ -902,21 +927,24 @@ The exported file will contain all transactions displayed on the screen. low key
                         total_ships = data[1]
                         self.status_var.set(f"loaded {total_ships} ship names and contents, that cost about {round(total_ships * 0.0122) * 0.1}MB of RAM. nice")
                         self.progress["value"] = 0
-                        self.download_in_progress = False
+                        self.current_operation = "none"
+                        self.cancel_button.config(state="disabled")
                         self.update_display()
 
                     elif data[0] == "SHIP_ERROR":
                         error_msg = data[1]
-                        messagebox.showerror("Error", f"ship data loading failde: {error_msg}")
+                        messagebox.showerror("Error", f"ship data loading failed: {error_msg}")
                         self.status_var.set("couldn't load ship data ): try again or live with it")
                         self.progress["value"] = 0
-                        self.download_in_progress = False
+                        self.current_operation = "none"
+                        self.cancel_button.config(state="disabled")
 
                     elif data[0] == "ANALYSIS_COMPLETE":
                         result = data[1]
                         self.display_analysis_result(result)
-                        self.download_in_progress = False
+                        self.current_operation = "none"
                         self.progress["value"] = 0
+                        self.cancel_button.config(state="disabled")
                         self.status_var.set("looked at all known ships and their contents")
 
                 except queue.Empty:
@@ -925,18 +953,22 @@ The exported file will contain all transactions displayed on the screen. low key
         except Exception as e:
             messagebox.showerror("Error", f"progress check failed: {str(e)}. rip")
             self.progress["value"] = 0
-            self.download_in_progress = False
+            self.current_operation = "none"
+            self.cancel_button.config(state="disabled")
 
-        if self.download_in_progress:
+        if self.current_operation != "none":
             self.root.after(100, self.check_download_progress)
 
-    def _handle_cancellation(self):
-        self.status_var.set("Cancelled")
+    def _handle_cancellation(self, message):
+        self.status_var.set(f"Operation cancelled: {message}")
         self.progress["value"] = 0
         self.cancel_button.config(state="disabled")
-        self.raw_data = []
-        self.filtered_data = []
-        self.update_preview()
+        self.current_operation = "none"
+
+        if "raw data" in message or "log data" in message:
+            self.raw_data = []
+            self.filtered_data = []
+            self.update_preview()
         self.cancel_event.clear()
 
     def download_data_thread(self, dates_to_process):
@@ -959,9 +991,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
             for i, date_str in enumerate(dates_to_process):
                 if self.cancel_event.is_set():
-                    break
-                if not self.download_in_progress:
-                    self.download_queue.put(("CANCELLED", "loading cancelled"))
+                    self.download_queue.put(("CANCELLED", "loading log data cancelled"))
                     self.raw_data = []
                     return
 
@@ -974,7 +1004,6 @@ The exported file will contain all transactions displayed on the screen. low key
 
                 if source_filter_hex and source_filter_hex not in ships_on_this_date:
                     continue
-
                 if dest_filter_hex and dest_filter_hex not in ships_on_this_date:
                     continue
 
@@ -984,7 +1013,9 @@ The exported file will contain all transactions displayed on the screen. low key
 
                 with gzip.open(log_path, 'rb') as f:
                     if self.cancel_event.is_set():
-                        break
+                        self.download_queue.put(("CANCELLED", "loading log data cancelled"))
+                        self.raw_data = []
+                        return
                     day_log_data = json.load(f)
 
                     total_transactions += len(day_log_data)
@@ -1007,17 +1038,19 @@ The exported file will contain all transactions displayed on the screen. low key
                         dst_is_ship = bool(dst_hex_match)
 
                         src_hex = src_hex_match.group(1) if src_is_ship else current_src_raw
-                        dst_hex = dst_hex_match.group(1) if dst_is_ship else current_dst_raw
+                        dst_hex = dst_hex_match.group(1) if dst_is_ship else current_src_raw
 
                         if hide_bots:
                             if not (src_is_ship and dst_is_ship):
                                 continue
 
                         if source_filter_hex:
+
                             if not src_is_ship or src_hex != source_filter_hex or src_hex not in ships_on_this_date:
                                 continue
 
                         if dest_filter_hex:
+
                             if not dst_is_ship or dst_hex != dest_filter_hex or dst_hex not in ships_on_this_date:
                                 continue
 
@@ -1027,21 +1060,23 @@ The exported file will contain all transactions displayed on the screen. low key
 
                 gc.collect()
 
-            self.download_queue.put(("COMPLETE", total_transactions, len(self.raw_data)))
+            if not self.cancel_event.is_set():
+                self.download_queue.put(("COMPLETE_LOAD_DATA", total_transactions, len(self.raw_data)))
+            else:
+                self.download_queue.put(("CANCELLED", "loading log data cancelled"))
 
         except Exception as e:
-            self.download_queue.put(("ERROR", str(e)))
+            self.download_queue.put(("ERROR", f"Log data loading thread error: {str(e)}"))
 
     def load_data(self):
         if not self.validate_date_range():
             return
 
-        if self.download_in_progress:
-            messagebox.showwarning("Warning", "somethnig is already loading you impatient bum")
+        if self.is_operation_in_progress():
+            messagebox.showwarning("Warning", "something is already loading you impatient bum")
             return
 
         self.cancel_event.clear()
-
         self.cancel_button.config(state="normal")
 
         self.raw_data = []
@@ -1070,14 +1105,14 @@ The exported file will contain all transactions displayed on the screen. low key
         self.progress["maximum"] = total_dates
         self.progress["value"] = 0
         self.status_var.set(f"loading logs from files (0/{total_dates})...")
-        self.download_in_progress = True
+        self.current_operation = "loading_raw"
 
-        download_thread = threading.Thread(
+        self.loading_thread = threading.Thread(
             target=self.download_data_thread,
             args=(dates_to_process,),
             daemon=True
         )
-        download_thread.start()
+        self.loading_thread.start()
 
         self.root.after(100, self.check_download_progress)
 
@@ -1136,7 +1171,6 @@ The exported file will contain all transactions displayed on the screen. low key
     def format_timestamp(self, timestamp):
         try:
             if timestamp:
-
                 dt = datetime.fromtimestamp(timestamp)
                 return dt.strftime("%Y-%m-%d %H:%M:%S")
             return "Unknown time"
@@ -1144,12 +1178,23 @@ The exported file will contain all transactions displayed on the screen. low key
             return "Invalid time"
 
     def cancel_loading(self):
-        self.cancel_event.set()
-        self.status_var.set("Cancelling...")
-        self.cancel_button.config(state="disabled")
+        if self.is_operation_in_progress():
+            self.cancel_event.set()
+            self.status_var.set(f"Cancelling {self.current_operation}...")
+            self.cancel_button.config(state="disabled")
+        else:
+            messagebox.showinfo("Info", "No operation is currently in progress to cancel.")
 
-    def download_complete(self, total_transactions, filtered_count):
-        self.download_in_progress = False
+    def download_complete_raw_data(self, success_count, total_dates):
+        self.current_operation = "none"
+        self.cancel_button.config(state="disabled")
+        self.progress["value"] = self.progress["maximum"]
+        self.status_var.set(f"Initial raw data download finished. Downloaded {success_count}/{total_dates} dates.")
+        self.start_ship_data_loading()
+
+
+    def load_data_complete(self, total_transactions, filtered_count):
+        self.current_operation = "none"
         self.cancel_button.config(state="disabled")
         self.progress["value"] = self.progress["maximum"]
         self.status_var.set(f"finished loading shit! gone trough {total_transactions} transactions, {filtered_count} after filters")
@@ -1158,14 +1203,14 @@ The exported file will contain all transactions displayed on the screen. low key
         self.filtered_data = self.raw_data.copy()
         self.update_preview()
 
-    def download_error(self, error_msg):
-        self.download_in_progress = False
+    def operation_error(self, error_msg):
+        self.current_operation = "none"
         self.cancel_button.config(state="disabled")
         messagebox.showerror("Error", f"data loading did boom this is 10000% your fault fuck you for breaking it no tech support for you: {error_msg}\n(this is the dredark server screaming at you for downloading 900+ files in one go, dont worry, relaunch after it's done dowloading. it will redownload the missing files.)")
         self.status_var.set("data loading failed")
 
     def lookup_ship_name(self):
-        if self.ship_loading_in_progress or self.download_in_progress:
+        if self.is_operation_in_progress():
             messagebox.showwarning("Warning", "Data is being loaded, wait up you impatient fuck")
             return
 
@@ -1332,7 +1377,6 @@ The exported file will contain all transactions displayed on the screen. low key
 
             regex_pattern = None
             if use_wildcard:
-
                 parts = clean_search.split('*')
                 escaped_parts = [re.escape(part) for part in parts]
                 pattern_str = '.*'.join(escaped_parts)
@@ -1354,8 +1398,10 @@ The exported file will contain all transactions displayed on the screen. low key
                             continue
                     except ValueError:
                         pass
+
                 current_name = data.get("current_name", "")
-                historical_names = [name for _, name in data.get("name_history", [])]
+
+                historical_names = list(set([name for _, name in data.get("name_history", [])]))
 
                 comp_hex = hex_id if case_sensitive else hex_id.upper()
                 comp_name = current_name if case_sensitive else current_name.upper()
@@ -1364,15 +1410,13 @@ The exported file will contain all transactions displayed on the screen. low key
                 match = False
 
                 if use_wildcard:
-
                     if search_type == "id":
-                        match = regex_pattern.match(comp_hex)
+                        match = bool(regex_pattern.match(comp_hex))
                     else:
-                        name_match = regex_pattern.match(comp_name)
-                        hist_match = any(regex_pattern.match(name) for name in comp_historical)
+                        name_match = bool(regex_pattern.match(comp_name))
+                        hist_match = any(bool(regex_pattern.match(name)) for name in comp_historical)
                         match = name_match or hist_match
                 else:
-
                     if search_type == "id":
                         if self.fuzzy_search.get():
                             match = clean_search in comp_hex
@@ -1447,15 +1491,13 @@ The exported file will contain all transactions displayed on the screen. low key
             item_name_map = self.item_name_map
             found = False
             total_value = 0.0
+
             if re.fullmatch(r'[A-Za-z0-9]{4}', hex_id):
-                total_value = 45000.0
+                total_value += 45000.0
                 self.result_text.insert(tk.END, "\nIt' a 4 digit, +45000 flux value and +100 aura!\n")
                 self.result_text.insert(tk.END, "-"*55 + "\n")
-                self.result_text.insert(tk.END,
-                    f"{'TOTAL SHIP VALUE:':>45} {total_value:9.2f}\n")
 
             for ship in ships_data:
-
                 ship_hex = ship.get("hex_code", "").strip("{}").upper()
                 target_hex = hex_id.strip("{}").upper()
 
@@ -1501,8 +1543,8 @@ The exported file will contain all transactions displayed on the screen. low key
             self.result_text.insert(tk.END, f"\boom: {str(e)}")
 
     def open_shiplist_window(self):
-        if self.ship_loading_in_progress or self.download_in_progress:
-            messagebox.showwarning("Warning", "wait up  sum is happening")
+        if self.is_operation_in_progress():
+            messagebox.showwarning("Warning", "wait up sum is happening")
             return
 
         self.shiplist_window = tk.Toplevel(self.root)
@@ -1574,7 +1616,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
         item_name_map = {item["id"]: item["name"] for item in self.item_list}
 
-        aggregated = {}
+        aggregated = defaultdict(int)
         missing = []
         four_digit_ship_count = 0
         four_digit_total_value = 0.0
@@ -1615,7 +1657,7 @@ The exported file will contain all transactions displayed on the screen. low key
                             sid = int(sid_str)
                         except ValueError:
                             continue
-                        aggregated[sid] = aggregated.get(sid, 0) + int(cnt)
+                        aggregated[sid] += int(cnt)
                     found = True
                     break
 
@@ -1636,7 +1678,6 @@ The exported file will contain all transactions displayed on the screen. low key
         output_lines.append("")
         output_lines.append(f"{'ID':>3} | {'Name':45} | {'Count':>6} | {'Unit Value':>9} | {'Total Value':>13}")
 
-
         grand_total = 0.0
         for sid in sorted(aggregated):
             cnt      = aggregated[sid]
@@ -1651,6 +1692,7 @@ The exported file will contain all transactions displayed on the screen. low key
             output_lines.append(
                 f"{'4d':>7} | {'4 digits':40} | {four_digit_ship_count:7d} | {45000.0:11.2f} | {four_digit_total_value:13.2f}"
             )
+            grand_total += four_digit_total_value
         output_lines.append("-"*75)
         output_lines.append(f"{'':>44} Grand Total: {grand_total:12.2f}")
 
@@ -1661,10 +1703,13 @@ The exported file will contain all transactions displayed on the screen. low key
         self.shiplist_result_text.configure(state="disabled")
 
     def _display_current_ship_contents(self, hex_id):
-        latest_date = max(
-            (tuple(map(int, date.split('_'))), date)
-            for date, _ in self.ship_names[hex_id]["name_history"]
-        )[1] if self.ship_names[hex_id]["name_history"] else None
+        latest_date = None
+        if self.ship_names[hex_id]["name_history"]:
+
+            latest_date = max(
+                (tuple(map(int, date.split('_'))), date)
+                for date, _ in self.ship_names[hex_id]["name_history"]
+            )[1]
 
         if latest_date:
             self.result_text.insert(tk.END, "\nCurrent Contents:\n")
@@ -1768,7 +1813,6 @@ The exported file will contain all transactions displayed on the screen. low key
             if self.use_ship_names.get():
                 for hex_id, data in self.ship_names.items():
                     if 'name_history' in data:
-
                         history = [(tuple(map(int, date.split('_'))), name)
                                    for date, name in data['name_history']]
                         history.sort()
@@ -1842,30 +1886,16 @@ The exported file will contain all transactions displayed on the screen. low key
                     dst_name = None
 
                     src_display = {
-                        "block - flux": "Flux mine",
-                        "block - iron": "Iron mine",
-
-                        "bot - zombie": "Vult Bot",
-                        "bot - zombie tank": "Vult Bot 2",
-                        "bot - zombie hunter": "Vult Yank",
-                        "bot - zombie boss": "Vult Boss",
-
-                        "bot - green roamer": "Green bot",
-                        "bot - red hunter": "Red Hunter",
-                        "bot - yellow rusher": "YellowRush",
-
-                        "bot - blue melee": "Blue Spike",
-                        "bot - red sentry": "Red Sentry",
-                        "bot - orange fool": "Orange Fool",
-                        "bot - yellow hunter": "Hunter bot",
-                        "bot - red sniper": "Red Sniper",
-                        "bot - aqua shielder": "Shield bot",
-
-                        "Yellow Mine Bot": "Mine bot",
-                        "The Coward": "The Coward",
-                        "The Shield Master": "ShieldBoss",
+                        "block - flux": "Flux mine", "block - iron": "Iron mine",
+                        "bot - zombie": "Vult Bot", "bot - zombie tank": "Vult Bot 2",
+                        "bot - zombie hunter": "Vult Yank", "bot - zombie boss": "Vult Boss",
+                        "bot - green roamer": "Green bot", "bot - red hunter": "Red Hunter",
+                        "bot - yellow rusher": "YellowRush", "bot - blue melee": "Blue Spike",
+                        "bot - red sentry": "Red Sentry", "bot - orange fool": "Orange Fool",
+                        "bot - yellow hunter": "Hunter bot", "bot - red sniper": "Red Sniper",
+                        "bot - aqua shielder": "Shield bot", "Yellow Mine Bot": "Mine bot",
+                        "The Coward": "The Coward", "The Shield Master": "ShieldBoss",
                         "The Lazer Enthusiast": "LazerBoss"
-
                     }.get(src, src)
 
                     dst_display = dst
@@ -1877,8 +1907,7 @@ The exported file will contain all transactions displayed on the screen. low key
                     time_str = self.format_timestamp(first_time)
 
                     hurt = ""
-
-                    if src_display[0] == "{":
+                    if src_display and src_display[0] == "{":
                         str_parts = src_display.split(" ", 1)
                         src_display = str_parts[0]
                         hurt = " " + str_parts[1] if len(str_parts) > 1 else ""
@@ -1909,11 +1938,12 @@ The exported file will contain all transactions displayed on the screen. low key
 
     def _get_cached_historical_name(self, ship_id, timestamp, name_cache):
         try:
-            ship_id = re.match(r'^\S+', ship_id).group(0)
-            if not ship_id.startswith('{'):
+
+            match = re.match(r'\{([0-9A-F]+)\}', ship_id, re.IGNORECASE)
+            if not match:
                 return None
 
-            hex_id = ship_id.strip('{}')
+            hex_id = match.group(1).upper()
             if hex_id not in name_cache:
                 return None
 
@@ -1935,9 +1965,9 @@ The exported file will contain all transactions displayed on the screen. low key
                 else:
                     high = mid
 
-            return history[low-1][1] if low > 0 else history[0][1]
-        except (ValueError, IndexError) as e:
-            print(f"Error processing date for ship {ship_id}: {e}")
+            return history[low-1][1] if low > 0 else current_name
+        except (ValueError, IndexError, AttributeError) as e:
+
             return None
 
     def display_ship_history(self, hex_id):
@@ -1961,20 +1991,22 @@ The exported file will contain all transactions displayed on the screen. low key
             self.result_text.insert(tk.END, f"{date_str}: {display_name}\n", tag_name)
             self.result_text.tag_bind(tag_name, "<Button-1>",
                                       lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
-            self.result_text.tag_config(tag_name, foreground="black", underline=True)
+            self.result_text.tag_config(tag_name, foreground="blue", underline=True)
 
         self._display_current_ship_contents(hex_id)
         self.result_text.config(state="disabled")
 
     def update_display(self):
-        if not self.download_in_progress and self.raw_data:
+        if self.current_operation == "none" and self.raw_data:
             self.status_var.set("applying filters... might be slow if ship names are enabled. looking those up takes ages")
-            self.root.update()
+            self.root.update_idletasks()
 
             self.apply_filters()
             self.update_preview()
 
             self.status_var.set(f"looking at {len(self.filtered_data)} transactions")
+        elif not self.raw_data:
+            self.status_var.set("No data loaded to filter. Load data first.")
 
     def update_preview(self):
         content_lines = self.get_filtered_data_as_text()
@@ -1989,6 +2021,7 @@ The exported file will contain all transactions displayed on the screen. low key
         self.preview_text.config(state="disabled")
 
     def validate_date_range(self):
+
         try:
             start_date = datetime(
                 int(self.start_year_var.get()),
@@ -2012,9 +2045,25 @@ The exported file will contain all transactions displayed on the screen. low key
                 return False
 
             if start_date > end_date:
-                start_date2 = start_date
-                start_date = end_date
-                end_date = start_date2
+
+                messagebox.showwarning("Warning", "Start date is after end date. Swapping them.")
+                self.start_year_var.set(end_date.year)
+                self.start_month_var.set(end_date.month)
+                self.start_day_var.set(end_date.day)
+                self.end_year_var.set(start_date.year)
+                self.end_month_var.set(start_date.month)
+                self.end_day_var.set(start_date.day)
+
+                start_date = datetime(
+                    int(self.start_year_var.get()),
+                    int(self.start_month_var.get()),
+                    int(self.start_day_var.get())
+                )
+                end_date = datetime(
+                    int(self.end_year_var.get()),
+                    int(self.end_month_var.get()),
+                    int(self.end_day_var.get())
+                )
 
             return True
         except ValueError:
@@ -2041,12 +2090,20 @@ The exported file will contain all transactions displayed on the screen. low key
             self.search_combo.selection_range(0, tk.END)
 
         if self.filtered_items:
+
             self.search_combo.event_generate('<Down>')
 
     def start_analysis(self, start_date, end_date, owned_ships=None):
-        self.download_in_progress = True
+        if self.is_operation_in_progress():
+            messagebox.showwarning("Warning", "Another operation is already in progress.")
+            return
+
+        self.current_operation = "analyzing_ships"
+        self.cancel_event.clear()
+        self.cancel_button.config(state="normal")
         self.progress['value'] = 0
         self.status_var.set("starting ship analysis")
+
         analysis_thread = threading.Thread(
             target=self.analyze_ships_thread,
             args=(start_date, end_date, owned_ships),
@@ -2056,13 +2113,15 @@ The exported file will contain all transactions displayed on the screen. low key
         self.root.after(100, self.check_download_progress)
 
     def analyze_ships(self):
-        if self.ship_loading_in_progress or self.download_in_progress:
+        if self.is_operation_in_progress():
             messagebox.showwarning("Warning", "theres something happening cant you see")
             return
 
         analysis_dialog = tk.Toplevel(self.root)
         analysis_dialog.title("range to analyze (from-to)")
         analysis_dialog.geometry("500x350")
+        analysis_dialog.transient(self.root)
+        analysis_dialog.grab_set()
 
         date_frame = ttk.Frame(analysis_dialog)
         date_frame.pack(fill="x", padx=10, pady=5)
@@ -2090,8 +2149,8 @@ The exported file will contain all transactions displayed on the screen. low key
         shiplist_frame = ttk.LabelFrame(analysis_dialog, text="Shiplist (optional, paste JSON)")
         shiplist_frame.pack(fill="x", padx=10, pady=5)
 
-        self.shiplist_text = tk.Text(shiplist_frame, height=4, width=50, wrap="none")
-        self.shiplist_text.pack(fill="x")
+        self.shiplist_text_analysis_dialog = tk.Text(shiplist_frame, height=4, width=50, wrap="none")
+        self.shiplist_text_analysis_dialog.pack(fill="x")
 
         info_label = ttk.Label(analysis_dialog, text="Copy from: https://drednot.io/shiplist?server=0\nLeave blank to analyze ALL ships")
         info_label.pack(pady=(5, 0))
@@ -2121,7 +2180,7 @@ The exported file will contain all transactions displayed on the screen. low key
                     start_date, end_date = end_date, start_date
 
                 owned_ships = None
-                raw = self.shiplist_text.get("1.0", tk.END).strip()
+                raw = self.shiplist_text_analysis_dialog.get("1.0", tk.END).strip()
                 if raw:
                     try:
                         data = json.loads(raw)
@@ -2176,7 +2235,7 @@ The exported file will contain all transactions displayed on the screen. low key
             processed_dates = 0
 
             for date_str in dates_to_process:
-                if not self.download_in_progress:
+                if self.cancel_event.is_set():
                     self.download_queue.put(("CANCELLED", "analysis stopped"))
                     return
 
@@ -2195,6 +2254,7 @@ The exported file will contain all transactions displayed on the screen. low key
                         hex_code = ship.get("hex_code", "").upper().strip("{}")
 
                         if hex_code:
+
                             if owned_ships is None or hex_code in owned_ships:
                                 items = ship.get("items", {})
 
@@ -2207,7 +2267,7 @@ The exported file will contain all transactions displayed on the screen. low key
                     processed_dates += 1
 
                 except Exception as e:
-                    self.download_queue.put(("ERROR", f"error {date_str}: {str(e)}"))
+                    self.download_queue.put(("ERROR", f"error processing {date_str}: {str(e)}"))
 
             item_totals = defaultdict(int)
             item_contributions = defaultdict(lambda: defaultdict(int))
@@ -2220,45 +2280,63 @@ The exported file will contain all transactions displayed on the screen. low key
                     except ValueError:
                         continue
 
-            self.download_queue.put(("ANALYSIS_COMPLETE", (item_totals, item_contributions)))
+            ship_values = {}
+            for hex_code, items in ship_items.items():
+                current_ship_value = 0.0
+                if re.fullmatch(r'[A-Za-z0-9]{4}', hex_code):
+                    current_ship_value += 45000.0
+
+                for item_id_str, count in items.items():
+                    try:
+                        item_id = int(item_id_str)
+                        unit_value = self.item_value_map.get(item_id, 0.0)
+                        current_ship_value += unit_value * count
+                    except ValueError:
+                        continue
+                ship_values[hex_code] = current_ship_value
+
+            self.download_queue.put(("ANALYSIS_COMPLETE", (item_totals, item_contributions, ship_values)))
 
         except Exception as e:
             self.download_queue.put(("ERROR", f"rip analysis {str(e)}"))
 
     def display_analysis_result(self, result):
-        item_totals, item_contributions = result
+        item_totals, item_contributions, ship_values = result
+
         result_window = tk.Toplevel(self.root)
         result_window.title("Economy Content")
         result_window.geometry("1200x800")
         result_window.minsize(800, 600)
+        result_window.transient(self.root)
+        result_window.grab_set()
 
         notebook = ttk.Notebook(result_window)
         notebook.pack(fill="both", expand=True)
 
         summary_frame = ttk.Frame(notebook)
-        notebook.add(summary_frame, text="Summary")
+        notebook.add(summary_frame, text="Item Summary")
 
         control_frame = ttk.Frame(summary_frame)
         control_frame.pack(fill="x", padx=5, pady=5)
 
         ttk.Label(control_frame, text="Search:").pack(side="left")
-        search_var = tk.StringVar()
-        search_entry = ttk.Entry(control_frame, textvariable=search_var, width=30)
-        search_entry.pack(side="left", padx=5)
+        item_search_var = tk.StringVar()
+        item_search_entry = ttk.Entry(control_frame, textvariable=item_search_var, width=30)
+        item_search_entry.pack(side="left", padx=5)
 
-        sort_options = ["Name (A-Z)", "Count (High-Low)", "Count (Low-High)", "ID"]
-        sort_var = tk.StringVar(value="Count (High-Low)")
-        sort_combo = ttk.Combobox(control_frame, textvariable=sort_var, values=sort_options, state="readonly")
-        sort_combo.pack(side="left", padx=5)
+        item_sort_options = ["Name (A-Z)", "Count (High-Low)", "Count (Low-High)", "ID"]
+        item_sort_var = tk.StringVar(value="Count (High-Low)")
+        item_sort_combo = ttk.Combobox(control_frame, textvariable=item_sort_var, values=item_sort_options, state="readonly")
+        item_sort_combo.pack(side="left", padx=5)
 
         export_button = ttk.Button(control_frame, text="Export CSV",
                                    command=lambda: self.export_analysis(item_totals, item_contributions))
         export_button.pack(side="right", padx=5)
 
-        tree_container = ttk.Frame(summary_frame)
-        tree_container.pack(fill="both", expand=True)
+        item_tree_container = ttk.Frame(summary_frame)
+        item_tree_container.pack(fill="both", expand=True)
 
-        self.analysis_tree = ttk.Treeview(tree_container, columns=("item_id", "item_name", "total_count"), show="headings")
+        self.analysis_tree = ttk.Treeview(item_tree_container, columns=("item_id", "item_name", "total_count"), show="headings")
 
         self.analysis_tree.heading("item_id", text="ID", command=lambda: self.sort_treeview(self.analysis_tree, "item_id", True))
         self.analysis_tree.heading("item_name", text="Item Name", command=lambda: self.sort_treeview(self.analysis_tree, "item_name", False))
@@ -2268,22 +2346,72 @@ The exported file will contain all transactions displayed on the screen. low key
         self.analysis_tree.column("item_name", width=300, anchor="w")
         self.analysis_tree.column("total_count", width=120, anchor="e")
 
-        y_scroll = ttk.Scrollbar(tree_container, orient="vertical", command=self.analysis_tree.yview)
-        x_scroll = ttk.Scrollbar(tree_container, orient="horizontal", command=self.analysis_tree.xview)
-        self.analysis_tree.configure(yscrollcommand=y_scroll.set, xscrollcommand=x_scroll.set)
+        item_y_scroll = ttk.Scrollbar(item_tree_container, orient="vertical", command=self.analysis_tree.yview)
+        item_x_scroll = ttk.Scrollbar(item_tree_container, orient="horizontal", command=self.analysis_tree.xview)
+        self.analysis_tree.configure(yscrollcommand=item_y_scroll.set, xscrollcommand=item_x_scroll.set)
 
         self.analysis_tree.grid(row=0, column=0, sticky="nsew")
-        y_scroll.grid(row=0, column=1, sticky="ns")
-        x_scroll.grid(row=1, column=0, sticky="ew")
-        tree_container.grid_rowconfigure(0, weight=1)
-        tree_container.grid_columnconfigure(0, weight=1)
+        item_y_scroll.grid(row=0, column=1, sticky="ns")
+        item_x_scroll.grid(row=1, column=0, sticky="ew")
+        item_tree_container.grid_rowconfigure(0, weight=1)
+        item_tree_container.grid_columnconfigure(0, weight=1)
 
         self.analysis_tree.bind("<Double-1>", lambda e: self.show_contributors(item_contributions))
 
-        self.populate_analysis_tree(item_totals, item_contributions, search_var.get())
+        self.populate_analysis_tree(item_totals, item_contributions, item_search_var.get())
 
-        search_var.trace_add("write", lambda *_: self.populate_analysis_tree(item_totals, item_contributions, search_var.get()))
-        sort_var.trace_add("write", lambda *_: self.handle_sort_change(sort_var.get(), item_totals, item_contributions))
+        item_search_var.trace_add("write", lambda *_: self.populate_analysis_tree(item_totals, item_contributions, item_search_var.get()))
+        item_sort_var.trace_add("write", lambda *_: self.handle_sort_change(item_sort_var.get(), item_totals, item_contributions))
+
+        ship_leaderboard_frame = ttk.Frame(notebook)
+        notebook.add(ship_leaderboard_frame, text="Ship Leaderboard")
+
+        ship_control_frame = ttk.Frame(ship_leaderboard_frame)
+        ship_control_frame.pack(fill="x", padx=5, pady=5)
+
+        ttk.Label(ship_control_frame, text="Search Ship:").pack(side="left")
+        ship_search_var = tk.StringVar()
+        ship_search_entry = ttk.Entry(ship_control_frame, textvariable=ship_search_var, width=30)
+        ship_search_entry.pack(side="left", padx=5)
+
+        ship_sort_options = ["Value (High-Low)", "Value (Low-High)", "Name (A-Z)", "ID"]
+        ship_sort_var = tk.StringVar(value="Value (High-Low)")
+        ship_sort_combo = ttk.Combobox(ship_control_frame, textvariable=ship_sort_var, values=ship_sort_options, state="readonly")
+        ship_sort_combo.pack(side="left", padx=5)
+
+        ship_tree_container = ttk.Frame(ship_leaderboard_frame)
+        ship_tree_container.pack(fill="both", expand=True)
+
+        self.ship_leaderboard_tree = ttk.Treeview(ship_tree_container, columns=("rank", "ship_id", "ship_name", "estimated_value"), show="headings")
+
+        self.ship_leaderboard_tree.heading("rank", text="Rank", command=lambda: self.sort_treeview(self.ship_leaderboard_tree, "rank", True))
+        self.ship_leaderboard_tree.heading("ship_id", text="Ship ID", command=lambda: self.sort_treeview(self.ship_leaderboard_tree, "ship_id", False))
+        self.ship_leaderboard_tree.heading("ship_name", text="Ship Name", command=lambda: self.sort_treeview(self.ship_leaderboard_tree, "ship_name", False))
+        self.ship_leaderboard_tree.heading("estimated_value", text="Estimated Value", command=lambda: self.sort_treeview(self.ship_leaderboard_tree, "estimated_value", True))
+
+        self.ship_leaderboard_tree.column("rank", width=60, anchor="center")
+        self.ship_leaderboard_tree.column("ship_id", width=120, anchor="center")
+        self.ship_leaderboard_tree.column("ship_name", width=300, anchor="w")
+        self.ship_leaderboard_tree.column("estimated_value", width=150, anchor="e")
+
+        ship_y_scroll = ttk.Scrollbar(ship_tree_container, orient="vertical", command=self.ship_leaderboard_tree.yview)
+        ship_x_scroll = ttk.Scrollbar(ship_tree_container, orient="horizontal", command=self.ship_leaderboard_tree.xview)
+        self.ship_leaderboard_tree.configure(yscrollcommand=ship_y_scroll.set, xscrollcommand=ship_x_scroll.set)
+
+        self.ship_leaderboard_tree.grid(row=0, column=0, sticky="nsew")
+        ship_y_scroll.grid(row=0, column=1, sticky="ns")
+        ship_x_scroll.grid(row=1, column=0, sticky="ew")
+        ship_tree_container.grid_rowconfigure(0, weight=1)
+        ship_tree_container.grid_columnconfigure(0, weight=1)
+
+        self.ship_leaderboard_tree.bind("<Double-1>", lambda e: self.open_ship_lookup_from_leaderboard())
+
+        self.populate_ship_leaderboard_tree(ship_values, ship_search_var.get())
+
+        ship_search_var.trace_add("write", lambda *_: self.populate_ship_leaderboard_tree(ship_values, ship_search_var.get()))
+        ship_sort_var.trace_add("write", lambda *_: self.handle_ship_sort_change(ship_sort_var.get(), ship_values))
+
+        notebook.select(summary_frame)
 
     def populate_analysis_tree(self, item_totals, contributions, search_term=""):
         self.analysis_tree.delete(*self.analysis_tree.get_children(item=''))
@@ -2299,12 +2427,32 @@ The exported file will contain all transactions displayed on the screen. low key
         for item_id, count, name in filtered_items:
             self.analysis_tree.insert("", "end", values=(item_id, name, f"{count:,}"))
 
-    def open_ship_lookup(self, tree):
-        selected = tree.selection()
+    def populate_ship_leaderboard_tree(self, ship_values, search_term=""):
+        self.ship_leaderboard_tree.delete(*self.ship_leaderboard_tree.get_children(item=''))
+
+        filtered_ships = []
+        for hex_id, value in ship_values.items():
+            ship_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
+            if search_term.lower() in hex_id.lower() or search_term.lower() in ship_name.lower():
+                filtered_ships.append((hex_id, ship_name, value))
+
+        filtered_ships.sort(key=lambda x: x[2], reverse=True)
+
+        for rank, (hex_id, ship_name, value) in enumerate(filtered_ships, start=1):
+            self.ship_leaderboard_tree.insert("", "end", values=(
+                f"#{rank}",
+                hex_id,
+                ship_name,
+                f"{value:,.2f}"
+            ))
+
+    def open_ship_lookup_from_leaderboard(self):
+        selected = self.ship_leaderboard_tree.selection()
         if not selected:
             return
 
-        ship_id = tree.item(selected[0], "values")[1]
+        ship_id = self.ship_leaderboard_tree.item(selected[0], "values")[1]
+
         if not hasattr(self, 'lookup_window') or not self.lookup_window.winfo_exists():
             self.lookup_ship_name()
         self.display_ship_history(ship_id.strip("{}"))
@@ -2313,9 +2461,17 @@ The exported file will contain all transactions displayed on the screen. low key
     def sort_treeview(self, tree, col, reverse):
         items = [(tree.set(k, col), k) for k in tree.get_children('')]
 
-        try:
-            items.sort(key=lambda x: int(x[0].replace('#', '')), reverse=reverse)
-        except ValueError:
+        if col in ("item_id", "total_count", "rank", "estimated_value"):
+
+            def sort_key(x):
+                try:
+
+                    return float(x[0].replace('#', '').replace(',', ''))
+                except ValueError:
+                    return x[0].lower()
+            items.sort(key=sort_key, reverse=reverse)
+        else:
+
             items.sort(key=lambda x: x[0].lower(), reverse=reverse)
 
         for index, (_, k) in enumerate(items):
@@ -2324,7 +2480,6 @@ The exported file will contain all transactions displayed on the screen. low key
         tree.heading(col, command=lambda: self.sort_treeview(tree, col, not reverse))
 
     def handle_sort_change(self, sort_option, item_totals, contributions):
-        reverse = False
         if sort_option == "Count (High-Low)":
             sorted_items = sorted(item_totals.items(), key=lambda x: -x[1])
         elif sort_option == "Count (Low-High)":
@@ -2343,8 +2498,31 @@ The exported file will contain all transactions displayed on the screen. low key
         else:
             sorted_items = sorted(item_totals.items(), key=lambda x: x[0])
 
-        item_totals = dict(sorted_items)
-        self.populate_analysis_tree(item_totals, contributions)
+        self.populate_analysis_tree(dict(sorted_items), contributions)
+
+    def handle_ship_sort_change(self, sort_option, ship_values):
+        filtered_ships = []
+        for hex_id, value in ship_values.items():
+            ship_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
+            filtered_ships.append((hex_id, ship_name, value))
+
+        if sort_option == "Value (High-Low)":
+            filtered_ships.sort(key=lambda x: x[2], reverse=True)
+        elif sort_option == "Value (Low-High)":
+            filtered_ships.sort(key=lambda x: x[2], reverse=False)
+        elif sort_option == "Name (A-Z)":
+            filtered_ships.sort(key=lambda x: x[1].lower())
+        elif sort_option == "ID":
+            filtered_ships.sort(key=lambda x: x[0].lower())
+
+        self.ship_leaderboard_tree.delete(*self.ship_leaderboard_tree.get_children(item=''))
+        for rank, (hex_id, ship_name, value) in enumerate(filtered_ships, start=1):
+            self.ship_leaderboard_tree.insert("", "end", values=(
+                f"#{rank}",
+                hex_id,
+                ship_name,
+                f"{value:,.2f}"
+            ))
 
     def show_contributors(self, item_contributions):
         selected = self.analysis_tree.selection()
@@ -2354,14 +2532,14 @@ The exported file will contain all transactions displayed on the screen. low key
         item_id = int(self.analysis_tree.item(selected[0], "values")[0])
         contributions = item_contributions.get(item_id, {})
 
-        self.item_name_map = {item["id"]: item["name"] for item in self.item_list}
-
         detail_win = tk.Toplevel()
         detail_win.title(
             f"Contributors for Item {item_id} "
             f"({self.item_name_map.get(item_id, 'Unknown Item')})"
         )
         detail_win.geometry("1000x500")
+        detail_win.transient(self.root)
+        detail_win.grab_set()
 
         tree = ttk.Treeview(detail_win, columns=("rank", "ship_id", "ship_name", "count"), show="headings")
         tree.heading("rank", text="Rank", anchor="w")
@@ -2407,7 +2585,7 @@ The exported file will contain all transactions displayed on the screen. low key
     def export_analysis(self, item_totals, contributions):
         file_path = filedialog.asksaveasfilename(
             defaultextension=".txt",
-            filetypes=[("Text Files (CSV base but fuck that extension)", "*.txt"), ("All Files", "*.*")]
+            filetypes=[("Text Files (CSV, but fuck that extension)", "*.txt"), ("CSV Files", "*.csv"), ("All Files", "*.*")]
         )
         if not file_path:
             return
@@ -2420,6 +2598,7 @@ The exported file will contain all transactions displayed on the screen. low key
                 item_name_map = {item["id"]: item["name"] for item in self.item_list}
                 for item_id, total in item_totals.items():
                     contribs = contributions.get(item_id, {})
+
                     top_contrib = max(contribs.items(), key=lambda x: x[1], default=(None, 0))
                     writer.writerow([
                         item_id,
@@ -2429,9 +2608,9 @@ The exported file will contain all transactions displayed on the screen. low key
                         self.ship_names.get(top_contrib[0], {}).get("current_name", "") if top_contrib[0] else "",
                         top_contrib[1] if top_contrib[0] else ""
                     ])
-            messagebox.showinfo("Success", f"Analysis exported to {file_path}")
+            messagebox.showinfo("yay", f"analysis exported to {file_path}")
         except Exception as e:
-            messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
+            messagebox.showerror("export blew up", f"{str(e)}")
 
 if __name__ == "__main__":
     set_memory_limit()
