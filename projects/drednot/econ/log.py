@@ -561,7 +561,7 @@ This works by taking all of the ships.gz.json files, and reading all of the cont
 Double-click an entry to see a leaderboard of so-called "contributors" to the item-count. See if your storage cuts the top 100 for amount of flux stored. You can then again double-click an entry to see its name history
 
 item 100000 is most likely some sort of flag item.
-The test items are probably cogg testing some shit out.
+The test items are probably cogg testing some shit off.
 I'm not sure how some ships have more starter items than allowed, Timmy no.1 {{E4862}} somehow has 9 starter cannons, 2 starter fabs, while testyy {{DAD5FA}} has 18 starter thrusters.
             """,
             "Your Items": """YOUR ITEMS
@@ -1153,7 +1153,7 @@ The exported file will contain all transactions displayed on the screen. low key
             dst_is_ship = bool(dst_hex_match)
 
             src_hex = src_hex_match.group(1) if src_is_ship else current_src_raw
-            dst_hex = dst_hex_match.group(1) if dst_is_ship else current_dst_raw
+            dst_hex = dst_hex_match.group(1) if dst_is_ship else current_src_raw
 
             if hide_bots and not (src_is_ship and dst_is_ship):
                 continue
@@ -1191,7 +1191,6 @@ The exported file will contain all transactions displayed on the screen. low key
         self.progress["value"] = self.progress["maximum"]
         self.status_var.set(f"Initial raw data download finished. Downloaded {success_count}/{total_dates} dates.")
         self.start_ship_data_loading()
-
 
     def load_data_complete(self, total_transactions, filtered_count):
         self.current_operation = "none"
@@ -1477,11 +1476,10 @@ The exported file will contain all transactions displayed on the screen. low key
             self.result_text.config(state="disabled")
 
     def _load_and_display_items(self, hex_id, date_str):
-        self.back_button.config(state="normal")
         ships_path = os.path.join(self.local_data_dir, date_str, "ships.json.gz")
 
         if not os.path.exists(ships_path):
-            self.result_text.insert(tk.END, "\ndata missing for this date idk")
+            self.result_text.insert(tk.END, "\nData missing for this date. (File not found)\n")
             return
 
         try:
@@ -1494,7 +1492,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
             if re.fullmatch(r'[A-Za-z0-9]{4}', hex_id):
                 total_value += 45000.0
-                self.result_text.insert(tk.END, "\nIt' a 4 digit, +45000 flux value and +100 aura!\n")
+                self.result_text.insert(tk.END, "\nIt's a 4 digit, +45000 flux value and +100 aura!\n")
                 self.result_text.insert(tk.END, "-"*55 + "\n")
 
             for ship in ships_data:
@@ -1504,7 +1502,7 @@ The exported file will contain all transactions displayed on the screen. low key
                 if ship_hex == target_hex:
                     items = ship.get("items", {})
                     if not items:
-                        self.result_text.insert(tk.END, "\nweird, no items recorded. hmm")
+                        self.result_text.insert(tk.END, "\nNo items recorded for this ship on this date.\n")
                         return
 
                     sorted_items = sorted(
@@ -1535,12 +1533,12 @@ The exported file will contain all transactions displayed on the screen. low key
                     break
 
             if not found:
-                self.result_text.insert(tk.END, "\ncant find the ship in this record")
+                self.result_text.insert(tk.END, "\nCould not find the ship in this record.\n")
 
         except json.JSONDecodeError:
-            self.result_text.insert(tk.END, "\ncorrupted ship file")
+            self.result_text.insert(tk.END, "\nCorrupted ship file for this date.\n")
         except Exception as e:
-            self.result_text.insert(tk.END, f"\boom: {str(e)}")
+            self.result_text.insert(tk.END, f"\nError loading items: {str(e)}\n")
 
     def open_shiplist_window(self):
         if self.is_operation_in_progress():
@@ -1712,7 +1710,7 @@ The exported file will contain all transactions displayed on the screen. low key
             )[1]
 
         if latest_date:
-            self.result_text.insert(tk.END, "\nCurrent Contents:\n")
+            self.result_text.insert(tk.END, "\n--- Current Contents (Latest Record) ---\n")
             self._load_and_display_items(hex_id, latest_date)
 
     def show_ship_contents(self, hex_id, date_str):
@@ -1722,15 +1720,11 @@ The exported file will contain all transactions displayed on the screen. low key
         self.result_text.delete(1.0, tk.END)
 
         try:
-
-            year, month, day = date_str.split("_")
-            normalized_date = f"{year}_{month}_{day}"
-
-            self.result_text.insert(tk.END, f"=== Contents on {date_str} ===")
-            self._load_and_display_items(hex_id, normalized_date)
+            self.result_text.insert(tk.END, f"=== Contents for Ship {{{hex_id}}} on {date_str} ===\n")
+            self._load_and_display_items(hex_id, date_str)
 
         except ValueError:
-            self.result_text.insert(tk.END, "\nInvalid date format")
+            self.result_text.insert(tk.END, "\nInvalid date format.\n")
 
         self.result_text.config(state="disabled")
 
@@ -1979,22 +1973,32 @@ The exported file will contain all transactions displayed on the screen. low key
         name_history = self.get_ship_name_history(hex_id)
         current_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
 
-        self.result_text.insert(tk.END, f"=== Name History for Ship {{{hex_id}}} ===\n\n")
+        self.result_text.insert(tk.END, f"=== History for Ship {{{hex_id}}} ===\n\n")
         self.result_text.insert(tk.END, f"Current Name: {current_name}\n")
 
-        self.result_text.insert(tk.END, "\nName History:\n")
-        self.result_text.insert(tk.END, "-"*50 + "\n")
+        all_present_dates = []
+        for date_str, ships_on_date_set in self.ships_present_on_date.items():
+            if hex_id in ships_on_date_set:
+                all_present_dates.append(date_str)
 
-        for date_str, name in name_history:
-            display_name = name if name.strip() else "-"
-            tag_name = f"date_{date_str}"
-            self.result_text.insert(tk.END, f"{date_str}: {display_name}\n", tag_name)
+        all_present_dates.sort(key=lambda x: tuple(map(int, x.split('_'))))
+
+
+        for date_str in all_present_dates:
+            name_for_date = "Unknown"
+            for hist_date, hist_name in name_history:
+                if hist_date == date_str:
+                    name_for_date = hist_name
+                    break
+
+            tag_name = f"date_present_{date_str}"
+            self.result_text.insert(tk.END, f"{date_str} - {name_for_date}\n", tag_name)
             self.result_text.tag_bind(tag_name, "<Button-1>",
                                       lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
-            self.result_text.tag_config(tag_name, foreground="blue", underline=True)
+            self.result_text.tag_config(tag_name, foreground="blue", underline=False)
 
-        self._display_current_ship_contents(hex_id)
         self.result_text.config(state="disabled")
+        self.back_button.config(state="disabled")
 
     def update_display(self):
         if self.current_operation == "none" and self.raw_data:
@@ -2021,7 +2025,6 @@ The exported file will contain all transactions displayed on the screen. low key
         self.preview_text.config(state="disabled")
 
     def validate_date_range(self):
-
         try:
             start_date = datetime(
                 int(self.start_year_var.get()),
@@ -2095,7 +2098,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
     def start_analysis(self, start_date, end_date, owned_ships=None):
         if self.is_operation_in_progress():
-            messagebox.showwarning("Warning", "Another operation is already in progress.")
+            messagebox.showwarning("Warning", "something else is happeningss")
             return
 
         self.current_operation = "analyzing_ships"
@@ -2373,6 +2376,8 @@ The exported file will contain all transactions displayed on the screen. low key
         ship_search_var = tk.StringVar()
         ship_search_entry = ttk.Entry(ship_control_frame, textvariable=ship_search_var, width=30)
         ship_search_entry.pack(side="left", padx=5)
+        ship_search_entry.bind('<Return>', lambda e: self.populate_ship_leaderboard_tree(ship_values, ship_search_var.get()))
+
 
         ship_sort_options = ["Value (High-Low)", "Value (Low-High)", "Name (A-Z)", "ID"]
         ship_sort_var = tk.StringVar(value="Value (High-Low)")
@@ -2408,7 +2413,6 @@ The exported file will contain all transactions displayed on the screen. low key
 
         self.populate_ship_leaderboard_tree(ship_values, ship_search_var.get())
 
-        ship_search_var.trace_add("write", lambda *_: self.populate_ship_leaderboard_tree(ship_values, ship_search_var.get()))
         ship_sort_var.trace_add("write", lambda *_: self.handle_ship_sort_change(ship_sort_var.get(), ship_values))
 
         notebook.select(summary_frame)
@@ -2585,7 +2589,7 @@ The exported file will contain all transactions displayed on the screen. low key
     def export_analysis(self, item_totals, contributions):
         file_path = filedialog.asksaveasfilename(
             defaultextension=".txt",
-            filetypes=[("Text Files (CSV, but fuck that extension)", "*.txt"), ("CSV Files", "*.csv"), ("All Files", "*.*")]
+            filetypes=[("Text Files (CSV base but fuck that extension)", "*.txt"), ("CSV Files", "*.csv"), ("All Files", "*.*")]
         )
         if not file_path:
             return
@@ -2608,9 +2612,9 @@ The exported file will contain all transactions displayed on the screen. low key
                         self.ship_names.get(top_contrib[0], {}).get("current_name", "") if top_contrib[0] else "",
                         top_contrib[1] if top_contrib[0] else ""
                     ])
-            messagebox.showinfo("yay", f"analysis exported to {file_path}")
+            messagebox.showinfo("Success", f"Analysis exported to {file_path}")
         except Exception as e:
-            messagebox.showerror("export blew up", f"{str(e)}")
+            messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
 
 if __name__ == "__main__":
     set_memory_limit()
