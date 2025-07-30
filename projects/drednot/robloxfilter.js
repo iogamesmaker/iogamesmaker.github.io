@@ -1,15 +1,12 @@
 // ==UserScript==
 // @name         Stop you from saying bad words!!!!
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @author       chatgpt, whooped together by iogamesplayer.
 // @description  ChatGPT did all of this in like 10 minutes
 // @match        *://*.drednot.io/*
 // @grant        none
 // ==/UserScript==
-
-// "I" made this so that I don't get banned for saying stupid shit like I often say.
-// Feel free to share around. I don't really care.
 
 (function () {
     'use strict';
@@ -25,7 +22,10 @@
         // Create new popup
         const popupContainer = document.createElement('div');
         popupContainer.className = 'custom-popup';
-        popupContainer.textContent = message;
+
+        // Use innerHTML to support line breaks
+        popupContainer.innerHTML = message.replace(/\n/g, '<br>');
+
         popupContainer.style.position = 'fixed';
         popupContainer.style.top = '20px';
         popupContainer.style.left = '50%';
@@ -44,6 +44,7 @@
         popupContainer.style.textAlign = 'center';
         popupContainer.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
         popupContainer.style.wordBreak = 'break-word';
+        popupContainer.style.whiteSpace = 'pre-line';
 
         document.body.appendChild(popupContainer);
 
@@ -122,7 +123,9 @@
             if (matched.length > 0) {
                 e.stopImmediatePropagation();
                 e.preventDefault();
-                createPopup(`Message blocked! Contains: ${matched.join(', ')}\n\nPress SHIFT+ENTER to send anyway`, 5000);
+                // Show ALL matched words in the popup
+                const message = `🚫 BLOCKED MESSAGE!\n\nFound ${matched.length} blocked term(s):\n${matched.map(w => `• ${w}`).join('\n')}\n\nPress SHIFT+ENTER to send anyway`;
+                createPopup(message, 5000);
             }
         }, true);
 
@@ -135,7 +138,9 @@
                     if (matched.length > 0) {
                         e.stopImmediatePropagation();
                         e.preventDefault();
-                        createPopup(`Message blocked! Contains: ${matched.join(', ')}\n\nPress SHIFT+ENTER to send anyway`, 5000);
+                        // Show ALL matched words in the popup
+                        const message = `🚫 BLOCKED MESSAGE!\n\nFound ${matched.length} blocked term(s):\n${matched.map(w => `• ${w}`).join('\n')}\n\nPress SHIFT+ENTER to send anyway`;
+                        createPopup(message, 5000);
                     }
                 }
             }
@@ -199,8 +204,8 @@
             const presets = loadPresets();
             const selected = getSelectedPreset();
             presetSelect.innerHTML = Object.keys(presets).map(name =>
-                                                              `<option value="${name}" ${name === selected ? 'selected' : ''}>${name}</option>`
-                                                             ).join('');
+                `<option value="${name}" ${name === selected ? 'selected' : ''}>${name}</option>`
+            ).join('');
         }
 
         presetSelect.addEventListener('change', () => {
@@ -292,7 +297,7 @@
 
             listContainer.innerHTML = words.length === 0
                 ? '<em>No blocked words</em>'
-            : words.map(word => `
+                : words.map(word => `
                     <div style="display:flex; justify-content:space-between; margin:2px 0;">
                         <span>${word}</span>
                         <button class="btn-red btn-small" data-word="${word}">Remove</button>
