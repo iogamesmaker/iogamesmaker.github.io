@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stop you from saying bad words!!!!
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.7
 // @author       chatgpt, whooped together by iogamesplayer.
 // @description  ChatGPT did all of this in like 10 minutes
 // @match        *://*.drednot.io/*
@@ -13,6 +13,57 @@
 
 (function () {
     'use strict';
+
+    // --- Custom Popup System ---
+    function createPopup(message, duration = 3000) {
+        // Remove existing popup if present
+        const existingPopup = document.querySelector('.custom-popup');
+        if (existingPopup) {
+            existingPopup.remove();
+        }
+
+        // Create new popup
+        const popupContainer = document.createElement('div');
+        popupContainer.className = 'custom-popup';
+        popupContainer.textContent = message;
+        popupContainer.style.position = 'fixed';
+        popupContainer.style.top = '20px';
+        popupContainer.style.left = '50%';
+        popupContainer.style.transform = 'translateX(-50%) translateY(-20px)';
+        popupContainer.style.padding = '10px 15px';
+        popupContainer.style.background = '#19232d';
+        popupContainer.style.border = '1px solid #fff';
+        popupContainer.style.borderRadius = '4px';
+        popupContainer.style.color = 'white';
+        popupContainer.style.fontFamily = '"Courier New", monospace';
+        popupContainer.style.fontSize = '14px';
+        popupContainer.style.zIndex = '9999';
+        popupContainer.style.opacity = '0';
+        popupContainer.style.transition = 'opacity 0.3s, transform 0.3s';
+        popupContainer.style.maxWidth = '80%';
+        popupContainer.style.textAlign = 'center';
+        popupContainer.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+        popupContainer.style.wordBreak = 'break-word';
+
+        document.body.appendChild(popupContainer);
+
+        // Animate in
+        setTimeout(() => {
+            popupContainer.style.opacity = '1';
+            popupContainer.style.transform = 'translateX(-50%) translateY(0)';
+        }, 10);
+
+        // Auto-remove after duration
+        if (duration > 0) {
+            setTimeout(() => {
+                popupContainer.style.opacity = '0';
+                popupContainer.style.transform = 'translateX(-50%) translateY(-20px)';
+                setTimeout(() => popupContainer.remove(), 300);
+            }, duration);
+        }
+
+        return popupContainer;
+    }
 
     // --- Storage Helpers ---
     function loadPresets() {
@@ -71,7 +122,7 @@
             if (matched.length > 0) {
                 e.stopImmediatePropagation();
                 e.preventDefault();
-                alert(`Message blocked (contains: ${matched.join(', ')})\n\nPress SHIFT+ENTER to send anyway`);
+                createPopup(`Message blocked! Contains: ${matched.join(', ')}\n\nPress SHIFT+ENTER to send anyway`, 5000);
             }
         }, true);
 
@@ -84,7 +135,7 @@
                     if (matched.length > 0) {
                         e.stopImmediatePropagation();
                         e.preventDefault();
-                        alert(`Message blocked (contains: ${matched.join(', ')})\n\nPress SHIFT+ENTER to send anyway`);
+                        createPopup(`Message blocked! Contains: ${matched.join(', ')}\n\nPress SHIFT+ENTER to send anyway`, 5000);
                     }
                 }
             }
@@ -135,8 +186,9 @@
         const toggle = container.querySelector('#block-toggle');
         toggle.checked = getBlockerEnabled();
         toggle.addEventListener('change', () => {
-            setBlockerEnabled(toggle.checked);
-            alert(`Word blocking ${toggle.checked ? 'enabled' : 'disabled'}`);
+            const isEnabled = toggle.checked;
+            setBlockerEnabled(isEnabled);
+            createPopup(`Word blocking ${isEnabled ? 'ENABLED' : 'DISABLED'}`);
         });
 
         const presetSelect = container.querySelector('#preset-select');
@@ -147,14 +199,14 @@
             const presets = loadPresets();
             const selected = getSelectedPreset();
             presetSelect.innerHTML = Object.keys(presets).map(name =>
-                `<option value="${name}" ${name === selected ? 'selected' : ''}>${name}</option>`
-            ).join('');
+                                                              `<option value="${name}" ${name === selected ? 'selected' : ''}>${name}</option>`
+                                                             ).join('');
         }
 
         presetSelect.addEventListener('change', () => {
             setSelectedPreset(presetSelect.value);
             updateBlockList();
-            alert(`Preset "${presetSelect.value}" loaded`);
+            createPopup(`Preset "${presetSelect.value}" loaded`);
         });
 
         container.querySelector('#preset-new').addEventListener('click', () => {
@@ -162,7 +214,7 @@
             if (!name) return;
             const presets = loadPresets();
             if (presets[name]) {
-                alert("Preset already exists");
+                createPopup('Preset already exists!');
                 return;
             }
             presets[name] = [];
@@ -170,7 +222,7 @@
             setSelectedPreset(name);
             updatePresetDropdown();
             updateBlockList();
-            alert(`Preset "${name}" created`);
+            createPopup(`Preset "${name}" created`);
         });
 
         container.querySelector('#preset-delete').addEventListener('click', () => {
@@ -183,7 +235,7 @@
             setSelectedPreset(Object.keys(presets)[0] || '');
             updatePresetDropdown();
             updateBlockList();
-            alert(`Preset "${name}" deleted`);
+            createPopup(`Preset "${name}" deleted`);
         });
 
         // --- Word Management ---
@@ -196,9 +248,9 @@
             if (!presets[preset].includes(word)) {
                 presets[preset].push(word);
                 savePresets(presets);
-                alert(`"${word}" added to block list`);
+                createPopup(`"${word}" added to block list`);
             } else {
-                alert(`"${word}" is already blocked`);
+                createPopup(`"${word}" is already blocked`);
             }
             input.value = '';
             updateBlockList();
@@ -208,8 +260,8 @@
         container.querySelector('#export-preset').addEventListener('click', () => {
             const presets = loadPresets();
             navigator.clipboard.writeText(JSON.stringify(presets, null, 2))
-                .then(() => alert('Presets copied to clipboard!'))
-                .catch(() => alert('Failed to copy to clipboard'));
+                .then(() => createPopup('Presets copied to clipboard!'))
+                .catch(() => createPopup('Failed to copy to clipboard'));
         });
 
         container.querySelector('#import-preset').addEventListener('click', () => {
@@ -220,9 +272,9 @@
                 savePresets(parsed);
                 updatePresetDropdown();
                 updateBlockList();
-                alert('Presets imported successfully!');
+                createPopup('Presets imported successfully!');
             } catch (e) {
-                alert('Invalid JSON!');
+                createPopup('Invalid JSON format!');
             }
         });
 
@@ -240,7 +292,7 @@
 
             listContainer.innerHTML = words.length === 0
                 ? '<em>No blocked words</em>'
-                : words.map(word => `
+            : words.map(word => `
                     <div style="display:flex; justify-content:space-between; margin:2px 0;">
                         <span>${word}</span>
                         <button class="btn-red btn-small" data-word="${word}">Remove</button>
@@ -254,7 +306,7 @@
                     presets[preset] = presets[preset].filter(w => w !== word);
                     savePresets(presets);
                     updateBlockList();
-                    alert(`"${word}" removed from block list`);
+                    createPopup(`"${word}" removed from block list`);
                 });
             });
         }
