@@ -74,7 +74,7 @@
         try {
             const saved = localStorage.getItem('wordPresets');
             return saved ? JSON.parse(saved) : {
-                Preset1: ['gay', 'jihad', 'muslim', 'fucke', 'kys', 'kms', 'hitler', 'jew', 'j3w', 'groom', 'nig g', 'ni gg', 'n igg', 'cum', 'just came', 'dyke', 'spic', 'bastard', 'molest', 'cksuck', 'terrorist', 'kid', 'im gonna come', 'trans', 'pussy', 'bitch', 'cunt', 'chink', 'slut', 'tits', 'boob', 'tranny', 'whip', 'slave', 'whore', 'puss', 'dick', 'niga', 'nigg', 'ass', 'queer', 'fag', 'suck my', 'penis', 'ape', 'monkey', 'negr', 'homo', 'rape', 'sex', '🤣', '😂', 'nudes', 'n1gg', 'nazi', 'tard', 'idiot', 'dumbass', 'crying', 'dog'],
+                Preset1: ['gay', 'jihad', 'muslim', 'fucke', 'kys', 'kms', 'hitler', 'jew', 'j3w', 'groom', 'igger', 'igga', 'nig g', 'ni gg', 'n igg', 'cum', 'just came', 'dyke', 'spic', 'bastard', 'molest', 'cksuck', 'terrorist', 'kid', 'im gonna come', 'trans', 'pussy', 'bitch', 'cunt', 'chink', 'slut', 'tits', 'boob', 'tranny', 'whip', 'slave', 'whore', 'puss', 'dick', 'niga', 'nigg', 'ass', 'queer', 'fag', 'suck my', 'penis', 'ape', 'monkey', 'negr', 'homo', 'rape', 'sex', '🤣', '😂', 'nudes', 'n1gg', 'nazi', 'tard', 'idiot', 'dumbass', 'crying', 'dog'],
                 Preset2: ['Go add your own stuff here']
             };
         } catch (e) {
