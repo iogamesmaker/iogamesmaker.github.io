@@ -8,6 +8,9 @@
 // @grant        none
 // ==/UserScript==
 
+// "I" made this so that I don't get banned for saying stupid shit like I often say.
+// Feel free to share around. I don't really care.
+
 (function () {
     'use strict';
 
