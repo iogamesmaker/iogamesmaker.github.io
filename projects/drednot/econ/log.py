@@ -872,7 +872,6 @@ The exported file will contain all transactions displayed on the screen. low key
                             }
 
                         hist = self.ship_names[hex_code]["name_history"]
-                        if not hist or hist[-1][1] != current_name:
                             hist.append((date_str, current_name))
                         self.ship_names[hex_code]["current_name"] = current_name
 
