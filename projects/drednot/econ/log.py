@@ -54,7 +54,7 @@ manual_item_values = {
     "Shield Core": 0.0625,
     "Cannon (Packaged)": 1.5,
     "Burst Cannon (Packaged)": 4.0,
-    "Machine Cannon (Packaged)": 32.0,
+    "Machine Cannon (Packaged)": 4.0,
     "Thruster (Starter, Packaged)": 0.0,
     "Hyper Ice Block": 0.125,
     "DEPRECATED ITEM": 2.5,
@@ -558,7 +558,7 @@ This will return a list of ALL items and their total counts, without duplicates.
 
 This works by taking all of the ships.gz.json files, and reading all of the contents of all ships. It will only use the most recent available data per ship. This should be water-tight to not have any item being counted twice.
 
-Double-click an entry to see a leaderboard of so-called "contributors" to the item-count. See if your storage cuts the top 100 for amount of flux stored. You can then again double-click an entry to see its name history
+Double-click an entry to see a leaderboard of so-called "contributors" to the item-count. You can then again double-click an entry to see its name history [kinda broken]
 
 item 100000 is most likely some sort of flag item.
 The test items are probably cogg testing some shit off.
@@ -1991,7 +1991,7 @@ The exported file will contain all transactions displayed on the screen. low key
                     break
 
             tag_name = f"date_present_{date_str}"
-            self.result_text.insert(tk.END, f"{date_str} - {name_for_date}\n", tag_name)
+            self.result_text.insert("4.0", f"{date_str} - {name_for_date}\n", tag_name)
             self.result_text.tag_bind(tag_name, "<Button-1>",
                                       lambda e, d=date_str, h=hex_id: self.show_ship_contents(h, d))
             self.result_text.tag_config(tag_name, foreground="blue", underline=False)
@@ -2009,7 +2009,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
             self.status_var.set(f"looking at {len(self.filtered_data)} transactions")
         elif not self.raw_data:
-            self.status_var.set("No data loaded to filter. Load data first.")
+            self.status_var.set("go filter some shit!!!")
 
     def update_preview(self):
         content_lines = self.get_filtered_data_as_text()
@@ -2431,34 +2431,58 @@ The exported file will contain all transactions displayed on the screen. low key
             self.analysis_tree.insert("", "end", values=(item_id, name, f"{count:,}"))
 
     def populate_ship_leaderboard_tree(self, ship_values, search_term=""):
-        self.ship_leaderboard_tree.delete(*self.ship_leaderboard_tree.get_children(item=''))
+        self.ship_leaderboard_tree.delete(*self.ship_leaderboard_tree.get_children())
+
+        all_ships = []
+        for hex_id, value in ship_values.items():
+            ship_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
+            all_ships.append((hex_id, ship_name, value))
+
+        all_ships.sort(key=lambda x: x[2], reverse=True)
+
+        global_ranks = {}
+        for rank, (hex_id, ship_name, value) in enumerate(all_ships, start=1):
+            global_ranks[hex_id] = rank
 
         filtered_ships = []
         for hex_id, value in ship_values.items():
             ship_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
             if search_term.lower() in hex_id.lower() or search_term.lower() in ship_name.lower():
-                filtered_ships.append((hex_id, ship_name, value))
+                filtered_ships.append((hex_id, ship_name, value, global_ranks[hex_id]))
 
         filtered_ships.sort(key=lambda x: x[2], reverse=True)
 
-        for rank, (hex_id, ship_name, value) in enumerate(filtered_ships, start=1):
+        for (hex_id, ship_name, value, global_rank) in filtered_ships:
             self.ship_leaderboard_tree.insert("", "end", values=(
-                f"#{rank}",
+                f"#{global_rank}",
                 hex_id,
                 ship_name,
                 f"{value:,.2f}"
             ))
 
-    def open_ship_lookup_from_leaderboard(self):
-        selected = self.ship_leaderboard_tree.selection()
+    def open_ship_lookup(self, tree):
+        selected = tree.selection()
         if not selected:
             return
+        ship_id = tree.item(selected[0], "values")[1]
+        if not hasattr(self, 'lookup_window') or not self.lookup_window.winfo_exists():
+            self.lookup_ship_name()
+        self.display_ship_history(ship_id.strip("{}"))
+        self.lookup_window.update()
+        self.lookup_window.lift()
+
+    def open_ship_lookup_from_leaderboard(self):
+        selected = self.ship_leaderboard_tree.selection()
+        if not selected or len(selected) == 0:
+            return
+        ship_id = self.ship_leaderboard_tree.item(selected[0], "values")[1]
 
         ship_id = self.ship_leaderboard_tree.item(selected[0], "values")[1]
 
         if not hasattr(self, 'lookup_window') or not self.lookup_window.winfo_exists():
             self.lookup_ship_name()
         self.display_ship_history(ship_id.strip("{}"))
+        self.lookup_window.update()
         self.lookup_window.lift()
 
     def sort_treeview(self, tree, col, reverse):
@@ -2544,6 +2568,8 @@ The exported file will contain all transactions displayed on the screen. low key
         detail_win.transient(self.root)
         detail_win.grab_set()
 
+        detail_win.update_idletasks()
+
         tree = ttk.Treeview(detail_win, columns=("rank", "ship_id", "ship_name", "count"), show="headings")
         tree.heading("rank", text="Rank", anchor="w")
         tree.heading("ship_id", text="Ship ID", anchor="w")
@@ -2551,7 +2577,7 @@ The exported file will contain all transactions displayed on the screen. low key
         tree.heading("count", text="Count", anchor="e")
 
         tree.column("rank", width=50, stretch=False)
-        tree.column("ship_id", width=150)
+        tree.column("ship_id", width=150, anchor="w")
         tree.column("ship_name", width=300)
         tree.column("count", width=100)
 
@@ -2569,7 +2595,7 @@ The exported file will contain all transactions displayed on the screen. low key
             tree.insert("", "end", values=(
                 f"#{rank}",
                 ship_id,
-                name,
+                name if name != "Unknown" else "",
                 f"{count:,}"
             ))
 
@@ -2578,7 +2604,7 @@ The exported file will contain all transactions displayed on the screen. low key
 
         context_menu = tk.Menu(detail_win, tearoff=0)
         context_menu.add_command(label="Sort by Rank",
-                                 command=lambda: self.sort_treeview(tree, "rank", False))
+                                 command=lambda: self.sort_treeview(tree, "rank", True))
         context_menu.add_command(label="Sort by Count",
                                  command=lambda: self.sort_treeview(tree, "count", True))
 
