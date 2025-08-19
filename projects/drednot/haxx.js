@@ -10,6 +10,11 @@
 // @require      https://cdn.jsdelivr.net/npm/msgpack-lite@0.1.26/dist/msgpack.min.js
 // ==/UserScript==
 
+// # USE AT YOUR OWN RISK - YOU MIGHT GET BANNED!
+// - Red dot = that block was CERTAINLY shot - there is someone there
+// - Yellow dot =  that block was either destroyed or regenerated
+// - Green dot = only trust in mission zones
+
 (() => {
     'use strict';
     const MINIMAP_SIZE = 150;
