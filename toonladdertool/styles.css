@@ -2,66 +2,123 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
 }
 
 .controls {
     margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.controls label, .controls select {
+    font-size: 1.1em;
+}
+
+.piano-container {
+    display: flex;
+    justify-content: center;
 }
 
 .piano {
-    display: flex;
-    justify-content: center;
     position: relative;
-    margin: 50px auto;
-    width: fit-content;
+    display: flex;
+    width: 842px; 
+    height: 250px;
+    background-color: #000;
+    padding: 20px 2px 20px 2px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .key {
     cursor: pointer;
-    border: 1px solid #000;
-    transition: background-color 0.2s;
+    box-sizing: border-box;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    border-radius: 0 0 5px 5px;
 }
 
-/* Witte toetsen */
 .white {
     width: 60px;
-    height: 200px;
-    background-color: white;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
     margin-right: 2px;
-    z-index: 1;
+    z-index: 1; 
     display: flex;
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 10px;
+    color: #333;
+    font-weight: bold;
 }
 
 .black {
     width: 40px;
-    height: 120px;
-    background-color: black;
+    height: 60%;
+    background-color: #333;
     color: white;
     position: absolute;
-    margin-left: -20px;
-    margin-right: -20px;
+    top: 20px;
     z-index: 2;
+    margin-left: -21px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5px;
+    font-size: 0.8em;
 }
 
-.piano .black:nth-child(2) { left: 45px; } /* C# */
-.piano .black:nth-child(4) { left: 107px; } /* D# */
 
-.piano .black:nth-child(7) { left: 227px; } /* F# */
-.piano .black:nth-child(9) { left: 289px; } /* G# */
-.piano .black:nth-child(11) { left: 351px; } /* A# */
+/* C#  */
+.black:nth-child(2) { left: 81px; }
+
+/* D# */
+.black:nth-child(4) { left: 143px; }
+
+/* F# */
+.black:nth-child(7) { left: 267px; }
+
+/* G# */
+.black:nth-child(9) { left: 329px; }
+
+/* A# */
+.black:nth-child(11) { left: 391px; }
 
 
-.highlighted {
-    background-color: #5cb85c;
-}
+/* C# */
+.black:nth-child(14) { left: 515px; } 
+
+/* D# */
+.black:nth-child(16) { left: 577px; } 
+
+/* F# */
+.black:nth-child(19) { left: 701px; }
+
+/* G# */
+.black:nth-child(21) { left: 763px; }
+
+/* A# */
+.black:nth-child(23) { left: 825px; }
+
 
 .white.highlighted {
     background-color: #5cb85c;
+    color: white;
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .black.highlighted {
     background-color: #337a33;
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.5);
 }
