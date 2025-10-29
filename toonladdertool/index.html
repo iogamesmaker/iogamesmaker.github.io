@@ -2,18 +2,13 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Toonladder Visualisatie</title>
+    <title>Toonladder tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
             background-color: #f4f4f4;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
         }
 
         .controls {
@@ -58,7 +53,7 @@
             height: 100%;
             background-color: #fff;
             border: 1px solid #c9c9c9;
-            margin-right: 1px; 
+            margin-right: 1px;
             z-index: 1;
             display: flex;
             justify-content: center;
@@ -69,7 +64,7 @@
         }
 
         .black {
-            width: 35px; 
+            width: 35px;
             height: 60%;
             background-color: #000;
             color: white;
@@ -77,56 +72,30 @@
             top: 20px;
             z-index: 2;
             border: none;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 5px;
             font-size: 0.8em;
+
+            left: 42.5px; 
         }
 
-        .black:nth-child(2) { left: 60px; } 
+        .black:nth-child(2) { left: 42.5px; } 
 
-        .black:nth-child(4) { left: 121px; } 
+        .black:nth-child(4) { left: 103.5px; } 
 
-        .black:nth-child(7) { left: 243px; } 
+        .black:nth-child(7) { left: 225.5px; } 
 
-        .black:nth-child(9) { left: 304px; } 
+        .black:nth-child(9) { left: 286.5px; } 
 
-        .black:nth-child(11) { left: 365px; } 
+        .black:nth-child(11) { left: 347.5px; } 
 
-        .black:nth-child(14) { left: 487px; } 
+        .black:nth-child(14) { left: 469.5px; } 
 
-        .black:nth-child(16) { left: 548px; } 
+        .black:nth-child(16) { left: 530.5px; } 
 
-        .black:nth-child(19) { left: 670px; } 
+        .black:nth-child(19) { left: 652.5px; } 
 
-        .black:nth-child(21) { left: 731px; } 
+        .black:nth-child(21) { left: 713.5px; } 
 
-        .black:nth-child(23) { left: 792px; } 
-
-        .piano .black {
-            transform: translateX(-50%); 
-        }
-
-        .black:nth-child(2) { left: 61px; } 
-
-        .black:nth-child(4) { left: 122px; }
-
-        .black:nth-child(7) { left: 244px; }
-
-        .black:nth-child(9) { left: 305px; }
-
-        .black:nth-child(11) { left: 366px; }
-
-        .black:nth-child(14) { left: 488px; }
-
-        .black:nth-child(16) { left: 549px; }
-
-        .black:nth-child(19) { left: 671px; }
-
-        .black:nth-child(21) { left: 732px; }
-
-        .black:nth-child(23) { left: 793px; }
+        .black:nth-child(23) { left: 774.5px; } 
 
         .white.highlighted {
             background-color: #5cb85c;
@@ -140,14 +109,18 @@
         .white:hover:not(.highlighted) { background-color: #eee; }
         .black:hover:not(.highlighted) { background-color: #111; }
 
+        #resultaat_noten {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #000;
+        }
     </style>
 </head>
 <body>
-    <h1>🎹 Interactieve Toonladder Visualisatie</h1>
-
     <div class="controls">
         <div>
-            <label for="grondtoon">Welke grondtoon?</label>
+            <label for="grondtoon">grondtoon?</label>
             <select id="grondtoon">
                 <option value="C">C</option>
                 <option value="C#">C# / Db</option>
@@ -164,7 +137,7 @@
             </select>
         </div>
         <div>
-            <label for="toonladder_type">Soort toonladder?</label>
+            <label for="toonladder_type">toonladder?</label>
             <select id="toonladder_type">
                 <option value="majeur">Majeur</option>
                 <option value="mineur">Natuurlijk Mineur</option>
