@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Toonladder tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="controls">
+        <label for="grondtoon">Welke grondtoon?</label>
+        <select id="grondtoon">
+            <option value="C">C</option>
+            <option value="C#">C# / Db</option>
+            <option value="D">D</option>
+            <option value="D#">D# / Eb</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="F#">F# / Gb</option>
+            <option value="G">G</option>
+            <option value="G#">G# / Ab</option>
+            <option value="A">A</option>
+            <option value="A#">A# / Bb</option>
+            <option value="B">B</option>
+        </select>
+
+        <label for="toonladder_type">Soort toonladder?</label>
+        <select id="toonladder_type">
+            <option value="majeur">Majeur</option>
+            <option value="mineur">Natuurlijk Mineur</option>
+            <option value="harmonisch_mineur">Harmonisch Mineur</option>
+            <option value="melodisch_mineur">Melodisch Mineur</option>
+            <option value="blues">Blues (6 tonen)</option>
+        </select>
+    </div>
+
+    <div class="piano">
+        <div class="key white" data-note="C">C</div>
+        <div class="key black" data-note="C#"></div>
+        <div class="key white" data-note="D">D</div>
+        <div class="key black" data-note="D#"></div>
+        <div class="key white" data-note="E">E</div>
+        <div class="key white" data-note="F">F</div>
+        <div class="key black" data-note="F#"></div>
+        <div class="key white" data-note="G">G</div>
+        <div class="key black" data-note="G#"></div>
+        <div class="key white" data-note="A">A</div>
+        <div class="key black" data-note="A#"></div>
+        <div class="key white" data-note="B">B</div>
+        </div>
+
+    <p id="resultaat_noten">Noten in de toonladder: ...</p>
+
+    <script src="script.js"></script>
+</body>
+</html>
