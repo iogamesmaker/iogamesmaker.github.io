@@ -1,16 +1,12 @@
 const scales = {
-    'majeur': [0, 2, 4, 5, 7, 9, 11], // hele hele halve, hele hele hele halve
-    'mineur': [0, 2, 3, 5, 7, 8, 10], // hele halve hele hele halve hele
-    'harmonisch_mineur': [0, 2, 3, 5, 7, 8, 11], // verhoogdde 7e
-    'melodisch_mineur': [0, 2, 3, 5, 7, 9, 11], // chat gpt lol
-    'blues': [0, 3, 5, 6, 7, 10] // HELL YEAH
+    'majeur': [0, 2, 4, 5, 7, 9, 11], 
+    'mineur': [0, 2, 3, 5, 7, 8, 10], 
+    'harmonisch_mineur': [0, 2, 3, 5, 7, 8, 11],
+    'blues': [0, 3, 5, 6, 7, 10]
 };
 
 const chromaticScale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-
-const enharmonicMap = {
-    "C#": "Db", "D#": "Eb", "F#": "Gb", "G#": "Ab", "A#": "Bb"
-};
+const enharmonicMap = { "C#": "Db", "D#": "Eb", "F#": "Gb", "G#": "Ab", "A#": "Bb" };
 
 const grondtoonSelect = document.getElementById('grondtoon');
 const typeSelect = document.getElementById('toonladder_type');
@@ -22,25 +18,29 @@ function calculateScale() {
     const scaleType = typeSelect.value;
 
     const intervals = scales[scaleType];
-    if (!intervals) return; // Geen geldige toonladder
+    if (!intervals) return;
 
-    const rootIndex = chromaticScale.indexOf(rootNote.split(' ')[0]); // Gebruik alleen de C/C#/D...
+    const rootIndex = chromaticScale.indexOf(rootNote.split(' ')[0]);
 
-    const scaleNotes = [];
+    const scaleNotesDisplay = []; // Voor de tekstweergave (met enharmonische namen)
+    const scaleNotesData = [];    // Voor de data-attribuut matching (alleen C, C#, D, etc.)
 
     intervals.forEach(interval => {
         const noteIndex = (rootIndex + interval) % 12;
         let note = chromaticScale[noteIndex];
-
+        
+        let displayNote = note;
         if (enharmonicMap[note]) {
-             note = `${note} / ${enharmonicMap[note]}`;
+             displayNote = `${note} / ${enharmonicMap[note]}`;
         }
-        scaleNotes.push(note.split(' ')[0]);
+        scaleNotesDisplay.push(displayNote.split(' ')[0]);
+
+        scaleNotesData.push(note);
     });
 
-    resultaatParagraaf.textContent = `Noten in de toonladder: ${scaleNotes.join(', ')}`;
-
-    updatePiano(scaleNotes);
+    resultaatParagraaf.textContent = `Noten in de toonladder: ${scaleNotesDisplay.join(', ')}`;
+    
+    updatePiano(scaleNotesData); 
 }
 
 function updatePiano(notesToHighlight) {
