@@ -54,8 +54,8 @@
         <select id="scaleType">
             <option value="major">Majeur</option>
             <option value="minor">Mineur</option>
-            <option value="blues">Blues</option>
-            <option value="blues6">Blues (6 tonig)</option>
+            <option value="blues">Blues Major</option>
+            <option value="blues6">Blues Minor</option>
         </select>
         <label for="key">Kies key:</label>
         <select id="key">
@@ -75,11 +75,9 @@
     <button onclick="updateScale()">Toon toonladder</button>
     </div>
     <div class="piano" id="piano"></div>
-
     <script>
         const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
         const pianoKeys = document.getElementById('piano');
-
         // Maak de piano
         function createPiano() {
             pianoKeys.innerHTML = '';
@@ -87,7 +85,6 @@
                 const note = notes[i % 12];
                 const keyElement = document.createElement('div');
                 keyElement.className = 'key';
-
                 // Witte toetsen
                 if (note.length === 1) {
                     keyElement.className += ' white';
@@ -102,12 +99,10 @@
                 pianoKeys.appendChild(keyElement);
             }
         }
-
         // Bepaal de toonladder
         function getScaleNotes(key, scaleType) {
             const keyIndex = notes.indexOf(key);
             let scaleNotes = [];
-
             if (scaleType === 'major') {
                 const majorPattern = [0, 2, 4, 5, 7, 9, 11];
                 scaleNotes = majorPattern.map(i => notes[(keyIndex + i) % 12]);
@@ -118,14 +113,11 @@
                 const bluesPattern = [0, 3, 5, 6, 7, 10];
                 scaleNotes = bluesPattern.map(i => notes[(keyIndex + i) % 12]);
             } else if (scaleType === 'blues6') {
-                const blues6Pattern = [0, 3, 5, 6, 7, 10];
+                const blues6Pattern = [0, 2, 3, 5, 7, 9, 10];
                 scaleNotes = blues6Pattern.map(i => notes[(keyIndex + i) % 12]);
             }
-
             return scaleNotes;
         }
-
-        // Highlight de toonladder
         function highlightScale(scaleNotes) {
             const keys = document.querySelectorAll('.key');
             keys.forEach(key => {
@@ -136,16 +128,12 @@
                 }
             });
         }
-
-        // Update de toonladder
         function updateScale() {
             const key = document.getElementById('key').value;
             const scaleType = document.getElementById('scaleType').value;
             const scaleNotes = getScaleNotes(key, scaleType);
             highlightScale(scaleNotes);
         }
-
-        // Initialiseer de piano
         createPiano();
     </script>
 </body>
