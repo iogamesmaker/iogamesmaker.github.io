@@ -14,14 +14,15 @@
             display: flex;
             justify-content: center;
             margin: 20px auto;
-            max-width: 1200px;
+            max-width: 800px;
         }
         .key {
-            height: 320px;
-            width: 75px;
+            height: 200px;
+            width: 50px;
             margin: 0 2px;
             border-radius: 0 0 5px 5px;
             position: relative;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
         .white {
             background-color: white;
@@ -30,8 +31,8 @@
         }
         .black {
             background-color: black;
-            width: 45px;
-            height: 200px;
+            width: 30px;
+            height: 120px;
             margin: 0 10px;
             z-index: 2;
             border-radius: 0 0 3px 3px;
@@ -49,14 +50,14 @@
 </head>
 <body>
     <div>
-        <label for="scaleType">type ladder</label>
+        <label for="scaleType">Kies toonladder:</label>
         <select id="scaleType">
             <option value="major">Majeur</option>
             <option value="minor">Mineur</option>
             <option value="blues">Blues</option>
             <option value="blues6">Blues (6 tonig)</option>
         </select>
-        <label for="key">toonsoort</label>
+        <label for="key">Kies key:</label>
         <select id="key">
             <option value="C">C</option>
             <option value="C#">C#</option>
@@ -71,7 +72,7 @@
             <option value="A#">A#</option>
             <option value="B">B</option>
         </select>
-        <button onclick="updateScale()">update</button>
+    <button onclick="updateScale()">Toon toonladder</button>
     </div>
     <div class="piano" id="piano"></div>
 
@@ -79,6 +80,7 @@
         const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
         const pianoKeys = document.getElementById('piano');
 
+        // Maak de piano
         function createPiano() {
             pianoKeys.innerHTML = '';
             for (let i = 0; i < 24; i++) {
@@ -86,6 +88,7 @@
                 const keyElement = document.createElement('div');
                 keyElement.className = 'key';
 
+                // Witte toetsen
                 if (note.length === 1) {
                     keyElement.className += ' white';
                     keyElement.textContent = note;
@@ -100,6 +103,7 @@
             }
         }
 
+        // Bepaal de toonladder
         function getScaleNotes(key, scaleType) {
             const keyIndex = notes.indexOf(key);
             let scaleNotes = [];
@@ -121,6 +125,7 @@
             return scaleNotes;
         }
 
+        // Highlight de toonladder
         function highlightScale(scaleNotes) {
             const keys = document.querySelectorAll('.key');
             keys.forEach(key => {
@@ -132,6 +137,7 @@
             });
         }
 
+        // Update de toonladder
         function updateScale() {
             const key = document.getElementById('key').value;
             const scaleType = document.getElementById('scaleType').value;
@@ -139,6 +145,7 @@
             highlightScale(scaleNotes);
         }
 
+        // Initialiseer de piano
         createPiano();
     </script>
 </body>
