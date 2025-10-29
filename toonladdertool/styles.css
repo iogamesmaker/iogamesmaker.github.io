@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+.controls {
+    margin-bottom: 30px;
+}
+
+.piano {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 50px auto;
+    width: fit-content;
+}
+
+.key {
+    cursor: pointer;
+    border: 1px solid #000;
+    transition: background-color 0.2s;
+}
+
+/* Witte toetsen */
+.white {
+    width: 60px;
+    height: 200px;
+    background-color: white;
+    margin-right: 2px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+}
+
+.black {
+    width: 40px;
+    height: 120px;
+    background-color: black;
+    color: white;
+    position: absolute;
+    margin-left: -20px;
+    margin-right: -20px;
+    z-index: 2;
+}
+
+.piano .black:nth-child(2) { left: 45px; } /* C# */
+.piano .black:nth-child(4) { left: 107px; } /* D# */
+
+.piano .black:nth-child(7) { left: 227px; } /* F# */
+.piano .black:nth-child(9) { left: 289px; } /* G# */
+.piano .black:nth-child(11) { left: 351px; } /* A# */
+
+
+.highlighted {
+    background-color: #5cb85c;
+}
+
+.white.highlighted {
+    background-color: #5cb85c;
+}
+
+.black.highlighted {
+    background-color: #337a33;
+}
