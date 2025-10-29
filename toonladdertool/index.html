@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Toonladder Visualisatie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .controls label, .controls select {
+            font-size: 1.1em;
+        }
+
+        .piano-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .piano {
+            position: relative;
+            display: flex;
+            width: 847px; 
+            height: 250px;
+            background-color: #333;
+            padding: 20px 2px 20px 2px;
+            border-radius: 10px;
+        }
+
+        .key {
+            cursor: pointer;
+            box-sizing: border-box;
+            transition: background-color 0.2s;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .white {
+            width: 60px;
+            height: 100%;
+            background-color: #fff;
+            border: 1px solid #c9c9c9;
+            margin-right: 1px; 
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .black {
+            width: 35px; 
+            height: 60%;
+            background-color: #000;
+            color: white;
+            position: absolute;
+            top: 20px;
+            z-index: 2;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 5px;
+            font-size: 0.8em;
+        }
+
+        .black:nth-child(2) { left: 60px; } 
+
+        .black:nth-child(4) { left: 121px; } 
+
+        .black:nth-child(7) { left: 243px; } 
+
+        .black:nth-child(9) { left: 304px; } 
+
+        .black:nth-child(11) { left: 365px; } 
+
+        .black:nth-child(14) { left: 487px; } 
+
+        .black:nth-child(16) { left: 548px; } 
+
+        .black:nth-child(19) { left: 670px; } 
+
+        .black:nth-child(21) { left: 731px; } 
+
+        .black:nth-child(23) { left: 792px; } 
+
+        .piano .black {
+            transform: translateX(-50%); 
+        }
+
+        .black:nth-child(2) { left: 61px; } 
+
+        .black:nth-child(4) { left: 122px; }
+
+        .black:nth-child(7) { left: 244px; }
+
+        .black:nth-child(9) { left: 305px; }
+
+        .black:nth-child(11) { left: 366px; }
+
+        .black:nth-child(14) { left: 488px; }
+
+        .black:nth-child(16) { left: 549px; }
+
+        .black:nth-child(19) { left: 671px; }
+
+        .black:nth-child(21) { left: 732px; }
+
+        .black:nth-child(23) { left: 793px; }
+
+        .white.highlighted {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .black.highlighted {
+            background-color: #337a33;
+        }
+
+        .white:hover:not(.highlighted) { background-color: #eee; }
+        .black:hover:not(.highlighted) { background-color: #111; }
+
+    </style>
+</head>
+<body>
+    <h1>🎹 Interactieve Toonladder Visualisatie</h1>
+
+    <div class="controls">
+        <div>
+            <label for="grondtoon">Welke grondtoon?</label>
+            <select id="grondtoon">
+                <option value="C">C</option>
+                <option value="C#">C# / Db</option>
+                <option value="D">D</option>
+                <option value="D#">D# / Eb</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F# / Gb</option>
+                <option value="G">G</option>
+                <option value="G#">G# / Ab</option>
+                <option value="A">A</option>
+                <option value="A#">A# / Bb</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+        <div>
+            <label for="toonladder_type">Soort toonladder?</label>
+            <select id="toonladder_type">
+                <option value="majeur">Majeur</option>
+                <option value="mineur">Natuurlijk Mineur</option>
+                <option value="harmonisch_mineur">Harmonisch Mineur</option>
+                <option value="blues">Blues (Hexatonisch)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="piano-container">
+        <div class="piano">
+            <div class="key white" data-note="C">C4</div>
+            <div class="key black" data-note="C#">C#4</div>
+            <div class="key white" data-note="D">D4</div>
+            <div class="key black" data-note="D#">D#4</div>
+            <div class="key white" data-note="E">E4</div>
+            <div class="key white" data-note="F">F4</div>
+            <div class="key black" data-note="F#">F#4</div>
+            <div class="key white" data-note="G">G4</div>
+            <div class="key black" data-note="G#">G#4</div>
+            <div class="key white" data-note="A">A4</div>
+            <div class="key black" data-note="A#">A#4</div>
+            <div class="key white" data-note="B">B4</div>
+
+            <div class="key white" data-note="C">C5</div>
+            <div class="key black" data-note="C#">C#5</div>
+            <div class="key white" data-note="D">D5</div>
+            <div class="key black" data-note="D#">D#5</div>
+            <div class="key white" data-note="E">E5</div>
+            <div class="key white" data-note="F">F5</div>
+            <div class="key black" data-note="F#">F#5</div>
+            <div class="key white" data-note="G">G5</div>
+            <div class="key black" data-note="G#">G#5</div>
+            <div class="key white" data-note="A">A5</div>
+            <div class="key black" data-note="A#">A#5</div>
+            <div class="key white" data-note="B">B5</div>
+            <div class="key white" data-note="C">C6</div>
+        </div>
+    </div>
+
+    <p id="resultaat_noten">Noten in de toonladder: ...</p>
+
+    <script>
+        const scales = {
+            'majeur': [0, 2, 4, 5, 7, 9, 11], 
+            'mineur': [0, 2, 3, 5, 7, 8, 10], 
+            'harmonisch_mineur': [0, 2, 3, 5, 7, 8, 11],
+            'blues': [0, 3, 5, 6, 7, 10]
+        };
+
+        const chromaticScale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+        const enharmonicMap = { "C#": "Db", "D#": "Eb", "F#": "Gb", "G#": "Ab", "A#": "Bb" };
+
+        const grondtoonSelect = document.getElementById('grondtoon');
+        const typeSelect = document.getElementById('toonladder_type');
+        const resultaatParagraaf = document.getElementById('resultaat_noten');
+        const pianoKeys = document.querySelectorAll('.piano .key');
+
+        function calculateScale() {
+            const rootNote = grondtoonSelect.value;
+            const scaleType = typeSelect.value;
+
+            const intervals = scales[scaleType];
+            if (!intervals) return;
+
+            const rootIndex = chromaticScale.indexOf(rootNote.split(' ')[0]);
+
+            const scaleNotesDisplay = [];
+            const scaleNotesData = [];
+
+            intervals.forEach(interval => {
+                const noteIndex = (rootIndex + interval) % 12;
+                let note = chromaticScale[noteIndex];
+
+                let displayNote = note;
+                if (enharmonicMap[note]) {
+                     displayNote = `${note} (${enharmonicMap[note]})`;
+                }
+                scaleNotesDisplay.push(displayNote);
+
+                scaleNotesData.push(note);
+            });
+
+            resultaatParagraaf.textContent = `Noten in de toonladder: ${scaleNotesDisplay.join(', ')}`;
+
+            updatePiano(scaleNotesData); 
+        }
+
+        function updatePiano(notesToHighlight) {
+            pianoKeys.forEach(key => {
+                key.classList.remove('highlighted');
+            });
+
+            notesToHighlight.forEach(note => {
+                const keys = document.querySelectorAll(`.piano .key[data-note="${note}"]`);
+                keys.forEach(key => {
+                    key.classList.add('highlighted');
+                });
+            });
+        }
+
+        grondtoonSelect.addEventListener('change', calculateScale);
+        typeSelect.addEventListener('change', calculateScale);
+
+        calculateScale();
+    </script>
+</body>
+</html>
