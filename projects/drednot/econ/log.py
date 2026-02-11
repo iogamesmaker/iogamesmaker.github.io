@@ -39,33 +39,33 @@ manual_item_values = {
     "Explosives": 0.05,
     "Hyper Rubber": 0.5,
     "Flux Crystals": 1.0,
-    "Compressed Explosives": 0.8,
+    "Compressed Explosives": 1.0,
     "Compressed Iron": 1.0,
     "Volleyball": 8.0,
     "Basketball": 8.0,
     "Beach Ball": 8.0,
     "Football": 8.0,
-    "Golden Item Shredder": 90000.0,
+    "Golden Item Shredder": 95000.0,
     "Backpack": 1.0,
     "Manifest Scanner": 48.0,
     "BoM Scanner": 48.0,
     "Blueprint Scanner": 4.0,
     "Flux RCD": 32.0,
     "Shield Core": 0.0625,
-    "Cannon (Packaged)": 1.5,
-    "Burst Cannon (Packaged)": 4.0,
-    "Machine Cannon (Packaged)": 4.0,
+    "Cannon (Packaged)": 1.0,
+    "Burst Cannon (Packaged)": 6.0,
+    "Machine Cannon (Packaged)": 16.0,
     "Thruster (Starter, Packaged)": 0.0,
     "Hyper Ice Block": 0.125,
     "DEPRECATED ITEM": 2.5,
-    "Fabricator (Legacy, Packaged)": 45000.0,
-    "Shield Generator": 0.5,
+    "Fabricator (Legacy, Packaged)": 50000.0,
+    "Shield Generator": 2.0,
     "Shield Projector": 16.0,
-    "Acute Cannon (Packaged)": 2.0,
-    "Munitions Supply Unit (Packaged)": 1.0,
-    "Obtuse Cannon (Packaged)": 2.0,
-    "Gold Null Trophy": 1000000.0,
-    "Silver Null Trophy": 250000.0,
+    "Acute Cannon (Packaged)": 8.0,
+    "Munitions Supply Unit (Packaged)": 2.0,
+    "Obtuse Cannon (Packaged)": 1.0,
+    "Gold Null Trophy": 1500000.0,
+    "Silver Null Trophy": 500000.0,
     "Elimination Loot Box": 16.0,
     "Elimination Loot Box (Locked)": 16.0,
 }
@@ -73,7 +73,7 @@ manual_item_values = {
 class EconLogScourer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dredark Log Scourer v 1.5.4")
+        self.root.title("Dredark Log Scourer v 1.5.5")
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
@@ -171,6 +171,7 @@ class EconLogScourer:
         message = (
             "This tool is shareware! If you paid for this, you got scammed.\nFeel free to modify this tool, and redistribute it. Just don't make too much flux off of my work.'\n"
             "Credit to @iogamesplayer\n"
+            "Small disclaimer: this is vibecoded garbage that may break at any moment.\n"
         )
         ttk.Label(frame, text=message, wraplength=350, justify="center").pack(pady=(0, 10))
 
@@ -568,40 +569,41 @@ I'm not sure how some ships have more starter items than allowed, Timmy no.1 {{E
 This little button allows you to check out all the items you possess. It includes a flux value, but that's pretty subjective ngl. Full list is here:
 EVERYTHING NOT PRESENT IS MADE UP OF THE CRAFTING STUFF'S VALUE - OR IS 0.0.
 
+manual_item_values = {
     "Iron": 0.0625,
     "Explosives": 0.05,
     "Hyper Rubber": 0.5,
     "Flux Crystals": 1.0,
-    "Compressed Explosives": 0.8,
+    "Compressed Explosives": 1.0,
     "Compressed Iron": 1.0,
     "Volleyball": 8.0,
     "Basketball": 8.0,
     "Beach Ball": 8.0,
     "Football": 8.0,
-    "Golden Item Shredder": 90000.0,
+    "Golden Item Shredder": 95000.0,
     "Backpack": 1.0,
     "Manifest Scanner": 48.0,
     "BoM Scanner": 48.0,
     "Blueprint Scanner": 4.0,
-    "Flux RCD": 64.0,
+    "Flux RCD": 32.0,
     "Shield Core": 0.0625,
-    "Cannon (Packaged)": 1.5,
-    "Burst Cannon (Packaged)": 4.0,
-    "Machine Cannon (Packaged)": 32.0,
+    "Cannon (Packaged)": 1.0,
+    "Burst Cannon (Packaged)": 6.0,
+    "Machine Cannon (Packaged)": 16.0,
     "Thruster (Starter, Packaged)": 0.0,
     "Hyper Ice Block": 0.125,
     "DEPRECATED ITEM": 2.5,
-    "Fabricator (Legacy, Packaged)": 45000.0,
-    "Shield Generator": 0.5,
+    "Fabricator (Legacy, Packaged)": 50000.0,
+    "Shield Generator": 2.0,
     "Shield Projector": 16.0,
-    "Acute Cannon (Packaged)": 2.0,
-    "Munitions Supply Unit (Packaged)": 1.0,
-    "Obtuse Cannon (Packaged)": 2.0,
-    "Gold Null Trophy": 1000000.0,
-    "Bug Hunter Trophy": 0.0,
-    "Silver Null Trophy": 250000.0,
+    "Acute Cannon (Packaged)": 8.0,
+    "Munitions Supply Unit (Packaged)": 2.0,
+    "Obtuse Cannon (Packaged)": 1.0,
+    "Gold Null Trophy": 1500000.0,
+    "Silver Null Trophy": 500000.0,
     "Elimination Loot Box": 16.0,
-    "Elimination Loot Box (Locked)": 16.0
+    "Elimination Loot Box (Locked)": 16.0,
+}
 
 """,
 
@@ -2551,65 +2553,61 @@ The exported file will contain all transactions displayed on the screen. low key
                 f"{value:,.2f}"
             ))
 
-    def show_contributors(self, item_contributions):
-        selected = self.analysis_tree.selection()
-        if not selected:
-            return
+    def show_contributors(self, contributions):
+            selected = self.analysis_tree.selection()
+            if not selected:
+                return
 
-        item_id = int(self.analysis_tree.item(selected[0], "values")[0])
-        contributions = item_contributions.get(item_id, {})
+            item_id_str = self.analysis_tree.item(selected[0])["values"][0]
+            try:
+                item_id = int(item_id_str)
+            except ValueError:
+                return
 
-        detail_win = tk.Toplevel()
-        detail_win.title(
-            f"Contributors for Item {item_id} "
-            f"({self.item_name_map.get(item_id, 'Unknown Item')})"
-        )
-        detail_win.geometry("1000x500")
-        detail_win.transient(self.root)
-        detail_win.grab_set()
+            item_name = self.item_name_map.get(item_id, "Unknown")
+            item_contribs = contributions.get(item_id, {})
 
-        detail_win.update_idletasks()
+            detail_win = tk.Toplevel(self.root)
+            detail_win.title(f"Contributors for {item_name} ({item_id})")
+            detail_win.geometry("600x400")
+            detail_win.transient(self.root)
 
-        tree = ttk.Treeview(detail_win, columns=("rank", "ship_id", "ship_name", "count"), show="headings")
-        tree.heading("rank", text="Rank", anchor="w")
-        tree.heading("ship_id", text="Ship ID", anchor="w")
-        tree.heading("ship_name", text="Ship Name", anchor="w")
-        tree.heading("count", text="Count", anchor="e")
+            # FIX: Wait for the window to be visible before calling grab_set
+            detail_win.wait_visibility()
+            detail_win.grab_set()
 
-        tree.column("rank", width=50, stretch=False)
-        tree.column("ship_id", width=150, anchor="w")
-        tree.column("ship_name", width=300)
-        tree.column("count", width=100)
+            tree_frame = ttk.Frame(detail_win, padding=10)
+            tree_frame.pack(fill="both", expand=True)
 
-        vsb = ttk.Scrollbar(detail_win, orient="vertical", command=tree.yview)
-        hsb = ttk.Scrollbar(detail_win, orient="horizontal", command=tree.xview)
-        tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+            cols = ("rank", "ship_id", "ship_name", "count")
+            tree = ttk.Treeview(tree_frame, columns=cols, show="headings")
 
-        tree.grid(row=0, column=0, sticky="nsew")
-        vsb.grid(row=0, column=1, sticky="ns")
-        hsb.grid(row=1, column=0, sticky="ew")
+            tree.heading("rank", text="Rank")
+            tree.heading("ship_id", text="Ship ID")
+            tree.heading("ship_name", text="Ship Name")
+            tree.heading("count", text="Count")
 
-        sorted_contribs = sorted(contributions.items(), key=lambda x: -x[1])
-        for rank, (ship_id, count) in enumerate(sorted_contribs, start=1):
-            name = self.ship_names.get(ship_id, {}).get("current_name", "Unknown")
-            tree.insert("", "end", values=(
-                f"#{rank}",
-                ship_id,
-                name if name != "Unknown" else "",
-                f"{count:,}"
-            ))
+            tree.column("rank", width=50, anchor="center")
+            tree.column("ship_id", width=100, anchor="center")
+            tree.column("ship_name", width=250, anchor="w")
+            tree.column("count", width=100, anchor="e")
 
-        detail_win.grid_rowconfigure(0, weight=1)
-        detail_win.grid_columnconfigure(0, weight=1)
+            scrollbar = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
+            tree.configure(yscrollcommand=scrollbar.set)
 
-        context_menu = tk.Menu(detail_win, tearoff=0)
-        context_menu.add_command(label="Sort by Rank",
-                                 command=lambda: self.sort_treeview(tree, "rank", True))
-        context_menu.add_command(label="Sort by Count",
-                                 command=lambda: self.sort_treeview(tree, "count", True))
+            tree.pack(side="left", fill="both", expand=True)
+            scrollbar.pack(side="right", fill="y")
 
-        tree.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
-        tree.bind("<Double-1>", lambda e: self.open_ship_lookup(tree))
+            sorted_contribs = sorted(item_contribs.items(), key=lambda x: x[1], reverse=True)
+
+            for i, (hex_id, count) in enumerate(sorted_contribs, 1):
+                ship_name = self.ship_names.get(hex_id, {}).get("current_name", "Unknown")
+                tree.insert("", "end", values=(i, hex_id, ship_name, count))
+
+            tree.bind("<Double-1>", lambda e: self.open_ship_lookup_from_tree(tree))
+
+            close_btn = ttk.Button(detail_win, text="Close", command=detail_win.destroy)
+            close_btn.pack(pady=10)
 
     def export_analysis(self, item_totals, contributions):
         file_path = filedialog.asksaveasfilename(
