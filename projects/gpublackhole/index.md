@@ -1,6 +1,6 @@
 ---
 layout: default
-title: main
+title: GPU Blackhole
 ---
 
 # GPU blackhole renderer

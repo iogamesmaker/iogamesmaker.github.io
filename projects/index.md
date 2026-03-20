@@ -1,6 +1,6 @@
 ---
 layout: default
-title: main
+title: Projects
 ---
 <style>
   .project-grid {

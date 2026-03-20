@@ -1,6 +1,6 @@
 ---
 layout: default
-title: main
+title: Drednot
 ---
 
 # Drednot stuff

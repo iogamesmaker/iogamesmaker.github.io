@@ -1,6 +1,6 @@
 ---
 layout: default
-title: main
+title: Blackhole
 ---
 
 # CPU blackhole renderer
