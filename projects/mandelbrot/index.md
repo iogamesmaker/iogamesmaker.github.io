@@ -59,7 +59,7 @@ I am a total C++ noob, so do not expect much. I do not know anything about glut,
 here are some epik screenshots using only this program (and the KDE screenshot thing)<br><br>
 
 <img src="/projects/mandelbrot/image1.png" alt="Mandelbrot set with biomorphs" style="max-width: 100%; height: auto;">
-<img src="/projects/mandelbrot/image2.png" alt="Mandelbrot set with biomorphs" style="max-width: 100%; height: auto;">
+<img src="/projects/mandelbrot/image2.png" alt="too lazy to add more alt texts lmao" style="max-width: 100%; height: auto;">
 <img src="/projects/mandelbrot/image3.png" alt="Mandelbrot set with biomorphs" style="max-width: 100%; height: auto;">
 <img src="/projects/mandelbrot/image4.png" alt="Mandelbrot set with biomorphs" style="max-width: 100%; height: auto;">
 <img src="/projects/mandelbrot/image5.png" alt="Mandelbrot set with biomorphs" style="max-width: 100%; height: auto;">

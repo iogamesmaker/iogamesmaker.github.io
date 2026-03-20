@@ -4,6 +4,7 @@ _site/
 # ruby shit ew
 vendor/
 .bundle/
+release.sh
 
 # garbage
 .sass-cache/
