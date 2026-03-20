@@ -1,0 +1,11 @@
+# generated site (github will generate one on its own)
+_site/
+
+# ruby shit ew
+vendor/
+.bundle/
+
+# garbage
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata

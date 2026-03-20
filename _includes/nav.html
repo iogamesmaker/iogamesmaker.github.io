@@ -1,0 +1,25 @@
+<div class="top-bar">
+    <h3 class="title">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    </h3>
+    <div class="nav-menu">
+        <div class="dropdown">
+            <a href="{{ '/' | relative_url }}">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <a href="{{ '/projects/' | relative_url }}">Projects</a>
+            <div class="dropdown-content">
+                <a href="{{ '/projects/smoothmandelbrot/' | relative_url }}">The Mandelbrot Set</a>
+                <a href="{{ '/projects/blackholerenderer/' | relative_url }}">Black Hole Renderer</a>
+                <a href="{{ '/projects/raymarchedlandscape/' | relative_url }}">Raymarched Landscape</a>
+                <a href="{{ '/projects/drednot/' | relative_url }}">Drednot.io scripting shits</a>
+                <a href="{{ '/projects/smallstuff/' | relative_url }}">Small stuff</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="{{ '/info/' | relative_url }}">Info</a>
+        </div>
+    </div>
+</div>
