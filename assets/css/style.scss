@@ -1,115 +1,113 @@
 ---
-# Barebones Minimalist SCSS
+# minimal thing
 ---
-
-$nav-height: 50px;
-$bg-color: #fff;
-$text-color: #000;
 
 body {
   margin: 0;
   font-family: sans-serif;
   line-height: 1.5;
   color: #000;
-  background: #fff;
+  background: #fff
 }
 
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: $nav-height;
+  height: 50px;
   border-bottom: 1px solid #000;
   position: sticky;
   top: 0;
   background: #fff;
-  z-index: 100;
+  z-index: 100
+}
 
-  .title {
-    margin-right: 0;
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid #000;
+.top-bar .title {
+  margin-right: 0;
+  font-weight: bold;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #000
+}
 
-    a { color: #000; text-decoration: none; }
-  }
-  a {
-    display: flex; // Changed to flex to center text vertically
-    align-items: center;
-    padding: 0 1.5rem; // Give them some breathing room
-    height: 100%;
-    color: #000;
-    text-decoration: none;
-    border-left: 1px solid #000;
-    border-bottom: 1px solid #000;
+.top-bar .title a {
+  color: #000;
+  text-decoration: none
+}
 
-    &:hover {
-      background: $text-color;
-      color: $bg-color;
-    }
-  }
-  .nav-menu {
-    display: flex;
-    height: 100%;
-    align-items: stretch;
-  }
+.top-bar a {
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 100%;
+  color: #000;
+  text-decoration: none;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000
+}
+
+.top-bar a:hover {
+  background: #000;
+  color: #fff
+}
+
+.top-bar .nav-menu {
+  display: flex;
+  height: 100%;
+  align-items: stretch
 }
 
 .dropdown {
   position: relative;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: center
+}
 
-  > a {
-    padding: 0 10px;
-    color: #000;
-    text-decoration: none;
-  }
+.dropdown>a {
+  padding: 0 10px;
+  color: #000;
+  text-decoration: none
+}
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    top: $nav-height;
-    right: 0;
-    background: #fff;
-    border: 1px solid #000;
-    border-bottom: 0px;
-    border-left: 0px;
-    min-width: 150px;
-    max-width: 90vw;
+.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #000;
+  border-bottom: 0px;
+  border-left: 0px;
+  min-width: 150px;
+  max-width: 90vw
+}
 
-    a {
-      display: block;
-      padding: 8px;
-      color: #000;
-      text-decoration: none;
-      font-size: 0.9rem;
+.dropdown .dropdown-content a {
+  display: block;
+  padding: 8px;
+  color: #000;
+  text-decoration: none;
+  font-size: 0.9rem
+}
 
-      &:hover {
-        background: $text-color;
-        color: $bg-color;
-      }
-    }
-  }
+.dropdown .dropdown-content a:hover {
+  background: #000;
+  color: #fff
+}
 
-  &:hover .dropdown-content {
-    display: block;
-  }
+.dropdown:hover .dropdown-content {
+  display: block
 }
 
 .content {
   padding: 2rem 1rem;
   max-width: 800px;
-  margin: 0 auto;
-  a {
-    color: $text-color;
-    text-underline-offset: 3px;
+  margin: 0 auto
+}
 
-    &:hover {
-      opacity: 0.6;
-    }
-  }
+.content a {
+  color: #000;
+  text-underline-offset: 3px
 }
