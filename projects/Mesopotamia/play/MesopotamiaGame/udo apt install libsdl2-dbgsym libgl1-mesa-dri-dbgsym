@@ -1,0 +1,2490 @@
+--------------------------------------------------------------------------------
+Command:            ./mesopotamia
+Massif arguments:   (none)
+ms_print arguments: massif.out.27163
+--------------------------------------------------------------------------------
+
+
+    MB
+18.77^                                  #                                     
+     |              @@@@@@@@::::::::::::#::::::@:::::@::::::::::::::::::::::@:
+     |          @:::@       :  :        #::::  @: :::@::                   :@:
+     |          @:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |         @@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     |        @@@:::@       :  :        #::::  @: :::@::                   :@:
+     | :   :@:@@@:::@       :  :        #::::  @: :::@::                   :@:
+   0 +----------------------------------------------------------------------->Gi
+     0                                                                   1.849
+
+Number of snapshots: 66
+ Detailed snapshots: [9, 13, 14, 15, 17, 24, 28 (peak), 38, 50, 60]
+
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  0              0                0                0             0            0
+  1     15,411,017               56               40            16            0
+  2     29,826,213          869,040          850,852        18,188            0
+  3     39,137,297          971,856          953,668        18,188            0
+  4     51,083,191        1,072,960        1,054,756        18,204            0
+  5     69,632,485          833,200          810,767        22,433            0
+  6    132,365,762          848,368          825,390        22,978            0
+  7    151,751,034        1,473,088        1,385,888        87,200            0
+  8    167,001,193        1,484,344        1,395,778        88,566            0
+  9    182,467,778        1,705,584        1,606,954        98,630            0
+94.22% (1,606,954B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->19.05% (324,876B) in 559 places, all below massif's threshold (1.00%)
+| 
+->18.46% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->18.46% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->18.46% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->18.46% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->18.46% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->18.46% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->18.46% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->18.46% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->18.46% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->11.98% (204,288B) 0x6B0652E: ???
+| ->11.98% (204,288B) 0x6B077B6: ???
+|   ->07.56% (129,024B) 0x6B07A69: ???
+|   | ->07.56% (129,024B) 0x6B01A15: ???
+|   |   ->07.56% (129,024B) 0x6B14001: ???
+|   |     ->07.56% (129,024B) 0x6B06DA6: ???
+|   |       ->07.56% (129,024B) 0x6B08063: ???
+|   |         ->07.56% (129,024B) 0x6B03A17: ???
+|   |           ->07.56% (129,024B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |             ->07.56% (129,024B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |               ->07.56% (129,024B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |                 ->07.56% (129,024B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |                   ->07.56% (129,024B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |                     ->07.56% (129,024B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |                       ->07.56% (129,024B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|   |                         ->07.56% (129,024B) 0x11171B: main (main.cpp:20)
+|   |                           
+|   ->04.41% (75,264B) 0x6B0798F: ???
+|     ->04.41% (75,264B) 0x6B01A15: ???
+|       ->04.41% (75,264B) 0x6B14001: ???
+|         ->04.41% (75,264B) 0x6B06DA6: ???
+|           ->04.41% (75,264B) 0x6B08063: ???
+|             ->04.41% (75,264B) 0x6B03A17: ???
+|               ->04.41% (75,264B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 ->04.41% (75,264B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   ->04.41% (75,264B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     ->04.41% (75,264B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                       ->04.41% (75,264B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                         ->04.41% (75,264B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                           ->04.41% (75,264B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                             ->04.41% (75,264B) 0x11171B: main (main.cpp:20)
+|                               
+->05.93% (101,178B) 0xA3C4A4D: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+| ->05.92% (101,043B) 0xA3C4B42: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+| | ->05.92% (101,043B) 0xA3B5E42: llvm::cl::Option::addArgument() (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+| |   ->05.92% (101,043B) in 2450 places, all below massif's threshold (1.00%)
+| |     
+| ->00.01% (135B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->05.71% (97,312B) 0x70B3B64: ???
+| ->02.89% (49,328B) 0x70B3D09: ???
+| | ->01.08% (18,480B) 0x7DFA9BC: ???
+| | | ->01.08% (18,480B) 0x7CA6E37: ???
+| | |   ->01.08% (18,480B) 0x79AAD6B: ???
+| | |     ->01.08% (18,480B) 0x7C9CC82: ???
+| | |       ->01.08% (18,480B) 0x6C3FDC9: ???
+| | |         ->01.08% (18,480B) 0x738834F: ???
+| | |           ->01.08% (18,480B) 0x6C43E34: ???
+| | |             ->01.08% (18,480B) 0x6B01A58: ???
+| | |               ->01.08% (18,480B) 0x6B14001: ???
+| | |                 ->01.08% (18,480B) 0x6B06DA6: ???
+| | |                   ->01.08% (18,480B) 0x6B08063: ???
+| | |                     ->01.08% (18,480B) 0x6B03A17: ???
+| | |                       ->01.08% (18,480B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                         ->01.08% (18,480B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                           ->01.08% (18,480B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                             ->01.08% (18,480B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                               ->01.08% (18,480B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                 ->01.08% (18,480B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                   ->01.08% (18,480B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |                                     ->01.08% (18,480B) 0x11171B: main (main.cpp:20)
+| | |                                       
+| | ->01.08% (18,480B) 0x7DFD8D9: ???
+| | | ->01.08% (18,480B) 0x7DFAFA0: ???
+| | |   ->01.08% (18,480B) 0x7CA6E37: ???
+| | |     ->01.08% (18,480B) 0x79AAD6B: ???
+| | |       ->01.08% (18,480B) 0x7C9CC82: ???
+| | |         ->01.08% (18,480B) 0x6C3FDC9: ???
+| | |           ->01.08% (18,480B) 0x738834F: ???
+| | |             ->01.08% (18,480B) 0x6C43E34: ???
+| | |               ->01.08% (18,480B) 0x6B01A58: ???
+| | |                 ->01.08% (18,480B) 0x6B14001: ???
+| | |                   ->01.08% (18,480B) 0x6B06DA6: ???
+| | |                     ->01.08% (18,480B) 0x6B08063: ???
+| | |                       ->01.08% (18,480B) 0x6B03A17: ???
+| | |                         ->01.08% (18,480B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                           ->01.08% (18,480B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                             ->01.08% (18,480B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                               ->01.08% (18,480B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                 ->01.08% (18,480B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                   ->01.08% (18,480B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                     ->01.08% (18,480B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |                                       ->01.08% (18,480B) 0x11171B: main (main.cpp:20)
+| | |                                         
+| | ->00.73% (12,368B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.63% (44,784B) 0x70B3BBC: ???
+| | ->01.92% (32,832B) 0x8313139: ???
+| | | ->01.92% (32,832B) 0x83134C3: ???
+| | |   ->01.92% (32,832B) 0x7CA25DF: ???
+| | |     ->01.92% (32,832B) 0x7C9C7CF: ???
+| | |       ->01.92% (32,832B) 0x6C3FDC9: ???
+| | |         ->01.92% (32,832B) 0x738834F: ???
+| | |           ->01.92% (32,832B) 0x6C43E34: ???
+| | |             ->01.92% (32,832B) 0x6B01A58: ???
+| | |               ->01.92% (32,832B) 0x6B14001: ???
+| | |                 ->01.92% (32,832B) 0x6B06DA6: ???
+| | |                   ->01.92% (32,832B) 0x6B08063: ???
+| | |                     ->01.92% (32,832B) 0x6B03A17: ???
+| | |                       ->01.92% (32,832B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                         ->01.92% (32,832B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                           ->01.92% (32,832B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                             ->01.92% (32,832B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                               ->01.92% (32,832B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                 ->01.92% (32,832B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |                                   ->01.92% (32,832B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |                                     ->01.92% (32,832B) 0x11171B: main (main.cpp:20)
+| | |                                       
+| | ->00.70% (11,952B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->00.19% (3,200B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->05.00% (85,280B) 0x4E74AD4: __new_exitfn (cxa_atexit.c:112)
+| ->05.00% (85,280B) 0x4E74B57: __internal_atexit (cxa_atexit.c:44)
+|   ->05.00% (85,280B) in 82 places, all below massif's threshold (1.00%)
+|     
+->04.32% (73,728B) 0x4B5FB8D: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+| ->04.32% (73,728B) 0x4005DCD: call_init (dl-init.c:74)
+|   ->04.32% (73,728B) 0x4005DCD: call_init (dl-init.c:26)
+|     ->04.32% (73,728B) 0x4005E9B: _dl_init (dl-init.c:121)
+|       ->04.32% (73,728B) 0x401D2EF: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+|         
+->03.08% (52,488B) 0x56EC015: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->03.08% (52,488B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->03.08% (52,488B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->03.08% (52,488B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->03.08% (52,488B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->03.08% (52,488B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->03.08% (52,488B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->03.08% (52,488B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->03.08% (52,488B) 0x11171B: main (main.cpp:20)
+|                 
+->03.07% (52,432B) 0x6B00DDA: ???
+| ->03.07% (52,432B) 0x6B01A7A: ???
+|   ->03.07% (52,432B) 0x6B14001: ???
+|     ->03.07% (52,432B) 0x6B06DA6: ???
+|       ->03.07% (52,432B) 0x6B08063: ???
+|         ->03.07% (52,432B) 0x6B03A17: ???
+|           ->03.07% (52,432B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->03.07% (52,432B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|               ->03.07% (52,432B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 ->03.07% (52,432B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   ->03.07% (52,432B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     ->03.07% (52,432B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                       ->03.07% (52,432B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                         ->03.07% (52,432B) 0x11171B: main (main.cpp:20)
+|                           
+->03.04% (51,840B) 0x6C42D27: ???
+| ->02.03% (34,560B) 0x6C4368E: ???
+| | ->02.03% (34,560B) 0x6C43E4D: ???
+| |   ->02.03% (34,560B) 0x6B01A58: ???
+| |     ->02.03% (34,560B) 0x6B14001: ???
+| |       ->02.03% (34,560B) 0x6B06DA6: ???
+| |         ->02.03% (34,560B) 0x6B08063: ???
+| |           ->02.03% (34,560B) 0x6B03A17: ???
+| |             ->02.03% (34,560B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |               ->02.03% (34,560B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                 ->02.03% (34,560B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                   ->02.03% (34,560B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                     ->02.03% (34,560B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                       ->02.03% (34,560B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                         ->02.03% (34,560B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |                           ->02.03% (34,560B) 0x11171B: main (main.cpp:20)
+| |                             
+| ->01.01% (17,280B) 0x6C43650: ???
+|   ->01.01% (17,280B) 0x6C43E4D: ???
+|     ->01.01% (17,280B) 0x6B01A58: ???
+|       ->01.01% (17,280B) 0x6B14001: ???
+|         ->01.01% (17,280B) 0x6B06DA6: ???
+|           ->01.01% (17,280B) 0x6B08063: ???
+|             ->01.01% (17,280B) 0x6B03A17: ???
+|               ->01.01% (17,280B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 ->01.01% (17,280B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   ->01.01% (17,280B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     ->01.01% (17,280B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                       ->01.01% (17,280B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                         ->01.01% (17,280B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                           ->01.01% (17,280B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                             ->01.01% (17,280B) 0x11171B: main (main.cpp:20)
+|                               
+->02.97% (50,712B) 0xA421586: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+| ->02.97% (50,712B) 0xA421941: llvm::StringMapImpl::RehashTable(unsigned int) (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+|   ->02.88% (49,164B) 0xA3C4A8C: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+|   | ->02.88% (49,164B) 0xA3C4B42: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+|   |   ->02.88% (49,164B) 0xA3B5E42: llvm::cl::Option::addArgument() (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+|   |     ->02.88% (49,164B) 0xA314395: ??? (in /usr/lib/x86_64-linux-gnu/libLLVM.so.19.1)
+|   |     | ->02.88% (49,164B) 0x4005DCD: call_init (dl-init.c:74)
+|   |     |   ->02.88% (49,164B) 0x4005DCD: call_init (dl-init.c:26)
+|   |     |     ->02.88% (49,164B) 0x4005E9B: _dl_init (dl-init.c:121)
+|   |     |       ->02.88% (49,164B) 0x4002425: _dl_catch_exception (dl-catch.c:215)
+|   |     |         ->02.88% (49,164B) 0x400C8A7: dl_open_worker (dl-open.c:808)
+|   |     |           ->02.88% (49,164B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|   |     |             ->02.88% (49,164B) 0x400CC2A: _dl_open (dl-open.c:883)
+|   |     |               ->02.88% (49,164B) 0x4EC2257: dlopen_doit (dlopen.c:56)
+|   |     |                 ->02.88% (49,164B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|   |     |                   ->02.88% (49,164B) 0x40024BE: _dl_catch_error (dl-catch.c:260)
+|   |     |                     ->02.88% (49,164B) 0x4EC1D66: _dlerror_run (dlerror.c:138)
+|   |     |                       ->02.88% (49,164B) 0x4EC2308: dlopen_implementation (dlopen.c:71)
+|   |     |                         ->02.88% (49,164B) 0x4EC2308: dlopen@@GLIBC_2.34 (dlopen.c:81)
+|   |     |                           ->02.88% (49,164B) 0x6AA6F66: ???
+|   |     |                             ->02.88% (49,164B) 0x6AA8594: ???
+|   |     |                               ->02.88% (49,164B) 0x6AA15D4: ???
+|   |     |                                 ->02.88% (49,164B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                   ->02.88% (49,164B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                     ->02.88% (49,164B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                       ->02.88% (49,164B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                         ->02.88% (49,164B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                           ->02.88% (49,164B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   |     |                                             ->02.88% (49,164B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|   |     |                                               ->02.88% (49,164B) 0x11171B: main (main.cpp:20)
+|   |     |                                                 
+|   |     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->00.09% (1,548B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->02.48% (42,352B) 0x5F119C2: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+| ->02.48% (42,352B) 0x5F16240: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+|   ->02.48% (42,352B) 0x56C00C1: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->02.48% (42,352B) 0x56AFB44: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|       ->01.24% (21,176B) 0x49DD260: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       | ->01.24% (21,176B) 0x49AE95E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |   ->01.24% (21,176B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |     ->01.24% (21,176B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|       |       ->01.24% (21,176B) 0x11171B: main (main.cpp:20)
+|       |         
+|       ->01.24% (21,176B) 0x49DD2C4: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.24% (21,176B) 0x49AE95E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.24% (21,176B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.24% (21,176B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.24% (21,176B) 0x11171B: main (main.cpp:20)
+|                 
+->02.21% (37,632B) 0x56B0278: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.10% (18,816B) 0x49DD260: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | ->01.10% (18,816B) 0x49AE95E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   ->01.10% (18,816B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     ->01.10% (18,816B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+| |       ->01.10% (18,816B) 0x11171B: main (main.cpp:20)
+| |         
+| ->01.10% (18,816B) 0x49DD2C4: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|   ->01.10% (18,816B) 0x49AE95E: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|     ->01.10% (18,816B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.10% (18,816B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|         ->01.10% (18,816B) 0x11171B: main (main.cpp:20)
+|           
+->01.92% (32,768B) 0x56AFE3A: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.92% (32,768B) in 2 places, all below massif's threshold (1.00%)
+|   
+->01.91% (32,652B) 0x400C309: calloc (rtld-malloc.h:44)
+| ->01.91% (32,652B) 0x400C309: _dl_new_object (dl-object.c:92)
+|   ->01.91% (32,652B) 0x4007D59: _dl_map_object_from_fd (dl-load.c:1059)
+|     ->01.91% (32,652B) 0x40095DA: _dl_map_object (dl-load.c:2200)
+|       ->01.77% (30,144B) 0x4003670: openaux (dl-deps.c:64)
+|       | ->01.77% (30,144B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|       |   ->01.77% (30,144B) 0x40039D3: _dl_map_object_deps (dl-deps.c:232)
+|       |     ->01.77% (30,144B) 0x400D0C6: dl_open_worker_begin (dl-open.c:616)
+|       |       ->01.77% (30,144B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|       |         ->01.77% (30,144B) 0x400C827: dl_open_worker (dl-open.c:771)
+|       |           ->01.77% (30,144B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|       |             ->01.77% (30,144B) 0x400CC2A: _dl_open (dl-open.c:883)
+|       |               ->01.77% (30,144B) 0x4EC2257: dlopen_doit (dlopen.c:56)
+|       |                 ->01.77% (30,144B) 0x4002398: _dl_catch_exception (dl-catch.c:241)
+|       |                   ->01.77% (30,144B) 0x40024BE: _dl_catch_error (dl-catch.c:260)
+|       |                     ->01.77% (30,144B) 0x4EC1D66: _dlerror_run (dlerror.c:138)
+|       |                       ->01.77% (30,144B) 0x4EC2308: dlopen_implementation (dlopen.c:71)
+|       |                         ->01.77% (30,144B) 0x4EC2308: dlopen@@GLIBC_2.34 (dlopen.c:81)
+|       |                           ->01.62% (27,633B) 0x6AA6F66: ???
+|       |                           | ->01.62% (27,633B) 0x6AA8594: ???
+|       |                           |   ->01.62% (27,633B) 0x6AA15D4: ???
+|       |                           |     ->01.62% (27,633B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |       ->01.62% (27,633B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |         ->01.62% (27,633B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |           ->01.62% (27,633B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |             ->01.62% (27,633B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |               ->01.62% (27,633B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       |                           |                 ->01.62% (27,633B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|       |                           |                   ->01.62% (27,633B) 0x11171B: main (main.cpp:20)
+|       |                           |                     
+|       |                           ->00.15% (2,511B) in 1+ places, all below ms_print's threshold (01.00%)
+|       |                           
+|       ->00.15% (2,508B) in 1+ places, all below ms_print's threshold (01.00%)
+|       
+->01.54% (26,244B) 0x56EBE96: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.54% (26,244B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.54% (26,244B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.54% (26,244B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.54% (26,244B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.54% (26,244B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.54% (26,244B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.54% (26,244B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.54% (26,244B) 0x11171B: main (main.cpp:20)
+|                 
+->01.54% (26,244B) 0x56EC11A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+  ->01.54% (26,244B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+    ->01.54% (26,244B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+      ->01.54% (26,244B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+        ->01.54% (26,244B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+          ->01.54% (26,244B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+            ->01.54% (26,244B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+              ->01.54% (26,244B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+                ->01.54% (26,244B) 0x11171B: main (main.cpp:20)
+                  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 10    199,091,699        1,769,568        1,666,810       102,758            0
+ 11    217,235,891        1,834,792        1,727,826       106,966            0
+ 12    229,933,961        3,185,768        3,001,021       184,747            0
+ 13    248,035,826       10,630,888        9,810,542       820,346            0
+92.28% (9,810,542B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->62.69% (6,664,016B) 0x70B3B64: ???
+| ->61.42% (6,529,168B) 0x70B3BBC: ???
+| | ->34.79% (3,698,208B) in 892 places, all below massif's threshold (1.00%)
+| | | 
+| | ->07.07% (751,680B) 0x6F90759: ???
+| | | ->04.82% (512,256B) in 177 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->02.25% (239,424B) 0x6FA0A5F: ???
+| | |   ->02.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->02.60% (276,480B) 0x6FEB3E9: ???
+| | | ->02.60% (276,480B) in 110 places, all below massif's threshold (1.00%)
+| | |   
+| | ->02.25% (239,424B) 0x6FA09E5: ???
+| | | ->02.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->02.25% (239,424B) 0x6FA0A12: ???
+| | | ->02.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->02.06% (219,472B) 0x6FA0A8C: ???
+| | | ->02.06% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.96% (207,872B) 0x6FEB447: ???
+| | | ->01.96% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.81% (192,192B) 0x6F94B65: ???
+| | | ->01.81% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.62% (172,224B) 0x6FF73B9: ???
+| | | ->01.62% (172,224B) in 39 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.36% (144,288B) 0x6FEB89F: ???
+| | | ->01.36% (144,288B) in 204 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.35% (143,424B) 0x6FEB2C4: ???
+| | | ->01.35% (143,424B) in 71 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.17% (124,768B) 0x6FEB357: ???
+| | | ->01.17% (124,768B) in 71 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.13% (119,712B) 0x6FA0AE4: ???
+| |   ->01.13% (119,712B) in 1247 places, all below massif's threshold (1.00%)
+| |     
+| ->01.27% (134,848B) in 14 places, all below massif's threshold (1.00%)
+|   
+->12.26% (1,303,510B) in 668 places, all below massif's threshold (1.00%)
+| 
+->07.82% (831,120B) 0x6CD84A8: ???
+| ->07.82% (831,120B) 0x6CEB215: ???
+|   ->07.82% (831,120B) 0x6C40551: ???
+|     ->07.82% (831,120B) 0x6C44356: ???
+|       ->07.82% (831,120B) 0x6B015D8: ???
+|         ->07.82% (831,120B) 0x6B00818: ???
+|           ->07.82% (831,120B) 0x6B04371: ???
+|             ->07.82% (831,120B) 0x6B046B3: ???
+|               ->07.82% (831,120B) 0x6AA2946: ???
+|                 ->07.82% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->07.82% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->07.82% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->07.82% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->07.82% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->07.82% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->02.96% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->02.96% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->02.96% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->02.96% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->02.96% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->02.96% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->02.96% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->02.96% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->02.96% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->02.55% (271,272B) 0x6F1A1F6: ???
+| ->02.55% (271,272B) 0x6E0C2D0: ???
+|   ->02.55% (271,272B) 0x6CD8503: ???
+|     ->02.55% (271,272B) 0x6CEB215: ???
+|       ->02.55% (271,272B) 0x6C40551: ???
+|         ->02.55% (271,272B) 0x6C44356: ???
+|           ->02.55% (271,272B) 0x6B015D8: ???
+|             ->02.55% (271,272B) 0x6B00818: ???
+|               ->02.55% (271,272B) 0x6B04371: ???
+|                 ->02.55% (271,272B) 0x6B046B3: ???
+|                   ->02.55% (271,272B) 0x6AA2946: ???
+|                     ->02.55% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->02.55% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->02.55% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->02.55% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->02.55% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->02.55% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->02.01% (214,112B) 0x72D762E: ???
+| ->02.01% (214,112B) 0x7CA40D6: ???
+|   ->02.01% (214,112B) 0x6CEB1C3: ???
+|     ->02.01% (214,112B) 0x6C40551: ???
+|       ->02.01% (214,112B) 0x6C44356: ???
+|         ->02.01% (214,112B) 0x6B015D8: ???
+|           ->02.01% (214,112B) 0x6B00818: ???
+|             ->02.01% (214,112B) 0x6B04371: ???
+|               ->02.01% (214,112B) 0x6B046B3: ???
+|                 ->02.01% (214,112B) 0x6AA2946: ???
+|                   ->02.01% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->02.01% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->02.01% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->02.01% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->02.01% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->02.01% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.99% (211,584B) 0x6B00DDA: ???
+  ->01.26% (133,632B) 0x6B01A7A: ???
+  | ->01.26% (133,632B) 0x6B14001: ???
+  |   ->01.26% (133,632B) 0x6B06DA6: ???
+  |     ->01.26% (133,632B) 0x6B08063: ???
+  |       ->01.26% (133,632B) 0x6B03A17: ???
+  |         ->01.26% (133,632B) 0x49DB82C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |           ->01.26% (133,632B) 0x49DBBAC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |             ->01.26% (133,632B) 0x49AC4C9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |               ->01.26% (133,632B) 0x49AE0D9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |                 ->01.26% (133,632B) 0x49434BC: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |                   ->01.26% (133,632B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+  |                     ->01.26% (133,632B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+  |                       ->01.26% (133,632B) 0x11171B: main (main.cpp:20)
+  |                         
+  ->00.73% (77,952B) in 1+ places, all below ms_print's threshold (01.00%)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 14    260,217,065       14,211,648       13,283,462       928,186            0
+93.47% (13,283,462B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->70.16% (9,970,192B) 0x70B3B64: ???
+| ->56.55% (8,037,376B) 0x70B3BBC: ???
+| | ->32.43% (4,609,168B) in 950 places, all below massif's threshold (1.00%)
+| | | 
+| | ->06.77% (961,728B) 0x6F90759: ???
+| | | ->05.08% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.68% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.68% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->02.65% (376,992B) 0x6FEB3E9: ???
+| | | ->02.65% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->02.29% (326,016B) 0x6FEB2C4: ???
+| | | ->02.29% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.68% (239,424B) 0x6FA09E5: ???
+| | | ->01.68% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.68% (239,424B) 0x6FA0A12: ???
+| | | ->01.68% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.54% (219,472B) 0x6FA0A8C: ???
+| | | ->01.54% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.46% (207,872B) 0x6FEB447: ???
+| | | ->01.46% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.35% (192,192B) 0x6F94B65: ???
+| | | ->01.35% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.35% (191,904B) 0x6F92E6C: ???
+| | | ->01.35% (191,904B) in 24 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.21% (172,224B) 0x6FF73B9: ???
+| | | ->01.21% (172,224B) in 39 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.10% (156,672B) 0x6F92ED7: ???
+| | | ->01.10% (156,672B) in 28 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.02% (144,288B) 0x6FEB89F: ???
+| |   ->01.02% (144,288B) in 204 places, all below massif's threshold (1.00%)
+| |     
+| ->10.60% (1,505,760B) 0x70B47C3: ???
+| | ->10.60% (1,505,760B) 0x70B489C: ???
+| |   ->04.14% (588,704B) 0x70F7DE2: ???
+| |   | ->04.14% (588,704B) 0x7191A4E: ???
+| |   |   ->04.14% (588,704B) 0x7193282: ???
+| |   |     ->04.14% (588,704B) 0x6CFDEAC: ???
+| |   |       ->02.76% (392,448B) 0x6CFEE04: ???
+| |   |       | ->02.76% (392,448B) 0x6CFFE81: ???
+| |   |       |   ->02.76% (392,448B) 0x6D00523: ???
+| |   |       |     ->02.76% (392,448B) 0x6D01B0B: ???
+| |   |       |       ->02.76% (392,448B) 0x6D01CA8: ???
+| |   |       |         ->02.76% (392,448B) 0x6F604DB: ???
+| |   |       |           ->02.76% (392,448B) 0x6F175BA: ???
+| |   |       |             ->02.76% (392,448B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->02.76% (392,448B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->02.76% (392,448B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->02.76% (392,448B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->02.76% (392,448B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->01.38% (196,256B) 0x6CFF625: ???
+| |   |         ->01.38% (196,256B) 0x6D00051: ???
+| |   |           ->01.38% (196,256B) 0x6D0049A: ???
+| |   |             ->01.38% (196,256B) 0x6D01B0B: ???
+| |   |               ->01.38% (196,256B) 0x6D01CA8: ???
+| |   |                 ->01.38% (196,256B) 0x6F604DB: ???
+| |   |                   ->01.38% (196,256B) 0x6F175BA: ???
+| |   |                     ->01.38% (196,256B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->01.38% (196,256B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->01.38% (196,256B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->01.38% (196,256B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->01.38% (196,256B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->03.46% (491,280B) 0x70F7F81: ???
+| |   | ->03.46% (491,280B) 0x7191841: ???
+| |   |   ->03.46% (491,280B) 0x7193282: ???
+| |   |     ->03.46% (491,280B) 0x6CFDEAC: ???
+| |   |       ->02.07% (294,768B) 0x6CFF625: ???
+| |   |       | ->02.07% (294,768B) 0x6D00051: ???
+| |   |       |   ->02.07% (294,768B) 0x6D0049A: ???
+| |   |       |     ->02.07% (294,768B) 0x6D01B0B: ???
+| |   |       |       ->02.07% (294,768B) 0x6D01CA8: ???
+| |   |       |         ->02.07% (294,768B) 0x6F604DB: ???
+| |   |       |           ->02.07% (294,768B) 0x6F175BA: ???
+| |   |       |             ->02.07% (294,768B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->02.07% (294,768B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->02.07% (294,768B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->02.07% (294,768B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->02.07% (294,768B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->01.38% (196,512B) 0x6CFEE04: ???
+| |   |         ->01.38% (196,512B) 0x6CFFE81: ???
+| |   |           ->01.38% (196,512B) 0x6D00523: ???
+| |   |             ->01.38% (196,512B) 0x6D01B0B: ???
+| |   |               ->01.38% (196,512B) 0x6D01CA8: ???
+| |   |                 ->01.38% (196,512B) 0x6F604DB: ???
+| |   |                   ->01.38% (196,512B) 0x6F175BA: ???
+| |   |                     ->01.38% (196,512B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->01.38% (196,512B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->01.38% (196,512B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->01.38% (196,512B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->01.38% (196,512B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->01.84% (262,016B) 0x70F7EF5: ???
+| |   | ->01.84% (262,016B) 0x7191788: ???
+| |   |   ->01.84% (262,016B) 0x7193282: ???
+| |   |     ->01.84% (262,016B) 0x6CFDEAC: ???
+| |   |       ->01.38% (196,512B) 0x6CFEE04: ???
+| |   |       | ->01.38% (196,512B) 0x6CFFE81: ???
+| |   |       |   ->01.38% (196,512B) 0x6D00523: ???
+| |   |       |     ->01.38% (196,512B) 0x6D01B0B: ???
+| |   |       |       ->01.38% (196,512B) 0x6D01CA8: ???
+| |   |       |         ->01.38% (196,512B) 0x6F604DB: ???
+| |   |       |           ->01.38% (196,512B) 0x6F175BA: ???
+| |   |       |             ->01.38% (196,512B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->01.38% (196,512B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->01.38% (196,512B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->01.38% (196,512B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->01.38% (196,512B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->00.46% (65,504B) in 1+ places, all below ms_print's threshold (01.00%)
+| |   |       
+| |   ->01.15% (163,760B) 0x70F7E58: ???
+| |     ->01.15% (163,760B) in 2 places, all below massif's threshold (1.00%)
+| |       
+| ->01.09% (154,832B) 0x70B3D09: ???
+| | ->01.09% (154,832B) in 30 places, all below massif's threshold (1.00%)
+| |   
+| ->01.04% (147,120B) 0x70DD66F: ???
+| | ->01.04% (147,120B) 0x70DD7A2: ???
+| |   ->01.04% (147,120B) 0x70DE0D8: ???
+| |     ->01.04% (147,120B) 0x70BF05F: ???
+| |       ->01.04% (147,120B) 0x70BF2E4: ???
+| |         ->01.04% (147,120B) 0x70AC646: ???
+| |           ->01.04% (147,120B) 0x70AAB75: ???
+| |             ->01.04% (147,120B) 0x700E584: ???
+| |               ->01.04% (147,120B) 0x6F60850: ???
+| |                 ->01.04% (147,120B) 0x6F175BA: ???
+| |                   ->01.04% (147,120B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                     ->01.04% (147,120B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                       ->01.04% (147,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |                         ->01.04% (147,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |                           ->01.04% (147,120B) 0x11171B: main (main.cpp:20)
+| |                             
+| ->00.88% (125,104B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->10.35% (1,470,254B) in 696 places, all below massif's threshold (1.00%)
+| 
+->05.85% (831,120B) 0x6CD84A8: ???
+| ->05.85% (831,120B) 0x6CEB215: ???
+|   ->05.85% (831,120B) 0x6C40551: ???
+|     ->05.85% (831,120B) 0x6C44356: ???
+|       ->05.85% (831,120B) 0x6B015D8: ???
+|         ->05.85% (831,120B) 0x6B00818: ???
+|           ->05.85% (831,120B) 0x6B04371: ???
+|             ->05.85% (831,120B) 0x6B046B3: ???
+|               ->05.85% (831,120B) 0x6AA2946: ???
+|                 ->05.85% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->05.85% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->05.85% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->05.85% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->05.85% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->05.85% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->02.22% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->02.22% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->02.22% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->02.22% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->02.22% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->02.22% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->02.22% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->02.22% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->02.22% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.91% (271,272B) 0x6F1A1F6: ???
+| ->01.91% (271,272B) 0x6E0C2D0: ???
+|   ->01.91% (271,272B) 0x6CD8503: ???
+|     ->01.91% (271,272B) 0x6CEB215: ???
+|       ->01.91% (271,272B) 0x6C40551: ???
+|         ->01.91% (271,272B) 0x6C44356: ???
+|           ->01.91% (271,272B) 0x6B015D8: ???
+|             ->01.91% (271,272B) 0x6B00818: ???
+|               ->01.91% (271,272B) 0x6B04371: ???
+|                 ->01.91% (271,272B) 0x6B046B3: ???
+|                   ->01.91% (271,272B) 0x6AA2946: ???
+|                     ->01.91% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.91% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.91% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.91% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.91% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.91% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.51% (214,112B) 0x72D762E: ???
+| ->01.51% (214,112B) 0x7CA40D6: ???
+|   ->01.51% (214,112B) 0x6CEB1C3: ???
+|     ->01.51% (214,112B) 0x6C40551: ???
+|       ->01.51% (214,112B) 0x6C44356: ???
+|         ->01.51% (214,112B) 0x6B015D8: ???
+|           ->01.51% (214,112B) 0x6B00818: ???
+|             ->01.51% (214,112B) 0x6B04371: ???
+|               ->01.51% (214,112B) 0x6B046B3: ???
+|                 ->01.51% (214,112B) 0x6AA2946: ???
+|                   ->01.51% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.51% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.51% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.51% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.51% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.51% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.49% (211,584B) 0x6B00DDA: ???
+  ->01.49% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 15    271,437,394       16,687,064       15,748,957       938,107            0
+94.38% (15,748,957B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->74.62% (12,451,392B) 0x70B3B64: ???
+| ->48.64% (8,116,752B) 0x70B3BBC: ???
+| | ->29.90% (4,989,504B) in 952 places, all below massif's threshold (1.00%)
+| | | 
+| | ->05.76% (961,728B) 0x6F90759: ???
+| | | ->04.33% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.43% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.43% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->02.26% (376,992B) 0x6FEB3E9: ???
+| | | ->02.26% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.95% (326,016B) 0x6FEB2C4: ???
+| | | ->01.95% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.43% (239,424B) 0x6FA09E5: ???
+| | | ->01.43% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.43% (239,424B) 0x6FA0A12: ???
+| | | ->01.43% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.32% (219,472B) 0x6FA0A8C: ???
+| | | ->01.32% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.25% (207,872B) 0x6FEB447: ???
+| | | ->01.25% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.15% (192,192B) 0x6F94B65: ???
+| | | ->01.15% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.15% (191,904B) 0x6F92E6C: ???
+| | | ->01.15% (191,904B) in 24 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.03% (172,224B) 0x6FF73B9: ???
+| |   ->01.03% (172,224B) in 39 places, all below massif's threshold (1.00%)
+| |     
+| ->22.95% (3,830,256B) 0x70B47C3: ???
+| | ->22.95% (3,830,256B) 0x70B489C: ???
+| |   ->09.21% (1,537,616B) 0x70F7DE2: ???
+| |   | ->09.21% (1,537,616B) 0x7191A4E: ???
+| |   |   ->09.21% (1,537,616B) 0x7193282: ???
+| |   |     ->09.21% (1,537,616B) 0x6CFDEAC: ???
+| |   |       ->05.29% (883,056B) 0x6CFEE04: ???
+| |   |       | ->05.29% (883,056B) 0x6CFFE81: ???
+| |   |       |   ->05.29% (883,056B) 0x6D00523: ???
+| |   |       |     ->05.29% (883,056B) 0x6D01B0B: ???
+| |   |       |       ->05.29% (883,056B) 0x6D01CA8: ???
+| |   |       |         ->05.29% (883,056B) 0x6F604DB: ???
+| |   |       |           ->05.29% (883,056B) 0x6F175BA: ???
+| |   |       |             ->05.29% (883,056B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->05.29% (883,056B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->05.29% (883,056B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->05.29% (883,056B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->05.29% (883,056B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->03.92% (654,560B) 0x6CFF625: ???
+| |   |         ->03.92% (654,560B) 0x6D00051: ???
+| |   |           ->03.92% (654,560B) 0x6D0049A: ???
+| |   |             ->03.92% (654,560B) 0x6D01B0B: ???
+| |   |               ->03.92% (654,560B) 0x6D01CA8: ???
+| |   |                 ->03.92% (654,560B) 0x6F604DB: ???
+| |   |                   ->03.92% (654,560B) 0x6F175BA: ???
+| |   |                     ->03.92% (654,560B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->03.92% (654,560B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->03.92% (654,560B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->03.92% (654,560B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->03.92% (654,560B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->07.07% (1,179,072B) 0x70F7F81: ???
+| |   | ->07.07% (1,179,072B) 0x7191841: ???
+| |   |   ->07.07% (1,179,072B) 0x7193282: ???
+| |   |     ->07.07% (1,179,072B) 0x6CFDEAC: ???
+| |   |       ->04.51% (753,296B) 0x6CFF625: ???
+| |   |       | ->04.51% (753,296B) 0x6D00051: ???
+| |   |       |   ->04.51% (753,296B) 0x6D0049A: ???
+| |   |       |     ->04.51% (753,296B) 0x6D01B0B: ???
+| |   |       |       ->04.51% (753,296B) 0x6D01CA8: ???
+| |   |       |         ->04.51% (753,296B) 0x6F604DB: ???
+| |   |       |           ->04.51% (753,296B) 0x6F175BA: ???
+| |   |       |             ->04.51% (753,296B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->04.51% (753,296B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->04.51% (753,296B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->04.51% (753,296B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->04.51% (753,296B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->02.55% (425,776B) 0x6CFEE04: ???
+| |   |         ->02.55% (425,776B) 0x6CFFE81: ???
+| |   |           ->02.55% (425,776B) 0x6D00523: ???
+| |   |             ->02.55% (425,776B) 0x6D01B0B: ???
+| |   |               ->02.55% (425,776B) 0x6D01CA8: ???
+| |   |                 ->02.55% (425,776B) 0x6F604DB: ???
+| |   |                   ->02.55% (425,776B) 0x6F175BA: ???
+| |   |                     ->02.55% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->02.55% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->02.55% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->02.55% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->02.55% (425,776B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->04.32% (720,544B) 0x70F7EF5: ???
+| |   | ->04.32% (720,544B) 0x7191788: ???
+| |   |   ->04.32% (720,544B) 0x7193282: ???
+| |   |     ->04.32% (720,544B) 0x6CFDEAC: ???
+| |   |       ->02.55% (425,776B) 0x6CFEE04: ???
+| |   |       | ->02.55% (425,776B) 0x6CFFE81: ???
+| |   |       |   ->02.55% (425,776B) 0x6D00523: ???
+| |   |       |     ->02.55% (425,776B) 0x6D01B0B: ???
+| |   |       |       ->02.55% (425,776B) 0x6D01CA8: ???
+| |   |       |         ->02.55% (425,776B) 0x6F604DB: ???
+| |   |       |           ->02.55% (425,776B) 0x6F175BA: ???
+| |   |       |             ->02.55% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->02.55% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->02.55% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->02.55% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->02.55% (425,776B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->01.77% (294,768B) 0x6CFF625: ???
+| |   |         ->01.77% (294,768B) 0x6D00051: ???
+| |   |           ->01.77% (294,768B) 0x6D0049A: ???
+| |   |             ->01.77% (294,768B) 0x6D01B0B: ???
+| |   |               ->01.77% (294,768B) 0x6D01CA8: ???
+| |   |                 ->01.77% (294,768B) 0x6F604DB: ???
+| |   |                   ->01.77% (294,768B) 0x6F175BA: ???
+| |   |                     ->01.77% (294,768B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->01.77% (294,768B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->01.77% (294,768B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->01.77% (294,768B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->01.77% (294,768B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->02.36% (393,024B) 0x70F7E58: ???
+| |     ->02.16% (360,272B) 0x7191C5E: ???
+| |     | ->02.16% (360,272B) 0x7193282: ???
+| |     |   ->02.16% (360,272B) 0x6CFDEAC: ???
+| |     |     ->02.16% (360,272B) 0x6CFF625: ???
+| |     |       ->02.16% (360,272B) 0x6D00051: ???
+| |     |         ->02.16% (360,272B) 0x6D0049A: ???
+| |     |           ->02.16% (360,272B) 0x6D01B0B: ???
+| |     |             ->02.16% (360,272B) 0x6D01CA8: ???
+| |     |               ->02.16% (360,272B) 0x6F604DB: ???
+| |     |                 ->02.16% (360,272B) 0x6F175BA: ???
+| |     |                   ->02.16% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                     ->02.16% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                       ->02.16% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                         ->02.16% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |     |                           ->02.16% (360,272B) 0x11171B: main (main.cpp:20)
+| |     |                             
+| |     ->00.20% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| |     
+| ->01.94% (324,352B) in 26 places, all below massif's threshold (1.00%)
+| | 
+| ->01.08% (180,032B) 0x70B3D09: ???
+|   ->01.08% (180,032B) in 30 places, all below massif's threshold (1.00%)
+|     
+->08.72% (1,454,549B) in 697 places, all below massif's threshold (1.00%)
+| 
+->04.98% (831,120B) 0x6CD84A8: ???
+| ->04.98% (831,120B) 0x6CEB215: ???
+|   ->04.98% (831,120B) 0x6C40551: ???
+|     ->04.98% (831,120B) 0x6C44356: ???
+|       ->04.98% (831,120B) 0x6B015D8: ???
+|         ->04.98% (831,120B) 0x6B00818: ???
+|           ->04.98% (831,120B) 0x6B04371: ???
+|             ->04.98% (831,120B) 0x6B046B3: ???
+|               ->04.98% (831,120B) 0x6AA2946: ???
+|                 ->04.98% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.98% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.98% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.98% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.98% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.98% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->01.89% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.89% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.89% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.89% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.89% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.89% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.89% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.89% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.89% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.63% (271,272B) 0x6F1A1F6: ???
+| ->01.63% (271,272B) 0x6E0C2D0: ???
+|   ->01.63% (271,272B) 0x6CD8503: ???
+|     ->01.63% (271,272B) 0x6CEB215: ???
+|       ->01.63% (271,272B) 0x6C40551: ???
+|         ->01.63% (271,272B) 0x6C44356: ???
+|           ->01.63% (271,272B) 0x6B015D8: ???
+|             ->01.63% (271,272B) 0x6B00818: ???
+|               ->01.63% (271,272B) 0x6B04371: ???
+|                 ->01.63% (271,272B) 0x6B046B3: ???
+|                   ->01.63% (271,272B) 0x6AA2946: ???
+|                     ->01.63% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.63% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.63% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.63% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.63% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.63% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.28% (214,112B) 0x72D762E: ???
+| ->01.28% (214,112B) 0x7CA40D6: ???
+|   ->01.28% (214,112B) 0x6CEB1C3: ???
+|     ->01.28% (214,112B) 0x6C40551: ???
+|       ->01.28% (214,112B) 0x6C44356: ???
+|         ->01.28% (214,112B) 0x6B015D8: ???
+|           ->01.28% (214,112B) 0x6B00818: ???
+|             ->01.28% (214,112B) 0x6B04371: ???
+|               ->01.28% (214,112B) 0x6B046B3: ???
+|                 ->01.28% (214,112B) 0x6AA2946: ???
+|                   ->01.28% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.28% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.28% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.28% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.28% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.28% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.27% (211,584B) 0x6B00DDA: ???
+  ->01.27% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 16    286,406,602       17,629,480       16,685,113       944,367            0
+ 17    298,511,424       17,777,800       16,833,001       944,799            0
+94.69% (16,833,001B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->72.98% (12,973,392B) 0x70B3B64: ???
+| ->45.75% (8,133,440B) 0x70B3BBC: ???
+| | ->29.13% (5,178,416B) in 953 places, all below massif's threshold (1.00%)
+| | | 
+| | ->05.41% (961,728B) 0x6F90759: ???
+| | | ->04.06% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.35% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.35% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->02.12% (376,992B) 0x6FEB3E9: ???
+| | | ->02.12% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.83% (326,016B) 0x6FEB2C4: ???
+| | | ->01.83% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.35% (239,424B) 0x6FA09E5: ???
+| | | ->01.35% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.35% (239,424B) 0x6FA0A12: ???
+| | | ->01.35% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.23% (219,472B) 0x6FA0A8C: ???
+| | | ->01.23% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.17% (207,872B) 0x6FEB447: ???
+| | | ->01.17% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.08% (192,192B) 0x6F94B65: ???
+| | | ->01.08% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.08% (191,904B) 0x6F92E6C: ???
+| |   ->01.08% (191,904B) in 24 places, all below massif's threshold (1.00%)
+| |     
+| ->24.31% (4,321,376B) 0x70B47C3: ???
+| | ->24.31% (4,321,376B) 0x70B489C: ???
+| |   ->09.57% (1,701,216B) 0x70F7DE2: ???
+| |   | ->09.57% (1,701,216B) 0x7191A4E: ???
+| |   |   ->09.57% (1,701,216B) 0x7193282: ???
+| |   |     ->09.57% (1,701,216B) 0x6CFDEAC: ???
+| |   |       ->05.15% (915,712B) 0x6CFEE04: ???
+| |   |       | ->05.15% (915,712B) 0x6CFFE81: ???
+| |   |       |   ->05.15% (915,712B) 0x6D00523: ???
+| |   |       |     ->05.15% (915,712B) 0x6D01B0B: ???
+| |   |       |       ->05.15% (915,712B) 0x6D01CA8: ???
+| |   |       |         ->05.15% (915,712B) 0x6F604DB: ???
+| |   |       |           ->05.15% (915,712B) 0x6F175BA: ???
+| |   |       |             ->05.15% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->05.15% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->05.15% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->05.15% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->05.15% (915,712B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->04.42% (785,504B) 0x6CFF625: ???
+| |   |         ->04.42% (785,504B) 0x6D00051: ???
+| |   |           ->04.42% (785,504B) 0x6D0049A: ???
+| |   |             ->04.42% (785,504B) 0x6D01B0B: ???
+| |   |               ->04.42% (785,504B) 0x6D01CA8: ???
+| |   |                 ->04.42% (785,504B) 0x6F604DB: ???
+| |   |                   ->04.42% (785,504B) 0x6F175BA: ???
+| |   |                     ->04.42% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->04.42% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->04.42% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->04.42% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->04.42% (785,504B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->07.55% (1,342,832B) 0x70F7F81: ???
+| |   | ->07.55% (1,342,832B) 0x7191841: ???
+| |   |   ->07.55% (1,342,832B) 0x7193282: ???
+| |   |     ->07.55% (1,342,832B) 0x6CFDEAC: ???
+| |   |       ->04.97% (884,304B) 0x6CFF625: ???
+| |   |       | ->04.97% (884,304B) 0x6D00051: ???
+| |   |       |   ->04.97% (884,304B) 0x6D0049A: ???
+| |   |       |     ->04.97% (884,304B) 0x6D01B0B: ???
+| |   |       |       ->04.97% (884,304B) 0x6D01CA8: ???
+| |   |       |         ->04.97% (884,304B) 0x6F604DB: ???
+| |   |       |           ->04.97% (884,304B) 0x6F175BA: ???
+| |   |       |             ->04.97% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->04.97% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->04.97% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->04.97% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->04.97% (884,304B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->02.58% (458,528B) 0x6CFEE04: ???
+| |   |         ->02.58% (458,528B) 0x6CFFE81: ???
+| |   |           ->02.58% (458,528B) 0x6D00523: ???
+| |   |             ->02.58% (458,528B) 0x6D01B0B: ???
+| |   |               ->02.58% (458,528B) 0x6D01CA8: ???
+| |   |                 ->02.58% (458,528B) 0x6F604DB: ???
+| |   |                   ->02.58% (458,528B) 0x6F175BA: ???
+| |   |                     ->02.58% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->02.58% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->02.58% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->02.58% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->02.58% (458,528B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->04.61% (818,800B) 0x70F7EF5: ???
+| |   | ->04.61% (818,800B) 0x7191788: ???
+| |   |   ->04.61% (818,800B) 0x7193282: ???
+| |   |     ->04.61% (818,800B) 0x6CFDEAC: ???
+| |   |       ->02.58% (458,528B) 0x6CFEE04: ???
+| |   |       | ->02.58% (458,528B) 0x6CFFE81: ???
+| |   |       |   ->02.58% (458,528B) 0x6D00523: ???
+| |   |       |     ->02.58% (458,528B) 0x6D01B0B: ???
+| |   |       |       ->02.58% (458,528B) 0x6D01CA8: ???
+| |   |       |         ->02.58% (458,528B) 0x6F604DB: ???
+| |   |       |           ->02.58% (458,528B) 0x6F175BA: ???
+| |   |       |             ->02.58% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |               ->02.58% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                 ->02.58% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |       |                   ->02.58% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |       |                     ->02.58% (458,528B) 0x11171B: main (main.cpp:20)
+| |   |       |                       
+| |   |       ->02.03% (360,272B) 0x6CFF625: ???
+| |   |         ->02.03% (360,272B) 0x6D00051: ???
+| |   |           ->02.03% (360,272B) 0x6D0049A: ???
+| |   |             ->02.03% (360,272B) 0x6D01B0B: ???
+| |   |               ->02.03% (360,272B) 0x6D01CA8: ???
+| |   |                 ->02.03% (360,272B) 0x6F604DB: ???
+| |   |                   ->02.03% (360,272B) 0x6F175BA: ???
+| |   |                     ->02.03% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                       ->02.03% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                         ->02.03% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |   |                           ->02.03% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |   |                             ->02.03% (360,272B) 0x11171B: main (main.cpp:20)
+| |   |                               
+| |   ->02.58% (458,528B) 0x70F7E58: ???
+| |     ->02.39% (425,776B) 0x7191C5E: ???
+| |     | ->02.39% (425,776B) 0x7193282: ???
+| |     |   ->02.39% (425,776B) 0x6CFDEAC: ???
+| |     |     ->02.39% (425,776B) 0x6CFF625: ???
+| |     |       ->02.39% (425,776B) 0x6D00051: ???
+| |     |         ->02.39% (425,776B) 0x6D0049A: ???
+| |     |           ->02.39% (425,776B) 0x6D01B0B: ???
+| |     |             ->02.39% (425,776B) 0x6D01CA8: ???
+| |     |               ->02.39% (425,776B) 0x6F604DB: ???
+| |     |                 ->02.39% (425,776B) 0x6F175BA: ???
+| |     |                   ->02.39% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                     ->02.39% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                       ->02.39% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| |     |                         ->02.39% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| |     |                           ->02.39% (425,776B) 0x11171B: main (main.cpp:20)
+| |     |                             
+| |     ->00.18% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| |     
+| ->01.88% (333,760B) in 26 places, all below massif's threshold (1.00%)
+| | 
+| ->01.04% (184,816B) 0x70B3D09: ???
+|   ->01.04% (184,816B) in 30 places, all below massif's threshold (1.00%)
+|     
+->09.61% (1,707,944B) in 723 places, all below massif's threshold (1.00%)
+| 
+->04.68% (831,120B) 0x6CD84A8: ???
+| ->04.68% (831,120B) 0x6CEB215: ???
+|   ->04.68% (831,120B) 0x6C40551: ???
+|     ->04.68% (831,120B) 0x6C44356: ???
+|       ->04.68% (831,120B) 0x6B015D8: ???
+|         ->04.68% (831,120B) 0x6B00818: ???
+|           ->04.68% (831,120B) 0x6B04371: ???
+|             ->04.68% (831,120B) 0x6B046B3: ???
+|               ->04.68% (831,120B) 0x6AA2946: ???
+|                 ->04.68% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.68% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.68% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.68% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.68% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.68% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->01.77% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.77% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.77% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.77% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.77% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.77% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.77% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.77% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.77% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.74% (308,649B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->01.43% (253,952B) 0x48A9E4A: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->01.43% (253,952B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->01.43% (253,952B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->01.43% (253,952B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->01.43% (253,952B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.31% (54,697B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.53% (271,272B) 0x6F1A1F6: ???
+| ->01.53% (271,272B) 0x6E0C2D0: ???
+|   ->01.53% (271,272B) 0x6CD8503: ???
+|     ->01.53% (271,272B) 0x6CEB215: ???
+|       ->01.53% (271,272B) 0x6C40551: ???
+|         ->01.53% (271,272B) 0x6C44356: ???
+|           ->01.53% (271,272B) 0x6B015D8: ???
+|             ->01.53% (271,272B) 0x6B00818: ???
+|               ->01.53% (271,272B) 0x6B04371: ???
+|                 ->01.53% (271,272B) 0x6B046B3: ???
+|                   ->01.53% (271,272B) 0x6AA2946: ???
+|                     ->01.53% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.53% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.53% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.53% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.53% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.53% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.20% (214,112B) 0x72D762E: ???
+| ->01.20% (214,112B) 0x7CA40D6: ???
+|   ->01.20% (214,112B) 0x6CEB1C3: ???
+|     ->01.20% (214,112B) 0x6C40551: ???
+|       ->01.20% (214,112B) 0x6C44356: ???
+|         ->01.20% (214,112B) 0x6B015D8: ???
+|           ->01.20% (214,112B) 0x6B00818: ???
+|             ->01.20% (214,112B) 0x6B04371: ???
+|               ->01.20% (214,112B) 0x6B046B3: ???
+|                 ->01.20% (214,112B) 0x6AA2946: ???
+|                   ->01.20% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.20% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.20% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.20% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.20% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.20% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.19% (211,584B) 0x6B00DDA: ???
+  ->01.19% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 18    317,219,037       17,955,328       17,011,181       944,147            0
+ 19    333,225,099       18,063,744       17,119,302       944,442            0
+ 20    345,271,180       18,170,080       17,225,611       944,469            0
+ 21    363,405,805       18,449,608       17,502,910       946,698            0
+ 22    374,194,579       18,360,656       17,414,939       945,717            0
+ 23    387,369,055       18,358,160       17,409,822       948,338            0
+ 24    395,420,702       19,198,072       18,219,606       978,466            0
+94.90% (18,219,606B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->67.78% (13,013,328B) 0x70B3B64: ???
+| ->42.54% (8,167,808B) 0x70B3BBC: ???
+| | ->28.15% (5,404,688B) in 962 places, all below massif's threshold (1.00%)
+| | | 
+| | ->05.01% (961,728B) 0x6F90759: ???
+| | | ->03.76% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.25% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->01.96% (376,992B) 0x6FEB3E9: ???
+| | | ->01.96% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.70% (326,016B) 0x6FEB2C4: ???
+| | | ->01.70% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.25% (239,424B) 0x6FA09E5: ???
+| | | ->01.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.25% (239,424B) 0x6FA0A12: ???
+| | | ->01.25% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.14% (219,472B) 0x6FA0A8C: ???
+| | | ->01.14% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.08% (207,872B) 0x6FEB447: ???
+| | | ->01.08% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.00% (192,192B) 0x6F94B65: ???
+| |   ->01.00% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| |     
+| ->22.51% (4,321,376B) 0x70B47C3: ???
+| | ->22.51% (4,321,376B) 0x70B489C: ???
+| | | ->08.86% (1,701,216B) 0x70F7DE2: ???
+| | | | ->08.86% (1,701,216B) 0x7191A4E: ???
+| | | | | ->08.86% (1,701,216B) 0x7193282: ???
+| | | | |   ->08.86% (1,701,216B) 0x6CFDEAC: ???
+| | | | |     ->04.77% (915,712B) 0x6CFEE04: ???
+| | | | |     | ->04.77% (915,712B) 0x6CFFE81: ???
+| | | | |     |   ->04.77% (915,712B) 0x6D00523: ???
+| | | | |     |     ->04.77% (915,712B) 0x6D01B0B: ???
+| | | | |     |       ->04.77% (915,712B) 0x6D01CA8: ???
+| | | | |     |         ->04.77% (915,712B) 0x6F604DB: ???
+| | | | |     |           ->04.77% (915,712B) 0x6F175BA: ???
+| | | | |     |             ->04.77% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.77% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.77% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.77% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.77% (915,712B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->04.09% (785,504B) 0x6CFF625: ???
+| | | | |       ->04.09% (785,504B) 0x6D00051: ???
+| | | | |         ->04.09% (785,504B) 0x6D0049A: ???
+| | | | |           ->04.09% (785,504B) 0x6D01B0B: ???
+| | | | |             ->04.09% (785,504B) 0x6D01CA8: ???
+| | | | |               ->04.09% (785,504B) 0x6F604DB: ???
+| | | | |                 ->04.09% (785,504B) 0x6F175BA: ???
+| | | | |                   ->04.09% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->04.09% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->04.09% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->04.09% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->04.09% (785,504B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->06.99% (1,342,832B) 0x70F7F81: ???
+| | | | ->06.99% (1,342,832B) 0x7191841: ???
+| | | | | ->06.99% (1,342,832B) 0x7193282: ???
+| | | | |   ->06.99% (1,342,832B) 0x6CFDEAC: ???
+| | | | |     ->04.61% (884,304B) 0x6CFF625: ???
+| | | | |     | ->04.61% (884,304B) 0x6D00051: ???
+| | | | |     |   ->04.61% (884,304B) 0x6D0049A: ???
+| | | | |     |     ->04.61% (884,304B) 0x6D01B0B: ???
+| | | | |     |       ->04.61% (884,304B) 0x6D01CA8: ???
+| | | | |     |         ->04.61% (884,304B) 0x6F604DB: ???
+| | | | |     |           ->04.61% (884,304B) 0x6F175BA: ???
+| | | | |     |             ->04.61% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.61% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.61% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.61% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.61% (884,304B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->02.39% (458,528B) 0x6CFEE04: ???
+| | | | |       ->02.39% (458,528B) 0x6CFFE81: ???
+| | | | |         ->02.39% (458,528B) 0x6D00523: ???
+| | | | |           ->02.39% (458,528B) 0x6D01B0B: ???
+| | | | |             ->02.39% (458,528B) 0x6D01CA8: ???
+| | | | |               ->02.39% (458,528B) 0x6F604DB: ???
+| | | | |                 ->02.39% (458,528B) 0x6F175BA: ???
+| | | | |                   ->02.39% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->02.39% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->02.39% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->02.39% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->02.39% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->04.27% (818,800B) 0x70F7EF5: ???
+| | | | ->04.27% (818,800B) 0x7191788: ???
+| | | |   ->04.27% (818,800B) 0x7193282: ???
+| | | |     ->04.27% (818,800B) 0x6CFDEAC: ???
+| | | |       ->02.39% (458,528B) 0x6CFEE04: ???
+| | | |       | ->02.39% (458,528B) 0x6CFFE81: ???
+| | | |       |   ->02.39% (458,528B) 0x6D00523: ???
+| | | |       |     ->02.39% (458,528B) 0x6D01B0B: ???
+| | | |       |       ->02.39% (458,528B) 0x6D01CA8: ???
+| | | |       |         ->02.39% (458,528B) 0x6F604DB: ???
+| | | |       |           ->02.39% (458,528B) 0x6F175BA: ???
+| | | |       |             ->02.39% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |       |               ->02.39% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |       |                 ->02.39% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |       |                   ->02.39% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | |       |                     ->02.39% (458,528B) 0x11171B: main (main.cpp:20)
+| | | |       |                       
+| | | |       ->01.88% (360,272B) 0x6CFF625: ???
+| | | |         ->01.88% (360,272B) 0x6D00051: ???
+| | | |           ->01.88% (360,272B) 0x6D0049A: ???
+| | | |             ->01.88% (360,272B) 0x6D01B0B: ???
+| | | |               ->01.88% (360,272B) 0x6D01CA8: ???
+| | | |                 ->01.88% (360,272B) 0x6F604DB: ???
+| | | |                   ->01.88% (360,272B) 0x6F175BA: ???
+| | | |                     ->01.88% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |                       ->01.88% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |                         ->01.88% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | |                           ->01.88% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | |                             ->01.88% (360,272B) 0x11171B: main (main.cpp:20)
+| | | |                               
+| | | ->02.39% (458,528B) 0x70F7E58: ???
+| | |   ->02.22% (425,776B) 0x7191C5E: ???
+| | |   | ->02.22% (425,776B) 0x7193282: ???
+| | |   |   ->02.22% (425,776B) 0x6CFDEAC: ???
+| | |   |     ->02.22% (425,776B) 0x6CFF625: ???
+| | |   |       ->02.22% (425,776B) 0x6D00051: ???
+| | |   |         ->02.22% (425,776B) 0x6D0049A: ???
+| | |   |           ->02.22% (425,776B) 0x6D01B0B: ???
+| | |   |             ->02.22% (425,776B) 0x6D01CA8: ???
+| | |   |               ->02.22% (425,776B) 0x6F604DB: ???
+| | |   |                 ->02.22% (425,776B) 0x6F175BA: ???
+| | |   |                   ->02.22% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                     ->02.22% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                       ->02.22% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                         ->02.22% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |   |                           ->02.22% (425,776B) 0x11171B: main (main.cpp:20)
+| | |   |                             
+| | |   ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | |   
+| | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.73% (524,144B) in 67 places, all below massif's threshold (1.00%)
+|   
+->10.77% (2,066,693B) in 839 places, all below massif's threshold (1.00%)
+| 
+->04.33% (831,120B) 0x6CD84A8: ???
+| ->04.33% (831,120B) 0x6CEB215: ???
+|   ->04.33% (831,120B) 0x6C40551: ???
+|     ->04.33% (831,120B) 0x6C44356: ???
+|       ->04.33% (831,120B) 0x6B015D8: ???
+|         ->04.33% (831,120B) 0x6B00818: ???
+|           ->04.33% (831,120B) 0x6B04371: ???
+|             ->04.33% (831,120B) 0x6B046B3: ???
+|               ->04.33% (831,120B) 0x6AA2946: ???
+|                 ->04.33% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.33% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.33% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.33% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.33% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.33% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->04.25% (816,569B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->04.02% (771,900B) 0x48AA09D: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->04.02% (771,900B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->04.02% (771,900B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->04.02% (771,900B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->04.02% (771,900B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.23% (44,669B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.50% (480,000B) 0x13DF58: allocate (new_allocator.h:151)
+| ->02.50% (480,000B) 0x13DF58: allocate (alloc_traits.h:515)
+|   ->02.50% (480,000B) 0x13DF58: _M_allocate (stl_vector.h:380)
+|     ->02.50% (480,000B) 0x13DF58: _M_create_storage (stl_vector.h:398)
+|       ->02.50% (480,000B) 0x13DF58: _Vector_base (stl_vector.h:334)
+|         ->02.50% (480,000B) 0x13DF58: vector (stl_vector.h:603)
+|           ->02.50% (480,000B) 0x13DF58: _Construct<std::vector<tileManager::Point>, const std::vector<tileManager::Point, std::allocator<tileManager::Point> >&> (stl_construct.h:119)
+|             ->02.50% (480,000B) 0x13DF58: std::vector<tileManager::Point, std::allocator<tileManager::Point> >* std::__do_uninit_fill_n<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > >(std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (stl_uninitialized.h:267)
+|               ->02.50% (480,000B) 0x13E145: __uninit_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:284)
+|                 ->02.50% (480,000B) 0x13E145: uninitialized_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:327)
+|                   ->02.50% (480,000B) 0x13E145: __uninitialized_fill_n_a<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point>, std::vector<tileManager::Point> > (stl_uninitialized.h:472)
+|                     ->02.50% (480,000B) 0x13E145: std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > > >, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (vector.tcc:763)
+|                       ->02.50% (480,000B) 0x13B7BC: resize (stl_vector.h:1037)
+|                         ->02.50% (480,000B) 0x13B7BC: tileManager::tileManager(int, int) (world.cpp:20)
+|                           ->02.50% (480,000B) 0x12317A: gameClass::quitToMenu() (thing.cpp:78)
+|                             ->02.50% (480,000B) 0x12AAE9: gameClass::gameClass() (thing.cpp:45)
+|                               ->02.50% (480,000B) 0x11171B: main (main.cpp:20)
+|                                 
+->01.64% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.64% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.64% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.64% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.64% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.64% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.64% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.64% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.64% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.41% (271,272B) 0x6F1A1F6: ???
+| ->01.41% (271,272B) 0x6E0C2D0: ???
+|   ->01.41% (271,272B) 0x6CD8503: ???
+|     ->01.41% (271,272B) 0x6CEB215: ???
+|       ->01.41% (271,272B) 0x6C40551: ???
+|         ->01.41% (271,272B) 0x6C44356: ???
+|           ->01.41% (271,272B) 0x6B015D8: ???
+|             ->01.41% (271,272B) 0x6B00818: ???
+|               ->01.41% (271,272B) 0x6B04371: ???
+|                 ->01.41% (271,272B) 0x6B046B3: ???
+|                   ->01.41% (271,272B) 0x6AA2946: ???
+|                     ->01.41% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.41% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.41% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.41% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.41% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.41% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.12% (214,112B) 0x72D762E: ???
+| ->01.12% (214,112B) 0x7CA40D6: ???
+|   ->01.12% (214,112B) 0x6CEB1C3: ???
+|     ->01.12% (214,112B) 0x6C40551: ???
+|       ->01.12% (214,112B) 0x6C44356: ???
+|         ->01.12% (214,112B) 0x6B015D8: ???
+|           ->01.12% (214,112B) 0x6B00818: ???
+|             ->01.12% (214,112B) 0x6B04371: ???
+|               ->01.12% (214,112B) 0x6B046B3: ???
+|                 ->01.12% (214,112B) 0x6AA2946: ???
+|                   ->01.12% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.12% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.12% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.12% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.12% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.12% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.10% (211,584B) 0x6B00DDA: ???
+  ->01.10% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 25    607,088,975       19,196,016       18,217,534       978,482            0
+ 26    698,295,769       19,196,016       18,217,534       978,482            0
+ 27    942,010,088       19,195,968       18,217,479       978,489            0
+ 28    951,828,925       19,684,336       18,696,422       987,914            0
+94.98% (18,696,422B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->67.19% (13,225,312B) 0x70B3B64: ???
+| ->41.68% (8,203,824B) 0x70B3BBC: ???
+| | ->28.62% (5,632,896B) in 963 places, all below massif's threshold (1.00%)
+| | | 
+| | ->04.89% (961,728B) 0x6F90759: ???
+| | | ->03.67% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.22% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.22% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->01.92% (376,992B) 0x6FEB3E9: ???
+| | | ->01.92% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.66% (326,016B) 0x6FEB2C4: ???
+| | | ->01.66% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.22% (239,424B) 0x6FA09E5: ???
+| | | ->01.22% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.22% (239,424B) 0x6FA0A12: ???
+| | | ->01.22% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.11% (219,472B) 0x6FA0A8C: ???
+| | | ->01.11% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.06% (207,872B) 0x6FEB447: ???
+| |   ->01.06% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| |     
+| ->22.79% (4,485,200B) 0x70B47C3: ???
+| | ->22.62% (4,452,448B) 0x70B489C: ???
+| | | ->08.98% (1,766,784B) 0x70F7DE2: ???
+| | | | ->08.64% (1,701,216B) 0x7191A4E: ???
+| | | | | ->08.64% (1,701,216B) 0x7193282: ???
+| | | | |   ->08.64% (1,701,216B) 0x6CFDEAC: ???
+| | | | |     ->04.65% (915,712B) 0x6CFEE04: ???
+| | | | |     | ->04.65% (915,712B) 0x6CFFE81: ???
+| | | | |     |   ->04.65% (915,712B) 0x6D00523: ???
+| | | | |     |     ->04.65% (915,712B) 0x6D01B0B: ???
+| | | | |     |       ->04.65% (915,712B) 0x6D01CA8: ???
+| | | | |     |         ->04.65% (915,712B) 0x6F604DB: ???
+| | | | |     |           ->04.65% (915,712B) 0x6F175BA: ???
+| | | | |     |             ->04.65% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.65% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.65% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.65% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.65% (915,712B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->03.99% (785,504B) 0x6CFF625: ???
+| | | | |       ->03.99% (785,504B) 0x6D00051: ???
+| | | | |         ->03.99% (785,504B) 0x6D0049A: ???
+| | | | |           ->03.99% (785,504B) 0x6D01B0B: ???
+| | | | |             ->03.99% (785,504B) 0x6D01CA8: ???
+| | | | |               ->03.99% (785,504B) 0x6F604DB: ???
+| | | | |                 ->03.99% (785,504B) 0x6F175BA: ???
+| | | | |                   ->03.99% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->03.99% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->03.99% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->03.99% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->03.99% (785,504B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.33% (65,568B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->06.99% (1,375,584B) 0x70F7F81: ???
+| | | | ->06.82% (1,342,832B) 0x7191841: ???
+| | | | | ->06.82% (1,342,832B) 0x7193282: ???
+| | | | |   ->06.82% (1,342,832B) 0x6CFDEAC: ???
+| | | | |     ->04.49% (884,304B) 0x6CFF625: ???
+| | | | |     | ->04.49% (884,304B) 0x6D00051: ???
+| | | | |     |   ->04.49% (884,304B) 0x6D0049A: ???
+| | | | |     |     ->04.49% (884,304B) 0x6D01B0B: ???
+| | | | |     |       ->04.49% (884,304B) 0x6D01CA8: ???
+| | | | |     |         ->04.49% (884,304B) 0x6F604DB: ???
+| | | | |     |           ->04.49% (884,304B) 0x6F175BA: ???
+| | | | |     |             ->04.49% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.49% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.49% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.49% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.49% (884,304B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->02.33% (458,528B) 0x6CFEE04: ???
+| | | | |       ->02.33% (458,528B) 0x6CFFE81: ???
+| | | | |         ->02.33% (458,528B) 0x6D00523: ???
+| | | | |           ->02.33% (458,528B) 0x6D01B0B: ???
+| | | | |             ->02.33% (458,528B) 0x6D01CA8: ???
+| | | | |               ->02.33% (458,528B) 0x6F604DB: ???
+| | | | |                 ->02.33% (458,528B) 0x6F175BA: ???
+| | | | |                   ->02.33% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->02.33% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->02.33% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->02.33% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->02.33% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->04.16% (818,800B) 0x70F7EF5: ???
+| | | | ->04.16% (818,800B) 0x7191788: ???
+| | | | | ->04.16% (818,800B) 0x7193282: ???
+| | | | |   ->04.16% (818,800B) 0x6CFDEAC: ???
+| | | | |     ->02.33% (458,528B) 0x6CFEE04: ???
+| | | | |     | ->02.33% (458,528B) 0x6CFFE81: ???
+| | | | |     |   ->02.33% (458,528B) 0x6D00523: ???
+| | | | |     |     ->02.33% (458,528B) 0x6D01B0B: ???
+| | | | |     |       ->02.33% (458,528B) 0x6D01CA8: ???
+| | | | |     |         ->02.33% (458,528B) 0x6F604DB: ???
+| | | | |     |           ->02.33% (458,528B) 0x6F175BA: ???
+| | | | |     |             ->02.33% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->02.33% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->02.33% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->02.33% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->02.33% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->01.83% (360,272B) 0x6CFF625: ???
+| | | | |       ->01.83% (360,272B) 0x6D00051: ???
+| | | | |         ->01.83% (360,272B) 0x6D0049A: ???
+| | | | |           ->01.83% (360,272B) 0x6D01B0B: ???
+| | | | |             ->01.83% (360,272B) 0x6D01CA8: ???
+| | | | |               ->01.83% (360,272B) 0x6F604DB: ???
+| | | | |                 ->01.83% (360,272B) 0x6F175BA: ???
+| | | | |                   ->01.83% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->01.83% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->01.83% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->01.83% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->01.83% (360,272B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->02.50% (491,280B) 0x70F7E58: ???
+| | |   ->02.16% (425,776B) 0x7191C5E: ???
+| | |   | ->02.16% (425,776B) 0x7193282: ???
+| | |   |   ->02.16% (425,776B) 0x6CFDEAC: ???
+| | |   |     ->02.16% (425,776B) 0x6CFF625: ???
+| | |   |       ->02.16% (425,776B) 0x6D00051: ???
+| | |   |         ->02.16% (425,776B) 0x6D0049A: ???
+| | |   |           ->02.16% (425,776B) 0x6D01B0B: ???
+| | |   |             ->02.16% (425,776B) 0x6D01CA8: ???
+| | |   |               ->02.16% (425,776B) 0x6F604DB: ???
+| | |   |                 ->02.16% (425,776B) 0x6F175BA: ???
+| | |   |                   ->02.16% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                     ->02.16% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                       ->02.16% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                         ->02.16% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |   |                           ->02.16% (425,776B) 0x11171B: main (main.cpp:20)
+| | |   |                             
+| | |   ->00.33% (65,504B) in 1+ places, all below ms_print's threshold (01.00%)
+| | |   
+| | ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.72% (536,288B) in 69 places, all below massif's threshold (1.00%)
+|   
+->11.68% (2,299,621B) in 871 places, all below massif's threshold (1.00%)
+| 
+->04.31% (848,473B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->03.92% (771,900B) 0x48AA09D: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->03.92% (771,900B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->03.92% (771,900B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->03.92% (771,900B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->03.92% (771,900B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.39% (76,573B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->04.22% (831,120B) 0x6CD84A8: ???
+| ->04.22% (831,120B) 0x6CEB215: ???
+|   ->04.22% (831,120B) 0x6C40551: ???
+|     ->04.22% (831,120B) 0x6C44356: ???
+|       ->04.22% (831,120B) 0x6B015D8: ???
+|         ->04.22% (831,120B) 0x6B00818: ???
+|           ->04.22% (831,120B) 0x6B04371: ???
+|             ->04.22% (831,120B) 0x6B046B3: ???
+|               ->04.22% (831,120B) 0x6AA2946: ???
+|                 ->04.22% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.22% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.22% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.22% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.22% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.22% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->02.44% (480,000B) 0x13DF58: allocate (new_allocator.h:151)
+| ->02.44% (480,000B) 0x13DF58: allocate (alloc_traits.h:515)
+|   ->02.44% (480,000B) 0x13DF58: _M_allocate (stl_vector.h:380)
+|     ->02.44% (480,000B) 0x13DF58: _M_create_storage (stl_vector.h:398)
+|       ->02.44% (480,000B) 0x13DF58: _Vector_base (stl_vector.h:334)
+|         ->02.44% (480,000B) 0x13DF58: vector (stl_vector.h:603)
+|           ->02.44% (480,000B) 0x13DF58: _Construct<std::vector<tileManager::Point>, const std::vector<tileManager::Point, std::allocator<tileManager::Point> >&> (stl_construct.h:119)
+|             ->02.44% (480,000B) 0x13DF58: std::vector<tileManager::Point, std::allocator<tileManager::Point> >* std::__do_uninit_fill_n<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > >(std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (stl_uninitialized.h:267)
+|               ->02.44% (480,000B) 0x13E145: __uninit_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:284)
+|                 ->02.44% (480,000B) 0x13E145: uninitialized_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:327)
+|                   ->02.44% (480,000B) 0x13E145: __uninitialized_fill_n_a<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point>, std::vector<tileManager::Point> > (stl_uninitialized.h:472)
+|                     ->02.44% (480,000B) 0x13E145: std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > > >, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (vector.tcc:763)
+|                       ->02.44% (480,000B) 0x13B7BC: resize (stl_vector.h:1037)
+|                         ->02.44% (480,000B) 0x13B7BC: tileManager::tileManager(int, int) (world.cpp:20)
+|                           ->02.44% (480,000B) 0x12317A: gameClass::quitToMenu() (thing.cpp:78)
+|                             ->02.44% (480,000B) 0x12AAE9: gameClass::gameClass() (thing.cpp:45)
+|                               ->02.44% (480,000B) 0x11171B: main (main.cpp:20)
+|                                 
+->01.60% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.60% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.60% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.60% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.60% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.60% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.60% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.60% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.60% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.38% (271,272B) 0x6F1A1F6: ???
+| ->01.38% (271,272B) 0x6E0C2D0: ???
+|   ->01.38% (271,272B) 0x6CD8503: ???
+|     ->01.38% (271,272B) 0x6CEB215: ???
+|       ->01.38% (271,272B) 0x6C40551: ???
+|         ->01.38% (271,272B) 0x6C44356: ???
+|           ->01.38% (271,272B) 0x6B015D8: ???
+|             ->01.38% (271,272B) 0x6B00818: ???
+|               ->01.38% (271,272B) 0x6B04371: ???
+|                 ->01.38% (271,272B) 0x6B046B3: ???
+|                   ->01.38% (271,272B) 0x6AA2946: ???
+|                     ->01.38% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.38% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.38% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.38% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.38% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.38% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.09% (214,112B) 0x72D762E: ???
+| ->01.09% (214,112B) 0x7CA40D6: ???
+|   ->01.09% (214,112B) 0x6CEB1C3: ???
+|     ->01.09% (214,112B) 0x6C40551: ???
+|       ->01.09% (214,112B) 0x6C44356: ???
+|         ->01.09% (214,112B) 0x6B015D8: ???
+|           ->01.09% (214,112B) 0x6B00818: ???
+|             ->01.09% (214,112B) 0x6B04371: ???
+|               ->01.09% (214,112B) 0x6B046B3: ???
+|                 ->01.09% (214,112B) 0x6AA2946: ???
+|                   ->01.09% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.09% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.09% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.09% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.09% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.09% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.07% (211,584B) 0x6B00DDA: ???
+  ->01.07% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 29    964,220,371       19,435,600       18,449,331       986,269            0
+ 30    975,022,975       19,435,616       18,449,355       986,261            0
+ 31    985,689,665       19,435,560       18,449,311       986,249            0
+ 32  1,004,782,511       19,437,976       18,451,474       986,502            0
+ 33  1,014,651,133       19,438,096       18,451,575       986,521            0
+ 34  1,033,598,620       19,432,808       18,446,602       986,206            0
+ 35  1,044,110,637       19,417,192       18,431,871       985,321            0
+ 36  1,063,686,849       19,417,600       18,432,250       985,350            0
+ 37  1,131,749,365       18,977,216       17,994,043       983,173            0
+ 38  1,141,805,353       18,990,768       18,005,342       985,426            0
+94.81% (18,005,342B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->68.72% (13,049,744B) 0x70B3B64: ???
+| ->43.19% (8,202,176B) 0x70B3BBC: ???
+| | ->27.63% (5,247,152B) in 961 places, all below massif's threshold (1.00%)
+| | | 
+| | ->05.06% (961,728B) 0x6F90759: ???
+| | | ->03.80% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.26% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->01.99% (376,992B) 0x6FEB3E9: ???
+| | | ->01.99% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.72% (326,016B) 0x6FEB2C4: ???
+| | | ->01.72% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.26% (239,424B) 0x6FA09E5: ???
+| | | ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.26% (239,424B) 0x6FA0A12: ???
+| | | ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.16% (219,472B) 0x6FA0A8C: ???
+| | | ->01.16% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.09% (207,872B) 0x6FEB447: ???
+| | | ->01.09% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.01% (192,192B) 0x6F94B65: ???
+| | | ->01.01% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.01% (191,904B) 0x6F92E6C: ???
+| |   ->01.01% (191,904B) in 24 places, all below massif's threshold (1.00%)
+| |     
+| ->22.76% (4,321,376B) 0x70B47C3: ???
+| | ->22.76% (4,321,376B) 0x70B489C: ???
+| | | ->08.96% (1,701,216B) 0x70F7DE2: ???
+| | | | ->08.96% (1,701,216B) 0x7191A4E: ???
+| | | | | ->08.96% (1,701,216B) 0x7193282: ???
+| | | | |   ->08.96% (1,701,216B) 0x6CFDEAC: ???
+| | | | |     ->04.82% (915,712B) 0x6CFEE04: ???
+| | | | |     | ->04.82% (915,712B) 0x6CFFE81: ???
+| | | | |     |   ->04.82% (915,712B) 0x6D00523: ???
+| | | | |     |     ->04.82% (915,712B) 0x6D01B0B: ???
+| | | | |     |       ->04.82% (915,712B) 0x6D01CA8: ???
+| | | | |     |         ->04.82% (915,712B) 0x6F604DB: ???
+| | | | |     |           ->04.82% (915,712B) 0x6F175BA: ???
+| | | | |     |             ->04.82% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.82% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.82% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.82% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.82% (915,712B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->04.14% (785,504B) 0x6CFF625: ???
+| | | | |       ->04.14% (785,504B) 0x6D00051: ???
+| | | | |         ->04.14% (785,504B) 0x6D0049A: ???
+| | | | |           ->04.14% (785,504B) 0x6D01B0B: ???
+| | | | |             ->04.14% (785,504B) 0x6D01CA8: ???
+| | | | |               ->04.14% (785,504B) 0x6F604DB: ???
+| | | | |                 ->04.14% (785,504B) 0x6F175BA: ???
+| | | | |                   ->04.14% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->04.14% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->04.14% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->04.14% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->04.14% (785,504B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->07.07% (1,342,832B) 0x70F7F81: ???
+| | | | ->07.07% (1,342,832B) 0x7191841: ???
+| | | | | ->07.07% (1,342,832B) 0x7193282: ???
+| | | | |   ->07.07% (1,342,832B) 0x6CFDEAC: ???
+| | | | |     ->04.66% (884,304B) 0x6CFF625: ???
+| | | | |     | ->04.66% (884,304B) 0x6D00051: ???
+| | | | |     |   ->04.66% (884,304B) 0x6D0049A: ???
+| | | | |     |     ->04.66% (884,304B) 0x6D01B0B: ???
+| | | | |     |       ->04.66% (884,304B) 0x6D01CA8: ???
+| | | | |     |         ->04.66% (884,304B) 0x6F604DB: ???
+| | | | |     |           ->04.66% (884,304B) 0x6F175BA: ???
+| | | | |     |             ->04.66% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.66% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.66% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.66% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.66% (884,304B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->02.41% (458,528B) 0x6CFEE04: ???
+| | | | |       ->02.41% (458,528B) 0x6CFFE81: ???
+| | | | |         ->02.41% (458,528B) 0x6D00523: ???
+| | | | |           ->02.41% (458,528B) 0x6D01B0B: ???
+| | | | |             ->02.41% (458,528B) 0x6D01CA8: ???
+| | | | |               ->02.41% (458,528B) 0x6F604DB: ???
+| | | | |                 ->02.41% (458,528B) 0x6F175BA: ???
+| | | | |                   ->02.41% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->02.41% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->02.41% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->02.41% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->02.41% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->04.31% (818,800B) 0x70F7EF5: ???
+| | | | ->04.31% (818,800B) 0x7191788: ???
+| | | | | ->04.31% (818,800B) 0x7193282: ???
+| | | | |   ->04.31% (818,800B) 0x6CFDEAC: ???
+| | | | |     ->02.41% (458,528B) 0x6CFEE04: ???
+| | | | |     | ->02.41% (458,528B) 0x6CFFE81: ???
+| | | | |     |   ->02.41% (458,528B) 0x6D00523: ???
+| | | | |     |     ->02.41% (458,528B) 0x6D01B0B: ???
+| | | | |     |       ->02.41% (458,528B) 0x6D01CA8: ???
+| | | | |     |         ->02.41% (458,528B) 0x6F604DB: ???
+| | | | |     |           ->02.41% (458,528B) 0x6F175BA: ???
+| | | | |     |             ->02.41% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->02.41% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->02.41% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->02.41% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->02.41% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->01.90% (360,272B) 0x6CFF625: ???
+| | | | |       ->01.90% (360,272B) 0x6D00051: ???
+| | | | |         ->01.90% (360,272B) 0x6D0049A: ???
+| | | | |           ->01.90% (360,272B) 0x6D01B0B: ???
+| | | | |             ->01.90% (360,272B) 0x6D01CA8: ???
+| | | | |               ->01.90% (360,272B) 0x6F604DB: ???
+| | | | |                 ->01.90% (360,272B) 0x6F175BA: ???
+| | | | |                   ->01.90% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->01.90% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->01.90% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->01.90% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->01.90% (360,272B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->02.41% (458,528B) 0x70F7E58: ???
+| | |   ->02.24% (425,776B) 0x7191C5E: ???
+| | |   | ->02.24% (425,776B) 0x7193282: ???
+| | |   |   ->02.24% (425,776B) 0x6CFDEAC: ???
+| | |   |     ->02.24% (425,776B) 0x6CFF625: ???
+| | |   |       ->02.24% (425,776B) 0x6D00051: ???
+| | |   |         ->02.24% (425,776B) 0x6D0049A: ???
+| | |   |           ->02.24% (425,776B) 0x6D01B0B: ???
+| | |   |             ->02.24% (425,776B) 0x6D01CA8: ???
+| | |   |               ->02.24% (425,776B) 0x6F604DB: ???
+| | |   |                 ->02.24% (425,776B) 0x6F175BA: ???
+| | |   |                   ->02.24% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                     ->02.24% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                       ->02.24% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                         ->02.24% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |   |                           ->02.24% (425,776B) 0x11171B: main (main.cpp:20)
+| | |   |                             
+| | |   ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | |   
+| | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.77% (526,192B) in 69 places, all below massif's threshold (1.00%)
+|   
+->11.92% (2,264,109B) in 875 places, all below massif's threshold (1.00%)
+| 
+->04.47% (848,473B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->04.06% (771,900B) 0x48AA09D: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->04.06% (771,900B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->04.06% (771,900B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->04.06% (771,900B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->04.06% (771,900B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.40% (76,573B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->04.38% (831,120B) 0x6CD84A8: ???
+| ->04.38% (831,120B) 0x6CEB215: ???
+|   ->04.38% (831,120B) 0x6C40551: ???
+|     ->04.38% (831,120B) 0x6C44356: ???
+|       ->04.38% (831,120B) 0x6B015D8: ???
+|         ->04.38% (831,120B) 0x6B00818: ???
+|           ->04.38% (831,120B) 0x6B04371: ???
+|             ->04.38% (831,120B) 0x6B046B3: ???
+|               ->04.38% (831,120B) 0x6AA2946: ???
+|                 ->04.38% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.38% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.38% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.38% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.38% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.38% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->01.66% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.66% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.66% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.66% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.66% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.66% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.66% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.66% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.66% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.43% (271,272B) 0x6F1A1F6: ???
+| ->01.43% (271,272B) 0x6E0C2D0: ???
+|   ->01.43% (271,272B) 0x6CD8503: ???
+|     ->01.43% (271,272B) 0x6CEB215: ???
+|       ->01.43% (271,272B) 0x6C40551: ???
+|         ->01.43% (271,272B) 0x6C44356: ???
+|           ->01.43% (271,272B) 0x6B015D8: ???
+|             ->01.43% (271,272B) 0x6B00818: ???
+|               ->01.43% (271,272B) 0x6B04371: ???
+|                 ->01.43% (271,272B) 0x6B046B3: ???
+|                   ->01.43% (271,272B) 0x6AA2946: ???
+|                     ->01.43% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.43% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.43% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.43% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.43% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.43% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.13% (214,112B) 0x72D762E: ???
+| ->01.13% (214,112B) 0x7CA40D6: ???
+|   ->01.13% (214,112B) 0x6CEB1C3: ???
+|     ->01.13% (214,112B) 0x6C40551: ???
+|       ->01.13% (214,112B) 0x6C44356: ???
+|         ->01.13% (214,112B) 0x6B015D8: ???
+|           ->01.13% (214,112B) 0x6B00818: ???
+|             ->01.13% (214,112B) 0x6B04371: ???
+|               ->01.13% (214,112B) 0x6B046B3: ???
+|                 ->01.13% (214,112B) 0x6AA2946: ???
+|                   ->01.13% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.13% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.13% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.13% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.13% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.13% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.11% (211,584B) 0x6B00DDA: ???
+  ->01.11% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 39  1,152,303,164       18,991,144       18,005,658       985,486            0
+ 40  1,168,237,951       18,991,144       18,005,658       985,486            0
+ 41  1,184,326,351       18,992,552       18,006,834       985,718            0
+ 42  1,215,571,131       18,992,488       18,006,731       985,757            0
+ 43  1,225,210,156       18,994,544       18,008,641       985,903            0
+ 44  1,239,403,707       18,995,312       18,009,281       986,031            0
+ 45  1,253,889,129       18,994,544       18,008,641       985,903            0
+ 46  1,273,111,137       18,994,464       18,008,589       985,875            0
+ 47  1,287,580,568       18,994,864       18,008,925       985,939            0
+ 48  1,301,856,214       18,994,592       18,008,697       985,895            0
+ 49  1,311,589,988       18,995,616       18,009,677       985,939            0
+ 50  1,319,806,672       18,996,960       18,010,800       986,160            0
+94.81% (18,010,800B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->68.69% (13,049,744B) 0x70B3B64: ???
+| ->43.18% (8,202,176B) 0x70B3BBC: ???
+| | ->27.62% (5,247,152B) in 961 places, all below massif's threshold (1.00%)
+| | | 
+| | ->05.06% (961,728B) 0x6F90759: ???
+| | | ->03.80% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.26% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->01.98% (376,992B) 0x6FEB3E9: ???
+| | | ->01.98% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.72% (326,016B) 0x6FEB2C4: ???
+| | | ->01.72% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.26% (239,424B) 0x6FA09E5: ???
+| | | ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.26% (239,424B) 0x6FA0A12: ???
+| | | ->01.26% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.16% (219,472B) 0x6FA0A8C: ???
+| | | ->01.16% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.09% (207,872B) 0x6FEB447: ???
+| | | ->01.09% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.01% (192,192B) 0x6F94B65: ???
+| | | ->01.01% (192,192B) in 286 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.01% (191,904B) 0x6F92E6C: ???
+| |   ->01.01% (191,904B) in 24 places, all below massif's threshold (1.00%)
+| |     
+| ->22.75% (4,321,376B) 0x70B47C3: ???
+| | ->22.75% (4,321,376B) 0x70B489C: ???
+| | | ->08.96% (1,701,216B) 0x70F7DE2: ???
+| | | | ->08.96% (1,701,216B) 0x7191A4E: ???
+| | | | | ->08.96% (1,701,216B) 0x7193282: ???
+| | | | |   ->08.96% (1,701,216B) 0x6CFDEAC: ???
+| | | | |     ->04.82% (915,712B) 0x6CFEE04: ???
+| | | | |     | ->04.82% (915,712B) 0x6CFFE81: ???
+| | | | |     |   ->04.82% (915,712B) 0x6D00523: ???
+| | | | |     |     ->04.82% (915,712B) 0x6D01B0B: ???
+| | | | |     |       ->04.82% (915,712B) 0x6D01CA8: ???
+| | | | |     |         ->04.82% (915,712B) 0x6F604DB: ???
+| | | | |     |           ->04.82% (915,712B) 0x6F175BA: ???
+| | | | |     |             ->04.82% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.82% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.82% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.82% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.82% (915,712B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->04.13% (785,504B) 0x6CFF625: ???
+| | | | |       ->04.13% (785,504B) 0x6D00051: ???
+| | | | |         ->04.13% (785,504B) 0x6D0049A: ???
+| | | | |           ->04.13% (785,504B) 0x6D01B0B: ???
+| | | | |             ->04.13% (785,504B) 0x6D01CA8: ???
+| | | | |               ->04.13% (785,504B) 0x6F604DB: ???
+| | | | |                 ->04.13% (785,504B) 0x6F175BA: ???
+| | | | |                   ->04.13% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->04.13% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->04.13% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->04.13% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->04.13% (785,504B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->07.07% (1,342,832B) 0x70F7F81: ???
+| | | | ->07.07% (1,342,832B) 0x7191841: ???
+| | | | | ->07.07% (1,342,832B) 0x7193282: ???
+| | | | |   ->07.07% (1,342,832B) 0x6CFDEAC: ???
+| | | | |     ->04.65% (884,304B) 0x6CFF625: ???
+| | | | |     | ->04.65% (884,304B) 0x6D00051: ???
+| | | | |     |   ->04.65% (884,304B) 0x6D0049A: ???
+| | | | |     |     ->04.65% (884,304B) 0x6D01B0B: ???
+| | | | |     |       ->04.65% (884,304B) 0x6D01CA8: ???
+| | | | |     |         ->04.65% (884,304B) 0x6F604DB: ???
+| | | | |     |           ->04.65% (884,304B) 0x6F175BA: ???
+| | | | |     |             ->04.65% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.65% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.65% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.65% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.65% (884,304B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->02.41% (458,528B) 0x6CFEE04: ???
+| | | | |       ->02.41% (458,528B) 0x6CFFE81: ???
+| | | | |         ->02.41% (458,528B) 0x6D00523: ???
+| | | | |           ->02.41% (458,528B) 0x6D01B0B: ???
+| | | | |             ->02.41% (458,528B) 0x6D01CA8: ???
+| | | | |               ->02.41% (458,528B) 0x6F604DB: ???
+| | | | |                 ->02.41% (458,528B) 0x6F175BA: ???
+| | | | |                   ->02.41% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->02.41% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->02.41% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->02.41% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->02.41% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->04.31% (818,800B) 0x70F7EF5: ???
+| | | | ->04.31% (818,800B) 0x7191788: ???
+| | | | | ->04.31% (818,800B) 0x7193282: ???
+| | | | |   ->04.31% (818,800B) 0x6CFDEAC: ???
+| | | | |     ->02.41% (458,528B) 0x6CFEE04: ???
+| | | | |     | ->02.41% (458,528B) 0x6CFFE81: ???
+| | | | |     |   ->02.41% (458,528B) 0x6D00523: ???
+| | | | |     |     ->02.41% (458,528B) 0x6D01B0B: ???
+| | | | |     |       ->02.41% (458,528B) 0x6D01CA8: ???
+| | | | |     |         ->02.41% (458,528B) 0x6F604DB: ???
+| | | | |     |           ->02.41% (458,528B) 0x6F175BA: ???
+| | | | |     |             ->02.41% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->02.41% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->02.41% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->02.41% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->02.41% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->01.90% (360,272B) 0x6CFF625: ???
+| | | | |       ->01.90% (360,272B) 0x6D00051: ???
+| | | | |         ->01.90% (360,272B) 0x6D0049A: ???
+| | | | |           ->01.90% (360,272B) 0x6D01B0B: ???
+| | | | |             ->01.90% (360,272B) 0x6D01CA8: ???
+| | | | |               ->01.90% (360,272B) 0x6F604DB: ???
+| | | | |                 ->01.90% (360,272B) 0x6F175BA: ???
+| | | | |                   ->01.90% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->01.90% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->01.90% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->01.90% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->01.90% (360,272B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->02.41% (458,528B) 0x70F7E58: ???
+| | |   ->02.24% (425,776B) 0x7191C5E: ???
+| | |   | ->02.24% (425,776B) 0x7193282: ???
+| | |   |   ->02.24% (425,776B) 0x6CFDEAC: ???
+| | |   |     ->02.24% (425,776B) 0x6CFF625: ???
+| | |   |       ->02.24% (425,776B) 0x6D00051: ???
+| | |   |         ->02.24% (425,776B) 0x6D0049A: ???
+| | |   |           ->02.24% (425,776B) 0x6D01B0B: ???
+| | |   |             ->02.24% (425,776B) 0x6D01CA8: ???
+| | |   |               ->02.24% (425,776B) 0x6F604DB: ???
+| | |   |                 ->02.24% (425,776B) 0x6F175BA: ???
+| | |   |                   ->02.24% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                     ->02.24% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                       ->02.24% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                         ->02.24% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |   |                           ->02.24% (425,776B) 0x11171B: main (main.cpp:20)
+| | |   |                             
+| | |   ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | |   
+| | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.77% (526,192B) in 69 places, all below massif's threshold (1.00%)
+|   
+->11.95% (2,269,567B) in 879 places, all below massif's threshold (1.00%)
+| 
+->04.47% (848,473B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->04.06% (771,900B) 0x48AA09D: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->04.06% (771,900B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->04.06% (771,900B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->04.06% (771,900B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->04.06% (771,900B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.40% (76,573B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->04.38% (831,120B) 0x6CD84A8: ???
+| ->04.38% (831,120B) 0x6CEB215: ???
+|   ->04.38% (831,120B) 0x6C40551: ???
+|     ->04.38% (831,120B) 0x6C44356: ???
+|       ->04.38% (831,120B) 0x6B015D8: ???
+|         ->04.38% (831,120B) 0x6B00818: ???
+|           ->04.38% (831,120B) 0x6B04371: ???
+|             ->04.38% (831,120B) 0x6B046B3: ???
+|               ->04.38% (831,120B) 0x6AA2946: ???
+|                 ->04.38% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.38% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.38% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.38% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.38% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.38% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->01.66% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.66% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.66% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.66% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.66% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.66% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.66% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.66% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.66% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.43% (271,272B) 0x6F1A1F6: ???
+| ->01.43% (271,272B) 0x6E0C2D0: ???
+|   ->01.43% (271,272B) 0x6CD8503: ???
+|     ->01.43% (271,272B) 0x6CEB215: ???
+|       ->01.43% (271,272B) 0x6C40551: ???
+|         ->01.43% (271,272B) 0x6C44356: ???
+|           ->01.43% (271,272B) 0x6B015D8: ???
+|             ->01.43% (271,272B) 0x6B00818: ???
+|               ->01.43% (271,272B) 0x6B04371: ???
+|                 ->01.43% (271,272B) 0x6B046B3: ???
+|                   ->01.43% (271,272B) 0x6AA2946: ???
+|                     ->01.43% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.43% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.43% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.43% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.43% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.43% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.13% (214,112B) 0x72D762E: ???
+| ->01.13% (214,112B) 0x7CA40D6: ???
+|   ->01.13% (214,112B) 0x6CEB1C3: ???
+|     ->01.13% (214,112B) 0x6C40551: ???
+|       ->01.13% (214,112B) 0x6C44356: ???
+|         ->01.13% (214,112B) 0x6B015D8: ???
+|           ->01.13% (214,112B) 0x6B00818: ???
+|             ->01.13% (214,112B) 0x6B04371: ???
+|               ->01.13% (214,112B) 0x6B046B3: ???
+|                 ->01.13% (214,112B) 0x6AA2946: ???
+|                   ->01.13% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.13% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.13% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.13% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.13% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.13% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.11% (211,584B) 0x6B00DDA: ???
+  ->01.11% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 51  1,327,999,143       18,996,952       18,010,761       986,191            0
+ 52  1,336,058,983       18,997,336       18,011,129       986,207            0
+ 53  1,344,145,036       18,996,888       18,010,745       986,143            0
+ 54  1,352,470,065       18,996,880       18,010,733       986,147            0
+ 55  1,361,137,974       18,996,880       18,010,748       986,132            0
+ 56  1,369,195,014       18,997,328       18,011,100       986,228            0
+ 57  1,918,885,736       19,484,520       18,496,562       987,958            0
+ 58  1,926,951,304       19,489,120       18,500,177       988,943            0
+ 59  1,935,296,461       19,489,200       18,500,218       988,982            0
+ 60  1,943,611,399       19,489,088       18,500,166       988,922            0
+94.93% (18,500,166B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->66.96% (13,049,744B) 0x70B3B64: ???
+| ->42.09% (8,202,176B) 0x70B3BBC: ???
+| | ->28.89% (5,631,248B) in 963 places, all below massif's threshold (1.00%)
+| | | 
+| | ->04.93% (961,728B) 0x6F90759: ???
+| | | ->03.71% (722,304B) in 197 places, all below massif's threshold (1.00%)
+| | | | 
+| | | ->01.23% (239,424B) 0x6FA0A5F: ???
+| | |   ->01.23% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |     
+| | ->01.93% (376,992B) 0x6FEB3E9: ???
+| | | ->01.93% (376,992B) in 131 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.67% (326,016B) 0x6FEB2C4: ???
+| | | ->01.67% (326,016B) in 90 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.23% (239,424B) 0x6FA09E5: ???
+| | | ->01.23% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.23% (239,424B) 0x6FA0A12: ???
+| | | ->01.23% (239,424B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.13% (219,472B) 0x6FA0A8C: ???
+| | | ->01.13% (219,472B) in 1247 places, all below massif's threshold (1.00%)
+| | |   
+| | ->01.07% (207,872B) 0x6FEB447: ???
+| |   ->01.07% (207,872B) in 308 places, all below massif's threshold (1.00%)
+| |     
+| ->22.17% (4,321,376B) 0x70B47C3: ???
+| | ->22.17% (4,321,376B) 0x70B489C: ???
+| | | ->08.73% (1,701,216B) 0x70F7DE2: ???
+| | | | ->08.73% (1,701,216B) 0x7191A4E: ???
+| | | | | ->08.73% (1,701,216B) 0x7193282: ???
+| | | | |   ->08.73% (1,701,216B) 0x6CFDEAC: ???
+| | | | |     ->04.70% (915,712B) 0x6CFEE04: ???
+| | | | |     | ->04.70% (915,712B) 0x6CFFE81: ???
+| | | | |     |   ->04.70% (915,712B) 0x6D00523: ???
+| | | | |     |     ->04.70% (915,712B) 0x6D01B0B: ???
+| | | | |     |       ->04.70% (915,712B) 0x6D01CA8: ???
+| | | | |     |         ->04.70% (915,712B) 0x6F604DB: ???
+| | | | |     |           ->04.70% (915,712B) 0x6F175BA: ???
+| | | | |     |             ->04.70% (915,712B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.70% (915,712B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.70% (915,712B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.70% (915,712B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.70% (915,712B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->04.03% (785,504B) 0x6CFF625: ???
+| | | | |       ->04.03% (785,504B) 0x6D00051: ???
+| | | | |         ->04.03% (785,504B) 0x6D0049A: ???
+| | | | |           ->04.03% (785,504B) 0x6D01B0B: ???
+| | | | |             ->04.03% (785,504B) 0x6D01CA8: ???
+| | | | |               ->04.03% (785,504B) 0x6F604DB: ???
+| | | | |                 ->04.03% (785,504B) 0x6F175BA: ???
+| | | | |                   ->04.03% (785,504B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->04.03% (785,504B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->04.03% (785,504B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->04.03% (785,504B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->04.03% (785,504B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->06.89% (1,342,832B) 0x70F7F81: ???
+| | | | ->06.89% (1,342,832B) 0x7191841: ???
+| | | | | ->06.89% (1,342,832B) 0x7193282: ???
+| | | | |   ->06.89% (1,342,832B) 0x6CFDEAC: ???
+| | | | |     ->04.54% (884,304B) 0x6CFF625: ???
+| | | | |     | ->04.54% (884,304B) 0x6D00051: ???
+| | | | |     |   ->04.54% (884,304B) 0x6D0049A: ???
+| | | | |     |     ->04.54% (884,304B) 0x6D01B0B: ???
+| | | | |     |       ->04.54% (884,304B) 0x6D01CA8: ???
+| | | | |     |         ->04.54% (884,304B) 0x6F604DB: ???
+| | | | |     |           ->04.54% (884,304B) 0x6F175BA: ???
+| | | | |     |             ->04.54% (884,304B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->04.54% (884,304B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->04.54% (884,304B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->04.54% (884,304B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->04.54% (884,304B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->02.35% (458,528B) 0x6CFEE04: ???
+| | | | |       ->02.35% (458,528B) 0x6CFFE81: ???
+| | | | |         ->02.35% (458,528B) 0x6D00523: ???
+| | | | |           ->02.35% (458,528B) 0x6D01B0B: ???
+| | | | |             ->02.35% (458,528B) 0x6D01CA8: ???
+| | | | |               ->02.35% (458,528B) 0x6F604DB: ???
+| | | | |                 ->02.35% (458,528B) 0x6F175BA: ???
+| | | | |                   ->02.35% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->02.35% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->02.35% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->02.35% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->02.35% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->04.20% (818,800B) 0x70F7EF5: ???
+| | | | ->04.20% (818,800B) 0x7191788: ???
+| | | | | ->04.20% (818,800B) 0x7193282: ???
+| | | | |   ->04.20% (818,800B) 0x6CFDEAC: ???
+| | | | |     ->02.35% (458,528B) 0x6CFEE04: ???
+| | | | |     | ->02.35% (458,528B) 0x6CFFE81: ???
+| | | | |     |   ->02.35% (458,528B) 0x6D00523: ???
+| | | | |     |     ->02.35% (458,528B) 0x6D01B0B: ???
+| | | | |     |       ->02.35% (458,528B) 0x6D01CA8: ???
+| | | | |     |         ->02.35% (458,528B) 0x6F604DB: ???
+| | | | |     |           ->02.35% (458,528B) 0x6F175BA: ???
+| | | | |     |             ->02.35% (458,528B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |               ->02.35% (458,528B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                 ->02.35% (458,528B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |     |                   ->02.35% (458,528B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |     |                     ->02.35% (458,528B) 0x11171B: main (main.cpp:20)
+| | | | |     |                       
+| | | | |     ->01.85% (360,272B) 0x6CFF625: ???
+| | | | |       ->01.85% (360,272B) 0x6D00051: ???
+| | | | |         ->01.85% (360,272B) 0x6D0049A: ???
+| | | | |           ->01.85% (360,272B) 0x6D01B0B: ???
+| | | | |             ->01.85% (360,272B) 0x6D01CA8: ???
+| | | | |               ->01.85% (360,272B) 0x6F604DB: ???
+| | | | |                 ->01.85% (360,272B) 0x6F175BA: ???
+| | | | |                   ->01.85% (360,272B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                     ->01.85% (360,272B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                       ->01.85% (360,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | | | |                         ->01.85% (360,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | | | |                           ->01.85% (360,272B) 0x11171B: main (main.cpp:20)
+| | | | |                             
+| | | | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | | | 
+| | | ->02.35% (458,528B) 0x70F7E58: ???
+| | |   ->02.18% (425,776B) 0x7191C5E: ???
+| | |   | ->02.18% (425,776B) 0x7193282: ???
+| | |   |   ->02.18% (425,776B) 0x6CFDEAC: ???
+| | |   |     ->02.18% (425,776B) 0x6CFF625: ???
+| | |   |       ->02.18% (425,776B) 0x6D00051: ???
+| | |   |         ->02.18% (425,776B) 0x6D0049A: ???
+| | |   |           ->02.18% (425,776B) 0x6D01B0B: ???
+| | |   |             ->02.18% (425,776B) 0x6D01CA8: ???
+| | |   |               ->02.18% (425,776B) 0x6F604DB: ???
+| | |   |                 ->02.18% (425,776B) 0x6F175BA: ???
+| | |   |                   ->02.18% (425,776B) 0x4945AE6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                     ->02.18% (425,776B) 0x4943F64: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                       ->02.18% (425,776B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| | |   |                         ->02.18% (425,776B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+| | |   |                           ->02.18% (425,776B) 0x11171B: main (main.cpp:20)
+| | |   |                             
+| | |   ->00.17% (32,752B) in 1+ places, all below ms_print's threshold (01.00%)
+| | |   
+| | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+| | 
+| ->02.70% (526,192B) in 69 places, all below massif's threshold (1.00%)
+|   
+->11.44% (2,229,781B) in 878 places, all below massif's threshold (1.00%)
+| 
+->04.35% (848,473B) 0x4969BA6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+| ->03.96% (771,900B) 0x48AA09D: Mix_LoadWAV_RW (in /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0.800.1)
+| | ->03.96% (771,900B) 0x11E8B5: loadAudio (sound.cpp:81)
+| |   ->03.96% (771,900B) 0x11E8B5: soundManager::soundManager() (sound.cpp:24)
+| |     ->03.96% (771,900B) 0x12AA90: gameClass::gameClass() (thing.cpp:36)
+| |       ->03.96% (771,900B) 0x11171B: main (main.cpp:20)
+| |         
+| ->00.39% (76,573B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->04.26% (831,120B) 0x6CD84A8: ???
+| ->04.26% (831,120B) 0x6CEB215: ???
+|   ->04.26% (831,120B) 0x6C40551: ???
+|     ->04.26% (831,120B) 0x6C44356: ???
+|       ->04.26% (831,120B) 0x6B015D8: ???
+|         ->04.26% (831,120B) 0x6B00818: ???
+|           ->04.26% (831,120B) 0x6B04371: ???
+|             ->04.26% (831,120B) 0x6B046B3: ???
+|               ->04.26% (831,120B) 0x6AA2946: ???
+|                 ->04.26% (831,120B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 | ->04.26% (831,120B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |   ->04.26% (831,120B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |     ->04.26% (831,120B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                 |       ->04.26% (831,120B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                 |         ->04.26% (831,120B) 0x11171B: main (main.cpp:20)
+|                 |           
+|                 ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                 
+->02.72% (529,152B) 0x13DF58: allocate (new_allocator.h:151)
+| ->02.72% (529,152B) 0x13DF58: allocate (alloc_traits.h:515)
+|   ->02.72% (529,152B) 0x13DF58: _M_allocate (stl_vector.h:380)
+|     ->02.72% (529,152B) 0x13DF58: _M_create_storage (stl_vector.h:398)
+|       ->02.72% (529,152B) 0x13DF58: _Vector_base (stl_vector.h:334)
+|         ->02.72% (529,152B) 0x13DF58: vector (stl_vector.h:603)
+|           ->02.72% (529,152B) 0x13DF58: _Construct<std::vector<tileManager::Point>, const std::vector<tileManager::Point, std::allocator<tileManager::Point> >&> (stl_construct.h:119)
+|             ->02.72% (529,152B) 0x13DF58: std::vector<tileManager::Point, std::allocator<tileManager::Point> >* std::__do_uninit_fill_n<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > >(std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (stl_uninitialized.h:267)
+|               ->02.72% (529,152B) 0x13E145: __uninit_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:284)
+|                 ->02.72% (529,152B) 0x13E145: uninitialized_fill_n<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point> > (stl_uninitialized.h:327)
+|                   ->02.72% (529,152B) 0x13E145: __uninitialized_fill_n_a<std::vector<tileManager::Point>*, long unsigned int, std::vector<tileManager::Point>, std::vector<tileManager::Point> > (stl_uninitialized.h:472)
+|                     ->02.72% (529,152B) 0x13E145: std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<tileManager::Point, std::allocator<tileManager::Point> >*, std::vector<std::vector<tileManager::Point, std::allocator<tileManager::Point> >, std::allocator<std::vector<tileManager::Point, std::allocator<tileManager::Point> > > > >, unsigned long, std::vector<tileManager::Point, std::allocator<tileManager::Point> > const&) (vector.tcc:763)
+|                       ->02.72% (529,152B) 0x13B7BC: resize (stl_vector.h:1037)
+|                         ->02.72% (529,152B) 0x13B7BC: tileManager::tileManager(int, int) (world.cpp:20)
+|                           ->02.46% (480,000B) 0x12317A: gameClass::quitToMenu() (thing.cpp:78)
+|                           | ->02.46% (480,000B) 0x111E12: operator() (std_function.h:591)
+|                           | | ->02.46% (480,000B) 0x111E12: Button::update() (button.cpp:24)
+|                           | |   ->02.46% (480,000B) 0x115B08: guiManager::update() (elements.cpp:381)
+|                           | |     ->02.46% (480,000B) 0x123274: gameClass::render() (thing.cpp:101)
+|                           | |       ->02.46% (480,000B) 0x12A642: gameClass::doFrame() (thing.cpp:543)
+|                           | |         ->02.46% (480,000B) 0x12A8B7: gameClass::mainLoop() (thing.cpp:584)
+|                           | |           ->02.46% (480,000B) 0x12AAF1: gameClass::gameClass() (thing.cpp:47)
+|                           | |             ->02.46% (480,000B) 0x11171B: main (main.cpp:20)
+|                           | |               
+|                           | ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                           | 
+|                           ->00.25% (49,152B) in 1+ places, all below ms_print's threshold (01.00%)
+|                           
+->01.62% (314,928B) 0x56EC2CF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+| ->01.62% (314,928B) 0x56EA1C7: _XimLocalOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|   ->01.62% (314,928B) 0x56E888F: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+|     ->01.62% (314,928B) 0x49D6E47: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|       ->01.62% (314,928B) 0x49DDF54: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|         ->01.62% (314,928B) 0x49AE9E9: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|           ->01.62% (314,928B) 0x48F63D7: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|             ->01.62% (314,928B) 0x12A93E: gameClass::gameClass() (thing.cpp:8)
+|               ->01.62% (314,928B) 0x11171B: main (main.cpp:20)
+|                 
+->01.39% (271,272B) 0x6F1A1F6: ???
+| ->01.39% (271,272B) 0x6E0C2D0: ???
+|   ->01.39% (271,272B) 0x6CD8503: ???
+|     ->01.39% (271,272B) 0x6CEB215: ???
+|       ->01.39% (271,272B) 0x6C40551: ???
+|         ->01.39% (271,272B) 0x6C44356: ???
+|           ->01.39% (271,272B) 0x6B015D8: ???
+|             ->01.39% (271,272B) 0x6B00818: ???
+|               ->01.39% (271,272B) 0x6B04371: ???
+|                 ->01.39% (271,272B) 0x6B046B3: ???
+|                   ->01.39% (271,272B) 0x6AA2946: ???
+|                     ->01.39% (271,272B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     | ->01.39% (271,272B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |   ->01.39% (271,272B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |     ->01.39% (271,272B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                     |       ->01.39% (271,272B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                     |         ->01.39% (271,272B) 0x11171B: main (main.cpp:20)
+|                     |           
+|                     ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                     
+->01.10% (214,112B) 0x72D762E: ???
+| ->01.10% (214,112B) 0x7CA40D6: ???
+|   ->01.10% (214,112B) 0x6CEB1C3: ???
+|     ->01.10% (214,112B) 0x6C40551: ???
+|       ->01.10% (214,112B) 0x6C44356: ???
+|         ->01.10% (214,112B) 0x6B015D8: ???
+|           ->01.10% (214,112B) 0x6B00818: ???
+|             ->01.10% (214,112B) 0x6B04371: ???
+|               ->01.10% (214,112B) 0x6B046B3: ???
+|                 ->01.10% (214,112B) 0x6AA2946: ???
+|                   ->01.10% (214,112B) 0x49DC875: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   | ->01.10% (214,112B) 0x49AD28F: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |   ->01.10% (214,112B) 0x49436B2: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |     ->01.10% (214,112B) 0x493A00A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3200.4)
+|                   |       ->01.10% (214,112B) 0x12A9C6: gameClass::gameClass() (thing.cpp:22)
+|                   |         ->01.10% (214,112B) 0x11171B: main (main.cpp:20)
+|                   |           
+|                   ->00.00% (0B) in 1+ places, all below ms_print's threshold (01.00%)
+|                   
+->01.09% (211,584B) 0x6B00DDA: ???
+  ->01.09% (211,584B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 61  1,952,372,888       19,489,168       18,500,218       988,950            0
+ 62  1,960,903,262       19,489,184       18,500,218       988,966            0
+ 63  1,969,005,203       19,489,056       18,500,161       988,895            0
+ 64  1,977,511,435       19,490,160       18,501,122       989,038            0
+ 65  1,985,563,092       14,327,176       13,582,425       744,751            0
