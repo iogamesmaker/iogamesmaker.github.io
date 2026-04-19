@@ -84,7 +84,7 @@ title: DSA Item Counter & Configurator
     
     const IMG_BASE_URL = "https://test.drednot.io/img/";
     
-    const CONFIG_DSA = "DSA:rZfZSiNBFIZPddKL7SSTAWdxBBkGZoa5mLlQ1IBRFMQl4vIGIhol4ALqAwStvglEu0F8OkUQ9wVEEBQErbTViRfmdFVRV0k68PX/13/q1Ckf6DSd9n2yE/hAJ+hU6ZR9ASidVX9PhZ9kd5g9KqfmVlcWioszS6uz84U18E0CmZbt7aCcWigubRTWZl7/B98Iyh/4o+JGYXkdfPD2AIKAIXNu6akh0bBJpqUiSLznxD8YMck0tstq/NqEEC1DwTXNtyFIMCVsP3PkT8y2ZSuIdBlxi7DsIcmeNBQrnpF3Chz9CxNLZOzfcGI3RgSVjFIOVpkWESdecWInqlFiHR3CiRZGTNjVWq/Iuf7m4oWZFtV4EWVNJ7MI0jQkFvKutn1asT0u0zUOOfIv6tsSzwaibEy0xi2VrjGOdw0FZB8ukhBh4jkntsYQxaOxCLc9+jGugASzearV5FiXprgvI2QT9z30HtE2hFfSrNV4J9Z/ZHrkAUemtYW9z4ltGNEUP3Sq9fhKNOKOsXZZIs2HWcN3VKvKfvzNiGZjZFLBPs33YBmBgsr/2DlmK4kcz+qZXryjCJlw4w5bQeJjTeRgs56BqO47yUR+0qESvBOO7HFj45Y8wNOOngKq2044ujr6Ayf2o64Twq7flmS3ronyNto3mvpFXaSNzhgqt6cvTjiiZyCcOjRco7zrSOxnvLVLLOgxJ/bG7fGcoEYSjVjN6PirEhGdyMZ0jVxFMqMOtNiVbo8jqfBEowPhxRR+sCrYJDAAOo7i+mv+VYUHwQs=";
+    const CONFIG_DSA = "DSA:rZddSxtREIbn7GY/EpvUC1u1gVIK/RL0otYo1EoL/Uyw+g+k2CgBrWD9AeNtQNkF8dcpQmm12hZEKLQgtBuz65mLCevAXCVZkicz8855Z04EOI/zUWR2ChFAHEeAsziHh8kbADzqfJ67eDU7r5JH7fJSa2Wjub6wuPZpqbUMkRO3r6WPWhvN1c+Q/GAX4na5+4WFlbUPH5vrEHkG+ge2t+POP0yX8FwE/M0AncD0D2x1gQ+kQC7CQhLh7TTCwaIC0HdsylivCon/GCJ4Nue7Gjn7gQ2xlACNKvGJkIiHwCVNhL4nTfoXAzSkijWNKgIRuhwKgT+43vbNJXA8jfD11YCbockroq+Rsxt0TsvWBXBIBsRj4Hu7kkWI76eEIZ5xluMYcv6GhcQDziJIFR8JdQFeF98SPQ1djE9Mp1HV6G7PEp9JQ/zOhmhMBhyWVRE2fcMTL6uIb6/LuvEcevVORnw3ISOe5CldTLN+eTWgx/ECx1YR6+NCXfY51yG+WJEKvZcjdFXoEbusKmS4OBpAP7AzH+sTysRbGgfaIwf6vsqIpsSH0hHN61Kgm86kho2BJY6FCroENMSGbLzgF8hZxlxhM/6FXlM/85wXfUrNmCVdUFGaEkNxN37LyXqypNY63c2kotE6tBdd6Xr3J2dczWjYmHFtytioCUM8zdmRx1Ssm5hOoLJ0kwvlzVDDFylxRJ04IyTiT8i59d6QlvErO1It8KlwpTWml41Np8Q+jdZx6Uo7O6V07c1CfKziOfSq/6asTXxeVCbeUWlvSqypEOmCN9oRJo7/Aw==";
 
     const PRINTER_MAPPING = {
         [Item.RES_FLUX.id]: {
@@ -106,7 +106,7 @@ title: DSA Item Counter & Configurator
         },
         [Item.PUSHER.id]: {
             maxStack: 1,
-            injector: { x: 73, y: 53 },
+            injector: { x: 74, y: 25 },
             timer1: { x: 74, y: 27 },
             timer2: { x: 75, y: 27}
         },
@@ -334,6 +334,7 @@ title: DSA Item Counter & Configurator
 
     async function processBlueprint(counts) {
         let bp = await decode(CONFIG_DSA);
+        console.log(bp);
         
         const configMap = new Map();
         let currentConfig = null;
@@ -344,19 +345,7 @@ title: DSA Item Counter & Configurator
             } else if (cmd instanceof BuildCmd && currentConfig) {
                 const baseX = cmd.x;
                 const baseY = cmd.y;
-                
-                if (cmd.bits && cmd.bits.int !== 0n) {
-                    const bits = cmd.bits;
-                    for (let i = 0; i < 64; i++) {
-                        if (bits.isSet(i)) {
-                            const cellX = baseX + i;
-                            const cellY = baseY;
-                            configMap.set(`${cellX},${cellY}`, currentConfig);
-                        }
-                    }
-                } else {
-                    configMap.set(`${baseX},${baseY}`, currentConfig);
-                }
+                configMap.set(`${baseX},${baseY}`, currentConfig);
             }
         }
         
@@ -397,6 +386,7 @@ title: DSA Item Counter & Configurator
                 continue;
             }
             
+            
             const calc = calculateLoaderSettings(qty, !!mapping.timer2, mapping.maxStack || 16);
             if (calc.error > 0) {
                 warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
@@ -412,6 +402,7 @@ title: DSA Item Counter & Configurator
             if (timer2Config) {
                 timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
             }
+            console.log(qty, itemName, calc);
         }
         
         try {
