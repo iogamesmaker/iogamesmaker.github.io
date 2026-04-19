@@ -4,7 +4,7 @@ title: DSA Item Counter & Configurator
 ---
 
 ## How to use
-- Build NEM0's printer design. <a href="#" id="copyleft">Copy left side</a>, <a href="#" id="copyright">right side</a>
+- Build NEM0's printer design. Press to copy the DSA for the <a href="#" id="copyleft">left side</a>, or the <a href="#" id="copyright">right side</a> of the ship. Truly one of the designs of all time
     - <small>i made some minor changes and fixes, 100% compatible with the original.</small>
 - Put your ship DSA in the container below
 - Enter the number of doors you need
@@ -13,6 +13,8 @@ title: DSA Item Counter & Configurator
 - Paste the output DSA on the printer
 - Coolsnake quickly to the left and then down again. About a quarter of a second of coolsnake to the left is enough for it to activate.
 - Watch it automatically RCD
+
+## THIS IS A VERY EARLY RELEASE, STUFF MIGHT BREAK!!
 
 <style>
     .container { max-width: 600px; display: flex; flex-direction: column; gap: 20px; font-family: sans-serif; }
@@ -29,7 +31,7 @@ title: DSA Item Counter & Configurator
 <div class="container">
     <div>
         <label for="doorsCount">Doors:</label>
-        <input type="number" id="doorsCount" value="0" min="0" step="1" style="width: 100px;">
+        <input type="number" id="doorsCount" value="0" min="0" max="59" step="1" style="width: 100px;">
     </div>
     <div>
         <textarea id="bpInput" placeholder="input DSA here"></textarea>
@@ -81,8 +83,8 @@ title: DSA Item Counter & Configurator
     const outputContainer = document.getElementById('outputContainer');
     
     const IMG_BASE_URL = "https://test.drednot.io/img/";
-
-    const CONFIG_DSA = "DSA:rZfdahNBFMfPTHaz09TUXPhVAyKCWi/0wmpaMJYKYmtCbd6giKYSqBZqH2AjszeBxF2QXvsIXnrhI/gIiiK1fosIgkJBZ5OZtBfx7J5lrpLskh//8/E/cyYE2ZCNMGSPoxDkklz2d9QXAP9D/Hu5/8me3FCPOsU76w9WW/dW1tZv321uQMjzrFTt9aJOcbW1ttncWBm8Vy+izgH9qLXZvP8QwoAxgChSyPGCv/tfIrisdCgdEYK/mnhKExdHEjmU2m9ZWuaWZhaFHZXBO9DEHKbSZUrlM4eqsorlMu9B+lwaYgHNpatUbnMq8yqmMu6h1Cq/aOI0RmQU4itNLKMaPQLxlyaexYgOy1Cbo2MD4vVRRI8rjd1URFfzZG0akehyQtA/h8hJO7UO/hjfyGvjA+TCyCZX9vafUjMpa2W0gTIUR9bLmEzlRb+RMvQtE7rAzMjiwSbIZjyJDrb0jR7sGJWnrZkxz3QuFw/aQv7WIucwkTlV8BPU4silWSyThFb/bJBjaL1zqt4veK9LlFmvIFDPUdDvnBx7fTapM5+Tj1y5ULQzjoLdoc6bl7Gy9w/ILk3lsYIl/wizEOXRxUBpbL8k5/I86knKkvVNEysY0c0yMafQuBWx7ZDjPoPGDRlUXhCWxvoe8lJiwQXZkRxlOoTtcp/LazO2Frf3GjmDyYyz2Z5nVJlOwdIcBuNI19JavT+V/UEEx5P7kziPJoSdjt/TmhO2ZscP4yG0QmoVnqJa6IjS+Ej9EVBslYqdS7j1TaRN5qdh4W9hWwKnZPO1qTh6saBcVd5o4jl0tlOI25p4JclB5NJcTDwtQvLk8FA38iy3gPn+HQ0qwtYC+1GTJy1dUIOvJvrDMTGK/gE=";
+    
+    const CONFIG_DSA = "DSA:rZfZSiNBFIZPddKL7SSTAWdxBBkGZoa5mLlQ1IBRFMQl4vIGIhol4ALqAwStvglEu0F8OkUQ9wVEEBQErbTViRfmdFVRV0k68PX/13/q1Ckf6DSd9n2yE/hAJ+hU6ZR9ASidVX9PhZ9kd5g9KqfmVlcWioszS6uz84U18E0CmZbt7aCcWigubRTWZl7/B98Iyh/4o+JGYXkdfPD2AIKAIXNu6akh0bBJpqUiSLznxD8YMck0tstq/NqEEC1DwTXNtyFIMCVsP3PkT8y2ZSuIdBlxi7DsIcmeNBQrnpF3Chz9CxNLZOzfcGI3RgSVjFIOVpkWESdecWInqlFiHR3CiRZGTNjVWq/Iuf7m4oWZFtV4EWVNJ7MI0jQkFvKutn1asT0u0zUOOfIv6tsSzwaibEy0xi2VrjGOdw0FZB8ukhBh4jkntsYQxaOxCLc9+jGugASzearV5FiXprgvI2QT9z30HtE2hFfSrNV4J9Z/ZHrkAUemtYW9z4ltGNEUP3Sq9fhKNOKOsXZZIs2HWcN3VKvKfvzNiGZjZFLBPs33YBmBgsr/2DlmK4kcz+qZXryjCJlw4w5bQeJjTeRgs56BqO47yUR+0qESvBOO7HFj45Y8wNOOngKq2044ujr6Ayf2o64Twq7flmS3ronyNto3mvpFXaSNzhgqt6cvTjiiZyCcOjRco7zrSOxnvLVLLOgxJ/bG7fGcoEYSjVjN6PirEhGdyMZ0jVxFMqMOtNiVbo8jqfBEowPhxRR+sCrYJDAAOo7i+mv+VYUHwQs=";
 
     const PRINTER_MAPPING = {
         [Item.RES_FLUX.id]: {
@@ -157,7 +159,7 @@ title: DSA Item Counter & Configurator
         },
         [Item.RECYCLER.id]: {
             maxStack: 1,
-            injector: { x: 30, y: 10 },
+            injector: { x: 39, y: 10 },
             timer1: { x: 40, y: 10 }
         },
         [Item.THRUSTER.id]: {
@@ -273,8 +275,8 @@ title: DSA Item Counter & Configurator
     function calculateLoaderSettings(targetQty, hasTimer2, maxStack) {
         if (targetQty <= 0) return { S: 0, T: 0, t1Ms: 0, t2Ms: 0, error: 0 };
 
-        const MAX_PULSES_SINGLE = 59;      // 59 pulses = 1190 ms
-        const MAX_PULSES_DUAL = 118;       // 59 + 59
+        const MAX_PULSES_SINGLE = 59;
+        const MAX_PULSES_DUAL = 118;
         const MIN_PULSES_SINGLE = 1;
         const MIN_PULSES_DUAL = 2;
 
@@ -292,7 +294,6 @@ title: DSA Item Counter & Configurator
 
             const overfill = (s * t) - targetQty;
 
-            // Prefer smaller overfill, then larger S (more balanced)
             if (bestS === -1 || overfill < minOverfill || (overfill === minOverfill && s > bestS)) {
                 minOverfill = overfill;
                 bestS = s;
@@ -300,7 +301,6 @@ title: DSA Item Counter & Configurator
             }
         }
 
-        // Fallback: no feasible combination found → use max stack and max pulses
         if (bestS === -1) {
             bestS = maxStack;
             const maxPulses = hasTimer2 ? MAX_PULSES_DUAL : MAX_PULSES_SINGLE;
@@ -336,53 +336,70 @@ title: DSA Item Counter & Configurator
         let bp = await decode(CONFIG_DSA);
         
         const configMap = new Map();
-        for (let i = 0; i < bp.commands.length - 1; i++) {
-            const cmd = bp.commands[i];
-            const nextCmd = bp.commands[i + 1];
-            
-            if (cmd instanceof ConfigCmd && nextCmd instanceof BuildCmd) {
-                configMap.set(`${nextCmd.x},${nextCmd.y}`, cmd);
+        let currentConfig = null;
+        
+        for (const cmd of bp.commands) {
+            if (cmd instanceof ConfigCmd) {
+                currentConfig = cmd;
+            } else if (cmd instanceof BuildCmd && currentConfig) {
+                const baseX = cmd.x;
+                const baseY = cmd.y;
+                
+                if (cmd.bits && cmd.bits.int !== 0n) {
+                    const bits = cmd.bits;
+                    for (let i = 0; i < 64; i++) {
+                        if (bits.isSet(i)) {
+                            const cellX = baseX + i;
+                            const cellY = baseY;
+                            configMap.set(`${cellX},${cellY}`, currentConfig);
+                        }
+                    }
+                } else {
+                    configMap.set(`${baseX},${baseY}`, currentConfig);
+                }
             }
         }
         
         let warnings = [];
-        const doorsManual = parseInt(document.getElementById('doorsCount').value, 10) || 0;
-        if (!isNaN(doorsManual) && doorsManual > 0) {
-            counts.set(Item.DOOR.id, doorsManual);
-        }
 
-        for (const [itemIdString, config] of Object.entries(PRINTER_MAPPING)) {
+        for (const [itemIdString, mapping] of Object.entries(PRINTER_MAPPING)) {
             const itemId = parseInt(itemIdString);
             let qty = counts.get(itemId) || 0;
-            const itemObj = Item.getById(itemId);          
+            const itemObj = Item.getById(itemId);         
+            const itemName = itemObj?.name || "name not found";
             
-            const injectorConfig = configMap.get(`${config.injector.x},${config.injector.y}`);
-            const timer1Config = config.timer1 ? configMap.get(`${config.timer1.x},${config.timer1.y}`) : null;
-            const timer2Config = config.timer2 ? configMap.get(`${config.timer2.x},${config.timer2.y}`) : null;
-            console.log(injectorConfig,timer1Config, timer2Config);
+            const injectorConfig = configMap.get(`${mapping.injector.x},${mapping.injector.y}`);
+            const timer1Config = mapping.timer1 ? configMap.get(`${mapping.timer1.x},${mapping.timer1.y}`) : null;
+            const timer2Config = mapping.timer2 ? configMap.get(`${mapping.timer2.x},${mapping.timer2.y}`) : null;
             
             if (!injectorConfig) {
-                console.warn(`invalid injector config, no loader at: ${config.injector.x},${config.injector.y}`);
+                console.warn(`Missing injector config at (${mapping.injector.x},${mapping.injector.y}) for ${itemName}`);
+                continue;
+            }
+            if (!timer1Config) {
+                console.warn(`Missing timer1 config at (${mapping.timer1.x},${mapping.timer1.y}) for ${itemName}`);
                 continue;
             }
             
-            if(itemId === Item.RES_FLUX.id) {
+            if (itemId === Item.RES_FLUX.id) {
                 qty = Math.ceil(currentBuildCmdCount / 10);
             }
-
+            if (itemId === Item.DOOR.id) {
+                qty = Math.min(59, parseInt(document.getElementById('doorsCount').value, 10) || 0);
+            }
             
             if (qty === 0) {
                 if (!injectorConfig.loader) injectorConfig.loader = {};
                 injectorConfig.loader.requireOutputInventory = true;
                 
-                if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 20; 
-                if (timer2Config && timer2Config.loader) timer2Config.loader.cycleTime = 20; 
+                if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 20;
+                if (timer2Config && timer2Config.loader) timer2Config.loader.cycleTime = 20;
                 continue;
             }
             
-            const calc = calculateLoaderSettings(qty, !!config.timer2, config.maxStack || 16);
+            const calc = calculateLoaderSettings(qty, !!mapping.timer2, mapping.maxStack || 16);
             if (calc.error > 0) {
-                warnings.push(`${itemName}: can't eject ${qty} items. ejecting ${calc.S * calc.T} items.`);
+                warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
             }
 
             injectorConfig.loader.requireOutputInventory = false;
@@ -393,7 +410,7 @@ title: DSA Item Counter & Configurator
                 timer1Config.loader.cycleTime = calc.t1Ms;
             }
             if (timer2Config) {
-                timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30 ;
+                timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
             }
         }
         
@@ -406,14 +423,29 @@ title: DSA Item Counter & Configurator
                 alert(warnings.join("\n"));
             }
         } catch (e) {
-            console.error("error encoding:", e);
+            console.error("Encoding error:", e);
             alert("Encoding error, screenshot the browser console and send it to @iogamesplayer.");
         }
     }
 
     function render(counts, total) {
-        const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+        const fluxQty = Math.ceil(currentBuildCmdCount / 10);
+        const doorsQty = parseInt(document.getElementById('doorsCount').value, 10) || 0;
+
+        let itemsArray = Array.from(counts.entries());
+
+        if (fluxQty > 0) {
+            itemsArray.push([Item.RES_FLUX.id, fluxQty]);
+        }
+
+        if (doorsQty > 0) {
+            itemsArray.push([Item.DOOR.id, doorsQty]);
+        }
+
+        const sorted = itemsArray.sort((a, b) => b[1] - a[1]);
         
+        const displayTotal = total + fluxQty + doorsQty;
+
         statsBody.innerHTML = sorted.map(([id, qty]) => {
             const item = Item.getById(id);
             const img = item?.image || item?.buildInfo?.[0]?.image;
@@ -427,4 +459,15 @@ title: DSA Item Counter & Configurator
                 </tr>`;
         }).join('');
     }
+
+    document.getElementById('doorsCount').addEventListener('input', function() {
+        let val = parseInt(this.value, 10);
+        
+        if (val < 0) this.value = 0;
+        if (val > 59) this.value = 59;
+
+        if (currentBlueprint) {
+            render(currentCounts, Array.from(currentCounts.values()).reduce((a, b) => a + b, 0));
+        }
+    });
 </script>

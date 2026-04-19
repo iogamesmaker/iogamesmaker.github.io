@@ -4,8 +4,11 @@ title: blueprint tools
 ---
 
 # Blueprint sorter // item viewer
-Based on [SkySea's dsabp library](https://github.com/Blueyescat/dsabp-js). It does most the heavy lifting. This is just like 120 lines of JS.<br>I plan to make something else with this library and made this along the way.
+Based on [SkySea's dsabp library](https://github.com/Blueyescat/dsabp-js). It does most the heavy lifting. This is just like 120 lines of JS.<br>I plan to make something else with this library and made this along the way.<br>
+I still haven't nailed blueprint compression so the end result might be a heck of a lot bigger and heavier for the game compared to a vanilla blueprint.<br>Good chance it tells you the text is too long. In that case, turn on grouping or try re-editing from the vanilla blueprint again.
 
+Also a tiny chance it might fuck up the configuration of loaders or something, in that case just repaste the vanilla blueprint over it again.
+Summary: just use dsa.fr.to lol
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 <style>
