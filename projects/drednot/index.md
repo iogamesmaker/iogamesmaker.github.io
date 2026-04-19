@@ -11,6 +11,7 @@ Over my years of playing "I" have made a couple QoL tools and some tools that we
 [boilerplate.js](/projects/drednot/boilerplate.js) - boilerplate to read/write to and from the chat/MOTD. Create some minigames or something.<br>
 [antiafk.js](/projects/drednot/antiafk.js) - Simple anti AFK script. Sends a chat message every 30 seconds. Keep the tab in focus for best results.<br>
 [Econonmy utils](/projects/drednot/econ) - Econ log utility. Very useful, pretty easy to use.<br>
+[tools] - Random web tools for drednot. WIP, doesn't work, don't use.<br>
 
 ## Old ass YouTube videos
 <iframe width="400" height="225"
