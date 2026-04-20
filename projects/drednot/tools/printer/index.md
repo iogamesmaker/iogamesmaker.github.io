@@ -84,7 +84,7 @@ title: DSA to printer config
     
     const IMG_BASE_URL = "https://test.drednot.io/img/";
     
-    const CONFIG_DSA = "DSA:rZddSxtREIbn7GY/EpvUC1u1gVIK/RL0otYo1EoL/Uyw+g+k2CgBrWD9AeNtQNkF8dcpQmm12hZEKLQgtBuz65mLCevAXCVZkicz8855Z04EOI/zUWR2ChFAHEeAsziHh8kbADzqfJ67eDU7r5JH7fJSa2Wjub6wuPZpqbUMkRO3r6WPWhvN1c+Q/GAX4na5+4WFlbUPH5vrEHkG+ge2t+POP0yX8FwE/M0AncD0D2x1gQ+kQC7CQhLh7TTCwaIC0HdsylivCon/GCJ4Nue7Gjn7gQ2xlACNKvGJkIiHwCVNhL4nTfoXAzSkijWNKgIRuhwKgT+43vbNJXA8jfD11YCbockroq+Rsxt0TsvWBXBIBsRj4Hu7kkWI76eEIZ5xluMYcv6GhcQDziJIFR8JdQFeF98SPQ1djE9Mp1HV6G7PEp9JQ/zOhmhMBhyWVRE2fcMTL6uIb6/LuvEcevVORnw3ISOe5CldTLN+eTWgx/ECx1YR6+NCXfY51yG+WJEKvZcjdFXoEbusKmS4OBpAP7AzH+sTysRbGgfaIwf6vsqIpsSH0hHN61Kgm86kho2BJY6FCroENMSGbLzgF8hZxlxhM/6FXlM/85wXfUrNmCVdUFGaEkNxN37LyXqypNY63c2kotE6tBdd6Xr3J2dczWjYmHFtytioCUM8zdmRx1Ssm5hOoLJ0kwvlzVDDFylxRJ04IyTiT8i59d6QlvErO1It8KlwpTWml41Np8Q+jdZx6Uo7O6V07c1CfKziOfSq/6asTXxeVCbeUWlvSqypEOmCN9oRJo7/Aw==";
+    const CONFIG_DSA = "DSA:zZhbSxtBFMfP7GZnN7FJfVBbGyil0CvoQ61RqJUWek2w+g2k2FgCWsH6AcbXgLIL4qdTCqW1dyiFQgtCuzG7mfNwwnjgBHxKsiS//Gf+5zYTg1kyS3Gs9goxQJLEYBbMojlK3wCYT53Piyevau9x+qhdXm2tbTU3l1c23qy2XkPsJe1z2aPWVnP9LaQ/2IekXe5+YXlt4+Wr5ibEgYLhkd3dpPMPcyVzzAL+JoBeqIZHdrrAG1wgpbCQKrycKbxQFABqzy7Z1KtM4j+CCIFd81WJNeuwJ1GOBKVUmjqj2u4ytZkjoIxAwXeNa8QPAqiQszUJZwEFXzliAr9R+aZVDziVKXxyOuB2pFybqCXW7IedDN45AV7kAc0XoPOtkis0L2aZEn9RZdBTqCaMM4nvqLKFdvEW0xegfdGWGEj4ojQqhI2qRHQHlnifK/EzKVGpHDjO20XY1oom9nbRPDvPi8Zj6Bc7OfH5NI/41eV0MVv1o9MBA4oXenYXTX2K6cshVXVQXaxwjT5wGF1l1oh90hXUXDwJoA7tHGLq08LESxIJHWip1oxIcF1kbBiMtpvcsYGOlQKeCGckSitY4mQkECshltjgtTzzHhxDq89MkL/QbxLJ6+DDIaEE4caMkwQFkZgZjLaInWsfHU7MlMTCuTvBVSTCGeeHzx2D/zja+rxEuVe+XbJp1JgSfzrOEpMiLQ4VwlDkcKKkajQiwVgk0T8Go+32GdY2z9RmvoPjPmaUGyQfyMHKAu8xDzZK9WsccxlxSCIxfHywWZgVupDJJd4Rqaj4EuppWZr4oChLFNR2RSTlBqOtJqINHz0mOsGSJP8B";
 
     const PRINTER_MAPPING = {
         [Item.RES_FLUX.id]: {
@@ -275,27 +275,27 @@ title: DSA to printer config
     function calculateLoaderSettings(targetQty, hasTimer2, maxStack) {
         if (targetQty <= 0) return { S: 0, T: 0, t1Ms: 0, t2Ms: 0, error: 0 };
 
-        const MAX_PULSES_SINGLE = 59;
-        const MAX_PULSES_DUAL = 119;
+        const MAX_PULSES_SINGLE = 60 - 1; // 59
+        const MAX_PULSES_DUAL = 60 + (60 * 16) - 1; // 1019
         const MIN_PULSES = 1;
 
         let bestS = -1;
         let bestT = -1;
         let minOverfill = Infinity;
 
-        for (let s = 1; s <= maxStack; s++) {
-            let t = Math.ceil(targetQty / s);
-            const maxAllowedPulses = hasTimer2 ? MAX_PULSES_DUAL : MAX_PULSES_SINGLE;
+        for (let stackSize = 1; stackSize <= maxStack; stackSize++) {
+            let times = Math.ceil(targetQty / stackSize);
+            const maxAllowedPulses = (hasTimer2 ? MAX_PULSES_DUAL : MAX_PULSES_SINGLE);
 
-            if (t > maxAllowedPulses) continue;
-            if (t < MIN_PULSES) t = MIN_PULSES;
+            if (times > maxAllowedPulses) continue;
+            if (times < MIN_PULSES) times = MIN_PULSES;
 
-            const overfill = (s * t) - targetQty;
+            const overfill = (stackSize * times) - targetQty;
 
-            if (bestS === -1 || overfill < minOverfill || (overfill === minOverfill && s > bestS)) {
+            if (bestS === -1 || overfill < minOverfill || (overfill === minOverfill && stackSize > bestS)) {
                 minOverfill = overfill;
-                bestS = s;
-                bestT = t;
+                bestS = stackSize;
+                bestT = times;
             }
         }
 
@@ -307,20 +307,34 @@ title: DSA to printer config
         minOverfill = Math.abs((bestS * bestT) - targetQty);
         
         let t1Ms, t2Ms;
+        let t1SL = 16;
         let inMS = 20;
 
         if (hasTimer2) {
-            let pulses1 = Math.min(bestT, MAX_PULSES_SINGLE);
-            let pulses2 = bestT - pulses1;
+            let pulses2 = Math.min(bestT, MAX_PULSES_SINGLE);
+            let pulses1 = bestT - pulses2;
+            
             if (pulses2 < 1) {
                 pulses2 = 1;
                 pulses1 = bestT - 1;
             }
-            t1Ms = 30 + 20 * (pulses1 - 1);
+            
+            if (pulses1 >= 60) {
+                let divideBy = Math.ceil(pulses1 / 60);
+                const allowed = [1, 2, 4, 8, 16];
+                while(!allowed.includes(divideBy) && divideBy <= 16) { // break if divideBy is a power of 2
+                    divideBy++;
+                }
+                
+                t1SL /= divideBy;
+                pulses1 /= divideBy;
+            }
+            
+            t1Ms = 20 + 20 * (pulses1 - 1);
             t2Ms = 30 + 20 * (pulses2 - 1);
 
-            t1Ms = Math.min(1200, Math.max(30, t1Ms));
-            t2Ms = Math.min(1200, Math.max(20, t2Ms));
+            t1Ms = Math.min(1200, Math.max(20, t1Ms));
+            t2Ms = Math.min(1200, Math.max(30, t2Ms));
             
             if(targetQty === 1) inMS = 40;
         } else {
@@ -330,7 +344,7 @@ title: DSA to printer config
             t2Ms = 0;
         }
         
-        return { S: bestS, T: bestT, t1Ms, t2Ms, error: minOverfill, injectMs: inMS };
+        return { S: bestS, T: bestT, t1Ms, t2Ms, t1SL, error: minOverfill, injectMs: inMS };
     }
 
     async function processBlueprint(counts) {
@@ -374,6 +388,7 @@ title: DSA to printer config
             if (itemId === Item.RES_FLUX.id) {
                 qty = Math.ceil(currentBuildCmdCount / 10);
             }
+            
             if (itemId === Item.DOOR.id) {
                 qty = Math.min(59, parseInt(document.getElementById('doorsCount').value, 10) || 0);
             }
@@ -389,6 +404,7 @@ title: DSA to printer config
             
             
             const calc = calculateLoaderSettings(qty, !!mapping.timer2, mapping.maxStack || 16);
+            console.log(calc);
             if (calc.error > 0) {
                 warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
             }
@@ -399,8 +415,11 @@ title: DSA to printer config
                 
             if (timer1Config) {
                 timer1Config.loader.cycleTime = calc.t1Ms;
+                timer1Config.loader.cycleTime = 16;
             }
             if (timer2Config) {
+                timer1Config.loader.stackLimit = calc.t1SL;
+                timer2Config.loader.stackLimit = 16;
                 timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
             }
             console.log(qty, itemName, calc);
