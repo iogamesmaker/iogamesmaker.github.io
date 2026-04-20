@@ -4,11 +4,12 @@ title: DSA to printer config
 ---
 
 ## How to use
-- Build NEM0's printer design. Press to copy the DSA for the <a href="#" id="copyleft">left side</a>, or the <a href="#" id="copyright">right side</a> of the ship. Truly one of the designs of all time
-    - <small>i made some minor changes and fixes, 100% compatible with the original.</small>
+- Build a printer design. Press to copy the DSA for the <a href="#" id="copyleft">left side</a>, or the <a href="#" id="copyright">right side</a> of NEM0's design. Truly one of the designs of all time
+    - <small>i made some changes and fixes to NEM0's design, 100% config compatible with the original.</small>
 - Put your ship DSA in the container below
 - Enter the number of doors you need
     - <small>doors aren't stored in the DSA but they are supported on NEM0's printer design.</small>
+- Select your target Printer Configuration from the dropdown
 - Press "process"
 - Paste the output DSA on the printer
 - Coolsnake quickly to the left and then down again. About a quarter of a second of coolsnake to the left is enough for it to activate.
@@ -24,14 +25,19 @@ title: DSA to printer config
     th { background: #f4f4f4; }
     .icon-img { object-fit: contain; vertical-align: middle; margin-right: 8px; }
     .total-row { font-weight: bold; background: #fafafa; }
-    .btn { width: 100% }
+    .btn { width: 100%; padding: 10px; cursor: pointer;}
     h2 { margin-bottom: 5px; font-size: 1.25em; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    .controls-row { display: flex; gap: 15px; align-items: center; }
 </style>
 
 <div class="container">
-    <div>
-        <label for="doorsCount">Doors:</label>
-        <input type="number" id="doorsCount" value="0" min="0" max="59" step="1" style="width: 100px;">
+    <div class="controls-row">
+        <div>
+            <label for="configSelect">Printer:</label>
+            <select id="configSelect" style="width: 120px; padding: 3px;"></select>
+            <label for="doorsCount">Doors:</label>
+            <input type="number" id="doorsCount" value="0" min="0" max="59" step="1" style="width: 80px; padding: 3px;">
+        </div>
     </div>
     <div>
         <textarea id="bpInput" placeholder="input DSA here"></textarea>
@@ -73,7 +79,7 @@ title: DSA to printer config
 </script>
 
 <script type="module">
-    import { decode, encode, Item, BuildCmd, ConfigCmd } from "https://cdn.jsdelivr.net/npm/dsabp-js@latest/dist/browser/esm/index.js";
+    import { decode, encode, Item, BuildCmd, ConfigCmd, BuildBits } from "https://cdn.jsdelivr.net/npm/dsabp-js@latest/dist/browser/esm/index.js";
 
     const bpInput = document.getElementById('bpInput');
     const outDsa = document.getElementById('outDsa');
@@ -81,146 +87,57 @@ title: DSA to printer config
     const statsBody = document.getElementById('statsBody');
     const resultsDiv = document.getElementById('results');
     const outputContainer = document.getElementById('outputContainer');
+    const configSelect = document.getElementById('configSelect');
     
     const IMG_BASE_URL = "https://test.drednot.io/img/";
-    
-    const CONFIG_DSA = "DSA:zZhbSxtBFMfP7GZnN7FJfVBbGyil0CvoQ61RqJUWek2w+g2k2FgCWsH6AcbXgLIL4qdTCqW1dyiFQgtCuzG7mfNwwnjgBHxKsiS//Gf+5zYTg1kyS3Gs9goxQJLEYBbMojlK3wCYT53Piyevau9x+qhdXm2tbTU3l1c23qy2XkPsJe1z2aPWVnP9LaQ/2IekXe5+YXlt4+Wr5ibEgYLhkd3dpPMPcyVzzAL+JoBeqIZHdrrAG1wgpbCQKrycKbxQFABqzy7Z1KtM4j+CCIFd81WJNeuwJ1GOBKVUmjqj2u4ytZkjoIxAwXeNa8QPAqiQszUJZwEFXzliAr9R+aZVDziVKXxyOuB2pFybqCXW7IedDN45AV7kAc0XoPOtkis0L2aZEn9RZdBTqCaMM4nvqLKFdvEW0xegfdGWGEj4ojQqhI2qRHQHlnifK/EzKVGpHDjO20XY1oom9nbRPDvPi8Zj6Bc7OfH5NI/41eV0MVv1o9MBA4oXenYXTX2K6cshVXVQXaxwjT5wGF1l1oh90hXUXDwJoA7tHGLq08LESxIJHWip1oxIcF1kbBiMtpvcsYGOlQKeCGckSitY4mQkECshltjgtTzzHhxDq89MkL/QbxLJ6+DDIaEE4caMkwQFkZgZjLaInWsfHU7MlMTCuTvBVSTCGeeHzx2D/zja+rxEuVe+XbJp1JgSfzrOEpMiLQ4VwlDkcKKkajQiwVgk0T8Go+32GdY2z9RmvoPjPmaUGyQfyMHKAu8xDzZK9WsccxlxSCIxfHywWZgVupDJJd4Rqaj4EuppWZr4oChLFNR2RSTlBqOtJqINHz0mOsGSJP8B";
 
-    const PRINTER_MAPPING = {
-        [Item.RES_FLUX.id]: {
-            maxStack: 16,
-            injector: { x: 74, y: 51 },
-            timer1: { x: 74, y: 53 }
-        },
-        [Item.BLOCK_HYPER_RUBBER.id]: {
-            maxStack: 16,
-            injector: { x: 78, y: 56 },
-            timer1: { x: 75, y: 56 },
-            timer2: { x: 77, y: 56 }
-        },
-        [Item.LOADER_NEW.id]: {
-            maxStack: 1,
-            injector: { x: 73, y: 53 },
-            timer1: { x: 74, y: 55 },
-            timer2: { x: 75, y: 54}
-        },
-        [Item.PUSHER.id]: {
-            maxStack: 1,
-            injector: { x: 74, y: 25 },
-            timer1: { x: 74, y: 27 },
-            timer2: { x: 75, y: 27}
-        },
-        [Item.BLOCK_LOGISTICS_RAIL.id]: {
-            maxStack: 16,
-            injector: { x: 72, y: 15 },
-            timer1: { x: 71, y: 13 }
-        },
-        [Item.FABRICATOR_ENGINEERING.id]: {
-            maxStack: 1,
-            injector: { x: 65, y: 11 },
-            timer1: { x: 64, y: 9 }
-        },
-        [Item.FABRICATOR_MUNITIONS.id]: {
-            maxStack: 1,
-            injector: { x: 62, y: 10 },
-            timer1: { x: 62, y: 8 }
-        },
-        [Item.TURRET_BURST.id]: {
-            maxStack: 1,
-            injector: { x: 59, y: 10 },
-            timer1: { x: 60, y: 10 },
-            timer2: { x: 61, y: 10}
-        },
-        [Item.TURRET_AUTO.id]: {
-            maxStack: 1,
-            injector: { x: 55, y: 10 },
-            timer1: { x: 54, y: 8 }
-        },
-        [Item.BLOCK_ITEM_NET.id]: {
-            maxStack: 16,
-            injector: { x: 54, y: 10 },
-            timer1: { x: 52, y: 10 }
-        },
-        [Item.BLOCK_LADDER.id]: {
-            maxStack: 16,
-            injector: { x: 51, y: 10 },
-            timer1: { x: 50, y: 10 }
-        },
-        [Item.EXPANDO_BOX.id]: {
-            maxStack: 1,
-            injector: { x: 46, y: 10 },
-            timer1: { x: 45, y: 10 },
-            timer2: { x: 46, y: 8}
-        },
-        [Item.ITEM_EJECTOR.id]: {
-            maxStack: 1,
-            injector: { x: 41, y: 10 },
-            timer1: { x: 42, y: 8 }
-        },
-        [Item.RECYCLER.id]: {
-            maxStack: 1,
-            injector: { x: 39, y: 10 },
-            timer1: { x: 40, y: 10 }
-        },
-        [Item.THRUSTER.id]: {
-            maxStack: 1,
-            injector: { x: 37, y: 10 },
-            timer1: { x: 38, y: 10 }
-        },
-        [Item.FLUID_TANK.id]: {
-            maxStack: 1,
-            injector: { x: 34, y: 10 },
-            timer1: { x: 32, y: 8 }
-        },
-        [Item.DOOR.id]: { // not that cogg will ever support it lmfao but yeah it's here just in case
-            maxStack: 1,
-            injector: { x: 27, y: 10 },
-            timer1: { x: 26, y: 10 }
-        },
-        [Item.BLOCK.id]: {
-            maxStack: 16,
-            injector: { x: 25, y: 10 },
-            timer1: { x: 24, y: 10 },
-            timer2: { x: 23, y: 9}
-        },
-        [Item.BLOCK_WALKWAY.id]: {
-            maxStack: 16,
-            injector: { x: 21, y: 10 },
-            timer1: { x: 22, y: 8 }
-        },
-        [Item.ITEM_HATCH.id]: {
-            maxStack: 1,
-            injector: { x: 14, y: 10 },
-            timer1: { x: 13, y: 8 },
-            timer2: { x: 14, y: 8}
-        },
-        [Item.SHIELD_PROJECTOR.id]: {
-            maxStack: 1,
-            injector: { x: 11, y: 10 },
-            timer1: { x: 10, y: 10 }
-        },
-        [Item.BLOCK_ICE_GLASS.id]: {
-            maxStack: 16,
-            injector: { x: 9, y: 10 },
-            timer1: { x: 8, y: 10 }
-        },
-        [Item.MUNITIONS_SUPPLY_UNIT.id]: {
-            maxStack: 1,
-            injector: { x: 6, y: 10 },
-            timer1: { x: 7, y: 10 }
-        },
-        [Item.SHIELD_GENERATOR.id]: {
-            maxStack: 1,
-            injector: { x: 5, y: 10 },
-            timer1: { x: 4, y: 10 }
-        },
-        [Item.TURRET_REMOTE.id]: {
-            maxStack: 1,
-            injector: { x: 3, y: 10 },
-            timer1: { x: 2, y: 10 },
-            timer2: { x: 3, y: 8 }
-        }
-    };
+    const PRINTER_CONFIGS = [
+        {
+            name: "NEM0's Printer",
+            dsa: "DSA:rZdLaxNRFMfPmXcnJo5QHzUgIqi4sIuWtoIPKoitCbVduymiqQRqC7VrmerMJpA4A+JH8IP4ORRBtL5BhEILhfbO5M60i8zJuSGrJEP4zf88/ueeG0GwFCxFEb6djwBa5SfrayvNZ8ur64+fNjYgQh28rfdGpx23yivN1c3GxnL3HxBpceuEfNTcbDx/AVH4DgDiOI4gqE/7+7GA3u8FNRG80U6Hg4SEmSJvuQQRTEQ28UASL1FEzUZvtM0k7kji1S7xTZKBhWDR3xZfAPzvye/F9LPgbcYgGTk7Qui3bPAmVImu0P8ahWQwxJPC8mnIF/s/64jaGJVtS6F+3yRypk/9LCYx/JO17WlJ7GkF0xJWqCGTmVvBlsy5oir5a6rIoDaVMOE8JRe0rnMVW6DskDYboE1vk0k1FFQez8AMIRMthQa1UCLnT9IDpsRtp5+5yoc3CKQu+umCcuALFBL5KiH8K5HTpI1UBusnSaxQRDE9uMRwPw/7wdRwpke4lyPvlugW4sf9USKrZNw22ztH5dYoop4S22puPEceozY/kduZxsuUv5MBt/VS2d+GYJ4qTqU1wBi6IpBm8SAW09J/pMoMalUqmxZWuNn8lUU+QmVTHM38bexIZsUZknkQJbHk0lOI751/kjju0hq5oxLC35I46Q7L37uSeMelFy5HuSkn+iy13BU0/JL1j05GDcDPY6Zx3OlDVJ5qOkU0bIXKfJbEa+SOkcygD6ga93W6fwbIZFCvDmn4OpkRLfrIUbjDfJXEmy490tgaIdNo9jUiV+MPSRyjdmrU+Dv1sdrMldOdOphNb1VwUfToK4TZ4muQiE/9hnXGSW9YHqTZEeh7vdC2hgYzzWZ+FE0SFrCTNbulKW+b9WTbjOND",
+            mapping: {
+                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } },
+                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 78, y: 56 }, timer1: { x: 75, y: 56 }, timer2: { x: 77, y: 56 } },
+                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 73, y: 53 }, timer1: { x: 74, y: 55 }, timer2: { x: 75, y: 54} },
+                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 74, y: 25 }, timer1: { x: 74, y: 27 }, timer2: { x: 75, y: 27} },
+                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 72, y: 15 }, timer1: { x: 71, y: 13 } },
+                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 65, y: 11 }, timer1: { x: 64, y: 9 } },
+                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 62, y: 10 }, timer1: { x: 62, y: 8 } },
+                [Item.TURRET_BURST.id]: { maxStack: 1, injector: { x: 59, y: 10 }, timer1: { x: 60, y: 10 }, timer2: { x: 61, y: 10} },
+                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 55, y: 10 }, timer1: { x: 54, y: 8 } },
+                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 54, y: 10 }, timer1: { x: 52, y: 10 } },
+                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 51, y: 10 }, timer1: { x: 50, y: 10 } },
+                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 46, y: 10 }, timer1: { x: 45, y: 10 }, timer2: { x: 46, y: 8} },
+                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 41, y: 10 }, timer1: { x: 42, y: 8 } },
+                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 39, y: 10 }, timer1: { x: 40, y: 10 } },
+                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 37, y: 10 }, timer1: { x: 38, y: 10 } },
+                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 34, y: 10 }, timer1: { x: 32, y: 8 } },
+                [Item.DOOR.id]: { maxStack: 1, injector: { x: 27, y: 10 }, timer1: { x: 26, y: 10 } },
+                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 25, y: 10 }, timer1: { x: 24, y: 10 }, timer2: { x: 23, y: 9} },
+                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 21, y: 10 }, timer1: { x: 22, y: 8 } },
+                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 14, y: 10 }, timer1: { x: 13, y: 8 }, timer2: { x: 14, y: 8} },
+                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 11, y: 10 }, timer1: { x: 10, y: 10 } },
+                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 9, y: 10 }, timer1: { x: 8, y: 10 } },
+                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 6, y: 10 }, timer1: { x: 7, y: 10 } },
+                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 5, y: 10 }, timer1: { x: 4, y: 10 } },
+                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 3, y: 10 }, timer1: { x: 2, y: 10 }, timer2: { x: 3, y: 8 } }
+            }
+        }/*,
+        {
+            name: "placeholder -- don't use",
+            dsa: "DSA:nope",
+            mapping: {
+                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } }
+            }
+        }*/
+    ];
+
+    PRINTER_CONFIGS.forEach((cfg, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = cfg.name;
+        configSelect.appendChild(opt);
+    });
 
     let currentCounts = new Map();
     let currentBuildCmdCount = 0;
@@ -269,10 +186,54 @@ title: DSA to printer config
     });
 
     processBtn.addEventListener('click', async () => {
-        await processBlueprint(currentCounts);
+        await process(currentCounts);
     });
 
-    function calculateLoaderSettings(targetQty, hasTimer2, maxStack) {
+    function decompress(bp) { // blueprints are compressed for space efficiency but it's not too handy for modifying loaders in bulk... that's why we decompress it.
+        const newCommands = [];
+        let latestConfig = null;
+
+        for (const cmd of bp.commands) {
+            if (cmd instanceof ConfigCmd) {
+                latestConfig = cmd;
+                newCommands.push(cmd.clone());
+            } else if (cmd instanceof BuildCmd) {
+                const itemId = cmd.item?.id ?? cmd.item;
+                const isLoader = (itemId === Item.LOADER_NEW.id);
+
+                if (cmd.bits && typeof cmd.bits.isZero === 'function' && !cmd.bits.isZero()) {
+                    const bitsArray = cmd.bits.toArray();
+                    for (let i = 0; i < bitsArray.length; i++) {
+                        if (bitsArray[i]) {
+                            const singleCmd = cmd.clone();
+                            singleCmd.x += i;
+                            singleCmd.bits = new BuildBits(1n); 
+
+                            if (isLoader && latestConfig) {
+                                newCommands.push(latestConfig.clone());
+                            }
+                            newCommands.push(singleCmd);
+                        }
+                    }
+                } else {
+                    if (isLoader) {
+                        const lastCmd = newCommands[newCommands.length - 1];
+                        if (!(lastCmd instanceof ConfigCmd) && latestConfig) {
+                            newCommands.push(latestConfig.clone());
+                        }
+                    }
+                    newCommands.push(cmd.clone());
+                }
+            } else {
+                newCommands.push(cmd);
+            }
+        }
+
+        bp.commands = newCommands;
+        return bp;
+    }
+
+    function calculate(targetQty, hasTimer2, maxStack) {
         if (targetQty <= 0) return { S: 0, T: 0, t1Ms: 0, t2Ms: 0, error: 0 };
 
         const MAX_PULSES_SINGLE = 60 - 1; // 59
@@ -322,7 +283,7 @@ title: DSA to printer config
             if (pulses1 >= 60) {
                 let divideBy = Math.ceil(pulses1 / 60);
                 const allowed = [1, 2, 4, 8, 16];
-                while(!allowed.includes(divideBy) && divideBy <= 16) { // break if divideBy is a power of 2
+                while(!allowed.includes(divideBy) && divideBy <= 16) { 
                     divideBy++;
                 }
                 
@@ -347,10 +308,13 @@ title: DSA to printer config
         return { S: bestS, T: bestT, t1Ms, t2Ms, t1SL, error: minOverfill, injectMs: inMS };
     }
 
-    async function processBlueprint(counts) {
-        let bp = await decode(CONFIG_DSA);
+    async function process(counts) {
+        const selectedIndex = parseInt(configSelect.value, 10);
+        const activeConfig = PRINTER_CONFIGS[selectedIndex];
+        let bp = await decode(activeConfig.dsa);
         console.log(bp);
-        
+        bp = decompress(bp);
+        console.log(bp);
         const configMap = new Map();
         let currentConfig = null;
         
@@ -366,7 +330,7 @@ title: DSA to printer config
         
         let warnings = [];
 
-        for (const [itemIdString, mapping] of Object.entries(PRINTER_MAPPING)) {
+        for (const [itemIdString, mapping] of Object.entries(activeConfig.mapping)) {
             const itemId = parseInt(itemIdString);
             let qty = counts.get(itemId) || 0;
             const itemObj = Item.getById(itemId);         
@@ -402,9 +366,7 @@ title: DSA to printer config
                 continue;
             }
             
-            
-            const calc = calculateLoaderSettings(qty, !!mapping.timer2, mapping.maxStack || 16);
-            console.log(calc);
+            const calc = calculate(qty, !!mapping.timer2, mapping.maxStack || 16);
             if (calc.error > 0) {
                 warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
             }
@@ -415,14 +377,16 @@ title: DSA to printer config
                 
             if (timer1Config) {
                 timer1Config.loader.cycleTime = calc.t1Ms;
-                timer1Config.loader.cycleTime = 16;
+                timer1Config.loader.stackLimit = 16;
+                timer1Config.loader.waitForStackLimit = true;
             }
             if (timer2Config) {
+                timer2Config.loader.waitForStackLimit = true;
+                timer1Config.loader.waitForStackLimit = false;
                 timer1Config.loader.stackLimit = calc.t1SL;
                 timer2Config.loader.stackLimit = 16;
                 timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
             }
-            console.log(qty, itemName, calc);
         }
         
         try {
@@ -455,8 +419,6 @@ title: DSA to printer config
 
         const sorted = itemsArray.sort((a, b) => b[1] - a[1]);
         
-        const displayTotal = total + fluxQty + doorsQty;
-
         statsBody.innerHTML = sorted.map(([id, qty]) => {
             const item = Item.getById(id);
             const img = item?.image || item?.buildInfo?.[0]?.image;
@@ -479,6 +441,13 @@ title: DSA to printer config
 
         if (currentBlueprint) {
             render(currentCounts, Array.from(currentCounts.values()).reduce((a, b) => a + b, 0));
+        }
+    });
+
+    configSelect.addEventListener('change', () => {
+        if (currentBlueprint) {
+             processBtn.disabled = false;
+             outputContainer.style.display = 'none';
         }
     });
 </script>
