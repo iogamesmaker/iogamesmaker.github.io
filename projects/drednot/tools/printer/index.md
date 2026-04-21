@@ -181,7 +181,7 @@ title: DSA to printer config
             processBtn.disabled = false;
         } catch (e) {
             console.error("error:", e);
-            alert("Error happened, look in the browser console and send it to @iogamesplayer on Discord.");
+            alert("probably an invalid blueprint");
         }
     });
 
