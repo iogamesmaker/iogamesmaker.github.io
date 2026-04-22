@@ -113,7 +113,7 @@ title: DSA to printer config
                 [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 37, y: 10 }, timer1: { x: 38, y: 10 } },
                 [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 34, y: 10 }, timer1: { x: 32, y: 8 } },
                 [Item.DOOR.id]: { maxStack: 1, injector: { x: 27, y: 10 }, timer1: { x: 26, y: 10 } },
-                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 25, y: 10 }, timer1: { x: 24, y: 10 }, timer2: { x: 23, y: 9} },
+                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 25, y: 10 }, timer1: { x: 23, y: 9 }, timer2: { x: 24, y: 10} },
                 [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 21, y: 10 }, timer1: { x: 22, y: 8 } },
                 [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 14, y: 10 }, timer1: { x: 13, y: 8 }, timer2: { x: 14, y: 8} },
                 [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 11, y: 10 }, timer1: { x: 10, y: 10 } },
