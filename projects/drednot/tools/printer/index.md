@@ -4,8 +4,8 @@ title: DSA to printer config
 ---
 
 ## How to use
-- Build a printer design. Press to copy the DSA for the <a href="#" id="copyleft">left side</a>, or the <a href="#" id="copyright">right side</a> of NEM0's design. Truly one of the designs of all time
-    - <small>i made some changes and fixes to NEM0's design, 100% config compatible with the original.</small>
+- Build a printer design. <!--Press to copy the DSA for the <a href="#" id="copyleft">left side</a>, or the <a href="#" id="copyright">right side</a> of NEM0's design. Truly one of the designs of all time-->
+<!--     - <small>i made some changes and fixes to NEM0's design, 100% config compatible with the original.</small> -->
 - Put your ship DSA in the container below
 - Enter the number of doors you need
     - <small>doors aren't stored in the DSA but they are supported on NEM0's printer design.</small>
