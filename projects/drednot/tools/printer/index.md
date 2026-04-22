@@ -297,7 +297,7 @@ title: DSA to printer config
             t1Ms = Math.min(1200, Math.max(20, t1Ms));
             t2Ms = Math.min(1200, Math.max(30, t2Ms));
             
-            if(targetQty === 1) inMS = 40;
+            if(targetQty === 1) inMS = 35;
         } else {
             let pulses = Math.min(bestT, MAX_PULSES_SINGLE);
             t1Ms = 30 + 20 * (pulses - 1);
