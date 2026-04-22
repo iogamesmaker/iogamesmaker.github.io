@@ -251,7 +251,7 @@ title: DSA to printer config
             if (times > maxAllowedPulses) continue;
             if (times < MIN_PULSES) times = MIN_PULSES;
 
-            const overfill = (stackSize * times) - targetQty;
+            const overfill = (stackSize * times) - (targetQty + 1);
 
             if (bestS === -1 || overfill < minOverfill || (overfill === minOverfill && stackSize > bestS)) {
                 minOverfill = overfill;
@@ -265,15 +265,15 @@ title: DSA to printer config
             const maxPulses = hasTimer2 ? MAX_PULSES_DUAL : MAX_PULSES_SINGLE;
             bestT = maxPulses;
         }
-        minOverfill = Math.abs((bestS * bestT) - targetQty);
+        minOverfill = Math.abs((bestS * bestT) - (targetQty + 1));
         
         let t1Ms, t2Ms;
         let t1SL = 16;
         let inMS = 20;
 
         if (hasTimer2) {
-            let pulses2 = Math.min(bestT, MAX_PULSES_SINGLE);
-            let pulses1 = bestT - pulses2;
+            let pulses1 = Math.min(bestT, MAX_PULSES_DUAL);
+            let pulses2 = bestT - pulses1;
             
             if (pulses2 < 1) {
                 pulses2 = 1;
@@ -361,13 +361,13 @@ title: DSA to printer config
                 if (!injectorConfig.loader) injectorConfig.loader = {};
                 injectorConfig.loader.requireOutputInventory = true;
                 
-                if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 20;
+                if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 200;
                 if (timer2Config && timer2Config.loader) timer2Config.loader.cycleTime = 20;
                 continue;
             }
             
             const calc = calculate(qty, !!mapping.timer2, mapping.maxStack || 16);
-            if (calc.error > 0) {
+            if (calc.error != 1) {
                 warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
             }
 
