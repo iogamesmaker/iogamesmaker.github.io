@@ -171,6 +171,7 @@ class EconLogScourer:
         message = (
             "This tool is shareware! If you paid for this, you got scammed.\nFeel free to modify this tool, and redistribute it. Just don't make too much flux off of my work.'\n"
             "Credit to @iogamesplayer\n"
+            "DOWNLOADING DATA TAKES LONG!! MIGHT NEED TO RESTART AFTER IT FINISHED OR DELETE A BROKEN DAY IF IT DIDNT WORK FIRST TRY"
             "Small disclaimer: this is vibecoded garbage that may break at any moment.\n"
         )
         ttk.Label(frame, text=message, wraplength=350, justify="center").pack(pady=(0, 10))
