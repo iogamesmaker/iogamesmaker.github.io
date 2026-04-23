@@ -156,20 +156,23 @@ title: DSA to printer config
         try {
             const blueprint = await decode(val);
             currentBlueprint = blueprint;
-            currentBuildCmdCount = blueprint.commands.filter(cmd => cmd instanceof BuildCmd).length;
+            
+            currentBuildCmdCount = 0; 
             currentCounts.clear();
             let total = 0;
 
             blueprint.commands.forEach(cmd => {
                 if (cmd instanceof BuildCmd) {
+                    let amount = 1;
+
+                    if (cmd.bits) {
+                        amount = cmd.bits.int.toString(2).match(/1/g)?.length || 0;
+                    }
+
+                    currentBuildCmdCount += amount;
+
                     const id = cmd.item?.id ?? cmd.item;
                     if (id !== 0) {
-                        let amount = 1;
-
-                        if (cmd.bits && typeof cmd.bits.int === 'bigint') {
-                            amount = cmd.bits.int.toString(2).match(/1/g)?.length || 0;
-                        }
-
                         currentCounts.set(id, (currentCounts.get(id) || 0) + amount);
                         total += amount;
                     }
