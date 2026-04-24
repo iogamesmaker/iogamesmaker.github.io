@@ -14,7 +14,6 @@ Summary: just use dsa.fr.to lol
 <style>
     .container { max-width: 1200px; display: flex; flex-direction: column; gap: 20px; }
     
-
     .workspace { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
     .panel-header { padding: 12px; background: #eee; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
     .scroll-box { overflow-y: auto; flex-grow: 1; padding: 10px; }
@@ -25,14 +24,15 @@ Summary: just use dsa.fr.to lol
 
     .sortable-list { list-style: none; padding: 0; margin: 0; }
     .order-item { 
-        display: flex; align-items: left; padding: 8px; background: #fff; 
-        border: 1px solid #ddd; margin-bottom: 4px; cursor: grab; 
+        display: flex; align-items: center; padding: 8px; background: #fff; 
+        border: 1px solid #ddd; margin-bottom: 4px; 
     }
-    .order-item:active { cursor: grabbing; }
+    .drag-handle { cursor: grab; padding: 0 10px; color: #ccc; }
+    .drag-handle:active { cursor: grabbing; }
     .order-item.ghost { opacity: 0.3; background: #ddd; }
     .order-info { flex-grow: 1; margin-left: 10px; }
     
-    .btn { color: black; border-color: #ddd; }
+    .btn { color: black; border-color: #ddd; cursor: pointer; }
 </style>
 
 <div class="container">
@@ -127,7 +127,6 @@ Summary: just use dsa.fr.to lol
             const id = u.build.item.id || u.build.item;
             if (id !== 0) {
                 let amount = 1;
-                // Handle compressed blocks (BuildBits)
                 if (u.build.bits && typeof u.build.bits.int === 'bigint') {
                     amount = u.build.bits.int.toString(2).match(/1/g)?.length || 0;
                 }
@@ -196,15 +195,24 @@ Summary: just use dsa.fr.to lol
                     <strong>${data.label}</strong>
                     ${data.displayQty > 1 ? `<span class="badge">x${data.displayQty}</span>` : ''}
                 </div>
-                <span style="color:#ccc">⠿</span>
+                <button class="remove-btn">X</button>
+                <span class="drag-handle">⠿</span>
             `;
             el._units = data.units;
+
+            el.querySelector('.remove-btn').addEventListener('click', () => {
+                atomicUnits = atomicUnits.filter(u => !data.units.includes(u));
+                renderLists();
+                syncToTextarea();
+            });
+
             buildOrderList.appendChild(el);
         });
 
         new Sortable(buildOrderList, {
             animation: 150,
             ghostClass: 'ghost',
+            handle: '.drag-handle',
             onEnd: () => {
                 const newOrder = [];
                 buildOrderList.querySelectorAll('.order-item').forEach(el => newOrder.push(...el._units));
@@ -231,7 +239,8 @@ Summary: just use dsa.fr.to lol
 
         currentBP.commands = newCmds;
         bpInput.value = "DSA:" + await encode(currentBP);
+        console.log("NEW", currentBP);
     }
 </script>
 
-Hail HYDEATH
+HAIL HYDEATH
