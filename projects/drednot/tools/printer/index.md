@@ -295,7 +295,7 @@ title: DSA to printer config
             }
             
             t1Ms = 20 + 20 * (pulses1 - 1);
-            t2Ms = 30 + 20 * (pulses2 - 1);
+            t2Ms = 35 + 20 * (pulses2 - 1);
 
             t1Ms = Math.min(1200, Math.max(20, t1Ms));
             t2Ms = Math.min(1200, Math.max(30, t2Ms));
