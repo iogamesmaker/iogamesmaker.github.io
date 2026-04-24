@@ -105,15 +105,15 @@ Summary: just use dsa.fr.to lol
         atomicUnits = [];
         if (!currentBP) return;
 
-        let activeConfigs = [];
+        let activeConfig = null;
 
         currentBP.commands.forEach(cmd => {
             if (cmd instanceof ConfigCmd) {
-                activeConfigs.push(cmd);
+                activeConfig = cmd;
             } else if (cmd instanceof BuildCmd) {
                 atomicUnits.push({
                     build: cmd,
-                    configs: [...activeConfigs] 
+                    config: activeConfig 
                 });
             }
         });
@@ -217,9 +217,15 @@ Summary: just use dsa.fr.to lol
     async function syncToTextarea() {
         if (!currentBP) return;
         const newCmds = [];
+        let lastConfig = null;
         
         atomicUnits.forEach(unit => {
-            unit.configs.forEach(c => newCmds.push(c));
+            if (unit.config) {
+                if (!lastConfig || !unit.config.equals(lastConfig)) {
+                    newCmds.push(unit.config);
+                    lastConfig = unit.config;
+                }
+            }
             newCmds.push(unit.build);
         });
 

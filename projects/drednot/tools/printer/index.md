@@ -167,6 +167,7 @@ title: DSA to printer config
 
                     if (cmd.bits) {
                         amount = cmd.bits.int.toString(2).match(/1/g)?.length || 0;
+                        console.log(amount)
                     }
 
                     currentBuildCmdCount += amount;
@@ -179,6 +180,7 @@ title: DSA to printer config
                 }
             });
 
+            console.log(total);
             render(currentCounts, total);
             resultsDiv.style.display = 'block';
             processBtn.disabled = false;
@@ -300,7 +302,7 @@ title: DSA to printer config
             t1Ms = Math.min(1200, Math.max(20, t1Ms));
             t2Ms = Math.min(1200, Math.max(30, t2Ms));
             
-            if(targetQty === 1) inMS = 35;
+            if(targetQty <= maxStack) inMS = 35;
         } else {
             let pulses = Math.min(bestT, MAX_PULSES_SINGLE);
             t1Ms = 30 + 20 * (pulses - 1);
@@ -377,6 +379,7 @@ title: DSA to printer config
             injectorConfig.loader.requireOutputInventory = false;
             injectorConfig.loader.stackLimit = calc.S;
             injectorConfig.loader.cycleTime = calc.injectMs;
+            console.log(calc)
                 
             if (timer1Config) {
                 timer1Config.loader.cycleTime = calc.t1Ms;
