@@ -125,14 +125,38 @@ title: DSA to printer config
                 [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 5, y: 10 }, timer1: { x: 4, y: 10 } },
                 [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 3, y: 10 }, timer1: { x: 2, y: 10 }, timer2: { x: 3, y: 8 } }
             }
-        }/*,
+        },
         {
-            name: "placeholder -- don't use",
-            dsa: "DSA:nope",
+            name: "NEM0: Burst = acute",
+            dsa: "DSA:rZdLaxNRFMfPmXcnJo5QHzUgIqi4sIuWtoIPKoitCbVduymiqQRqC7VrmerMJpA4A+JH8IP4ORRBtL5BBEGhYO9M7ky7yJw5N2SVZAi/+Z/H/9xzIwhWgpUowpeLEUCn+mBzY639aHV98/7D1hZEqIO389rodeNOda29vt3aWu3/AyIt7hyRj9rbrcdPIApfAUAcxxEEzVl/LxbQ24OgJoI33utxkJAwU+Q1lyCCicgm/pfEcxRRs9Eb7zKJfyTxYp/4IsnAUrDs74ovAP7n5Pdy+lnwNmOYjJwcI/RbNnhTqkRX6H+OQjIY4klh+TTki/2ddURjgsq2pVC/TxI5V1I/i0kMf2Rte1wSB1rBtIQVGshk5lawJXOhqEr+hioyaMwkTDhNyQWt71zFFqg6pM2GaNPrZFINBZWHMzBHyERLoUEtlMjFo/SAqXDb6Wuu8u4VAqmLfjqjHPgShUS+Sgh/SuQsaSOVwfpOEmsUUUwPLjHcy8O+MzOa6RH+y5E3K3QL8eN+K5F1Mm6b7Z2DcmsUUU+JXTU3niKPUZufyN1M43nK38mA23mq7G9DMI8Vp9IaYgxdEEizeBCLaenfU2UGjTqVTQtr3Gx+yyIfo7Ipjmb+NnYgs+aMyDyIklhx6SnE984vSZx0aY3cUQnhd0mcdkfl77+SeKNkBeUujOGHrNo6qRGAH3VW60mq1oatEPV7SbxUplF5qukOtREkE+MNqsZ9ma72EJkMmvWS/Vp5+E6Navg6mREt+shRuMN8lMSrLj3S2Boh02iWGpGr8YskTlA7NWr8nfpQtReq6U4dzKe3KjgrevQZwnzxNUjEp37DOuGkNywP0uwI9K1BaFtDg5lmMz+KpglT2cma3dGUt81msm3G8T4=",
             mapping: {
-                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } }
+                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } },
+                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 78, y: 56 }, timer1: { x: 75, y: 56 }, timer2: { x: 77, y: 56 } },
+                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 73, y: 53 }, timer1: { x: 74, y: 55 }, timer2: { x: 75, y: 54} },
+                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 74, y: 25 }, timer1: { x: 74, y: 27 }, timer2: { x: 75, y: 27} },
+                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 72, y: 15 }, timer1: { x: 71, y: 13 } },
+                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 65, y: 11 }, timer1: { x: 64, y: 9 } },
+                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 62, y: 10 }, timer1: { x: 62, y: 8 } },
+                [Item.TURRET_ACUTE.id]: { maxStack: 1, injector: { x: 59, y: 10 }, timer1: { x: 60, y: 10 }, timer2: { x: 61, y: 10} },
+                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 55, y: 10 }, timer1: { x: 54, y: 8 } },
+                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 54, y: 10 }, timer1: { x: 52, y: 10 } },
+                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 51, y: 10 }, timer1: { x: 50, y: 10 } },
+                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 46, y: 10 }, timer1: { x: 45, y: 10 }, timer2: { x: 46, y: 8} },
+                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 41, y: 10 }, timer1: { x: 42, y: 8 } },
+                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 39, y: 10 }, timer1: { x: 40, y: 10 } },
+                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 37, y: 10 }, timer1: { x: 38, y: 10 } },
+                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 34, y: 10 }, timer1: { x: 32, y: 8 } },
+                [Item.DOOR.id]: { maxStack: 1, injector: { x: 27, y: 10 }, timer1: { x: 26, y: 10 } },
+                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 25, y: 10 }, timer1: { x: 23, y: 9 }, timer2: { x: 24, y: 10} },
+                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 21, y: 10 }, timer1: { x: 22, y: 8 } },
+                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 14, y: 10 }, timer1: { x: 13, y: 8 }, timer2: { x: 14, y: 8} },
+                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 11, y: 10 }, timer1: { x: 10, y: 10 } },
+                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 9, y: 10 }, timer1: { x: 8, y: 10 } },
+                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 6, y: 10 }, timer1: { x: 7, y: 10 } },
+                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 5, y: 10 }, timer1: { x: 4, y: 10 } },
+                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 3, y: 10 }, timer1: { x: 2, y: 10 }, timer2: { x: 3, y: 8 } }
             }
-        }*/
+        }
     ];
 
     PRINTER_CONFIGS.forEach((cfg, idx) => {
