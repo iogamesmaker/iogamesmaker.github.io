@@ -36,10 +36,15 @@ title: DSA to printer config
 <div class="container">
     <div class="controls-row">
         <div>
-            <label for="configSelect">Printer:</label>
-            <select id="configSelect" style="width: 300px; padding: 3px;"></select>
+            <label for="config">Printer:</label>
+            <select id="config" style="width: 300px; padding: 3px;"></select>
+            <br>
+            The following settings are only supported by NEM0's printer.
+            <br>
             <label for="doorsCount">Doors:</label>
             <input type="number" id="doorsCount" value="0" min="0" max="59" step="1" style="width: 80px; padding: 3px;">
+            <label for="includePushers">include neutral pushers in DSA:</label>
+            <input type="checkbox" id="includePushers" name="includePushers">
         </div>
     </div>
     <div>
@@ -70,13 +75,13 @@ title: DSA to printer config
   document.getElementById('copyleft').addEventListener('click', function(e) {
     e.preventDefault();
     navigator.clipboard.writeText('DSA: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').then(() => {
-      alert('Copied left side to clipboard.');
+      alert('Copied LEFT side to clipboard.');
     });
   });
   document.getElementById('copyright').addEventListener('click', function(e) {
     e.preventDefault();
     navigator.clipboard.writeText('DSA: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').then(() => {
-      alert('Copied right side to clipboard.');
+      alert('Copied RIGHT side to clipboard.');
     });
   });
 </script>
@@ -90,7 +95,8 @@ title: DSA to printer config
     const statsBody = document.getElementById('statsBody');
     const resultsDiv = document.getElementById('results');
     const outputContainer = document.getElementById('outputContainer');
-    const configSelect = document.getElementById('configSelect');
+    const configSelect = document.getElementById('config');
+    const includePushers = document.getElementById('includePushers');
     
     const IMG_BASE_URL = "https://test.drednot.io/img/";
 
@@ -98,6 +104,7 @@ title: DSA to printer config
         {
             name: "NEM0's Printer",
             dsa: "DSA:rZdLaxNRFMfPmXcnJo5QHzUgIqi4sIuWtoIPKoitCbVduymiqQRqC7VrmerMJpA4A+JH8IP4ORRBtL5BBEGhYO9M7ky7yJw5N2SVZAi/+Z/H/9xzIwhWgpUowpeLEUCn+mBzY639aHV98/7D1hZEqIO389rodeNOda29vt3aWu3/AyIt7hyRj9rbrcdPIApfAUAcxxEEzVl/LxbQ24OgJoI33utxkJAwU+Q1lyCCicgm/pfEcxRRs9Eb7zKJfyTxYp/4IsnAUrDs74ovAP7n5Pdy+lnwNmOYjJwcI/RbNnhTqkRX6H+OQjIY4klh+TTki/2ddURjgsq2pVC/TxI5V1I/i0kMf2Rte1wSB1rBtIQVGshk5lawJXOhqEr+hioyaMwkTDhNyQWt71zFFqg6pM2GaNPrZFINBZWHMzBHyERLoUEtlMjFo/SAqXDb6Wuu8u4VAqmLfjqjHPgShUS+Sgh/SuQsaSOVwfpOEmsUUUwPLjHcy8O+MzOa6RH+y5E3K3QL8eN+K5F1Mm6b7Z2DcmsUUU+JXTU3niKPUZufyN1M43nK38mA23mq7G9DMI8Vp9IaYgxdEEizeBCLaenfU2UGjTqVTQtr3Gx+yyIfo7Ipjmb+NnYgs+aMyDyIklhx6SnE984vSZx0aY3cUQnhd0mcdkfl77+SeKNkBeUujOGHrNo6qRGAH3VW60mq1oatEPV7SbxUplF5qukOtREkE+MNqsZ9ma72EJkMmvWS/Vp5+E6Navg6mREt+shRuMN8lMSrLj3S2Boh02iWGpGr8YskTlA7NWr8nfpQtReq6U4dzKe3KjgrevQZwnzxNUjEp37DOuGkNywP0uwI9K1BaFtDg5lmMz+KpglT2cma3dGUt81msm3G8T4=",
+            pushers: "DSA:hZK7CsIwFIZP44UoKgh9ABEcBS2io+AmKDq7OEjVgjfaugdNQTrUBFz0OXwcZ3XuE9hYxyZOucD3ny8/YUDHdMyYduYM6JCOyDPaAJCXOI++q3Yxoiu/ONtu5tZiuts7S9MGhjTvDnqAuF+YWyvXtKeWa64dEDjnAu+XSCjwRiKODCU8aAsYapiEZbkD+uNQzZHwoAFU5BEQeXjvlDQii+NXtJIFTrfro6cHeSmPsKoFULaAI/aYqWQI6BhESDNZgk5UKXW1gbLAbj5mkweDenDnN9iQfgBV8WlBc/4B",
             mapping: {
                 [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } },
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 78, y: 56 }, timer1: { x: 75, y: 56 }, timer2: { x: 77, y: 56 } },
@@ -129,6 +136,7 @@ title: DSA to printer config
         {
             name: "NEM0: Burst = acute",
             dsa: "DSA:rZdLaxNRFMfPmXcnJo5QHzUgIqi4sIuWtoIPKoitCbVduymiqQRqC7VrmerMJpA4A+JH8IP4ORRBtL5BBEGhYO9M7ky7yJw5N2SVZAi/+Z/H/9xzIwhWgpUowpeLEUCn+mBzY639aHV98/7D1hZEqIO389rodeNOda29vt3aWu3/AyIt7hyRj9rbrcdPIApfAUAcxxEEzVl/LxbQ24OgJoI33utxkJAwU+Q1lyCCicgm/pfEcxRRs9Eb7zKJfyTxYp/4IsnAUrDs74ovAP7n5Pdy+lnwNmOYjJwcI/RbNnhTqkRX6H+OQjIY4klh+TTki/2ddURjgsq2pVC/TxI5V1I/i0kMf2Rte1wSB1rBtIQVGshk5lawJXOhqEr+hioyaMwkTDhNyQWt71zFFqg6pM2GaNPrZFINBZWHMzBHyERLoUEtlMjFo/SAqXDb6Wuu8u4VAqmLfjqjHPgShUS+Sgh/SuQsaSOVwfpOEmsUUUwPLjHcy8O+MzOa6RH+y5E3K3QL8eN+K5F1Mm6b7Z2DcmsUUU+JXTU3niKPUZufyN1M43nK38mA23mq7G9DMI8Vp9IaYgxdEEizeBCLaenfU2UGjTqVTQtr3Gx+yyIfo7Ipjmb+NnYgs+aMyDyIklhx6SnE984vSZx0aY3cUQnhd0mcdkfl77+SeKNkBeUujOGHrNo6qRGAH3VW60mq1oatEPV7SbxUplF5qukOtREkE+MNqsZ9ma72EJkMmvWS/Vp5+E6Navg6mREt+shRuMN8lMSrLj3S2Boh02iWGpGr8YskTlA7NWr8nfpQtReq6U4dzKe3KjgrevQZwnzxNUjEp37DOuGkNywP0uwI9K1BaFtDg5lmMz+KpglT2cma3dGUt81msm3G8T4=",
+            pushers: "DSA:hZK7CsIwFIZP44UoKgh9ABEcBS2io+AmKDq7OEjVgjfaugdNQTrUBFz0OXwcZ3XuE9hYxyZOucD3ny8/YUDHdMyYduYM6JCOyDPaAJCXOI++q3Yxoiu/ONtu5tZiuts7S9MGhjTvDnqAuF+YWyvXtKeWa64dEDjnAu+XSCjwRiKODCU8aAsYapiEZbkD+uNQzZHwoAFU5BEQeXjvlDQii+NXtJIFTrfro6cHeSmPsKoFULaAI/aYqWQI6BhESDNZgk5UKXW1gbLAbj5mkweDenDnN9iQfgBV8WlBc/4B",
             mapping: {
                 [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } },
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 78, y: 56 }, timer1: { x: 75, y: 56 }, timer2: { x: 77, y: 56 } },
@@ -160,6 +168,7 @@ title: DSA to printer config
         {
             name: "Mehmets Printer (thank you zombie2)",
             dsa: "DSA:rdbbSgJBGADgmT2MS+uChdEBgkApiiCIgiAIKivFpN5AojQESzAfQGm7Edx2JXqeLnuJCLroXERXBUKNhxlvdHZ2m6uFXfj4D/P/szYw9wzbhheODQAoP+KHudt6wsst/KpqHBROsrmjdL6wf5gpAhsiGArXLKdqZHP5UqaYbn8HtuRUg51XuVLm+BTY55+YdBxMTgXLjb4iQBCGLT6xQcRxligHcIxWjUu8IqKMxbPEkFaPJupRVrDc6d8TWnFJn1t8JeICS1RUH+mbG5isJKSmut2zqBCGyjecfeqyMZ2ysb7p86nUjDObL/nJfge1yXjPguLUK9ey19yH9bYZ++cc0SCTrLy9DOYXISfcxijitZJjos76HRFXRYm3RJwXJSLYEVdEiS8kxgHmhEPuoel2ZlpniJLKH+MzEQddzqMarvGdnnciToqqIyCdCbBEFfKLkIhmCgkKUiOk4TrYlscjPidqVTzQ7bPOIiUPQdJLfCTotnQXPS/dWV1Qc36IuNSJsuetqCBft2IywDJ93bSS3vp/AXUlzv5/QbwVeCP0MqvzCPTpPGQVIKUJatMvJTdFDdETIWdcRJl3v1ExImq/fdO011yGSKt8SF7P0mhziBznDw==",
+            pushers: "null",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
                 [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
@@ -187,8 +196,9 @@ title: DSA to printer config
             }
         },
         {
-            name: "Mehmet: (recycler=machine burst=acute) (zombie2)",
+            name: "Mehmet: (recycler=machine, burst=acute) (zombie2)",
             dsa: "DSA:rdbbSgJBGADgmT2MS+uChdEBgkApiiCIgiAIKivFpN5AojQESzAfQGm7Edx2JXqeLnuJCLroXERXBUKNhxlvdHZ2m6uFXfj4D/P/szYw9wzbhheODQAoP+KHudt6wsst/KpqHBROsrmjdL6wf5gpAhsiGArXLKdqZHP5UqaYbn8HtuRUg51XuVLm+BTY55+YdBxMTgXLjb4iQBCGLT6xQcRxligHcIxWjUu8IqKMxbPEkFaPJupRVrDc6d8TWnFJn1t8JeICS1RUH+mbG5isJKSmut2zqBCGyjecfeqyMZ2ysb7p86nUjDObL/nJfge1yXjPguLUK9ey19yH9bYZ++cc0SCTrLy9DOYXISfcxijitZJjos76HRFXRYm3RJwXJSLYEVdEiS8kxgHmhEPuoel2ZlpniJLKH+MzEQddzqMarvGdnnciToqqIyCdCbBEFfKLkIhmCgkKUiOk4TrYlscjPidqVTzQ7bPOIiUPQdJLfCTotnQXPS/dWV1Qc36IuNSJsuetqCBft2IywDJ93bSS3vp/AXUlzv5/QbwVeCP0MqvzCPTpPGQVIKUJatMvJTdFDdETIWdcRJl3v1ExImq/fdO011yGSKt8SF7P0mhziBznDw==",
+            pushers: "null",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
                 [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
@@ -253,7 +263,6 @@ title: DSA to printer config
 
                     if (cmd.bits) {
                         amount = cmd.bits.int.toString(2).match(/1/g)?.length || 0;
-                        console.log(amount)
                     }
 
                     currentBuildCmdCount += amount;
@@ -266,7 +275,6 @@ title: DSA to printer config
                 }
             });
 
-            console.log(total);
             render(currentCounts, total);
             resultsDiv.style.display = 'block';
             processBtn.disabled = false;
@@ -403,7 +411,7 @@ title: DSA to printer config
         const selectedIndex = parseInt(configSelect.value, 10);
         const activeConfig = PRINTER_CONFIGS[selectedIndex];
         let bp = await decode(activeConfig.dsa);
-        console.log(bp);
+
         bp = decompress(bp);
         console.log(bp);
         const configMap = new Map();
@@ -478,6 +486,18 @@ title: DSA to printer config
                 timer1Config.loader.stackLimit = calc.t1SL;
                 timer2Config.loader.stackLimit = 16;
                 timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
+            }
+        }
+        
+        if(includePushers.checked && activeConfig.pushers !== "null") {
+            try {
+                const pushers = await decode(activeConfig.pushers);
+                if (pushers && pushers.commands) {
+                    bp.commands.push(...pushers.commands);
+                }
+            } catch (e) {
+                console.error("Couldn't include the pushers ):", e);
+                alert("Encoding error with the pusher part, screenshot the browser console and send it to @iogamesplayer.");
             }
         }
         
