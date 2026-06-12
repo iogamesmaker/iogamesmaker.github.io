@@ -39,12 +39,13 @@ title: DSA to printer config
             <label for="config">Printer:</label>
             <select id="config" style="width: 300px; padding: 3px;"></select>
             <br>
+            <label for="includePushers">include neutral pushers in DSA:</label>
+            <input type="checkbox" id="includePushers" name="includePushers">
+            <br>
             The following settings are only supported by NEM0's printer.
             <br>
             <label for="doorsCount">Doors:</label>
             <input type="number" id="doorsCount" value="0" min="0" max="59" step="1" style="width: 80px; padding: 3px;">
-            <label for="includePushers">include neutral pushers in DSA:</label>
-            <input type="checkbox" id="includePushers" name="includePushers">
         </div>
     </div>
     <div>
@@ -167,8 +168,8 @@ title: DSA to printer config
         },
         {
             name: "Mehmets Printer (thank you zombie2)",
-            dsa: "DSA:rdbbSgJBGADgmT2MS+uChdEBgkApiiCIgiAIKivFpN5AojQESzAfQGm7Edx2JXqeLnuJCLroXERXBUKNhxlvdHZ2m6uFXfj4D/P/szYw9wzbhheODQAoP+KHudt6wsst/KpqHBROsrmjdL6wf5gpAhsiGArXLKdqZHP5UqaYbn8HtuRUg51XuVLm+BTY55+YdBxMTgXLjb4iQBCGLT6xQcRxligHcIxWjUu8IqKMxbPEkFaPJupRVrDc6d8TWnFJn1t8JeICS1RUH+mbG5isJKSmut2zqBCGyjecfeqyMZ2ysb7p86nUjDObL/nJfge1yXjPguLUK9ey19yH9bYZ++cc0SCTrLy9DOYXISfcxijitZJjos76HRFXRYm3RJwXJSLYEVdEiS8kxgHmhEPuoel2ZlpniJLKH+MzEQddzqMarvGdnnciToqqIyCdCbBEFfKLkIhmCgkKUiOk4TrYlscjPidqVTzQ7bPOIiUPQdJLfCTotnQXPS/dWV1Qc36IuNSJsuetqCBft2IywDJ93bSS3vp/AXUlzv5/QbwVeCP0MqvzCPTpPGQVIKUJatMvJTdFDdETIWdcRJl3v1ExImq/fdO011yGSKt8SF7P0mhziBznDw==",
-            pushers: "null",
+            dsa: "DSA:rZbdSgJBGIZn9s+lXcHC6AeCQCmKIIiCIAgqK8VE70CiNARLMC9gpe1EcNuV6Ho67CYi6MD+IzoqEGrUne1knZ3d5mhgFx7e9/u+d74xgZ7Tc6YJLywTcHpWa6MTAO0BHXq2d8LLHfSpET6onBRLR/lyZf+wUAUmlGAk2jSsRrhYKtcK1Xz/PzA5q6Han0q1wvEpMM8/ENKyEHJG1ToDiUCCMGrQETuYOEki8iGk0WhSEa8wkUfEs9SI3IqnWnEm9j8xesrDPjXxBROXSERBDGBf30LIeorrUnddiwphRLuh7NMfNqE4WPdecUHE7kmMKnqPkYJd0aRrRZH3+jXv1/yo0mcm/jlJju00q0GSoI1c88pRzG9vJlhpvMPEdVbEW0xcZEUEuI4hVsRnrHGIGHHYTY3PcZxVCEROpNf4hInDJI1owMVok2563jBxmkQUIb1GiDujZySySGpk28nhJqtuy1hlWPUSafic8QWVcPkAeqJjOkmSyPmQ6CzxMc87d9n3nTuvMGrNNyau2Cpdt6IgBdqK6RCJGWjTckrv/QJaQpLwfpHAgD5BktyMTC6qRFvUV4xcZZWgH0fkNqsIPWLknAeRp73eHGKMle0vx/aGR4jk+jvnd5bGuyGyrF8=",
+            pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
                 [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
@@ -185,7 +186,10 @@ title: DSA to printer config
                 [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 72, y: 12 }, timer1: { x: 74, y: 11 }, timer2:{ x: 73, y: 12} },
                 [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 66, y: 12 }, timer1: { x: 68, y: 11 }, timer2:{ x: 67, y: 12} },
                 [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 69, y: 12 }, timer1: { x: 71, y: 11 }, timer2:{ x: 70, y: 12} }, 
-                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12} },
+                [Item.BLOCK.id]: { maxStack: 16, 
+                                    injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12},
+                                    secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12}
+                                 },
                 [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 56, y: 12 }, timer1: { x: 54, y: 11 }, timer2:{ x: 55, y: 12} },
                 [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12} },
                 [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 77, y: 6 }, timer1: { x: 75, y: 7 }, timer2:{ x: 76, y: 6} }, 
@@ -197,8 +201,8 @@ title: DSA to printer config
         },
         {
             name: "Mehmet: (recycler=machine, burst=acute) (zombie2)",
-            dsa: "DSA:rdbbSgJBGADgmT2MS+uChdEBgkApiiCIgiAIKivFpN5AojQESzAfQGm7Edx2JXqeLnuJCLroXERXBUKNhxlvdHZ2m6uFXfj4D/P/szYw9wzbhheODQAoP+KHudt6wsst/KpqHBROsrmjdL6wf5gpAhsiGArXLKdqZHP5UqaYbn8HtuRUg51XuVLm+BTY55+YdBxMTgXLjb4iQBCGLT6xQcRxligHcIxWjUu8IqKMxbPEkFaPJupRVrDc6d8TWnFJn1t8JeICS1RUH+mbG5isJKSmut2zqBCGyjecfeqyMZ2ysb7p86nUjDObL/nJfge1yXjPguLUK9ey19yH9bYZ++cc0SCTrLy9DOYXISfcxijitZJjos76HRFXRYm3RJwXJSLYEVdEiS8kxgHmhEPuoel2ZlpniJLKH+MzEQddzqMarvGdnnciToqqIyCdCbBEFfKLkIhmCgkKUiOk4TrYlscjPidqVTzQ7bPOIiUPQdJLfCTotnQXPS/dWV1Qc36IuNSJsuetqCBft2IywDJ93bSS3vp/AXUlzv5/QbwVeCP0MqvzCPTpPGQVIKUJatMvJTdFDdETIWdcRJl3v1ExImq/fdO011yGSKt8SF7P0mhziBznDw==",
-            pushers: "null",
+            dsa: "DSA:rZbdSgJBGIZn9s+lXcHC6AeCQCmKIIiCIAgqK8VE70CiNARLMC9gpe1EcNuV6Ho67CYi6MD+IzoqEGrUne1knZ3d5mhgFx7e9/u+d74xgZ7Tc6YJLywTcHpWa6MTAO0BHXq2d8LLHfSpET6onBRLR/lyZf+wUAUmlGAk2jSsRrhYKtcK1Xz/PzA5q6Han0q1wvEpMM8/ENKyEHJG1ToDiUCCMGrQETuYOEki8iGk0WhSEa8wkUfEs9SI3IqnWnEm9j8xesrDPjXxBROXSERBDGBf30LIeorrUnddiwphRLuh7NMfNqE4WPdecUHE7kmMKnqPkYJd0aRrRZH3+jXv1/yo0mcm/jlJju00q0GSoI1c88pRzG9vJlhpvMPEdVbEW0xcZEUEuI4hVsRnrHGIGHHYTY3PcZxVCEROpNf4hInDJI1owMVok2563jBxmkQUIb1GiDujZySySGpk28nhJqtuy1hlWPUSafic8QWVcPkAeqJjOkmSyPmQ6CzxMc87d9n3nTuvMGrNNyau2Cpdt6IgBdqK6RCJGWjTckrv/QJaQpLwfpHAgD5BktyMTC6qRFvUV4xcZZWgH0fkNqsIPWLknAeRp73eHGKMle0vx/aGR4jk+jvnd5bGuyGyrF8=",
+            pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
                 [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
@@ -216,7 +220,10 @@ title: DSA to printer config
                 [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 72, y: 12 }, timer1: { x: 74, y: 11 }, timer2:{ x: 73, y: 12} },
                 [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 66, y: 12 }, timer1: { x: 68, y: 11 }, timer2:{ x: 67, y: 12} },
                 [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 69, y: 12 }, timer1: { x: 71, y: 11 }, timer2:{ x: 70, y: 12} }, 
-                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12} },
+                [Item.BLOCK.id]: { maxStack: 16, 
+                                    injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12},
+                                    secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12} // shitty solution lmao
+                                 },
                 [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 56, y: 12 }, timer1: { x: 54, y: 11 }, timer2:{ x: 55, y: 12} },
                 [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12} },
                 [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 77, y: 6 }, timer1: { x: 75, y: 7 }, timer2:{ x: 76, y: 6} }, 
@@ -404,6 +411,11 @@ title: DSA to printer config
             t2Ms = 0;
         }
         
+        let diff = t1Ms - Math.ceil(t1Ms);
+        if(diff !== 0) {
+            t1Ms = Math.ceil(t1Ms);
+        }
+        console.log("hrmrmmm",bestS,bestT,t1Ms,t2Ms, t1SL, inMS);
         return { S: bestS, T: bestT, t1Ms, t2Ms, t1SL, error: minOverfill, injectMs: inMS };
     }
 
@@ -413,7 +425,6 @@ title: DSA to printer config
         let bp = await decode(activeConfig.dsa);
 
         bp = decompress(bp);
-        console.log(bp);
         const configMap = new Map();
         let currentConfig = null;
         
@@ -430,23 +441,12 @@ title: DSA to printer config
         let warnings = [];
 
         for (const [itemIdString, mapping] of Object.entries(activeConfig.mapping)) {
+            
             const itemId = parseInt(itemIdString);
             let qty = counts.get(itemId) || 0;
             const itemObj = Item.getById(itemId);         
             const itemName = itemObj?.name || "name not found";
             
-            const injectorConfig = configMap.get(`${mapping.injector.x},${mapping.injector.y}`);
-            const timer1Config = mapping.timer1 ? configMap.get(`${mapping.timer1.x},${mapping.timer1.y}`) : null;
-            const timer2Config = mapping.timer2 ? configMap.get(`${mapping.timer2.x},${mapping.timer2.y}`) : null;
-            
-            if (!injectorConfig) {
-                console.warn(`Missing injector config at (${mapping.injector.x},${mapping.injector.y}) for ${itemName}`);
-                continue;
-            }
-            if (!timer1Config) {
-                console.warn(`Missing timer1 config at (${mapping.timer1.x},${mapping.timer1.y}) for ${itemName}`);
-                continue;
-            }
             
             if (itemId === Item.RES_FLUX.id) {
                 qty = Math.ceil(currentBuildCmdCount / 10);
@@ -456,36 +456,58 @@ title: DSA to printer config
                 qty = Math.min(59, parseInt(document.getElementById('doorsCount').value, 10) || 0);
             }
             
-            if (qty === 0) {
-                if (!injectorConfig.loader) injectorConfig.loader = {};
-                injectorConfig.loader.requireOutputInventory = true;
-                
-                if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 200;
-                if (timer2Config && timer2Config.loader) timer2Config.loader.cycleTime = 20;
-                continue;
+            const setups = [{ injector: mapping.injector, timer1: mapping.timer1, timer2: mapping.timer2 }];
+            
+            if(mapping.secondinjector) {
+                setups.push({ injector: mapping.secondinjector, timer1: mapping.secondtimer1, timer2: mapping.secondtimer2 });
+            }
+                        
+            let quantities = [];
+            if(setups.length === 2) {
+                quantities.push(Math.ceil(qty / 2));
+                quantities.push(Math.floor(qty / 2));
+            } else {
+                quantities.push(qty);
             }
             
-            const calc = calculate(qty, !!mapping.timer2, mapping.maxStack || 16);
-            if (calc.error != 1) {
-                warnings.push(`${itemName}: can't exactly eject ${qty} items. Ejecting ${calc.S * calc.T} items.`);
-            }
-
-            injectorConfig.loader.requireOutputInventory = false;
-            injectorConfig.loader.stackLimit = calc.S;
-            injectorConfig.loader.cycleTime = calc.injectMs;
-            console.log(calc)
+            for(let i = 0; i < setups.length; i++ ) {
+                const amount = quantities[i];
+                const setup = setups[i];
                 
-            if (timer1Config) {
-                timer1Config.loader.cycleTime = calc.t1Ms;
-                timer1Config.loader.stackLimit = 16;
-                timer1Config.loader.waitForStackLimit = true;
-            }
-            if (timer2Config) {
-                timer2Config.loader.waitForStackLimit = true;
-                timer1Config.loader.waitForStackLimit = false;
-                timer1Config.loader.stackLimit = calc.t1SL;
-                timer2Config.loader.stackLimit = 16;
-                timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
+                const injectorConfig = configMap.get(`${setup.injector.x},${setup.injector.y}`);
+                const timer1Config = setup.timer1 ? configMap.get(`${setup.timer1.x},${setup.timer1.y}`) : null;
+                const timer2Config = setup.timer2 ? configMap.get(`${setup.timer2.x},${setup.timer2.y}`) : null;
+                
+                if (amount === 0) {
+                    if (!injectorConfig.loader) injectorConfig.loader = {};
+                    injectorConfig.loader.requireOutputInventory = true;
+                    
+                    if (timer1Config && timer1Config.loader) timer1Config.loader.cycleTime = 200;
+                    if (timer2Config && timer2Config.loader) timer2Config.loader.cycleTime = 20;
+                    continue;
+                }
+                
+                const calc = calculate(amount, !!setup.timer2, mapping.maxStack || 16);
+                if (calc.error != 1) {
+                    warnings.push(`${itemName}: can't exactly eject ${amount} items. Ejecting ${calc.S * calc.T} items.`);
+                }
+
+                injectorConfig.loader.requireOutputInventory = false;
+                injectorConfig.loader.stackLimit = calc.S;
+                injectorConfig.loader.cycleTime = calc.injectMs;
+                    
+                if (timer1Config) {
+                    timer1Config.loader.cycleTime = calc.t1Ms;
+                    timer1Config.loader.stackLimit = 16;
+                    timer1Config.loader.waitForStackLimit = true;
+                }
+                if (timer2Config) {
+                    timer2Config.loader.waitForStackLimit = true;
+                    timer1Config.loader.waitForStackLimit = false;
+                    timer1Config.loader.stackLimit = calc.t1SL;
+                    timer2Config.loader.stackLimit = 16;
+                    timer2Config.loader.cycleTime = calc.t2Ms > 0 ? calc.t2Ms : 30;
+                }
             }
         }
         
