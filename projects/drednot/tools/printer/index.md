@@ -172,7 +172,10 @@ title: DSA to printer config
             pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
-                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
+                [Item.LOADER_NEW.id]: { maxStack: 1,
+                                        injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12},
+                                        secondinjector: { x: 23, y: 12 }, secondtimer1: { x: 21, y: 11 }, secondtimer2: { x: 22, y: 12}
+                                      },
                 [Item.PUSHER.id]: { maxStack: 1, injector: { x: 29, y: 12 }, timer1: { x: 27, y: 11 }, timer2: { x: 28, y: 12} },
                 [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 59, y: 12 }, timer1: { x: 57, y: 11 }, timer2:{ x: 58, y: 12} },
                 [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 53, y: 12 }, timer1: { x: 51, y: 11 }, timer2:{ x: 52, y: 12} },
@@ -191,7 +194,10 @@ title: DSA to printer config
                                     secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12}
                                  },
                 [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 56, y: 12 }, timer1: { x: 54, y: 11 }, timer2:{ x: 55, y: 12} },
-                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12} },
+                [Item.ITEM_HATCH.id]: { maxStack: 1,
+                                        injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12 },
+                                        secondinjector: { x: 44, y: 12 }, secondtimer1: { x: 42, y: 11 }, secondtimer2: { x: 43, y: 12 }
+                                      },
                 [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 77, y: 6 }, timer1: { x: 75, y: 7 }, timer2:{ x: 76, y: 6} }, 
                 [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 10, y: 12 }, timer1: { x: 8, y: 11 }, timer2:{ x: 9, y: 12} },
                 [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 13, y: 12 }, timer1: { x: 11, y: 11 }, timer2:{ x: 12, y: 12} },
@@ -205,7 +211,10 @@ title: DSA to printer config
             pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
             mapping: {
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
-                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12} },
+                [Item.LOADER_NEW.id]: { maxStack: 1,
+                                        injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12},
+                                        secondinjector: { x: 23, y: 12 }, secondtimer1: { x: 21, y: 11 }, secondtimer2: { x: 22, y: 12}
+                                      },
                 [Item.PUSHER.id]: { maxStack: 1, injector: { x: 29, y: 12 }, timer1: { x: 27, y: 11 }, timer2: { x: 28, y: 12} },
                 [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 59, y: 12 }, timer1: { x: 57, y: 11 }, timer2:{ x: 58, y: 12} },
                 [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 53, y: 12 }, timer1: { x: 51, y: 11 }, timer2:{ x: 52, y: 12} },
@@ -221,11 +230,14 @@ title: DSA to printer config
                 [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 66, y: 12 }, timer1: { x: 68, y: 11 }, timer2:{ x: 67, y: 12} },
                 [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 69, y: 12 }, timer1: { x: 71, y: 11 }, timer2:{ x: 70, y: 12} }, 
                 [Item.BLOCK.id]: { maxStack: 16, 
-                                    injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12},
-                                    secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12} // shitty solution lmao
+                                   injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12},
+                                   secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12} // shitty solution lmao
                                  },
                 [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 56, y: 12 }, timer1: { x: 54, y: 11 }, timer2:{ x: 55, y: 12} },
-                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12} },
+                [Item.ITEM_HATCH.id]: { maxStack: 1,
+                                        injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12 },
+                                        secondinjector: { x: 44, y: 12 }, secondtimer1: { x: 42, y: 11 }, secondtimer2: { x: 43, y: 12 }
+                                      },
                 [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 77, y: 6 }, timer1: { x: 75, y: 7 }, timer2:{ x: 76, y: 6} }, 
                 [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 10, y: 12 }, timer1: { x: 8, y: 11 }, timer2:{ x: 9, y: 12} },
                 [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 13, y: 12 }, timer1: { x: 11, y: 11 }, timer2:{ x: 12, y: 12} },
