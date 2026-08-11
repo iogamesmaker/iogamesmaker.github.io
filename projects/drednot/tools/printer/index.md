@@ -272,7 +272,7 @@ title: DSA to printer config
                 [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 78, y: 17 }, timer1: { x: 77, y: 15 } },
                 [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 76, y: 34 }, timer1: { x: 75, y: 33 } },
                 [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 54, y: 11 }, timer1: { x: 53, y: 9 } },
-                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 67, y: 40 }, timer1: { x: 67, y: 38 }
+                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 67, y: 40 }, timer1: { x: 67, y: 38 } }
 			}
 		}
     ];
