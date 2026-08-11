@@ -251,9 +251,9 @@ title: DSA to printer config
             pushers: "",
             mapping: {
                 [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 70, y: 13 }, timer1: { x: 74, y: 53 } },
-                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 42 },
+                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 42 } },
                 [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 70, y: 48 }, timer1: { x: 70, y: 46 }, timer2: { x: 71, y: 46} },
-                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 68, y: 42 }, timer1: { x: 68, y: 40 },
+                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 68, y: 42 }, timer1: { x: 68, y: 40 } },
                 [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 51, y: 8 }, timer1: { x: 50, y: 6 } },
                 [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 39, y: 7 }, timer1: { x: 37, y: 7 } },
                 [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 14, y: 9 }, timer1: { x: 13, y: 7 } },
