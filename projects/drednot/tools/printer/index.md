@@ -244,7 +244,37 @@ title: DSA to printer config
                 [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 7, y: 12 }, timer1: { x: 5, y: 11 }, timer2:{ x: 6, y: 12} },
                 [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 4, y: 12 }, timer1: { x: 2, y: 11 }, timer2: { x: 3, y: 12 } }
             }
-        }
+        },
+		{
+			name: "ILFS's Printer",
+            dsa: "DSA:rZfLSsNQEIbnJOaitljwgrpSsGoFFby8gK31jgi6FtFWCtVC7QN4qZuCJQHxOXwbFyKuFEEXgggKBW1yOm3BZGwOZ3UgLV/mzPzzz8SC4mZx07LY9bIFUArv547TmcPdbG7vIJUHCxiLnN22lct2KZzOZAup/C7/B1iKXQrVHmUKqaMTsC5vAMC2bQuKq0OnFedMdDqnD1w3xOBLExya9IKqOov0tIh8RqRqcmLCMweqD5H9ISJvUicibDNaj/AdiRGhCME3wuJKjAgRlNZDrNdlpI8gMod4FbTS6x3/IQOLZyFKIBW95VI3IROTXOxL4+45rkmSJ2O1NwwaVBoCyOkJY541RYh0FsZ4FuJRQqmaEVypC2NUrJpIrBuUriBAiR4QGe2TVHTAos93ENbpNKiIdS5yqcY0kSbwIH8hOUwKSqSt5l0iqFUrvdjZ1qqPFXC7zPVWGKxe4ZyZI0zKPe7wrV2UzzIBn10bJoCqQDvEKeM2Atz5E5HtpkiDeRB/kGiakvRVaSh3mmqwAEG+IlInrw0iwyXJ22uCbC8hx1qpLVTxTmqz0EScq19SrR6R2G1KUmhjteiXNADvkQjcXRi1qEGAdH7UK7VM3d53U/NAfiNyVKc8SfdZrAgL2QhJGn8viIwZxLBigsMqzjeKOV4qcAfBVm/1Z9MdBEk+CAaaB4FnihQB214Micwzj+voOM9nDEnfBG8Y5JRDtO1f",
+            pushers: "DSA:hZK7CsIwFIZP44UoKgh9ABEcBS2io+AmKDq7OEjVgjfaugdNQTrUBFz0OXwcZ3XuE9hYxyZOucD3ny8/YUDHdMyYduYM6JCOyDPaAJCXOI++q3Yxoiu/ONtu5tZiuts7S9MGhjTvDnqAuF+YWyvXtKeWa64dEDjnAu+XSCjwRiKODCU8aAsYapiEZbkD+uNQzZHwoAFU5BEQeXjvlDQii+NXtJIFTrfro6cHeSmPsKoFULaAI/aYqWQI6BhESDNZgk5UKXW1gbLAbj5mkweDenDnN9iQfgBV8WlBc/4B",
+            mapping: {
+                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 70, y: 13 }, timer1: { x: 74, y: 53 } },
+                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 42 },
+                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 70, y: 48 }, timer1: { x: 70, y: 46 }, timer2: { x: 71, y: 46} },
+                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 68, y: 42 }, timer1: { x: 68, y: 40 },
+                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 51, y: 8 }, timer1: { x: 50, y: 6 } },
+                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 39, y: 7 }, timer1: { x: 37, y: 7 } },
+                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 14, y: 9 }, timer1: { x: 13, y: 7 } },
+                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 52, y: 9 }, timer1: { x: 52, y: 7 } },
+                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 46, y: 7 }, timer1: { x: 44, y: 6 } },
+                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 7, y: 9 }, timer1: { x: 5, y: 7 } },
+                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 17, y: 9 }, timer1: { x: 17, y: 7 }, timer2: { x: 46, y: 8} },
+                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 20, y: 9 }, timer1: { x: 19, y: 7 } },
+                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 10, y: 9 }, timer1: { x: 9, y: 7 } },
+                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 4, y: 10 }, timer1: { x: 3, y: 7 } },
+                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 9, y: 9 }, timer1: { x: 7, y: 7 } },
+                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 42, y: 8 }, timer1: { x: 42, y: 6 }, timer2: { x: 43, y: 6} },
+                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 47, y: 8 }, timer1: { x: 47, y: 6 } },
+                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x:28, y: 25 }, timer1: { x: 37, y: 23 }, timer2: { x: 38, y: 23} },
+                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 27, y: 8 }, timer1: { x: 26, y: 6 } },
+                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 78, y: 17 }, timer1: { x: 77, y: 15 } },
+                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 76, y: 34 }, timer1: { x: 75, y: 33 } },
+                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 54, y: 11 }, timer1: { x: 53, y: 9 } },
+                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 67, y: 40 }, timer1: { x: 67, y: 38 }
+			}
+		}
     ];
 
     PRINTER_CONFIGS.forEach((cfg, idx) => {
