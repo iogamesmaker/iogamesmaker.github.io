@@ -248,7 +248,7 @@ title: DSA to printer config
 		{
 			name: "ILFS's Printer",
             dsa: "DSA:rZfLSsNQEIbnJOaitljwgrpSsGoFFby8gK31jgi6FtFWCtVC7QN4qZuCJQHxOXwbFyKuFEEXgggKBW1yOm3BZGwOZ3UgLV/mzPzzz8SC4mZx07LY9bIFUArv547TmcPdbG7vIJUHCxiLnN22lct2KZzOZAup/C7/B1iKXQrVHmUKqaMTsC5vAMC2bQuKq0OnFedMdDqnD1w3xOBLExya9IKqOov0tIh8RqRqcmLCMweqD5H9ISJvUicibDNaj/AdiRGhCME3wuJKjAgRlNZDrNdlpI8gMod4FbTS6x3/IQOLZyFKIBW95VI3IROTXOxL4+45rkmSJ2O1NwwaVBoCyOkJY541RYh0FsZ4FuJRQqmaEVypC2NUrJpIrBuUriBAiR4QGe2TVHTAos93ENbpNKiIdS5yqcY0kSbwIH8hOUwKSqSt5l0iqFUrvdjZ1qqPFXC7zPVWGKxe4ZyZI0zKPe7wrV2UzzIBn10bJoCqQDvEKeM2Atz5E5HtpkiDeRB/kGiakvRVaSh3mmqwAEG+IlInrw0iwyXJ22uCbC8hx1qpLVTxTmqz0EScq19SrR6R2G1KUmhjteiXNADvkQjcXRi1qEGAdH7UK7VM3d53U/NAfiNyVKc8SfdZrAgL2QhJGn8viIwZxLBigsMqzjeKOV4qcAfBVm/1Z9MdBEk+CAaaB4FnihQB214Micwzj+voOM9nDEnfBG8Y5JRDtO1f",
-            pushers: "DSA:hZK7CsIwFIZP44UoKgh9ABEcBS2io+AmKDq7OEjVgjfaugdNQTrUBFz0OXwcZ3XuE9hYxyZOucD3ny8/YUDHdMyYduYM6JCOyDPaAJCXOI++q3Yxoiu/ONtu5tZiuts7S9MGhjTvDnqAuF+YWyvXtKeWa64dEDjnAu+XSCjwRiKODCU8aAsYapiEZbkD+uNQzZHwoAFU5BEQeXjvlDQii+NXtJIFTrfro6cHeSmPsKoFULaAI/aYqWQI6BhESDNZgk5UKXW1gbLAbj5mkweDenDnN9iQfgBV8WlBc/4B",
+            pushers: "",
             mapping: {
                 [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 70, y: 13 }, timer1: { x: 74, y: 53 } },
                 [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 42 },
