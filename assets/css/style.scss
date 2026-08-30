@@ -1,25 +1,40 @@
 ---
 # minimal thing
 ---
+@import url('https://fonts.googleapis.com/css2?family=Fraunces&display=swap');
+
+:root { // picked from solution cordon blue cover art :)
+  --bg: #ece9d9;
+  --accent: #433269;
+  --accent-light: #ffc121;
+  --top: #fe5218;
+  --top-accent: #ffc121;
+  --text: #171717;
+}
 
 body {
   margin: 0;
-  font-family: sans-serif;
-  line-height: 1.5;
-  color: #000;
-  background: #fff
+  font-family: 'Fraunces', sans-serif;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3, h4, h5, h6, .title, b {
+	font-family: 'Fraunces', serif;
+	color: var(--accent);
 }
 
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 50px;
-  border-bottom: 1px solid #000;
+  height: 60px;
   position: sticky;
   top: 0;
-  background: #fff;
-  z-index: 100
+  background: var(--top);
+  z-index: 100;
+  box-shadow: 0 4px 0 var(--text);
 }
 
 .top-bar .title {
@@ -28,28 +43,24 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
-  border-right: 1px solid #000
-}
-
-.top-bar .title a {
-  color: #000;
-  text-decoration: none
+  border-right: 1px solid var(--text);
+  background: var(--top-accent);
 }
 
 .top-bar a {
   display: flex;
   align-items: center;
-  padding: 0 1.5rem;
+  padding: 0 1.4rem;
+  background: var(--top-accent);
   height: 100%;
-  color: #000;
-  text-decoration: none;
-  border-left: 1px solid #000;
-  border-bottom: 1px solid #000
+  color: var(--text);
+  border-left: 1px solid var(--text);
+  border-bottom: 1px solid var(--text)
 }
 
 .top-bar a:hover {
-  background: #000;
-  color: #fff
+  background: var(--bg);
+  color: var(--text)
 }
 
 .top-bar .nav-menu {
@@ -66,35 +77,37 @@ body {
 }
 
 .dropdown>a {
-  padding: 0 10px;
-  color: #000;
-  text-decoration: none
+  color: var(--text);
 }
 
 .dropdown .dropdown-content {
   display: none;
   position: absolute;
-  top: 50px;
-  right: 0;
-  background: #fff;
-  border: 1px solid #000;
+  top: 60px;
+  right: -2px;
+  background: var(--top-accent);
+  border: 1px solid var(--text);
   border-bottom: 0px;
   border-left: 0px;
-  min-width: 150px;
+  min-width: 200px;
   max-width: 90vw
 }
 
 .dropdown .dropdown-content a {
   display: block;
   padding: 8px;
-  color: #000;
+  color: var(--text);
   text-decoration: none;
   font-size: 0.9rem
 }
 
-.dropdown .dropdown-content a:hover {
-  background: #000;
-  color: #fff
+.dropdown .dropdown-content {
+  background: var(--bg);
+  color: var(--text)
+}
+
+.content a:hover {
+  color: var(--top);
 }
 
 .dropdown:hover .dropdown-content {
@@ -103,12 +116,12 @@ body {
 
 .content {
   padding: 2rem 1rem;
-  max-width: 70.71%;
+  max-width: 70%;
   margin: 0 auto
 }
 
 .content a {
-  color: #000;
+  color: var(--text);
   text-underline-offset: 3px
 }
 img:hover {

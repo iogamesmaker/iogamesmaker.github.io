@@ -4,9 +4,9 @@ title: Blackhole
 ---
 
 # CPU blackhole renderer
-This project is a modified port of a Scratch project. I wanted it to run quicker, and I thought porting it to C++ and have it use the CPU was the best way.<br>
-If I remember correctly, the speed improvement over the scratch project was negligible.<br>
-But yeah, was fun for a weekend or two.<br>
+This project started as a port of a [Scratch project by Zerofile](https://scratch.mit.edu/projects/419599433/). I wanted it to run quicker, at the time I thought porting it to C++ with FreeGLUT was the best way.<br>
+If I remember correctly, the speed improvement over the scratch project was negligible.<br><br>
+But yeah, was fun for a weekend or two. The volumetrics weren't in the original project and were improvised!<br>
 The source is still available [here](https://github.com/iogamesmaker/blackholerenderer)<br><br>
 
 <img src="/projects/blackhole/image1.png" alt="black background, computer generated black hole" style="max-width: 100%; height: auto;">

@@ -12,4 +12,4 @@ title: index
   element.innerHTML = `<p>My e-mail is <a href="mailto:${user}@${domain}">${user}@${domain}</a>. I don't check this adress often.</p>`;
 </script>
 
-A better line of communication would be to just DM me on Discord: `iogamesplayer`. I check that pretty often.
+A better line of communication would be to just DM me on Discord: `@iogamesplayer`. I check there pretty often.

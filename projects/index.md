@@ -10,20 +10,16 @@ title: Projects
   }
   .project-item img {
     width: 100%;
-    aspect-ratio: 1 / 1; /* GOATED function */
+    aspect-ratio: 1 / 1;
     object-fit: cover;
   }
 </style>
 # Projects
-This is the central page for all of my projects.
+This is the central page for most of my projects.
 <div class="project-grid">
 
   <a href="/projects/Mesopotamia" class="project-item">
     <img src="/projects/Mesopotamia/image1.png" alt="Mesopotamia game">
-  </a>
-
-  <a href="/projects/drednot" class="project-item">
-    <img src="/projects/drednot/image1.png" alt="Drednot tools">
   </a>
   
   <a href="/projects/raymarcher" class="project-item">
@@ -40,6 +36,10 @@ This is the central page for all of my projects.
 
   <a href="/projects/mandelbrot" class="project-item">
     <img src="/projects/mandelbrot/image1.png" alt="mandelbrot project">
+  </a>
+  
+  <a href="/projects/drednot" class="project-item">
+    <img src="/projects/drednot/image1.png" alt="Drednot tools">
   </a>
   
 </div>

@@ -1,3 +1,6 @@
 title: iogamesplayer's site
 description: hosted on github pages it's very sigma
+
+plugins:
+  - jekyll-remote-theme
 remote_theme: pages-themes/minimal@v0.2.0

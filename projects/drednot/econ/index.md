@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Drednot/econ
+title: Economy log scourer
 ---
 
 # Economy utils
@@ -8,7 +8,7 @@ title: Drednot/econ
 Install instructions are at the bottom of the page.
 Very easy to use python script to check economy data.<br>
 Oldest available data from 2022/11/23<br>
-<small>If you're not sure it's safe, send the script to your LLM of choice and ask it if it's safe. NEVER EVER trust scripts from the internet</small><br>
+<small>If you're not sure it's safe, send the script to an LLM of choice and ask it if it's safe, or read it yourself. NEVER EVER blindly trust random scripts like these on the internet</small><br>
 
 ### Features
 - **NEEDS AT LEAST 3.5GB OF RAM BY DEFAULT!!!** Change the "max_mem_gb" value at the top of the script (line 20) manually to change how much you're allocating. Minimum of 2.5GB. **DO NOT ALLOCATE TOO MUCH!!!**
@@ -23,7 +23,8 @@ Oldest available data from 2022/11/23<br>
 ---
 
 ## Changelog
-
+<details markdown="1"> 
+<summary><b>Click to expand</b></summary>
 #### NEWEST VERSION - v 1.5.5
 #### v 1.5
 
@@ -52,16 +53,16 @@ Lots of UI and backend improvements and bug fixes.
 Stopped the bad practice of just downloading all the stuff you need - added a local directory with all the files. Downloading them was still in a seperate script back then. Will only download the dataset once. Also added a summary of the things you looked up
 
 #### v 1.0
-Formatted the data nicely, fixed search functionality, added date range, a basic ship name lookup function, and TON of bug fixes holy shit.
+Formatted the data nicely, fixed searching, added date range, a basic ship name lookup function, and TON of bug fixes holy shit.
 
 #### v 0.2
-Added nonfunctional basic search functionality
+Added basic search UI
 
 #### v 0.1
-Very primitive JSON downloader with a tiny preview window. Could download data from one date and just view the raw JSON.
-
+Very primitive JSON downloader with a tiny preview window. Could download data from a date and just view the raw JSON.
+</details>
 # Install instructions for WINDOWS
-**This might be tricky to install, if you need some of my help, DM me on Discord: @`iogamesplayer` or ask ChatGPT**
+**This might be tricky to install for people who haven't used Python before.**
 - 1: Install Python >3.
 
 - 2: Download the script into your Downloads folder as "log.py".
@@ -82,3 +83,11 @@ Very primitive JSON downloader with a tiny preview window. Could download data f
 
 - 9 \[OPTIONAL\]: Once you got it all working, place the log.py file on the desktop and rename it to log.py**w**. This will make it click-to-open like any normal program and you won't have to do any command prompt stuff.
 
+# Uninstall instructions:
+
+For Windows: Press the Windows key and R, type %localappdata%, find and delete the folder named "DredarkLogScourer"<br><br>
+For Linux: Open your terminal, and type `rm -rf ~/.local/share/DredarkLogScourer/`
+
+and delete the Python file too of course.
+
+If you don't want Python on your system anymore and you're on Windows, feel free to uninstall.

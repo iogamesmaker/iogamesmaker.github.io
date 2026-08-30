@@ -4,7 +4,7 @@ _site/
 # ruby shit ew
 vendor/
 .bundle/
-release.sh
+Gemfile.lock
 
 # garbage
 .sass-cache/
