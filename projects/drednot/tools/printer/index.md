@@ -18,19 +18,79 @@ title: DSA to printer config
     - using the pushers on the ship to push the standard ammo around. I'd also recommend having a handheld pusher.
 - Watch it automatically RCD! yay
 
-## THIS IS A VERY EARLY RELEASE, STUFF MIGHT BREAK!!
+### Stuff could break, but it should be functional.
+I'm gonna be real here if something breaks its probably your fault ✌✌
 
 <style>
-    .container { max-width: 600px; display: flex; flex-direction: column; gap: 20px; font-family: sans-serif; }
-    textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
-    th { background: #f4f4f4; }
-    .icon-img { object-fit: contain; vertical-align: middle; margin-right: 8px; }
-    .total-row { font-weight: bold; background: #fafafa; }
-    .btn { width: 100%; padding: 10px; cursor: pointer;}
-    h2 { margin-bottom: 5px; font-size: 1.25em; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-    .controls-row { display: flex; gap: 15px; align-items: center; }
+.container { 
+        max-width: 600px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 20px; 
+        font-family: 'Fraunces', sans-serif; 
+        color: var(--text);
+    }
+    textarea { 
+        width: 100%; 
+        height: 100px; 
+        padding: 10px; 
+        border: 1px solid var(--text); 
+        border-radius: 4px; 
+        resize: vertical; 
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Fraunces', sans-serif;
+    }
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 10px; 
+    }
+    th, td { 
+        padding: 10px; 
+        border-bottom: 1px solid var(--text); 
+        text-align: left; 
+    }
+    th { 
+        background: var(--accent-light); 
+        font-family: 'Fraunces', serif;
+        color: var(--text);
+    }
+    .icon-img { 
+        object-fit: contain; 
+        vertical-align: middle; 
+        margin-right: 8px; 
+    }
+    .total-row { 
+        font-weight: bold; 
+        background: var(--accent-light); 
+    }
+    .btn { 
+        width: 100%; 
+        padding: 10px; 
+        cursor: pointer;
+        background: var(--accent-light);
+        color: var(--text);
+        border: 1px solid var(--text);
+        font-family: 'Fraunces', serif;
+        font-weight: bold;
+    }
+    .btn:hover {
+        background: var(--bg);
+    }
+    h2 { 
+        margin-bottom: 5px; 
+        font-size: 1.25em; 
+        font-family: 'Fraunces', serif;
+        color: var(--accent);
+        border-bottom: 1px solid var(--text); 
+        padding-bottom: 5px; 
+    }
+    .controls-row { 
+        display: flex; 
+        gap: 15px; 
+        align-items: center; 
+    }
 </style>
 
 <div class="container">

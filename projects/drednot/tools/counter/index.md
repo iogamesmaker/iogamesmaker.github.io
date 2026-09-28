@@ -10,29 +10,104 @@ I still haven't nailed blueprint compression so the end result might be a heck o
 Also a tiny chance it might fuck up the configuration of loaders or something, in that case just repaste the vanilla blueprint over it again.
 Summary: just use dsa.fr.to lol
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
 <style>
-    .container { max-width: 1200px; display: flex; flex-direction: column; gap: 20px; }
-    
-    .workspace { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
-    .panel-header { padding: 12px; background: #eee; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-    .scroll-box { overflow-y: auto; flex-grow: 1; padding: 10px; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 8px; border-bottom: 1px solid #eee; text-align: left; }
-    .icon-img { width: 24px; height: 24px; object-fit: contain; vertical-align: middle; }
-
-    .sortable-list { list-style: none; padding: 0; margin: 0; }
-    .order-item { 
-        display: flex; align-items: center; padding: 8px; background: #fff; 
-        border: 1px solid #ddd; margin-bottom: 4px; 
+    .container { 
+        max-width: 1200px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 20px; 
+        font-family: 'Fraunces', sans-serif;
+        color: var(--text);
     }
-    .drag-handle { cursor: grab; padding: 0 10px; color: #ccc; }
-    .drag-handle:active { cursor: grabbing; }
-    .order-item.ghost { opacity: 0.3; background: #ddd; }
-    .order-info { flex-grow: 1; margin-left: 10px; }
     
-    .btn { color: black; border-color: #ddd; cursor: pointer; }
+    .workspace { 
+        display: grid; 
+        grid-template-columns: 320px 1fr; 
+        gap: 20px; 
+        align-items: start; 
+    }
+    .panel-header { 
+        padding: 12px; 
+        background: var(--accent-light); 
+        border-bottom: 1px solid var(--text); 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        font-weight: bold; 
+        font-family: 'Fraunces', serif;
+        color: var(--text);
+    }
+    .scroll-box { 
+        overflow-y: auto; 
+        flex-grow: 1; 
+        padding: 10px; 
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        font-size: 13px; 
+    }
+    th, td { 
+        padding: 8px; 
+        border-bottom: 1px solid var(--text); 
+        text-align: left; 
+    }
+    th {
+        background: var(--accent-light);
+        font-family: 'Fraunces', serif;
+        color: var(--text);
+    }
+    .icon-img { 
+        width: 24px; 
+        height: 24px; 
+        object-fit: contain; 
+        vertical-align: middle; 
+    }
+
+    .sortable-list { 
+        list-style: none; 
+        padding: 0; 
+        margin: 0; 
+    }
+    .order-item { 
+        display: flex; 
+        align-items: center; 
+        padding: 8px; 
+        background: var(--bg); 
+        border: 1px solid var(--text); 
+        margin-bottom: 4px; 
+    }
+    .drag-handle { 
+        background: var(--bg); 
+        cursor: grab; 
+        padding: 0 10px; 
+        color: var(--accent); 
+    }
+    .drag-handle:active { 
+        cursor: grabbing; 
+    }
+    .order-item.ghost { 
+        opacity: 0.4; 
+        background: var(--accent-light); 
+    }
+    .order-info { 
+        flex-grow: 1; 
+        margin-left: 10px; 
+    }
+    
+    .btn { 
+        background: var(--top);
+        color: var(--text); 
+        border: 1px solid var(--text); 
+        cursor: pointer; 
+        font-family: 'Fraunces', serif;
+        font-weight: bold;
+        padding: 8px 12px;
+    }
+    .btn:hover {
+        background: var(--accent-light);
+    }
 </style>
 
 <div class="container">
