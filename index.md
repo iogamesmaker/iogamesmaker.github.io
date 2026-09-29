@@ -20,4 +20,4 @@ Idea for my next project is a zombie game where you have to kill eight billion z
 
 
 
-friends website: [https://iserila.com/](https://israel.com/)
+friends website: [https://israel.com/](https://iserila.com/)
