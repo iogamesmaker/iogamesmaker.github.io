@@ -91,6 +91,22 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
         gap: 15px; 
         align-items: center; 
     }
+    .log-panel {
+        border: 1px solid var(--text);
+        border-left: 6px solid #c0392b;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    .log-panel.only-warnings { border-left-color: #d4a017; }
+    .log-panel h3 { margin: 0 0 6px; font-size: 1em; font-family: 'Fraunces', serif; }
+    .log-panel p { margin: 0 0 8px; }
+    .log-panel ul { margin: 0 0 10px; padding-left: 18px; }
+    .log-panel li { margin-bottom: 4px; }
+    .log-panel .lvl { font-weight: bold; font-size: 11px; padding: 0 4px; margin-right: 4px; border: 1px solid currentColor; }
+    .log-panel .lvl.error { color: #c0392b; }
+    .log-panel .lvl.warn { color: #b8860b; }
+    .log-panel pre { white-space: pre-wrap; word-break: break-word; font-size: 12px; margin: 0 0 10px; }
+    .log-panel .btn { width: auto; }
 </style>
 
 <div class="container">
@@ -117,6 +133,8 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
   background-size: cover;
   color: var(--top)"
   id="processBtn" class="btn" disabled>Process</button>
+
+    <div id="errorLog" class="log-panel" style="display:none;"></div>
 
     <div id="outputContainer" style="display:none;">
         <textarea id="outDsa" readonly></textarea>
@@ -199,38 +217,6 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
             }
         },
         {
-            name: "NEM0: Burst = acute",
-            dsa: "DSA:rZdLaxNRFMfPmXcnJo5QHzUgIqi4sIuWtoIPKoitCbVduymiqQRqC7VrmerMJpA4A+JH8IP4ORRBtL5BBEGhYO9M7ky7yJw5N2SVZAi/+Z/H/9xzIwhWgpUowpeLEUCn+mBzY639aHV98/7D1hZEqIO389rodeNOda29vt3aWu3/AyIt7hyRj9rbrcdPIApfAUAcxxEEzVl/LxbQ24OgJoI33utxkJAwU+Q1lyCCicgm/pfEcxRRs9Eb7zKJfyTxYp/4IsnAUrDs74ovAP7n5Pdy+lnwNmOYjJwcI/RbNnhTqkRX6H+OQjIY4klh+TTki/2ddURjgsq2pVC/TxI5V1I/i0kMf2Rte1wSB1rBtIQVGshk5lawJXOhqEr+hioyaMwkTDhNyQWt71zFFqg6pM2GaNPrZFINBZWHMzBHyERLoUEtlMjFo/SAqXDb6Wuu8u4VAqmLfjqjHPgShUS+Sgh/SuQsaSOVwfpOEmsUUUwPLjHcy8O+MzOa6RH+y5E3K3QL8eN+K5F1Mm6b7Z2DcmsUUU+JXTU3niKPUZufyN1M43nK38mA23mq7G9DMI8Vp9IaYgxdEEizeBCLaenfU2UGjTqVTQtr3Gx+yyIfo7Ipjmb+NnYgs+aMyDyIklhx6SnE984vSZx0aY3cUQnhd0mcdkfl77+SeKNkBeUujOGHrNo6qRGAH3VW60mq1oatEPV7SbxUplF5qukOtREkE+MNqsZ9ma72EJkMmvWS/Vp5+E6Navg6mREt+shRuMN8lMSrLj3S2Boh02iWGpGr8YskTlA7NWr8nfpQtReq6U4dzKe3KjgrevQZwnzxNUjEp37DOuGkNywP0uwI9K1BaFtDg5lmMz+KpglT2cma3dGUt81msm3G8T4=",
-            pushers: "DSA:hZK7CsIwFIZP44UoKgh9ABEcBS2io+AmKDq7OEjVgjfaugdNQTrUBFz0OXwcZ3XuE9hYxyZOucD3ny8/YUDHdMyYduYM6JCOyDPaAJCXOI++q3Yxoiu/ONtu5tZiuts7S9MGhjTvDnqAuF+YWyvXtKeWa64dEDjnAu+XSCjwRiKODCU8aAsYapiEZbkD+uNQzZHwoAFU5BEQeXjvlDQii+NXtJIFTrfro6cHeSmPsKoFULaAI/aYqWQI6BhESDNZgk5UKXW1gbLAbj5mkweDenDnN9iQfgBV8WlBc/4B",
-            mapping: {
-                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 74, y: 51 }, timer1: { x: 74, y: 53 } },
-                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 78, y: 56 }, timer1: { x: 75, y: 56 }, timer2: { x: 77, y: 56 } },
-                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 73, y: 53 }, timer1: { x: 74, y: 55 }, timer2: { x: 75, y: 54} },
-                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 74, y: 25 }, timer1: { x: 74, y: 27 }, timer2: { x: 75, y: 27} },
-                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 72, y: 15 }, timer1: { x: 71, y: 13 } },
-                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 65, y: 11 }, timer1: { x: 64, y: 9 } },
-                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 62, y: 10 }, timer1: { x: 62, y: 8 } },
-                [Item.TURRET_ACUTE.id]: { maxStack: 1, injector: { x: 59, y: 10 }, timer1: { x: 60, y: 10 }, timer2: { x: 61, y: 10} },
-                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 55, y: 10 }, timer1: { x: 54, y: 8 } },
-                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 54, y: 10 }, timer1: { x: 52, y: 10 } },
-                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 51, y: 10 }, timer1: { x: 50, y: 10 } },
-                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 46, y: 10 }, timer1: { x: 45, y: 10 }, timer2: { x: 46, y: 8} },
-                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 41, y: 10 }, timer1: { x: 42, y: 8 } },
-                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 39, y: 10 }, timer1: { x: 40, y: 10 } },
-                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 37, y: 10 }, timer1: { x: 38, y: 10 } },
-                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 34, y: 10 }, timer1: { x: 32, y: 8 } },
-                [Item.DOOR.id]: { maxStack: 1, injector: { x: 27, y: 10 }, timer1: { x: 26, y: 10 } },
-                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 25, y: 10 }, timer1: { x: 23, y: 9 }, timer2: { x: 24, y: 10} },
-                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 21, y: 10 }, timer1: { x: 22, y: 8 } },
-                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x: 14, y: 10 }, timer1: { x: 13, y: 8 }, timer2: { x: 14, y: 8} },
-                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 11, y: 10 }, timer1: { x: 10, y: 10 } },
-                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 9, y: 10 }, timer1: { x: 8, y: 10 } },
-                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 6, y: 10 }, timer1: { x: 7, y: 10 } },
-                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 5, y: 10 }, timer1: { x: 4, y: 10 } },
-                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 3, y: 10 }, timer1: { x: 2, y: 10 }, timer2: { x: 3, y: 8 } }
-            }
-        },
-        {
             name: "Mehmets Printer (thank you zombie2)",
             dsa: "DSA:rZbdSgJBGIZn9s+lXcHC6AeCQCmKIIiCIAgqK8VE70CiNARLMC9gpe1EcNuV6Ho67CYi6MD+IzoqEGrUne1knZ3d5mhgFx7e9/u+d74xgZ7Tc6YJLywTcHpWa6MTAO0BHXq2d8LLHfSpET6onBRLR/lyZf+wUAUmlGAk2jSsRrhYKtcK1Xz/PzA5q6Han0q1wvEpMM8/ENKyEHJG1ToDiUCCMGrQETuYOEki8iGk0WhSEa8wkUfEs9SI3IqnWnEm9j8xesrDPjXxBROXSERBDGBf30LIeorrUnddiwphRLuh7NMfNqE4WPdecUHE7kmMKnqPkYJd0aRrRZH3+jXv1/yo0mcm/jlJju00q0GSoI1c88pRzG9vJlhpvMPEdVbEW0xcZEUEuI4hVsRnrHGIGHHYTY3PcZxVCEROpNf4hInDJI1owMVok2563jBxmkQUIb1GiDujZySySGpk28nhJqtuy1hlWPUSafic8QWVcPkAeqJjOkmSyPmQ6CzxMc87d9n3nTuvMGrNNyau2Cpdt6IgBdqK6RCJGWjTckrv/QJaQpLwfpHAgD5BktyMTC6qRFvUV4xcZZWgH0fkNqsIPWLknAeRp73eHGKMle0vx/aGR4jk+jvnd5bGuyGyrF8=",
             pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
@@ -269,75 +255,34 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
                 [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 4, y: 12 }, timer1: { x: 2, y: 11 }, timer2: { x: 3, y: 12 } }
             }
         },
-        {
-            name: "Mehmet: (recycler=machine, burst=acute) (zombie2)",
-            dsa: "DSA:rZbdSgJBGIZn9s+lXcHC6AeCQCmKIIiCIAgqK8VE70CiNARLMC9gpe1EcNuV6Ho67CYi6MD+IzoqEGrUne1knZ3d5mhgFx7e9/u+d74xgZ7Tc6YJLywTcHpWa6MTAO0BHXq2d8LLHfSpET6onBRLR/lyZf+wUAUmlGAk2jSsRrhYKtcK1Xz/PzA5q6Han0q1wvEpMM8/ENKyEHJG1ToDiUCCMGrQETuYOEki8iGk0WhSEa8wkUfEs9SI3IqnWnEm9j8xesrDPjXxBROXSERBDGBf30LIeorrUnddiwphRLuh7NMfNqE4WPdecUHE7kmMKnqPkYJd0aRrRZH3+jXv1/yo0mcm/jlJju00q0GSoI1c88pRzG9vJlhpvMPEdVbEW0xcZEUEuI4hVsRnrHGIGHHYTY3PcZxVCEROpNf4hInDJI1owMVok2563jBxmkQUIb1GiDujZySySGpk28nhJqtuy1hlWPUSafic8QWVcPkAeqJjOkmSyPmQ6CzxMc87d9n3nTuvMGrNNyau2Cpdt6IgBdqK6RCJGWjTckrv/QJaQpLwfpHAgD5BktyMTC6qRFvUV4xcZZWgH0fkNqsIPWLknAeRp73eHGKMle0vx/aGR4jk+jvnd5bGuyGyrF8=",
-            pushers: "DSA:fc49CsJAEIbhydiIaCMeITfQE5jGBSG5QQrZ6IJ/JBEsV9xCUujsYqPX8Bp6DS3scgInHmCrF77i4SMwiUmIgoslQBPrNxdAfzgm/je4jniqerPNOlPzdLsrFjIHQjzdb9/x4Iy26mZqWco8VaVcFdAA1jZA1NH1QaDPGD5c5DWmbV37gNdz7z3R4g9H0Z+4ULiQlx8=",
-            mapping: {
-                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 17, y: 12 }, timer1: { x: 14, y: 11 }, timer2: { x: 15, y: 12 } },
-                [Item.LOADER_NEW.id]: { maxStack: 1,
-                                        injector: { x: 26, y: 12 }, timer1: { x: 24, y: 11 }, timer2: { x: 25, y: 12},
-                                        secondinjector: { x: 23, y: 12 }, secondtimer1: { x: 21, y: 11 }, secondtimer2: { x: 22, y: 12}
-                                      },
-                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 29, y: 12 }, timer1: { x: 27, y: 11 }, timer2: { x: 28, y: 12} },
-                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 59, y: 12 }, timer1: { x: 57, y: 11 }, timer2:{ x: 58, y: 12} },
-                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 53, y: 12 }, timer1: { x: 51, y: 11 }, timer2:{ x: 52, y: 12} },
-                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 65, y: 12 }, timer1: { x: 63, y: 11 }, timer2:{ x: 64, y: 12} },
-                [Item.TURRET_BURST.id]: { maxStack: 1, injector: { x: 75, y: 12 }, timer1: { x: 77, y: 11 }, timer2: { x: 76, y: 12} },
-                [Item.TURRET_ACUTE.id]: { maxStack: 1, injector: { x: 75, y: 12 }, timer1: { x: 77, y: 11 }, timer2: { x: 76, y: 12} },
-                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 72, y: 12 }, timer1: { x: 74, y: 11 } , timer2:{ x: 73, y: 12} },
-                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 32, y: 12 }, timer1: { x: 30, y: 11 }, timer2:{ x: 31, y: 12} },
-                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 50, y: 12 }, timer1: { x: 48, y: 11 }, timer2:{ x: 49, y: 12} },
-                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 38, y: 12 }, timer1: { x: 36, y: 11 }, timer2: { x: 37, y: 12} },
-                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 62, y: 12 }, timer1: { x: 60, y: 11 }, timer2:{ x: 61, y: 12} },
-                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 72, y: 12 }, timer1: { x: 74, y: 11 }, timer2:{ x: 73, y: 12} },
-                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 66, y: 12 }, timer1: { x: 68, y: 11 }, timer2:{ x: 67, y: 12} },
-                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 69, y: 12 }, timer1: { x: 71, y: 11 }, timer2:{ x: 70, y: 12} }, 
-                [Item.BLOCK.id]: { maxStack: 16, 
-                                   injector: { x: 35, y: 12 }, timer1: { x: 33, y: 11 }, timer2: { x: 34, y: 12},
-                                   secondinjector: { x: 41, y: 12 }, secondtimer1: { x: 39, y: 11 }, secondtimer2: { x: 40, y: 12} // shitty solution lmao
-                                 },
-                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 56, y: 12 }, timer1: { x: 54, y: 11 }, timer2:{ x: 55, y: 12} },
-                [Item.ITEM_HATCH.id]: { maxStack: 1,
-                                        injector: { x: 47, y: 12 }, timer1: { x: 45, y: 11 }, timer2: { x: 46, y: 12 },
-                                        secondinjector: { x: 44, y: 12 }, secondtimer1: { x: 42, y: 11 }, secondtimer2: { x: 43, y: 12 }
-                                      },
-                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 77, y: 6 }, timer1: { x: 75, y: 7 }, timer2:{ x: 76, y: 6} }, 
-                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 10, y: 12 }, timer1: { x: 8, y: 11 }, timer2:{ x: 9, y: 12} },
-                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 13, y: 12 }, timer1: { x: 11, y: 11 }, timer2:{ x: 12, y: 12} },
-                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 7, y: 12 }, timer1: { x: 5, y: 11 }, timer2:{ x: 6, y: 12} },
-                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 4, y: 12 }, timer1: { x: 2, y: 11 }, timer2: { x: 3, y: 12 } }
-            }
-        },
     		{
-    			name: "ILFS's Printer",
-                dsa: "DSA:rZfLSsNQEIbnJOaitljwgrpSsGoFFby8gK31jgi6FtFWCtVC7QN4qZuCJQHxOXwbFyKuFEEXgggKBW1yOm3BZGwOZ3UgLV/mzPzzz8SC4mZx07LY9bIFUArv547TmcPdbG7vIJUHCxiLnN22lct2KZzOZAup/C7/B1iKXQrVHmUKqaMTsC5vAMC2bQuKq0OnFedMdDqnD1w3xOBLExya9IKqOov0tIh8RqRqcmLCMweqD5H9ISJvUicibDNaj/AdiRGhCME3wuJKjAgRlNZDrNdlpI8gMod4FbTS6x3/IQOLZyFKIBW95VI3IROTXOxL4+45rkmSJ2O1NwwaVBoCyOkJY541RYh0FsZ4FuJRQqmaEVypC2NUrJpIrBuUriBAiR4QGe2TVHTAos93ENbpNKiIdS5yqcY0kSbwIH8hOUwKSqSt5l0iqFUrvdjZ1qqPFXC7zPVWGKxe4ZyZI0zKPe7wrV2UzzIBn10bJoCqQDvEKeM2Atz5E5HtpkiDeRB/kGiakvRVaSh3mmqwAEG+IlInrw0iwyXJ22uCbC8hx1qpLVTxTmqz0EScq19SrR6R2G1KUmhjteiXNADvkQjcXRi1qEGAdH7UK7VM3d53U/NAfiNyVKc8SfdZrAgL2QhJGn8viIwZxLBigsMqzjeKOV4qcAfBVm/1Z9MdBEk+CAaaB4FnihQB214Micwzj+voOM9nDEnfBG8Y5JRDtO1f",
-                pushers: "",
-                mapping: {
-                    [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 70, y: 13 }, timer1: { x: 74, y: 53 } },
-                    [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 42 } },
-                    [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 70, y: 48 }, timer1: { x: 70, y: 46 }, timer2: { x: 71, y: 46} },
-                    [Item.PUSHER.id]: { maxStack: 1, injector: { x: 68, y: 42 }, timer1: { x: 68, y: 40 } },
-                    [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 51, y: 8 }, timer1: { x: 50, y: 6 } },
-                    [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 39, y: 7 }, timer1: { x: 37, y: 7 } },
-                    [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 14, y: 9 }, timer1: { x: 13, y: 7 } },
-                    [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 52, y: 9 }, timer1: { x: 52, y: 7 } },
-                    [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 46, y: 7 }, timer1: { x: 44, y: 6 } },
-                    [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 7, y: 9 }, timer1: { x: 5, y: 7 } },
-                    [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 17, y: 9 }, timer1: { x: 17, y: 7 }, timer2: { x: 46, y: 8} },
-                    [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 20, y: 9 }, timer1: { x: 19, y: 7 } },
-                    [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 10, y: 9 }, timer1: { x: 9, y: 7 } },
-                    [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 4, y: 10 }, timer1: { x: 3, y: 7 } },
-                    [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 9, y: 9 }, timer1: { x: 7, y: 7 } },
-                    [Item.BLOCK.id]: { maxStack: 16, injector: { x: 42, y: 8 }, timer1: { x: 42, y: 6 }, timer2: { x: 43, y: 6} },
-                    [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 47, y: 8 }, timer1: { x: 47, y: 6 } },
-                    [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x:28, y: 25 }, timer1: { x: 37, y: 23 }, timer2: { x: 38, y: 23} },
-                    [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 27, y: 8 }, timer1: { x: 26, y: 6 } },
-                    [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 78, y: 17 }, timer1: { x: 77, y: 15 } },
-                    [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 76, y: 34 }, timer1: { x: 75, y: 33 } },
-                    [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 54, y: 11 }, timer1: { x: 53, y: 9 } },
-                    [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 67, y: 40 }, timer1: { x: 67, y: 38 } }
-    			}
+            name: "ILFS's Printer",
+            dsa: "DSA:rZbLS+NQFMbPSdKkmbFjhcLgzGZG0CkVOsO8VrMZ7FTnaRezF9EqBR+gLlwmGDcFawLi3+HCpf+HCxFXPkAXgggKBb1JvXFhe9ITsgoN5Zfzne87514XnIpTcV3c9FwYcMatE/EEsE7FwxkPnrg1Jl7VM1OLCzO12Ym5xcnp6hK4qGDW3lMaDa+emanNrVSXJlr/AFfx6j0Pr2or1fllcNe3BdTzBLTPsJo+s9yOqRmYzXVJvJDE92mC6Ff5jVvjK71FLLUjgtqhRnxClLxiUpovwy6aLeJo2woRs9YuV7Tzo6fFbOs2+G6X2G4PviQ6qXTqJHTspFPORJid45aYMgjZujDH3tHYvRwbjpMgQvevAqFb1bvXjfiAfJ0mIuR30lrlyjapnCMj58eS+NlMSPaJJGom4UzK4Dszko/q4yU7PqV8QrJBuv31edRw81Ne0CNmMc8lYhAgGBRg29Y6shVGB24k+wUVJQ5xXxKzVJQwxpD/GSCAaoxslgqE68EB7qhcj74EqsGgZt1gtPNagp9RBmGqe+JduI/I7cEgnkuikVSImo8n2gdKNsQ40Yb1KNf/I5epklcYRisPJXGoP2pvVrhFZkSR1vdEUvl4g+lP6Ew7CJcclSFgtPIqzNBPk97uWpw7TLmYUNaPJDJHKle7J95K4juDWsF+jRu8jfmvjyqRIfosPCXTUdPYZO9gZ2QoChrD8L+9wWbvFT1dE/cGeAOA4vdHcp2IBWVr2Nhgfmu0SCUW4wn4/ZaaVYZ5urw2ffLN87x7",
+            mapping: {
+                [Item.RES_FLUX.id]: { maxStack: 16, injector: { x: 70, y: 13 }, timer1: { x: 69, y: 12 } },
+                [Item.BLOCK_HYPER_RUBBER.id]: { maxStack: 16, injector: { x: 74, y: 42 }, timer1: { x: 72, y: 43 } },
+                [Item.LOADER_NEW.id]: { maxStack: 1, injector: { x: 70, y: 48 }, timer1: { x: 70, y: 46 }, timer2: { x: 71, y: 46} },
+                [Item.PUSHER.id]: { maxStack: 1, injector: { x: 68, y: 42 }, timer1: { x: 68, y: 40 } },
+                [Item.BLOCK_LOGISTICS_RAIL.id]: { maxStack: 16, injector: { x: 51, y: 8 }, timer1: { x: 50, y: 6 } },
+                [Item.FABRICATOR_ENGINEERING.id]: { maxStack: 1, injector: { x: 39, y: 7 }, timer1: { x: 37, y: 6 } },
+                [Item.FABRICATOR_MUNITIONS.id]: { maxStack: 1, injector: { x: 14, y: 9 }, timer1: { x: 13, y: 7 } },
+                [Item.TURRET_AUTO.id]: { maxStack: 1, injector: { x: 52, y: 9 }, timer1: { x: 52, y: 7 } },
+                [Item.BLOCK_ITEM_NET.id]: { maxStack: 16, injector: { x: 46, y: 7 }, timer1: { x: 44, y: 6 } },
+                [Item.BLOCK_LADDER.id]: { maxStack: 16, injector: { x: 7, y: 9 }, timer1: { x: 5, y: 7 } },
+                [Item.EXPANDO_BOX.id]: { maxStack: 1, injector: { x: 17, y: 9 }, timer1: { x: 17, y: 7 } },
+                [Item.ITEM_EJECTOR.id]: { maxStack: 1, injector: { x: 20, y: 9 }, timer1: { x: 19, y: 7 } },
+                [Item.RECYCLER.id]: { maxStack: 1, injector: { x: 10, y: 9 }, timer1: { x: 9, y: 7 } },
+                [Item.THRUSTER.id]: { maxStack: 1, injector: { x: 4, y: 9 }, timer1: { x: 3, y: 7 } },
+                [Item.FLUID_TANK.id]: { maxStack: 1, injector: { x: 9, y: 9 }, timer1: { x: 7, y: 7 } },
+                [Item.BLOCK.id]: { maxStack: 16, injector: { x: 42, y: 8 }, timer1: { x: 42, y: 6 }, timer2: { x: 43, y: 6} },
+                [Item.BLOCK_WALKWAY.id]: { maxStack: 16, injector: { x: 47, y: 8 }, timer1: { x: 47, y: 6 } },
+                [Item.ITEM_HATCH.id]: { maxStack: 1, injector: { x:38, y: 25 }, timer1: { x: 37, y: 23 }, timer2: { x: 37, y: 25} },
+                [Item.SHIELD_PROJECTOR.id]: { maxStack: 1, injector: { x: 27, y: 8 }, timer1: { x: 26, y: 6 } },
+                [Item.BLOCK_ICE_GLASS.id]: { maxStack: 16, injector: { x: 78, y: 17 }, timer1: { x: 77, y: 15 } },
+                [Item.MUNITIONS_SUPPLY_UNIT.id]: { maxStack: 1, injector: { x: 76, y: 34 }, timer1: { x: 75, y: 33 } },
+                [Item.SHIELD_GENERATOR.id]: { maxStack: 1, injector: { x: 54, y: 11 }, timer1: { x: 53, y: 9 } },
+                [Item.TURRET_REMOTE.id]: { maxStack: 1, injector: { x: 67, y: 40 }, timer1: { x: 67, y: 38 } }
+            }
     		},
         {
             name: "simba / hayoki's ugly thing",
@@ -377,6 +322,165 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
         configSelect.appendChild(opt);
     });
 
+    const LOADER_ROLES = [
+        ['injector', 'injector'], ['timer1', 'timer 1'], ['timer2', 'timer 2'],
+        ['secondinjector', '2nd injector'], ['secondtimer1', '2nd timer 1'], ['secondtimer2', '2nd timer 2'],
+    ];
+    
+    function checkPrinterLoaders(bp, configMap, printer) {
+        const loaderId = Item.LOADER_NEW.id;
+        const nameOf = id => Item.getById(id)?.name?.replace(/ \(Packaged\)$/, '').replace(/, Packaged\)$/, ')') || `item #${id}`;
+        const at = new Map();
+        const loaders = [];
+        for (const cmd of bp.commands) {
+            if (!(cmd instanceof BuildCmd)) continue;
+            const id = cmd.item?.id ?? cmd.item;
+            const key = `${cmd.x},${cmd.y}`;
+            if (!at.has(key)) at.set(key, []);
+            at.get(key).push(id);
+            if (id === loaderId) loaders.push({ x: cmd.x, y: cmd.y });
+        }
+
+        const problems = [];
+        const usedBy = new Map();
+        for (const [idStr, mapping] of Object.entries(printer.mapping)) {
+            const itemId = parseInt(idStr, 10);
+            const item = Number.isNaN(itemId) ? `unknown item (key "${idStr}")` : nameOf(itemId);
+            for (const [prop, role] of LOADER_ROLES) {
+                const pos = mapping[prop];
+                if (pos === undefined) continue;
+                const isInjector = prop.endsWith('injector');
+                const timer2Prop = prop.replace('timer1', 'timer2');
+                // a missing timer 1 only crashes when its timer 2 is there
+                const crashes = isInjector || (prop.endsWith('timer1') && !!mapping[timer2Prop] && configMap.has(`${mapping[timer2Prop].x},${mapping[timer2Prop].y}`));
+                const report = (msg, level = crashes ? 'error' : 'warn') =>
+                    problems.push({ level, printer: printer.name, item, itemId, role, x: pos?.x, y: pos?.y, message: msg });
+
+                if (typeof pos?.x !== 'number' || typeof pos?.y !== 'number') {
+                    report(`mapping position is malformed: ${JSON.stringify(pos)}`);
+                    continue;
+                }
+                const key = `${pos.x},${pos.y}`;
+                if (!usedBy.has(key)) usedBy.set(key, []);
+                usedBy.get(key).push(`${item} ${role}`);
+
+                const things = at.get(key);
+                if (!things) {
+                    report(`no loader at ${key}, nothing is built there`);
+                } else if (!things.includes(loaderId)) {
+                    report(`no loader at ${key}, found ${[...new Set(things)].map(nameOf).join(' + ')} instead`);
+                } else if (!configMap.has(key)) {
+                    report(`loader at ${key} has no config in the printer DSA`);
+                }
+            }
+        }
+        for (const [key, users] of usedBy) {
+            if (users.length > 1) problems.push({
+                level: 'warn', printer: printer.name, item: users.join(' & '), itemId: null, role: 'shared',
+                x: +key.split(',')[0], y: +key.split(',')[1],
+                message: `loader at ${key} is used by ${users.join(' and ')}, the last one wins`,
+            });
+        }
+        return problems;
+    }
+
+    const errorLog = document.getElementById('errorLog');
+    const escHtml = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let processStep = 'starting';
+
+    function clearErrorLog() {
+        errorLog.style.display = 'none';
+        errorLog.innerHTML = '';
+    }
+
+    function showErrorLog({ title, intro, items = [], details = '', report }) {
+        const onlyWarnings = items.length > 0 && items.every(i => i.level === 'warn') && !details;
+        errorLog.className = 'log-panel' + (onlyWarnings ? ' only-warnings' : '');
+        errorLog.innerHTML = `
+            <h3>${escHtml(title)}</h3>
+            ${intro ? `<p>${escHtml(intro)}</p>` : ''}
+            ${items.length ? `<ul>${items.map(i => `<li><span class="lvl ${i.level}">${i.level === 'error' ? 'ERROR' : 'WARN'}</span>${escHtml(i.text)}</li>`).join('')}</ul>` : ''}
+            ${details ? `<pre>${escHtml(details)}</pre>` : ''}
+            <button class="btn" type="button">Copy error report</button>`;
+        errorLog.querySelector('button').addEventListener('click', async e => {
+            try { await navigator.clipboard.writeText(report); e.target.textContent = 'Copied!'; }
+            catch { e.target.textContent = "Couldn't copy, check the console"; console.log(report); }
+        });
+        errorLog.style.display = 'block';
+    }
+
+    function buildReport(lines) {
+        return [
+            'DSA to printer config - error report',
+            `time: ${new Date().toISOString()}`,
+            `page: ${location.href}`,
+            `browser: ${navigator.userAgent}`,
+            ...lines,
+        ].join('\n');
+    }
+
+    function logPrinterProblems(printer, problems) {
+        const errors = problems.filter(p => p.level === 'error');
+        const warns = problems.filter(p => p.level === 'warn');
+        const title = `[printer check] ${printer.name}: ${errors.length} error(s), ${warns.length} warning(s)`;
+        (errors.length ? console.error : console.warn)(title);
+        console.table(problems.map(({ level, item, role, x, y, message }) => ({ level, item, role, x, y, message })));
+        console.log('[printer check] mapping used:', printer.mapping);
+
+        showErrorLog({
+            title: errors.length
+                ? `${errors.length} loader${errors.length === 1 ? '' : 's'} missing in the "${printer.name}" DSA, no output was made`
+                : `"${printer.name}": ${warns.length} warning${warns.length === 1 ? '' : 's'}, output was still made`,
+            intro: errors.length
+                ? 'The printer mapping points at loaders that aren\'t in the printer DSA. Positions are x,y in the printer blueprint.'
+                : 'These loaders get skipped or share a config, so those items may come out with the wrong amount.',
+            items: [...errors, ...warns].map(p => ({ level: p.level, text: `${p.item} ${p.role}: ${p.message}` })),
+            report: buildReport([
+                `printer: ${printer.name}`,
+                `errors: ${errors.length}, warnings: ${warns.length}`,
+                ...[...errors, ...warns].map(p => `[${p.level}] ${p.item} ${p.role}: ${p.message}`),
+            ]),
+        });
+        return errors.length;
+    }
+
+    function logUnexpectedError(e, printer) {
+        console.error(`[printer] failed while ${processStep} (printer: ${printer?.name ?? 'unknown'})`, e);
+        showErrorLog({
+            title: `Something broke while ${processStep}`,
+            intro: 'No output was made. Copy the report and send it to @iogamesplayer.',
+            details: `${e?.name || 'Error'}: ${e?.message || e}\n${e?.stack || ''}`,
+            report: buildReport([
+                `printer: ${printer?.name ?? 'unknown'}`,
+                `step: ${processStep}`,
+                `error: ${e?.name || 'Error'}: ${e?.message || e}`,
+                `stack: ${e?.stack || 'none'}`,
+            ]),
+        });
+    }
+
+    // dev helper: run checkAllPrinters() in the browser console to check every printer mapping at once
+    window.checkAllPrinters = async () => {
+        for (const printer of PRINTER_CONFIGS) {
+            try {
+                const bp = decompress(await decode(printer.dsa));
+                const configMap = new Map();
+                let cfg = null;
+                for (const cmd of bp.commands) {
+                    if (cmd instanceof ConfigCmd) cfg = cmd;
+                    else if (cmd instanceof BuildCmd && cfg) configMap.set(`${cmd.x},${cmd.y}`, cfg);
+                }
+                const problems = checkPrinterLoaders(bp, configMap, printer);
+                const errors = problems.filter(p => p.level === 'error').length;
+                console.groupCollapsed(`${errors ? '❌' : problems.length ? '⚠️' : '✅'} ${printer.name}: ${errors} error(s), ${problems.length - errors} warning(s)`);
+                if (problems.length) console.table(problems.map(({ level, item, role, x, y, message }) => ({ level, item, role, x, y, message })));
+                console.groupEnd();
+            } catch (e) {
+                console.error(`❌ ${printer.name}: couldn't decode the printer DSA`, e);
+            }
+        }
+    };
+
     let currentCounts = new Map();
     let currentBuildCmdCount = 0;
     let currentBlueprint = null;
@@ -385,6 +489,7 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
         const val = bpInput.value.trim();
         processBtn.disabled = true;
         outputContainer.style.display = 'none';
+        clearErrorLog();
         
         if (!val.startsWith("DSA:")) {
             resultsDiv.style.display = 'none';
@@ -427,7 +532,13 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
     });
 
     processBtn.addEventListener('click', async () => {
-        await process(currentCounts);
+        clearErrorLog();
+        processStep = 'starting';
+        try {
+            await process(currentCounts);
+        } catch (e) {
+            logUnexpectedError(e, PRINTER_CONFIGS[parseInt(configSelect.value, 10)]);
+        }
     });
 
     function decompress(bp) { // blueprints are compressed for space efficiency but it's not too handy for modifying loaders in bulk... that's why we decompress it.
@@ -557,9 +668,12 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
     async function process(counts) {
         const selectedIndex = parseInt(configSelect.value, 10);
         const activeConfig = PRINTER_CONFIGS[selectedIndex];
+        processStep = `decoding the printer DSA for "${activeConfig?.name}"`;
         let bp = await decode(activeConfig.dsa);
 
+        processStep = 'decompressing the printer DSA';
         bp = decompress(bp);
+        processStep = 'reading loader configs from the printer DSA';
         const configMap = new Map();
         let currentConfig = null;
         
@@ -573,6 +687,10 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
             }
         }
         
+        processStep = 'checking printer loaders';
+        const loaderProblems = checkPrinterLoaders(bp, configMap, activeConfig);
+        if (loaderProblems.length && logPrinterProblems(activeConfig, loaderProblems) > 0) return;
+
         let warnings = [];
 
         for (const [itemIdString, mapping] of Object.entries(activeConfig.mapping)) {
@@ -581,6 +699,7 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
             let qty = counts.get(itemId) || 0;
             const itemObj = Item.getById(itemId);         
             const itemName = itemObj?.name || "name not found";
+            processStep = `setting loader timings for ${itemName}`;
             
             
             if (itemId === Item.RES_FLUX.id) {
@@ -646,6 +765,7 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
             }
         }
         
+        processStep = 'adding the pushers';
         if(includePushers.checked && activeConfig.pushers !== "null") {
             try {
                 const pushers = await decode(activeConfig.pushers);
@@ -658,6 +778,7 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
             }
         }
         
+        processStep = 'encoding the output DSA';
         try {
             const newDsa = "DSA:" + await encode(bp);
             outDsa.value = newDsa;
@@ -714,6 +835,7 @@ I'm gonna be real here if something breaks its probably your fault ✌✌
     });
 
     configSelect.addEventListener('change', () => {
+        clearErrorLog();
         if (currentBlueprint) {
              processBtn.disabled = false;
              outputContainer.style.display = 'none';
