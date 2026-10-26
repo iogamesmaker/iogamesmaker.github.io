@@ -73,6 +73,18 @@ Summary: just use dsa.fr.to lol
     .btn.toggle.on::before { content: "● "; color: var(--accent); }
     .btn:disabled { opacity: 0.45; cursor: default; }
 
+    .bp-embig { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 13px; }
+    .bp-embig select, .bp-embig input {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--text);
+        font-family: 'Fraunces', serif;
+        font-size: 13px;
+        padding: 5px 6px;
+    }
+    .bp-embig input { width: 56px; }
+    .bp-embig select:focus-visible, .bp-embig input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
     /* panels */
     .bp-workspace { display: grid; grid-template-columns: 340px 1fr; gap: 16px; align-items: start; }
     .panel { border: 1px solid var(--text); background: var(--bg); min-width: 0; }
@@ -175,6 +187,17 @@ Summary: just use dsa.fr.to lol
     <div class="bp-toolbar">
         <button id="groupToggle" class="btn toggle on" title="Keep all builds of the same item together">Group</button>
         <button id="compactToggle" class="btn toggle on" title="Merge neighbouring builds of the same item on a row into one command">Compact</button>
+        <label class="bp-embig" title="Make the ship bigger on one side: the outermost row/column on that side (the hull) moves out by N, everything else stays where it is">
+            Embiggen
+            <select id="embigSide">
+                <option value="">off</option>
+                <option value="top">top</option>
+                <option value="bottom">bottom</option>
+                <option value="left">left</option>
+                <option value="right">right</option>
+            </select>
+            by <input id="embigN" type="number" min="1" max="64" value="1">
+        </label>
         <button id="resetBtn" class="btn" disabled title="Go back to the pasted blueprint">Reset</button>
         <span class="bp-status" id="status"></span>
     </div>
@@ -211,6 +234,7 @@ Summary: just use dsa.fr.to lol
     const statsBody = $('statsBody'), costBox = $('costBox'), buildOrderList = $('buildOrderList');
     const groupToggle = $('groupToggle'), compactToggle = $('compactToggle'), resetBtn = $('resetBtn'), copyBtn = $('copyBtn');
     const statusEl = $('status');
+    const embigSide = $('embigSide'), embigN = $('embigN');
 
     const IMG_BASE_URL = "https://test.drednot.io/img/";
     const MAX_LEN = 10000, MAX_BUILDS = 1000;
@@ -325,6 +349,8 @@ Summary: just use dsa.fr.to lol
         compactToggle.classList.toggle('on', isCompact);
         if (sourceBP) syncOutput();
     });
+    embigSide.addEventListener('change', () => { if (sourceBP) syncOutput(); });
+    embigN.addEventListener('input', () => { if (sourceBP) syncOutput(); });
     resetBtn.addEventListener('click', () => {
         if (!sourceBP) return;
         units = isGrouping ? groupUnits(originalUnits).flatMap(g => g.units) : [...originalUnits];
@@ -488,10 +514,49 @@ Summary: just use dsa.fr.to lol
         return { build, config: a.config };
     }
 
+    // ---------- embiggen ----------
+    // grow the ship on one side. the outermost row/column on that side is the hull and moves out by n,
+    // everything else stays put (for bottom/left that means everything else moves by n instead, since 0 is the bottom-left)
+    function embiggen(list, side, n) {
+        if (!side || !(n > 0)) return { list, dw: 0, dh: 0 };
+        const vertical = side === 'top' || side === 'bottom';
+        const far = side === 'top' || side === 'right';
+        const coord = (b, p) => Math.floor(vertical ? b.y : b.x + p);
+        let edge = far ? -Infinity : Infinity;
+        for (const u of list) {
+            if (itemId(u.build.item) === 0) continue;
+            for (const p of positions(u.build)) edge = far ? Math.max(edge, coord(u.build, p)) : Math.min(edge, coord(u.build, p));
+        }
+        if (!Number.isFinite(edge)) return { list, dw: 0, dh: 0 };
+        const moves = c => (c === edge) === far;
+        const dx = vertical ? 0 : n, dy = vertical ? n : 0;
+
+        const out = [];
+        for (const u of list) {
+            const b = u.build, ps = positions(b);
+            const moved = ps.filter(p => moves(coord(b, p)));
+            if (!moved.length) { out.push(u); continue; }
+            const stay = ps.filter(p => !moves(coord(b, p)));
+            // a bits row can straddle the edge column, so split it into the part that moves and the part that doesn't
+            for (const [part, shift] of [[stay, 0], [moved, 1]]) {
+                if (!part.length) continue;
+                let bits = 0n;
+                for (const p of part) bits |= 1n << BigInt(p - part[0]);
+                const build = new BuildCmd({
+                    x: b.x + part[0] + dx * shift, y: b.y + dy * shift, item: b.item, shape: b.shape,
+                    bits: bits === 1n ? undefined : new BuildBits(bits)
+                });
+                out.push({ build, config: u.config });
+            }
+        }
+        return { list: out, dw: dx, dh: dy };
+    }
+
     async function syncOutput() {
         if (!sourceBP) return;
         const token = ++syncToken;
-        const list = isCompact ? compactUnits(units) : units;
+        const big = embiggen(units, embigSide.value, Math.floor(Number(embigN.value)));
+        const list = isCompact ? compactUnits(big.list) : big.list;
         const cmds = [];
         let active = null; // the game's builder starts with no config
         for (const u of list) {
@@ -510,7 +575,8 @@ Summary: just use dsa.fr.to lol
             copyBtn.disabled = true;
             return;
         }
-        const bp = new Blueprint({ version: sourceBP.version, width: sourceBP.width, height: sourceBP.height, commands: cmds });
+        const width = sourceBP.width + big.dw, height = sourceBP.height + big.dh;
+        const bp = new Blueprint({ version: sourceBP.version, width, height, commands: cmds });
         try {
             const str = 'DSA:' + await encode(bp);
             if (token !== syncToken) return;
@@ -519,6 +585,7 @@ Summary: just use dsa.fr.to lol
             const tooLong = str.length > MAX_LEN, tooMany = buildCount > MAX_BUILDS;
             const meta = $('outMeta');
             meta.textContent = `${str.length.toLocaleString()} chars · ${buildCount} build cmds` +
+                (big.dw || big.dh ? ` · ${width}×${height}` : '') +
                 (tooLong ? ' · too long for the game' : '') + (tooMany ? ` · over ${MAX_BUILDS} builds` : '');
             meta.classList.toggle('bad', tooLong || tooMany);
         } catch (e) {
