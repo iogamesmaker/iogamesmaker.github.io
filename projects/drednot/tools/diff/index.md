@@ -48,6 +48,17 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
 
     .df-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
     .df-status { font-size: 13px; opacity: 0.8; margin-left: auto; }
+    .df-wiggle { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 13px; }
+    .df-wiggle input {
+        width: 64px;
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--text);
+        font-family: 'Fraunces', serif;
+        font-size: 13px;
+        padding: 5px 6px;
+    }
+    .df-wiggle input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
     .df-status.bad { color: #c0392b; opacity: 1; }
 
     .btn {
@@ -115,7 +126,9 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
     </div>
 
     <div class="df-toolbar">
-        <button id="configToggle" class="btn toggle" title="Also rebuild loaders/pushers/etc. whose config is different from the original">Config changes</button>
+        <label class="df-wiggle" title="The game saves things like fabricators, recyclers, helms and comms a bit off sometimes. Objects of the same item this close (in tiles) still count as the same object">
+            Wiggle room <input id="wiggleInput" type="number" min="0" max="2" step="0.05" value="0.25">
+        </label>
         <span class="df-status" id="status"></span>
     </div>
 
@@ -141,7 +154,7 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
 
     const $ = id => document.getElementById(id);
     const origInput = $('origInput'), dmgInput = $('dmgInput'), output = $('output');
-    const configToggle = $('configToggle'), copyBtn = $('copyBtn'), statusEl = $('status');
+    const copyBtn = $('copyBtn'), statusEl = $('status'), wiggleInput = $('wiggleInput');
 
     const IMG_BASE_URL = "https://test.drednot.io/img/";
     const MAX_LEN = 10000, MAX_BUILDS = 1000;
@@ -149,7 +162,6 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
 
     const bps = { orig: null, dmg: null };      // decoded blueprints
     const tiles = { orig: [], dmg: [] };        // one entry per built tile
-    let compareConfig = false;
     let missing = [];                           // tiles from the original that need building
     let decodeToken = { orig: 0, dmg: 0 }, syncToken = 0;
 
@@ -233,11 +245,7 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
     }
 
     // ---------- toolbar ----------
-    configToggle.addEventListener('click', () => {
-        compareConfig = !compareConfig;
-        configToggle.classList.toggle('on', compareConfig);
-        recompute();
-    });
+    wiggleInput.addEventListener('input', recompute);
     copyBtn.addEventListener('click', async () => {
         if (!output.value) return;
         try { await navigator.clipboard.writeText(output.value); }
@@ -260,14 +268,34 @@ Paste the **original** blueprint and the blueprint of the **damaged** ship. You 
             if (!pool.has(k)) pool.set(k, []);
             pool.get(k).push(t);
         }
-        missing = [];
+        const unmatched = [];
         for (const t of tiles.orig) {
             const bucket = pool.get(keyOf(t));
-            let idx = -1;
-            if (bucket?.length) {
-                idx = compareConfig ? bucket.findIndex(d => t.config === null || sameConfig(t.config, d.config)) : 0;
+            if (bucket?.length) bucket.pop();
+            else unmatched.push(t);
+        }
+
+        // the game saves off-grid stuff (fabricators, recyclers, helms, comms...) slightly off sometimes,
+        // so whatever didn't match exactly gets the closest leftover of the same item within the wiggle room
+        const wiggle = Math.max(0, Number(wiggleInput.value) || 0);
+        const loose = new Map();
+        if (wiggle > 0) {
+            for (const bucket of pool.values()) for (const d of bucket) {
+                const k = `${d.id},${d.shapeId}`;
+                if (!loose.has(k)) loose.set(k, []);
+                loose.get(k).push(d);
             }
-            if (idx >= 0) bucket.splice(idx, 1);
+        }
+        missing = [];
+        for (const t of unmatched) {
+            const cands = loose.get(`${t.id},${t.shapeId}`);
+            let best = -1, bestDist = Infinity;
+            cands?.forEach((d, i) => {
+                const dx = Math.abs(d.x - t.x), dy = Math.abs(d.y - t.y);
+                if (dx > wiggle + 1e-6 || dy > wiggle + 1e-6) return;
+                if (dx + dy < bestDist) { best = i; bestDist = dx + dy; }
+            });
+            if (best >= 0) cands.splice(best, 1);
             else missing.push(t);
         }
 
